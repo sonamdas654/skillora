@@ -1,0 +1,151 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import PageShell, { PageHero } from "@/components/PageShell";
+import Reveal from "@/components/Reveal";
+import Icon from "@/components/Icons";
+import { Section, SectionHeading } from "@/components/Section";
+import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "About — The Story Behind Skillora",
+  description:
+    "Skillora means Skill + Aura: digital services delivered with professional impact. A personal digital agency with a clear requirement-based process.",
+};
+
+const values = [
+  {
+    title: "Honesty over hype",
+    desc: "No fake testimonials, no invented client counts. Demo concepts are labeled as demos. Trust is earned through process, not claimed through numbers.",
+  },
+  {
+    title: "Clarity before commitment",
+    desc: "Written scope, transparent pricing and a demo before final payment. You always know what you're paying for.",
+  },
+  {
+    title: "One accountable person",
+    desc: "You talk directly to the person doing the work. No account managers, no telephone game, no blame-shifting.",
+  },
+  {
+    title: "Long-term thinking",
+    desc: "Maintenance plans, documentation and training videos — because a delivered project should keep working after handover.",
+  },
+];
+
+export default function AboutPage() {
+  return (
+    <PageShell>
+      <PageHero
+        eyebrow="About"
+        title={
+          <>
+            Skill +{" "}
+            <span className="font-accent font-normal text-accent">Aura</span> = Skillora
+          </>
+        }
+        subtitle={site.positioning}
+      />
+
+      <Section>
+        <div className="grid gap-10 lg:grid-cols-2 items-center">
+          <Reveal>
+            <div>
+              <SectionHeading
+                center={false}
+                eyebrow="The name"
+                title={
+                  <>
+                    Why{" "}
+                    <span className="font-accent font-normal text-accent">Skillora?</span>
+                  </>
+                }
+              />
+              <div className="mt-6 space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
+                <p>
+                  <strong className="text-ink">Skillora = Skill + Aura.</strong> A company where
+                  your skills create a strong professional impact. “Aura” means positive
+                  impression and identity — exactly what good digital work should give your
+                  business.
+                </p>
+                <p>
+                  This is not a marketplace like Fiverr or Upwork. Skillora is a personal digital
+                  agency: you submit your requirement directly, and the same person who reviews
+                  it builds it. That means faster communication, full accountability and work
+                  that actually matches what you asked for.
+                </p>
+                <p>
+                  The tagline says it all:{" "}
+                  <em className="font-accent text-ink">{site.tagline}</em>
+                </p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { k: "9", v: "Service categories" },
+                { k: "8-step", v: "Clear process" },
+                { k: "24h", v: "Response time" },
+                { k: "100%", v: "Written scope" },
+              ].map((stat) => (
+                <div key={stat.v} className="rounded-2xl border border-line bg-white p-6 text-center">
+                  <p className="text-3xl font-extrabold text-accent">{stat.k}</p>
+                  <p className="mt-1 text-sm font-medium text-ink-soft">{stat.v}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      <Section className="bg-white border-y border-line">
+        <Reveal>
+          <SectionHeading
+            eyebrow="Values"
+            title={
+              <>
+                How I{" "}
+                <span className="font-accent font-normal text-accent">work</span>
+              </>
+            }
+          />
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {values.map((v, i) => (
+            <Reveal key={v.title} delay={i * 0.05}>
+              <div className="card-lift h-full rounded-2xl border border-line bg-background p-7">
+                <Icon name="spark" className="size-6 text-accent" />
+                <h3 className="mt-3 text-lg font-bold text-ink">{v.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-ink-soft">{v.desc}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink">
+              Let&apos;s build something{" "}
+              <span className="font-accent font-normal text-accent">worth showing off</span>
+            </h2>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/start-project"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep transition-colors"
+              >
+                Submit Project Requirement <Icon name="arrow" className="size-4" />
+              </Link>
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
+              >
+                See demo projects
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </Section>
+    </PageShell>
+  );
+}

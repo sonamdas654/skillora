@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Skillora — Smart Digital Services, Delivered with Skill.
 
-## Getting Started
+Full-stack personal digital agency website built from the Skillora master blueprint.
+Next.js 16 + TypeScript + Tailwind v4 + Framer Motion + React Three Fiber (3D hero) +
+Prisma (SQLite dev / PostgreSQL prod) + JWT admin auth.
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npx prisma db push   # creates prisma/dev.db
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin dashboard
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- URL: http://localhost:3000/admin
+- Login: values of `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env`
+  (default: sonamdasdj00@gmail.com / Skillora@2026 — **change password before launch**)
+- The admin user is auto-created on first login.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Before going live (must change)
 
-## Learn More
+1. `NEXT_PUBLIC_WHATSAPP_NUMBER` in `.env` — your real WhatsApp number (e.g. 919876543210)
+2. `ADMIN_PASSWORD` and `JWT_SECRET` — strong values
+3. `NEXT_PUBLIC_SITE_URL` — https://skillora.com
+4. `RESEND_API_KEY` + `EMAIL_FROM` — for real email notifications (free at resend.com);
+   without it, emails are logged to server console only
+5. Database — switch `prisma/schema.prisma` provider to `postgresql` and set
+   `DATABASE_URL` (Neon/Supabase free tier works), then `npx prisma db push`
+6. File storage — `uploads/` folder works on a VPS; on Vercel use S3/Cloudinary
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `lib/services.ts` — all 9 service categories, packages, dynamic form fields (edit prices here)
+- `lib/portfolio.ts` — demo projects (replace with real client work as it completes)
+- `lib/blog.ts` — blog articles
+- `lib/policies.ts` — 5 policy pages content
+- `app/start-project` — 6-step smart requirement form
+- `app/admin` — lead management dashboard
+- `prisma/schema.prisma` — full business schema (leads, quotes, invoices, projects…)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Client flow
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visitor → service page → smart form (service-wise questions) → files upload →
+lead scored (High/Medium/Low) → admin email + client confirmation → WhatsApp follow-up →
+admin dashboard: status, notes, files, filters.

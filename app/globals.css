@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f8f6;
+  --surface: #ffffff;
+  --ink: #0f172a;       /* Modern Slate 900 */
+  --ink-soft: #475569;  /* Modern Slate 600 */
+  --line: #e4e4e7;      /* Subtle Zinc 200 border */
+  --accent: #2857ff;     /* Royal blue */
+  --accent-deep: #1a3fd6;
+  --accent-soft: #f0f3ff; /* Softer, lighter blue tint */
+  --mint: #10b981;      /* Emerald green */
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-soft: var(--accent-soft);
+  --color-mint: var(--mint);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+.font-accent {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+/* Soft grid backdrop for hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.bg-hero-glow {
+  background:
+    radial-gradient(60% 50% at 75% 15%, rgba(99, 102, 241, 0.07), transparent 75%), /* Indigo */
+    radial-gradient(50% 50% at 20% 40%, rgba(40, 87, 255, 0.06), transparent 70%),  /* Blue */
+    radial-gradient(45% 40% at 15% 80%, rgba(16, 185, 129, 0.04), transparent 70%); /* Mint */
+}
+
+/* Card hover lift */
+.card-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s;
+}
+.card-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 20px 35px -12px rgba(15, 23, 42, 0.08), 
+    0 4px 12px -4px rgba(40, 87, 255, 0.03);
+  border-color: rgba(40, 87, 255, 0.28);
+}
+
+/* Floating animation for hero elements */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+/* Full-width homepage service rail */
+@keyframes service-rail {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333333%);
+  }
+}
+.animate-service-rail {
+  animation: service-rail 46s linear infinite;
 }
