@@ -10,8 +10,8 @@
   --accent-deep: #1a3fd6;
   --accent-soft: #f0f3ff; /* Softer, lighter blue tint */
   --mint: #10b981;      /* Emerald green */
-  --wash-blue: #edf2fd; /* Soft navy-blue section wash */
-  --wash-mint: #edf8f2; /* Soft mint-green section wash */
+  --wash-blue: #dde8fb; /* Navy-blue section wash */
+  --wash-mint: #d9f2e5; /* Green section wash */
 }
 
 @theme inline {
