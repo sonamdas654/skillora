@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
   await prisma.contactMessage.create({
     data: { name: d.name, email: d.email, phone: d.phone || null, message: d.message },
   });
-  notifyContactMessage(d).catch(() => {});
+  // Must await on serverless — the runtime freezes once the response returns.
+  await notifyContactMessage(d).catch(() => {});
   return NextResponse.json({ ok: true });
 }

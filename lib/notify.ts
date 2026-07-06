@@ -10,7 +10,7 @@ async function sendEmail(to: string, subject: string, html: string) {
     return;
   }
   try {
-    await fetch("https://api.resend.com/emails", {
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${key}`,
@@ -18,6 +18,9 @@ async function sendEmail(to: string, subject: string, html: string) {
       },
       body: JSON.stringify({ from: FROM, to, subject, html }),
     });
+    if (!res.ok) {
+      console.error(`[email] send rejected (${res.status}):`, await res.text());
+    }
   } catch (err) {
     console.error("[email] send failed:", err);
   }
