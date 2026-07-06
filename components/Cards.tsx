@@ -126,10 +126,10 @@ export function PackageCard({
 }) {
   return (
     <div
-      className={`card-lift relative flex flex-col rounded-2xl border p-6 ${
+      className={`card-lift relative flex flex-col rounded-3xl border p-6 ${
         pkg.highlighted
-          ? "border-accent bg-gradient-to-b from-accent-soft to-white shadow-[0_16px_40px_-20px_rgba(40,87,255,0.22)]"
-          : "border-line bg-white"
+          ? "border-accent/60 bg-gradient-to-b from-accent-soft via-white to-white shadow-[0_20px_50px_-22px_rgba(40,87,255,0.35)]"
+          : "border-line bg-white hover:border-accent/40"
       }`}
     >
       {pkg.highlighted && (
@@ -171,9 +171,9 @@ export function PackageCard({
       </div>
       <Link
         href={serviceSlug ? `/start-project?service=${serviceSlug}` : "/start-project"}
-        className={`mt-auto pt-5 block rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-colors ${
+        className={`mt-auto pt-5 block rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-all ${
           pkg.highlighted
-            ? "bg-accent text-white hover:bg-accent-deep"
+            ? "bg-gradient-to-r from-accent to-indigo-600 text-white shadow-md hover:opacity-90 hover:shadow-lg"
             : "border border-line text-ink hover:border-accent hover:text-accent"
         }`}
       >
@@ -185,14 +185,18 @@ export function PackageCard({
 
 export function PortfolioCard({ item }: { item: PortfolioItem }) {
   return (
-    <div className="card-lift group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
+    <div className="card-lift group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white">
       <div
         className="relative h-44 overflow-hidden"
         style={{
-          background: `linear-gradient(135deg, ${item.accent}18, ${item.accent}30)`,
+          background: `linear-gradient(135deg, ${item.accent}14, ${item.accent}30)`,
         }}
       >
-        <div className="absolute inset-0 bg-grid opacity-60" />
+        <div
+          className="absolute -right-10 -top-10 size-40 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-125"
+          style={{ background: `${item.accent}33` }}
+          aria-hidden
+        />
         <span
           className="absolute left-5 top-5 grid size-12 place-items-center rounded-xl text-white shadow-lg"
           style={{ background: item.accent }}

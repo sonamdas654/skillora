@@ -50,7 +50,7 @@ export default async function BlogPage() {
             <Reveal key={post.slug} delay={Math.min(i * 0.05, 0.25)}>
               <Link
                 href={`/blog/${post.slug}`}
-                className="card-lift group flex h-full flex-col rounded-2xl border border-line bg-white p-6"
+                className="card-lift group flex h-full flex-col rounded-3xl border border-line bg-white p-6 hover:border-accent/40"
               >
                 <div className="flex items-center gap-2 text-xs font-semibold">
                   <span className="rounded-full bg-accent-soft px-3 py-1 text-accent">

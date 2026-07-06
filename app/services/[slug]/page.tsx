@@ -41,7 +41,7 @@ export default async function ServiceDetailPage({
   return (
     <PageShell>
       {/* Service hero */}
-      <div className="relative overflow-hidden bg-grid border-b border-line">
+      <div className="relative overflow-hidden border-b border-line">
         <div className="absolute inset-0 bg-hero-glow" aria-hidden />
         <div className="relative mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">

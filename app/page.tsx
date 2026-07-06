@@ -544,7 +544,14 @@ export default async function HomePage() {
         <Section className="pb-24">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent to-accent-deep px-6 py-14 sm:px-12 sm:py-20 text-center text-white shadow-[0_30px_80px_-30px_rgba(40,87,255,0.6)]">
-              <div className="absolute inset-0 bg-grid opacity-20" aria-hidden />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(60% 80% at 20% 10%, rgba(255,255,255,0.16), transparent 60%), radial-gradient(50% 70% at 85% 90%, rgba(255,255,255,0.12), transparent 60%)",
+                }}
+                aria-hidden
+              />
               <div className="relative">
                 <h2 className="mx-auto max-w-2xl text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
                   Ready to start your{" "}

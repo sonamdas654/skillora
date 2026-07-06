@@ -79,7 +79,7 @@ export default async function BlogPostPage({
 
   return (
     <PageShell>
-      <div className="relative overflow-hidden bg-grid border-b border-line">
+      <div className="relative overflow-hidden border-b border-line">
         <div className="absolute inset-0 bg-hero-glow" aria-hidden />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 py-16 sm:py-20">
           <div className="flex items-center gap-2 text-xs font-semibold">
