@@ -340,7 +340,7 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 3: Services Overview ────────────────── */}
-        <Section className="bg-white border-y border-line" id="services">
+        <Section className="bg-soft-panel border-y border-line" id="services">
           <Reveal>
             <SectionHeading
               eyebrow="Services"
@@ -392,7 +392,7 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 5: Featured Packages ────────────────── */}
-        <Section className="bg-white border-y border-line">
+        <Section className="bg-soft-panel border-y border-line">
           <Reveal>
             <SectionHeading
               eyebrow="Pricing"
@@ -477,7 +477,7 @@ export default async function HomePage() {
 
         {/* ── Real client reviews (only shown when they exist) ── */}
         {testimonials.length > 0 && (
-          <Section className="bg-white border-b border-line">
+          <Section className="bg-soft-panel border-b border-line">
             <Reveal>
               <SectionHeading
                 eyebrow="Client reviews"

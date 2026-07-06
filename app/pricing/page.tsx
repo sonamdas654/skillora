@@ -67,7 +67,7 @@ export default function PricingPage() {
       {serviceCategories.map((service, idx) => (
         <Section
           key={service.slug}
-          className={idx % 2 === 1 ? "bg-white border-y border-line" : ""}
+          className={idx % 2 === 1 ? "bg-soft-panel border-y border-line" : ""}
         >
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-4">

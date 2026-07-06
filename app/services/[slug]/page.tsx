@@ -133,7 +133,7 @@ export default async function ServiceDetailPage({
       </Section>
 
       {/* Project types */}
-      <Section className="bg-white border-y border-line">
+      <Section className="bg-soft-panel border-y border-line">
         <Reveal>
           <SectionHeading
             eyebrow="Project types"
@@ -181,7 +181,7 @@ export default async function ServiceDetailPage({
       </Section>
 
       {/* FAQ + CTA */}
-      <Section className="bg-white border-t border-line">
+      <Section className="bg-soft-panel border-t border-line">
         <div className="grid gap-10 lg:grid-cols-2">
           <Reveal>
             <div>

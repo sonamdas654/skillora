@@ -3,45 +3,112 @@ import Icon from "./Icons";
 import type { ServiceCategory, ServicePackage } from "@/lib/services";
 import type { PortfolioItem } from "@/lib/portfolio";
 
+// Per-service visual identity — gradient tile, glow blob, chip and CTA all
+// follow the personality of the service (Tailwind needs literal class names).
+const SERVICE_THEMES: Record<
+  string,
+  { tile: string; blob: string; chip: string; button: string; hoverBorder: string }
+> = {
+  "website-development": {
+    tile: "bg-gradient-to-br from-blue-500 to-indigo-600 shadow-blue-500/30",
+    blob: "bg-blue-400/20",
+    chip: "bg-blue-50 text-blue-600",
+    button: "bg-gradient-to-r from-blue-500 to-indigo-600",
+    hoverBorder: "hover:border-blue-300/70",
+  },
+  "mobile-app-development": {
+    tile: "bg-gradient-to-br from-rose-500 to-pink-600 shadow-rose-500/30",
+    blob: "bg-rose-400/20",
+    chip: "bg-rose-50 text-rose-600",
+    button: "bg-gradient-to-r from-rose-500 to-pink-600",
+    hoverBorder: "hover:border-rose-300/70",
+  },
+  "ai-automation": {
+    tile: "bg-gradient-to-br from-violet-500 to-purple-600 shadow-violet-500/30",
+    blob: "bg-violet-400/20",
+    chip: "bg-violet-50 text-violet-600",
+    button: "bg-gradient-to-r from-violet-500 to-purple-600",
+    hoverBorder: "hover:border-violet-300/70",
+  },
+  "logo-branding": {
+    tile: "bg-gradient-to-br from-amber-400 to-orange-500 shadow-amber-500/30",
+    blob: "bg-amber-400/20",
+    chip: "bg-amber-50 text-amber-600",
+    button: "bg-gradient-to-r from-amber-400 to-orange-500",
+    hoverBorder: "hover:border-amber-300/70",
+  },
+  "video-editing": {
+    tile: "bg-gradient-to-br from-fuchsia-500 to-pink-500 shadow-fuchsia-500/30",
+    blob: "bg-fuchsia-400/20",
+    chip: "bg-fuchsia-50 text-fuchsia-600",
+    button: "bg-gradient-to-r from-fuchsia-500 to-pink-500",
+    hoverBorder: "hover:border-fuchsia-300/70",
+  },
+  "digital-marketing": {
+    tile: "bg-gradient-to-br from-emerald-500 to-teal-600 shadow-emerald-500/30",
+    blob: "bg-emerald-400/20",
+    chip: "bg-emerald-50 text-emerald-600",
+    button: "bg-gradient-to-r from-emerald-500 to-teal-600",
+    hoverBorder: "hover:border-emerald-300/70",
+  },
+  "data-dashboard": {
+    tile: "bg-gradient-to-br from-sky-500 to-blue-600 shadow-sky-500/30",
+    blob: "bg-sky-400/20",
+    chip: "bg-sky-50 text-sky-600",
+    button: "bg-gradient-to-r from-sky-500 to-blue-600",
+    hoverBorder: "hover:border-sky-300/70",
+  },
+  "resume-career": {
+    tile: "bg-gradient-to-br from-cyan-500 to-teal-500 shadow-cyan-500/30",
+    blob: "bg-cyan-400/20",
+    chip: "bg-cyan-50 text-cyan-600",
+    button: "bg-gradient-to-r from-cyan-500 to-teal-500",
+    hoverBorder: "hover:border-cyan-300/70",
+  },
+  "custom-software": {
+    tile: "bg-gradient-to-br from-indigo-500 to-violet-600 shadow-indigo-500/30",
+    blob: "bg-indigo-400/20",
+    chip: "bg-indigo-50 text-indigo-600",
+    button: "bg-gradient-to-r from-indigo-500 to-violet-600",
+    hoverBorder: "hover:border-indigo-300/70",
+  },
+};
+
+const DEFAULT_THEME = SERVICE_THEMES["website-development"];
+
 export function ServiceCard({ service }: { service: ServiceCategory }) {
-  // Category-wise premium icon styling
-  let iconBgColor = "bg-accent-soft text-accent";
-  if (service.slug === "website-development") {
-    iconBgColor = "bg-blue-50 text-blue-600 border border-blue-100/60";
-  } else if (service.slug.includes("ai") || service.slug.includes("automation")) {
-    iconBgColor = "bg-purple-50 text-purple-600 border border-purple-100/60";
-  } else if (service.slug.includes("seo") || service.slug.includes("marketing") || service.slug.includes("ads")) {
-    iconBgColor = "bg-emerald-50 text-emerald-600 border border-emerald-100/60";
-  } else if (service.slug.includes("design") || service.slug.includes("branding") || service.slug.includes("video")) {
-    iconBgColor = "bg-amber-50 text-amber-600 border border-amber-100/60";
-  } else if (service.slug.includes("dashboard") || service.slug.includes("data") || service.slug.includes("analytics")) {
-    iconBgColor = "bg-indigo-50 text-indigo-600 border border-indigo-100/60";
-  } else {
-    iconBgColor = "bg-rose-50 text-rose-600 border border-rose-100/60";
-  }
+  const t = SERVICE_THEMES[service.slug] ?? DEFAULT_THEME;
 
   return (
-    <div className="card-lift group relative flex flex-col rounded-2xl border border-line bg-white p-6">
-      <div className="flex items-start justify-between">
-        <span className={`grid size-12 place-items-center rounded-xl ${iconBgColor}`}>
-          <Icon name={service.icon} className="size-6" />
+    <div
+      className={`card-lift group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white p-6 sm:p-7 transition-colors ${t.hoverBorder}`}
+    >
+      <div
+        className={`pointer-events-none absolute -right-14 -top-14 size-44 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-125 ${t.blob}`}
+        aria-hidden
+      />
+      <div className="relative flex items-start justify-between">
+        <span
+          className={`grid size-14 place-items-center rounded-2xl text-white shadow-lg transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105 ${t.tile}`}
+        >
+          <Icon name={service.icon} className="size-7" />
         </span>
-        <span className="rounded-full bg-accent/[0.07] px-2.5 py-1 text-[11px] font-semibold text-accent">
+        <span className={`rounded-full px-3 py-1 text-[11px] font-bold ${t.chip}`}>
           From {service.startingPrice}
         </span>
       </div>
-      <h3 className="mt-4 text-lg font-bold text-ink">{service.name}</h3>
-      <p className="mt-2 text-sm leading-6 text-ink-soft line-clamp-3">{service.description}</p>
-      <div className="mt-auto pt-5 flex items-center gap-2">
+      <h3 className="relative mt-5 text-lg font-bold text-ink">{service.name}</h3>
+      <p className="relative mt-2 text-sm leading-6 text-ink-soft line-clamp-3">{service.description}</p>
+      <div className="relative mt-auto flex items-center gap-2 pt-6">
         <Link
           href={`/services/${service.slug}`}
-          className="flex-1 rounded-full border border-line px-4 py-2 text-center text-sm font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
+          className="flex-1 rounded-full border border-line px-4 py-2.5 text-center text-sm font-semibold text-ink transition-colors hover:border-ink"
         >
           View Details
         </Link>
         <Link
           href={`/start-project?service=${service.slug}`}
-          className="flex-1 rounded-full bg-ink px-4 py-2 text-center text-sm font-semibold text-white hover:bg-accent transition-colors"
+          className={`flex-1 rounded-full px-4 py-2.5 text-center text-sm font-semibold text-white shadow-md transition-all hover:opacity-90 hover:shadow-lg ${t.button}`}
         >
           Submit Requirement
         </Link>
