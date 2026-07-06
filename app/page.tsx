@@ -197,7 +197,7 @@ export default async function HomePage() {
       <Header />
       <main>
         {/* ── Section 1: Hero ─────────────────────────────── */}
-        <section className="relative overflow-hidden bg-grid">
+        <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-hero-glow" aria-hidden />
           {/* Interactive motion backdrop — aurora ribbons + particle constellation */}
           <HeroMotion />
