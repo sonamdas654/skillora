@@ -11,7 +11,7 @@
   --accent-soft: #f0f3ff; /* Softer, lighter blue tint */
   --mint: #10b981;      /* Emerald green */
   --wash-blue: #dde8fb; /* Navy-blue section wash */
-  --wash-mint: #d9f2e5; /* Green section wash */
+  --wash-mint: #dbf4ec; /* WhatsApp-mint section wash (15% emerald over white) */
 }
 
 @theme inline {
@@ -81,6 +81,18 @@ body {
     0 4px 12px -4px rgba(40, 87, 255, 0.03);
   border-color: rgba(40, 87, 255, 0.28);
 }
+
+/* Hero motion background — soft drifting gradient orbs */
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(45px, -30px) scale(1.08); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 28px) scale(1.06); }
+}
+.animate-drift-a { animation: drift-a 16s ease-in-out infinite; }
+.animate-drift-b { animation: drift-b 21s ease-in-out infinite; }
 
 /* Floating animation for hero elements */
 @keyframes float-soft {

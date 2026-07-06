@@ -198,6 +198,21 @@ export default async function HomePage() {
         {/* ── Section 1: Hero ─────────────────────────────── */}
         <section className="relative overflow-hidden bg-grid">
           <div className="absolute inset-0 bg-hero-glow" aria-hidden />
+          {/* Premium soft-light motion backdrop — brand orbs + logo portal rings */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden>
+            <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-accent/15 blur-3xl animate-drift-a" />
+            <div className="absolute top-24 -right-36 h-[30rem] w-[30rem] rounded-full bg-violet-400/15 blur-3xl animate-drift-b" />
+            <div className="absolute -bottom-36 left-1/4 h-96 w-96 rounded-full bg-mint/15 blur-3xl animate-drift-b" />
+            <svg
+              viewBox="0 0 100 100"
+              fill="none"
+              className="absolute left-1/2 top-1/2 h-[54rem] w-[54rem] -translate-x-1/2 -translate-y-1/2 opacity-[0.06] animate-[spin_70s_linear_infinite]"
+            >
+              <path d="M50 10 A 40 40 0 1 1 18 26" stroke="#2857ff" strokeWidth="2" strokeLinecap="round" />
+              <path d="M50 22 A 28 28 0 1 1 28 38" stroke="#8b5cf6" strokeWidth="2" strokeLinecap="round" />
+              <path d="M50 34 A 16 16 0 1 1 38 50" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </div>
           <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-8 sm:pb-10">
             <div className="flex flex-col items-center text-center">
               <div className="max-w-4xl flex flex-col items-center">
