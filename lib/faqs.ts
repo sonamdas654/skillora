@@ -38,7 +38,7 @@ export const allFaqs: Faq[] = [
   },
   {
     q: "Will I see the work before final payment?",
-    a: "Always. You get a demo/review version first, revisions happen, and only after your approval and final payment is the project delivered with all files and access.",
+    a: "Always. You get a preview/review version first, revisions happen, and only after your approval and final payment is the project delivered with all files and access.",
   },
   {
     q: "Who owns the website/app after delivery?",

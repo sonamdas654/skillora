@@ -11,9 +11,9 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Portfolio — Demo Projects & Concepts",
+  title: "Portfolio — Featured Work & Concepts",
   description:
-    "Demo projects and concepts across websites, ecommerce, AI chatbots and dashboards. Real client projects are added with permission as they complete — never faked.",
+    "Featured concepts across websites, ecommerce, AI chatbots and dashboards. Real client projects are added with permission as they complete — never faked.",
 };
 
 const dbAccents = ["#2857ff", "#0fbf8f", "#f59e0b", "#a855f7", "#e11d48", "#ff6b35"];
@@ -50,7 +50,7 @@ export default async function PortfolioPage() {
             <span className="font-accent font-normal text-accent">what&apos;s possible</span>
           </>
         }
-        subtitle="These are honest demo concepts built to show capability and approach. As real client projects complete, they are added here with permission — no fake clients, no fake numbers, ever."
+        subtitle="These concept builds show our capability and approach. As real client projects complete, they are added here with permission — no fake clients, no fake numbers, ever."
       />
       <Section>
 
@@ -68,7 +68,7 @@ export default async function PortfolioPage() {
               <span className="font-accent font-normal text-accent">built for you?</span>
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-ink-soft">
-              Tell me your industry and requirement. I&apos;ll show you a relevant demo and a clear
+              Tell me your industry and requirement. I&apos;ll show you a relevant sample and a clear
               plan before you commit to anything.
             </p>
             <Link

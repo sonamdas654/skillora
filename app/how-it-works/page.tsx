@@ -8,7 +8,7 @@ import { Section, SectionHeading } from "@/components/Section";
 export const metadata: Metadata = {
   title: "How It Works — Clear 8-Step Project Process",
   description:
-    "From requirement submission to final delivery: how projects work at Skilloura. Smart forms, written quotations, demo before delivery and professional handover.",
+    "From requirement submission to final delivery: how projects work at Skilloura. Smart forms, written quotations, preview before delivery and professional handover.",
 };
 
 const detailedSteps = [
@@ -48,15 +48,15 @@ const detailedSteps = [
     forYou: "Invoice + updates",
   },
   {
-    title: "Demo, revision and final delivery",
-    desc: "You review a demo version first. Included revisions are completed. After your approval and final payment, you receive full delivery: files, access, credentials, documentation and training video.",
+    title: "Preview, revision and final delivery",
+    desc: "You review a working preview first. Included revisions are completed. After your approval and final payment, you receive full delivery: files, access, credentials, documentation and training video.",
     forYou: "Approve before final payment",
   },
 ];
 
 const protections = [
   { title: "Written scope", desc: "Everything agreed in writing before payment — no he-said-she-said." },
-  { title: "Demo before delivery", desc: "You see working output before the final payment." },
+  { title: "Preview before delivery", desc: "You see working output before the final payment." },
   { title: "Clear revision policy", desc: "Included revisions defined upfront; extras always discussed first." },
   { title: "Proper handover", desc: "Credentials, source files (as per agreement), docs and training video." },
 ];

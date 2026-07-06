@@ -429,7 +429,7 @@ export const serviceCategories: ServiceCategory[] = [
     whatYouGet: [
       "Working automation/AI system",
       "Workflow document",
-      "Demo video",
+      "Walkthrough video",
       "API key setup guide",
       "Maintenance guide",
     ],

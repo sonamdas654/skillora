@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 
 const trustPoints = [
   "Clear pricing before work",
-  "Demo before final delivery",
+  "Preview before final delivery",
   "Secure file handling",
   "WhatsApp support",
   "Requirement-based custom solution",
@@ -34,7 +34,7 @@ const steps = [
   { title: "I review and contact you", desc: "Personal review of every request, reply within 24 hours on WhatsApp/email." },
   { title: "Scope, price and timeline finalized", desc: "Written quotation with exactly what's included. No hidden charges." },
   { title: "Advance payment and work start", desc: "40–50% advance and your project officially begins." },
-  { title: "Demo, revision and final delivery", desc: "You approve a demo first, revisions happen, then full delivery." },
+  { title: "Preview, revision and final delivery", desc: "You approve a preview first, revisions happen, then full delivery." },
 ];
 
 const whyChoose = [
@@ -43,7 +43,7 @@ const whyChoose = [
   { icon: "shield", title: "No hidden charges", desc: "The quoted price is the price. Extras are always discussed first." },
   { icon: "spark", title: "WhatsApp support", desc: "Direct communication — no ticket systems, no waiting days for replies." },
   { icon: "shield", title: "Secure file handling", desc: "Your files stay private, linked only to your project." },
-  { icon: "clock", title: "Demo before final delivery", desc: "You see and approve the work before final payment." },
+  { icon: "clock", title: "Preview before final delivery", desc: "You see and approve the work before final payment." },
   { icon: "check", title: "Professional delivery process", desc: "Documentation, credentials, training video — proper handover, every time." },
   { icon: "spark", title: "Maintenance support available", desc: "Monthly plans from ₹5,600 so your project stays healthy after launch." },
 ];
@@ -428,11 +428,11 @@ export default async function HomePage() {
               eyebrow="Work"
               title={
                 <>
-                  Demo Projects &{" "}
+                  Featured Work &{" "}
                   <span className="font-accent font-normal text-accent">Concepts</span>
                 </>
               }
-              subtitle="Honest portfolio: these are demo concepts showing what I build. Real client projects are added here as they complete — with permission, never faked."
+              subtitle="Concept builds that show exactly what we deliver. Live client projects are added here as they complete — with permission, never faked."
             />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

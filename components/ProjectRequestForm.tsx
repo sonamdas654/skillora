@@ -10,7 +10,7 @@ import Icon from "./Icons";
 const STEPS = [
   "Your details",
   "Service",
-  "Reference Demo",
+  "Reference Design",
   "Project questions",
   "Files",
   "Budget & timing",
@@ -384,7 +384,7 @@ function calculateEstimate(
       add(priceLine(label, 3999, 10000, "Sheet logic, data cleanup flow, and repeatable automation."));
     } else {
       label = "Workflow automation base";
-      add(priceLine(label, 6999, 20000, "Workflow mapping, automation build, and demo handover."));
+      add(priceLine(label, 6999, 20000, "Workflow mapping, automation build, and guided handover."));
     }
 
     const inputSources = selectedList(answers["input_source"]);
@@ -1090,7 +1090,7 @@ function DemoPreviewModal({
             <span className="size-3 rounded-full bg-[#27c93f]" />
           </div>
           <div className="rounded-lg bg-slate-900 border border-slate-800 px-4 py-1 text-[11px] font-mono text-slate-400 w-1/2 text-center select-none truncate">
-            demo.skilloura.com/{concept.id}
+            preview.skilloura.com/{concept.id}
           </div>
           <button type="button" onClick={onClose} className="text-slate-400 hover:text-white text-xs font-semibold">
             Close ✕
@@ -1472,7 +1472,7 @@ function DemoPreviewModal({
                             } else if (q.includes("timeline")) {
                               reply = "Usually, branding is completed in 1-2 weeks, website development in 2-3 weeks, and apps or custom AI in 4-6 weeks.";
                             } else {
-                              reply = "Absolutely! Check out the details page or click any of the reference demo template cards here.";
+                              reply = "Absolutely! Check out the details page or click any of the reference design cards here.";
                             }
                             setMessages((prev) => [...prev, { sender: 'bot', text: reply, time: 'Just now' }]);
                             setIsTyping(false);
@@ -2000,7 +2000,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
           </div>
         )}
 
-        {/* Step 3: Demo Concept Showcase (motionsites.ai style) */}
+        {/* Step 3: Concept Showcase (motionsites.ai style) */}
         {step === 2 && (
           <div className="space-y-6">
             <div>
@@ -2074,7 +2074,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
                         }}
                         className="rounded-lg bg-slate-850 hover:bg-slate-800 px-3.5 py-2 text-[10px] font-bold text-slate-200 border border-slate-700/60 transition-colors flex items-center gap-1.5"
                       >
-                        Explore Demo
+                        Explore Design
                         <span className="text-[8px] bg-accent/25 text-accent-soft px-1.5 py-0.5 rounded font-mono uppercase tracking-wider animate-pulse">Live</span>
                       </button>
 

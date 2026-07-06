@@ -129,7 +129,7 @@ export const policies: Policy[] = [
       {
         heading: "Delivery rule",
         points: [
-          "A demo/review version is shared before final delivery.",
+          "A preview/review version is shared before final delivery.",
           "Final delivery (files, access, credentials) happens after final payment.",
           "Source code is included only when specified in the package or agreement.",
         ],
@@ -236,7 +236,7 @@ export const policies: Policy[] = [
       {
         heading: "Final payment",
         points: [
-          "Due after you approve the demo/review version.",
+          "Due after you approve the preview/review version.",
           "Final delivery — files, credentials, live deployment, source code (if included) — happens after full payment.",
         ],
       },
@@ -257,14 +257,14 @@ export const policies: Policy[] = [
       {
         heading: "Late payment",
         points: [
-          "Final payment pending 15+ days after demo approval may pause delivery and support.",
+          "Final payment pending 15+ days after preview approval may pause delivery and support.",
           "Urgent-delivery requests may carry an express charge, always agreed before work.",
         ],
       },
       {
         heading: "Delivery after full payment",
         points: [
-          "This rule is absolute and protects both sides: you always see working output (demo) before final payment, and delivery always follows full payment.",
+          "This rule is absolute and protects both sides: you always see working output (preview) before final payment, and delivery always follows full payment.",
         ],
       },
     ],

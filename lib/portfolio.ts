@@ -16,7 +16,7 @@ export interface PortfolioItem {
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    slug: "restaurant-website-demo",
+    slug: "restaurant-website-concept",
     title: "Spice Route — Restaurant Website",
     industry: "Restaurant / Food",
     category: "Website Development",
@@ -30,7 +30,7 @@ export const portfolioItems: PortfolioItem[] = [
     icon: "globe",
   },
   {
-    slug: "gym-website-demo",
+    slug: "gym-website-concept",
     title: "IronCore — Gym Website",
     industry: "Fitness",
     category: "Website Development",
@@ -44,7 +44,7 @@ export const portfolioItems: PortfolioItem[] = [
     icon: "shield",
   },
   {
-    slug: "salon-website-demo",
+    slug: "salon-website-concept",
     title: "Luxe Salon — Booking Website",
     industry: "Beauty / Salon",
     category: "Website Development",
@@ -58,7 +58,7 @@ export const portfolioItems: PortfolioItem[] = [
     icon: "palette",
   },
   {
-    slug: "ecommerce-demo",
+    slug: "ecommerce-concept",
     title: "CraftKart — Ecommerce Store",
     industry: "Ecommerce / Retail",
     category: "Website Development",
@@ -72,7 +72,7 @@ export const portfolioItems: PortfolioItem[] = [
     icon: "chart",
   },
   {
-    slug: "ai-chatbot-demo",
+    slug: "ai-chatbot-concept",
     title: "SupportGenie — AI Support Chatbot",
     industry: "Customer Support",
     category: "AI & Automation",
@@ -86,7 +86,7 @@ export const portfolioItems: PortfolioItem[] = [
     icon: "bot",
   },
   {
-    slug: "sales-dashboard-demo",
+    slug: "sales-dashboard-concept",
     title: "PulseBoard — Sales Dashboard",
     industry: "Business Analytics",
     category: "Data & Dashboards",

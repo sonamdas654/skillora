@@ -97,7 +97,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
           <p className="text-xs text-ink-soft">
-            Clear pricing · Demo before delivery · Secure file handling
+            Clear pricing · Preview before delivery · Secure file handling
           </p>
         </div>
       </div>

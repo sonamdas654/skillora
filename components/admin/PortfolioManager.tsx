@@ -85,7 +85,7 @@ export default function PortfolioManager({ items }: { items: ItemView[] }) {
       <p className="mt-2 text-sm text-ink-soft">
         Items added here appear on the public portfolio page alongside the built-in demo
         concepts. Add real client projects (with permission) and untick &quot;demo&quot; — they&apos;ll show
-        without the Demo Concept badge.
+        without the Concept badge.
       </p>
 
       {showForm && (
@@ -134,7 +134,7 @@ export default function PortfolioManager({ items }: { items: ItemView[] }) {
           </div>
           <label className="flex items-center gap-2.5 text-sm text-ink">
             <input type="checkbox" name="isDemo" className="size-4 accent-[var(--accent)]" />
-            This is a demo concept (shows &quot;Demo Concept&quot; badge — keep honest!)
+            This is a demo concept (shows &quot;Concept&quot; badge — keep honest!)
           </label>
           {error && <p className="text-sm font-medium text-red-500">{error}</p>}
           <button

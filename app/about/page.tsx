@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 const values = [
   {
     title: "Honesty over hype",
-    desc: "No fake testimonials, no invented client counts. Demo concepts are labeled as demos. Trust is earned through process, not claimed through numbers.",
+    desc: "No fake testimonials, no invented client counts. Concept work is always labeled clearly. Trust is earned through process, not claimed through numbers.",
   },
   {
     title: "Clarity before commitment",
-    desc: "Written scope, transparent pricing and a demo before final payment. You always know what you're paying for.",
+    desc: "Written scope, transparent pricing and a preview before final payment. You always know what you're paying for.",
   },
   {
     title: "One accountable person",
@@ -140,7 +140,7 @@ export default function AboutPage() {
                 href="/portfolio"
                 className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
               >
-                See demo projects
+                See the portfolio
               </Link>
             </div>
           </div>

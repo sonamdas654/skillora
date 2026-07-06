@@ -134,7 +134,7 @@ export function PortfolioCard({ item }: { item: PortfolioItem }) {
         </span>
         {item.isDemo && (
           <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink-soft backdrop-blur">
-            Demo Concept
+            Concept
           </span>
         )}
         <span className="absolute bottom-4 left-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">

@@ -3,7 +3,7 @@ export const PROJECT_STATUSES = [
   "Scope finalized",
   "Advance received",
   "Work started",
-  "First demo sent",
+  "First preview sent",
   "Revision pending",
   "Final approval",
   "Final payment pending",
