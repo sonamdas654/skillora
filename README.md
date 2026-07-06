@@ -45,3 +45,5 @@ npm run dev          # http://localhost:3000
 Visitor → service page → smart form (service-wise questions) → files upload →
 lead scored (High/Medium/Low) → admin email + client confirmation → WhatsApp follow-up →
 admin dashboard: status, notes, files, filters.
+
+<!-- auto-deploy test 2026-07-07 -->
