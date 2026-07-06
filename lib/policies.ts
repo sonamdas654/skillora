@@ -15,9 +15,9 @@ export const policies: Policy[] = [
   {
     slug: "privacy-policy",
     title: "Privacy Policy",
-    description: "How Skillora collects, uses and protects your data and uploaded files.",
+    description: "How Skilloura collects, uses and protects your data and uploaded files.",
     intro:
-      "Your trust matters more than your data. This policy explains in plain language what is collected when you use skillora.com, why, and how it is protected.",
+      "Your trust matters more than your data. This policy explains in plain language what is collected when you use skilloura.com, why, and how it is protected.",
     sections: [
       {
         heading: "What data is collected",
@@ -75,7 +75,7 @@ export const policies: Policy[] = [
   {
     slug: "terms",
     title: "Terms & Conditions",
-    description: "Terms for using skillora.com and requesting services.",
+    description: "Terms for using skilloura.com and requesting services.",
     intro:
       "These terms keep the working relationship clear and fair for both sides. By submitting a project request, you agree to the process described here.",
     sections: [
@@ -139,7 +139,7 @@ export const policies: Policy[] = [
   {
     slug: "refund-policy",
     title: "Refund Policy",
-    description: "When refunds apply and how they are calculated at Skillora.",
+    description: "When refunds apply and how they are calculated at Skilloura.",
     intro:
       "Digital work cannot be 'returned', so refunds follow milestone logic. This policy is deliberately simple and applied fairly.",
     sections: [
@@ -221,7 +221,7 @@ export const policies: Policy[] = [
   {
     slug: "payment-policy",
     title: "Payment Policy",
-    description: "Advance, milestones, invoices and delivery rules at Skillora.",
+    description: "Advance, milestones, invoices and delivery rules at Skilloura.",
     intro:
       "Clear payment rules protect both sides. Everything here is standard professional practice — and everything is documented with proper invoices.",
     sections: [

@@ -33,7 +33,7 @@ export default function Footer() {
               and marketing — with a clear requirement-based process.
             </p>
             <a
-              href={whatsappLink("Hi! I found you through skillora.com.")}
+              href={whatsappLink("Hi! I found you through skilloura.com.")}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-mint/10 px-4 py-2 text-sm font-semibold text-mint hover:bg-mint/20 transition-colors"

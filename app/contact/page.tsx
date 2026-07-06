@@ -10,7 +10,7 @@ import { WhatsAppIcon } from "@/components/Header";
 export const metadata: Metadata = {
   title: "Contact — Ask Anything, Get a Reply Within 24 Hours",
   description:
-    "Contact Skillora for websites, apps, AI automation, design and digital services. WhatsApp, email or contact form — reply within 24 hours.",
+    "Contact Skilloura for websites, apps, AI automation, design and digital services. WhatsApp, email or contact form — reply within 24 hours.",
 };
 
 export default function ContactPage() {

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "video editing",
     "digital marketing",
     "freelance digital agency",
-    "Skillora",
+    "Skilloura",
   ],
   openGraph: {
     title: `${site.name} — ${site.tagline}`,

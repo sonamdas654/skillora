@@ -64,7 +64,7 @@ export default async function LeadDetailPage({
         </div>
         <a
           href={whatsappLink(
-            `Hi ${lead.clientName}, I received your ${lead.serviceCategory} project request on Skillora. Let's discuss!`
+            `Hi ${lead.clientName}, I received your ${lead.serviceCategory} project request on Skilloura. Let's discuss!`
           ).replace(/wa\.me\/\d+/, `wa.me/${lead.phone.replace(/\D/g, "")}`)}
           target="_blank"
           rel="noopener noreferrer"

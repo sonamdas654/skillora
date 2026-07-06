@@ -11,7 +11,7 @@ import { whatsappLink } from "@/lib/site";
 export const metadata: Metadata = {
   title: "FAQ — Pricing, Process, Revisions & Delivery Questions",
   description:
-    "Answers to common questions about submitting projects, advance payment, revisions, file uploads, delivery and maintenance at Skillora.",
+    "Answers to common questions about submitting projects, advance payment, revisions, file uploads, delivery and maintenance at Skilloura.",
 };
 
 export default function FaqPage() {

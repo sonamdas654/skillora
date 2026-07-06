@@ -327,7 +327,7 @@ export default async function HomePage() {
                       <Icon name="check" className="size-3" />
                     </span>
                     <p className="text-sm font-medium text-ink">
-                      Smart form → clear requirement → correct quote → smooth delivery. That&apos;s the Skillora way.
+                      Smart form → clear requirement → correct quote → smooth delivery. That&apos;s the Skilloura way.
                     </p>
                   </div>
                 </div>
@@ -399,7 +399,7 @@ export default async function HomePage() {
                   <span className="font-accent font-normal text-accent">Packages</span>
                 </>
               }
-              subtitle="Guide prices follow the same live-estimate rule: Skillora is kept about 30% below market benchmark, then final quote is adjusted by selected scope."
+              subtitle="Guide prices follow the same live-estimate rule: Skilloura is kept about 30% below market benchmark, then final quote is adjusted by selected scope."
             />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
@@ -446,7 +446,7 @@ export default async function HomePage() {
           <Reveal>
             <div className="max-w-3xl mx-auto text-center">
               <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white/80">
-                Why Skillora
+                Why Skilloura
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.12]">
                 Built on process,{" "}

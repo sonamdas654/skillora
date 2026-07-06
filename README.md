@@ -1,6 +1,6 @@
-# Skillora — Smart Digital Services, Delivered with Skill.
+# Skilloura — Smart Digital Services, Delivered with Skill.
 
-Full-stack personal digital agency website built from the Skillora master blueprint.
+Full-stack personal digital agency website built from the Skilloura master blueprint.
 Next.js 16 + TypeScript + Tailwind v4 + Framer Motion + React Three Fiber (3D hero) +
 Prisma (SQLite dev / PostgreSQL prod) + JWT admin auth.
 
@@ -16,14 +16,14 @@ npm run dev          # http://localhost:3000
 
 - URL: http://localhost:3000/admin
 - Login: values of `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env`
-  (default: sonamdasdj00@gmail.com / Skillora@2026 — **change password before launch**)
+  (default: sonamdasdj00@gmail.com / Skilloura@2026 — **change password before launch**)
 - The admin user is auto-created on first login.
 
 ## Before going live (must change)
 
 1. `NEXT_PUBLIC_WHATSAPP_NUMBER` in `.env` — your real WhatsApp number (e.g. 919876543210)
 2. `ADMIN_PASSWORD` and `JWT_SECRET` — strong values
-3. `NEXT_PUBLIC_SITE_URL` — https://skillora.com
+3. `NEXT_PUBLIC_SITE_URL` — https://skilloura.com
 4. `RESEND_API_KEY` + `EMAIL_FROM` — for real email notifications (free at resend.com);
    without it, emails are logged to server console only
 5. Database — switch `prisma/schema.prisma` provider to `postgresql` and set

@@ -4,7 +4,7 @@ import { WhatsAppIcon } from "./Header";
 export default function WhatsAppSticky() {
   return (
     <a
-      href={whatsappLink("Hi! I want to discuss a project with Skillora.")}
+      href={whatsappLink("Hi! I want to discuss a project with Skilloura.")}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

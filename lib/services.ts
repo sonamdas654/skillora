@@ -1116,7 +1116,7 @@ export const serviceCategories: ServiceCategory[] = [
       { key: "reports_required", label: "Reports required", type: "textarea" },
       { key: "data_import_needed", label: "Need data import/migration?", type: "radio", options: yesNoNotSure },
       { key: "permission_detail", label: "Permission/access rules", type: "textarea", placeholder: "Who can view, edit, approve, export, delete?" },
-      { key: "deployment_preference", label: "Deployment preference", type: "select", options: ["Client hosting", "Skillora managed setup", "Local/offline", "Not sure"] },
+      { key: "deployment_preference", label: "Deployment preference", type: "select", options: ["Client hosting", "Skilloura managed setup", "Local/offline", "Not sure"] },
       { key: "source_code_handover", label: "Source code handover needed?", type: "radio", options: ["Yes", "No", "Need discussion"] },
       { key: "support_sla", label: "Support level after launch", type: "select", options: ["Basic support", "Priority support", "Monthly maintenance", "Not sure"] },
       { key: "compliance_needs", label: "Security/compliance needs", type: "textarea", placeholder: "e.g. GST invoice, audit log, data privacy, role approvals" },

@@ -1,6 +1,6 @@
 // Email notifications — plan section 28. Uses Resend HTTP API when
 // RESEND_API_KEY is set; otherwise logs to server console (dev mode).
-const FROM = process.env.EMAIL_FROM || "Skillora <onboarding@resend.dev>";
+const FROM = process.env.EMAIL_FROM || "Skilloura <onboarding@resend.dev>";
 const ADMIN = process.env.ADMIN_EMAIL || "sonamdasdj00@gmail.com";
 
 async function sendEmail(to: string, subject: string, html: string) {
@@ -52,11 +52,11 @@ export async function notifyNewLead(lead: {
 export async function confirmLeadToClient(lead: { clientName: string; email: string }) {
   await sendEmail(
     lead.email,
-    "Your project request is received — Skillora",
+    "Your project request is received — Skilloura",
     `<h2>Thank you, ${lead.clientName}!</h2>
      <p>Your project request has been received. I will review your details and contact you
      soon on WhatsApp or email — usually within 24 hours.</p>
-     <p>— Skillora · Smart Digital Services, Delivered with Skill.</p>`
+     <p>— Skilloura · Smart Digital Services, Delivered with Skill.</p>`
   );
 }
 

@@ -7,9 +7,9 @@ import { Section, SectionHeading } from "@/components/Section";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About — The Story Behind Skillora",
+  title: "About — The Story Behind Skilloura",
   description:
-    "Skillora means Skill + Aura: digital services delivered with professional impact. A personal digital agency with a clear requirement-based process.",
+    "Skilloura means Skill + Aura: digital services delivered with professional impact. A personal digital agency with a clear requirement-based process.",
 };
 
 const values = [
@@ -39,7 +39,7 @@ export default function AboutPage() {
         title={
           <>
             Skill +{" "}
-            <span className="font-accent font-normal text-accent">Aura</span> = Skillora
+            <span className="font-accent font-normal text-accent">Aura</span> = Skilloura
           </>
         }
         subtitle={site.positioning}
@@ -55,19 +55,19 @@ export default function AboutPage() {
                 title={
                   <>
                     Why{" "}
-                    <span className="font-accent font-normal text-accent">Skillora?</span>
+                    <span className="font-accent font-normal text-accent">Skilloura?</span>
                   </>
                 }
               />
               <div className="mt-6 space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
                 <p>
-                  <strong className="text-ink">Skillora = Skill + Aura.</strong> A company where
+                  <strong className="text-ink">Skilloura = Skill + Aura.</strong> A company where
                   your skills create a strong professional impact. “Aura” means positive
                   impression and identity — exactly what good digital work should give your
                   business.
                 </p>
                 <p>
-                  This is not a marketplace like Fiverr or Upwork. Skillora is a personal digital
+                  This is not a marketplace like Fiverr or Upwork. Skilloura is a personal digital
                   agency: you submit your requirement directly, and the same person who reviews
                   it builds it. That means faster communication, full accountability and work
                   that actually matches what you asked for.

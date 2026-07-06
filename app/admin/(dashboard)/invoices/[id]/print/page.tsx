@@ -29,7 +29,7 @@ export default async function InvoicePrintPage({
         <div className="flex items-start justify-between border-b border-line pb-6">
           <div>
             <p className="text-2xl font-extrabold text-ink">
-              Skillora<span className="text-accent">.</span>
+              Skilloura<span className="text-accent">.</span>
             </p>
             <p className="mt-1 text-xs text-ink-soft">{site.tagline}</p>
             <p className="text-xs text-ink-soft">{site.email} · +91 63701 33101</p>

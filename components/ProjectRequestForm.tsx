@@ -248,7 +248,7 @@ function getBudgetGuidance(
     status: "good",
     title: "Budget matches the selected scope",
     message:
-      "This range is aligned with the estimated Skillora quote for the services selected.",
+      "This range is aligned with the estimated Skilloura quote for the services selected.",
     recommendedRange,
   };
 }
@@ -929,7 +929,7 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
             Live price guide
           </h3>
           <p className="mt-1 text-[11px] leading-4 text-ink-soft">
-            Skillora is kept about 30% below market, not heavily discounted. Final written quote comes after review.
+            Skilloura is kept about 30% below market, not heavily discounted. Final written quote comes after review.
           </p>
         </div>
         <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold text-mint ring-1 ring-mint/20">
@@ -947,7 +947,7 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
           <p className="mt-1 text-lg font-black text-ink">{formatMoney(estimate.marketTotal)}</p>
         </div>
         <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2.5">
-          <p className="text-[11px] font-semibold text-accent">Skillora estimate</p>
+          <p className="text-[11px] font-semibold text-accent">Skilloura estimate</p>
           <p className="mt-1 text-lg font-black text-ink">{formatMoney(estimate.ourTotal)}</p>
         </div>
         <div className="rounded-xl border border-mint/20 bg-white px-3 py-2.5">
@@ -970,7 +970,7 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
             </div>
             <div className="text-accent sm:text-right">
               <span className="font-extrabold">{formatMoney(item.ourPrice)}</span>
-              <span className="ml-1">Skillora</span>
+              <span className="ml-1">Skilloura</span>
             </div>
           </div>
         ))}
@@ -1001,7 +1001,7 @@ function BudgetFitPanel({
     <div className="rounded-2xl border border-line bg-white p-4.5 space-y-4">
       <div className="grid gap-2 sm:grid-cols-3">
         <div>
-          <p className="text-[11px] font-semibold text-ink-soft">Actual Skillora estimate</p>
+          <p className="text-[11px] font-semibold text-ink-soft">Actual Skilloura estimate</p>
           <p className="mt-1 text-xl font-black text-ink">{formatMoney(estimate.ourTotal)}</p>
         </div>
         <div>
@@ -1054,7 +1054,7 @@ function DemoPreviewModal({
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   
   const [messages, setMessages] = useState<{ sender: 'user' | 'bot'; text: string; time: string }[]>([
-    { sender: 'bot', text: "Hello! I'm Skillora's AI assistant. How can I help you today?", time: 'Just now' }
+    { sender: 'bot', text: "Hello! I'm Skilloura's AI assistant. How can I help you today?", time: 'Just now' }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [brandBg, setBrandBg] = useState<'light' | 'dark'>('dark');
@@ -1090,7 +1090,7 @@ function DemoPreviewModal({
             <span className="size-3 rounded-full bg-[#27c93f]" />
           </div>
           <div className="rounded-lg bg-slate-900 border border-slate-800 px-4 py-1 text-[11px] font-mono text-slate-400 w-1/2 text-center select-none truncate">
-            demo.skillora.in/{concept.id}
+            demo.skilloura.com/{concept.id}
           </div>
           <button type="button" onClick={onClose} className="text-slate-400 hover:text-white text-xs font-semibold">
             Close ✕
@@ -1424,7 +1424,7 @@ function DemoPreviewModal({
                 <div className="border-b border-slate-800 bg-[#075e54] px-4 py-2 flex items-center gap-2 shrink-0">
                   <span className="text-base">🤖</span>
                   <div>
-                    <p className="text-[10px] font-bold text-white">Skillora AI Assistant</p>
+                    <p className="text-[10px] font-bold text-white">Skilloura AI Assistant</p>
                     <p className="text-[7px] text-emerald-200">Online • Live Chatbot Mock</p>
                   </div>
                 </div>
@@ -1564,7 +1564,7 @@ function DemoPreviewModal({
                       <div className="flex items-center gap-2">
                         <span className="size-7 rounded-full bg-indigo-600 flex items-center justify-center text-[10px] font-bold text-white">S</span>
                         <div>
-                          <p className="text-[9px] font-black text-white leading-none">Skillora Marketing</p>
+                          <p className="text-[9px] font-black text-white leading-none">Skilloura Marketing</p>
                           <p className="text-[7px] text-slate-550 leading-none mt-1">Sponsored Campaign</p>
                         </div>
                       </div>
@@ -1744,7 +1744,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
               item.name +
               ": market " +
               formatMoney(item.marketPrice) +
-              ", Skillora " +
+              ", Skilloura " +
               formatMoney(item.ourPrice) +
               " - " +
               item.reason
@@ -1754,23 +1754,23 @@ export default function ProjectRequestForm({ initialService }: { initialService?
 
         formAnswers.push({
           fieldKey: "estimated_quote",
-          question: "Market benchmark vs Skillora estimate",
+          question: "Market benchmark vs Skilloura estimate",
           answer:
             "Market benchmark: " +
             formatMoney(estimate.marketTotal) +
-            "\nSkillora estimate: " +
+            "\nSkilloura estimate: " +
             formatMoney(estimate.ourTotal) +
             "\nApprox saving: " +
             formatMoney(estimate.savings) +
             "\nRecommended budget range: " +
             estimate.recommendedBudgetRange +
-            "\nPricing rule: Skillora estimate is approx 30% below market benchmark.",
+            "\nPricing rule: Skilloura estimate is approx 30% below market benchmark.",
         });
         formAnswers.push({
           fieldKey: "pricing_inclusion_note",
           question: "What this estimate includes",
           answer:
-            "This is Skillora's delivery/service charge for planning, building/setup, testing, and handover. Domain, hosting, paid APIs, ad spend, store fees, and other third-party bills are separate unless written in the final quote.",
+            "This is Skilloura's delivery/service charge for planning, building/setup, testing, and handover. Domain, hosting, paid APIs, ad spend, store fees, and other third-party bills are separate unless written in the final quote.",
         });
         formAnswers.push({
           fieldKey: "price_breakdown",

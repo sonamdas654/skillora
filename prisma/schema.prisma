@@ -1,4 +1,4 @@
-// Skillora database — plan section 26. PostgreSQL (Neon) in production;
+// Skilloura database — plan section 26. PostgreSQL (Neon) in production;
 // point DATABASE_URL at the Neon connection string.
 generator client {
   provider = "prisma-client-js"

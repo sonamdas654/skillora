@@ -8,7 +8,7 @@ import { Section, SectionHeading } from "@/components/Section";
 export const metadata: Metadata = {
   title: "How It Works — Clear 8-Step Project Process",
   description:
-    "From requirement submission to final delivery: how projects work at Skillora. Smart forms, written quotations, demo before delivery and professional handover.",
+    "From requirement submission to final delivery: how projects work at Skilloura. Smart forms, written quotations, demo before delivery and professional handover.",
 };
 
 const detailedSteps = [

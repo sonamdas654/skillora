@@ -98,7 +98,7 @@ export default function FollowupsManager({
           <div className="flex items-center gap-2">
             {f.type === "whatsapp" && f.status === "Pending" && (
               <a
-                href={`https://wa.me/${f.phone.replace(/\D/g, "")}?text=${encodeURIComponent(f.message ?? `Hi ${f.clientName}, following up on your ${f.service} project request from Skillora.`)}`}
+                href={`https://wa.me/${f.phone.replace(/\D/g, "")}?text=${encodeURIComponent(f.message ?? `Hi ${f.clientName}, following up on your ${f.service} project request from Skilloura.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-full bg-[#25D366] px-3.5 py-1.5 text-xs font-bold text-white hover:opacity-90"

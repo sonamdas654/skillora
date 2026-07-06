@@ -12,8 +12,8 @@ const schema = z.object({
 });
 
 const prompts = {
-  summary: `You are an assistant for a solo digital agency (Skillora). Summarize this project lead for the owner in under 150 words. Include: what the client wants, key requirements, red flags (vague scope, low budget vs expectations, urgency), and 3 clarifying questions to ask on WhatsApp. Be direct and practical.`,
-  quote_draft: `You are an assistant for a solo digital agency (Skillora). Draft a quotation for this lead. Include: 1) Scope — bullet list of what's included, 2) Explicitly NOT included, 3) Suggested price range in INR based on the stated budget and scope, 4) Timeline estimate, 5) Payment terms (40-50% advance, balance before delivery), 6) Revision count suggestion. Keep it under 250 words, ready to copy into a quotation.`,
+  summary: `You are an assistant for a solo digital agency (Skilloura). Summarize this project lead for the owner in under 150 words. Include: what the client wants, key requirements, red flags (vague scope, low budget vs expectations, urgency), and 3 clarifying questions to ask on WhatsApp. Be direct and practical.`,
+  quote_draft: `You are an assistant for a solo digital agency (Skilloura). Draft a quotation for this lead. Include: 1) Scope — bullet list of what's included, 2) Explicitly NOT included, 3) Suggested price range in INR based on the stated budget and scope, 4) Timeline estimate, 5) Payment terms (40-50% advance, balance before delivery), 6) Revision count suggestion. Keep it under 250 words, ready to copy into a quotation.`,
 };
 
 export async function POST(req: NextRequest) {

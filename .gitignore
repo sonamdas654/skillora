@@ -47,3 +47,6 @@ uploads/
 
 # local verification screenshots
 verification-*.png
+
+.vercel
+.env*

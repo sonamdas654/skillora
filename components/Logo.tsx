@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className="flex flex-col items-start justify-center group" aria-label="Skillora home">
+    <Link href="/" className="flex flex-col items-start justify-center group" aria-label="Skilloura home">
       <div className="flex items-center gap-1 font-extrabold text-2xl tracking-tight leading-none">
         <span className={light ? "text-white" : "text-ink"}>Skill</span>
         
@@ -52,7 +52,7 @@ export default function Logo({ light = false }: { light?: boolean }) {
           <circle cx="18" cy="26" r="8" fill="#f59e0b" />
         </svg>
         
-        <span className={light ? "text-white" : "text-ink"}>ra</span>
+        <span className={light ? "text-white" : "text-ink"}>ura</span>
         <span className="text-accent animate-pulse">.</span>
       </div>
       
