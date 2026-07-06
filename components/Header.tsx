@@ -38,7 +38,7 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-[1520px] items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
 
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
@@ -94,7 +94,7 @@ export default function Header() {
       {/* Mobile drawer */}
       {open && (
         <div className="lg:hidden border-t border-line bg-white/95 backdrop-blur-md">
-          <nav className="mx-auto max-w-7xl px-4 py-4 flex flex-col gap-1" aria-label="Mobile">
+          <nav className="mx-auto max-w-[1520px] px-4 py-4 flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => (
               <Link
                 key={item.href}
