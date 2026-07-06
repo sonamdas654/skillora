@@ -101,7 +101,7 @@ export default function PricingPage() {
       ))}
 
       {/* Maintenance */}
-      <Section className="bg-white border-y border-line">
+      <Section className="bg-wash-blue border-y border-line">
         <Reveal>
           <SectionHeading
             eyebrow="After delivery"

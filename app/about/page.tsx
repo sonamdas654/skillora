@@ -97,7 +97,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section className="bg-white border-y border-line">
+      <Section className="bg-wash-blue border-y border-line">
         <Reveal>
           <SectionHeading
             eyebrow="Values"

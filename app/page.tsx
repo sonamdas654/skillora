@@ -288,7 +288,7 @@ export default async function HomePage() {
         </section>
 
         {/* ── Section 2: Problem ──────────────────────────── */}
-        <Section className="bg-slate-50/50 border-b border-line">
+        <Section className="bg-wash-blue border-b border-line">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <Reveal>
               <SectionHeading
@@ -360,7 +360,7 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 4: How It Works ─────────────────────── */}
-        <Section id="how-it-works">
+        <Section id="how-it-works" className="bg-wash-mint border-b border-line">
           <Reveal>
             <SectionHeading
               eyebrow="Process"
@@ -419,7 +419,7 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 6: Portfolio Preview ────────────────── */}
-        <Section id="portfolio" className="bg-slate-50/50 border-y border-line">
+        <Section id="portfolio" className="bg-wash-blue border-y border-line">
           <Reveal>
             <SectionHeading
               eyebrow="Work"
@@ -510,7 +510,7 @@ export default async function HomePage() {
         )}
 
         {/* ── Section 8: FAQ Preview ──────────────────────── */}
-        <Section>
+        <Section className="bg-wash-mint border-b border-line">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
             <Reveal>
               <SectionHeading

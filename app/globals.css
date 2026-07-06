@@ -10,6 +10,8 @@
   --accent-deep: #1a3fd6;
   --accent-soft: #f0f3ff; /* Softer, lighter blue tint */
   --mint: #10b981;      /* Emerald green */
+  --wash-blue: #edf2fd; /* Soft navy-blue section wash */
+  --wash-mint: #edf8f2; /* Soft mint-green section wash */
 }
 
 @theme inline {
@@ -22,6 +24,8 @@
   --color-accent-deep: var(--accent-deep);
   --color-accent-soft: var(--accent-soft);
   --color-mint: var(--mint);
+  --color-wash-blue: var(--wash-blue);
+  --color-wash-mint: var(--wash-mint);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-instrument-serif);
 }

@@ -101,7 +101,7 @@ export default function HowItWorksPage() {
         </div>
       </Section>
 
-      <Section className="bg-white border-y border-line">
+      <Section className="bg-wash-mint border-y border-line">
         <Reveal>
           <SectionHeading
             eyebrow="Your protection"
