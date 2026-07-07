@@ -48,102 +48,80 @@ const whyChoose = [
   { icon: "spark", title: "Maintenance support available", desc: "Monthly plans from ₹5,600 so your project stays healthy after launch." },
 ];
 
+// Every rail card carries its own full gradient (Power BI / Custom Software
+// style) — icon sits in a frosted white tile, text stays white.
 const serviceRailItems = [
   {
     text: "WhatsApp Automation",
     icon: "whatsapp",
     href: "/start-project?service=ai-automation",
-    card: "border-emerald-100 bg-white text-ink shadow-[0_18px_36px_-28px_rgba(16,185,129,0.75)]",
-    iconWrap: "bg-emerald-50",
-    iconColor: "text-emerald-500",
+    card: "bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 shadow-[0_22px_42px_-24px_rgba(16,185,129,0.9)]",
   },
   {
     text: "Logo & Branding",
     icon: "palette",
     href: "/start-project?service=logo-branding",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-blue-50",
-    iconColor: "text-blue-500",
+    card: "bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 shadow-[0_22px_42px_-24px_rgba(249,115,22,0.9)]",
   },
   {
     text: "Video Editing",
     icon: "video",
     href: "/start-project?service=video-editing",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-violet-50",
-    iconColor: "text-violet-500",
+    card: "bg-gradient-to-br from-fuchsia-500 via-pink-500 to-rose-500 shadow-[0_22px_42px_-24px_rgba(236,72,153,0.9)]",
   },
   {
     text: "SEO & Marketing",
     icon: "megaphone",
     href: "/start-project?service=digital-marketing",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-emerald-50",
-    iconColor: "text-emerald-600",
+    card: "bg-gradient-to-br from-teal-400 via-cyan-500 to-sky-600 shadow-[0_22px_42px_-24px_rgba(6,182,212,0.9)]",
   },
   {
     text: "Power BI Dashboards",
     icon: "chart",
     href: "/start-project?service=data-dashboard",
-    card: "border-transparent bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 text-white shadow-[0_22px_42px_-24px_rgba(40,87,255,0.9)]",
-    iconWrap: "bg-white/15",
-    iconColor: "text-white",
+    card: "bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 shadow-[0_22px_42px_-24px_rgba(40,87,255,0.9)]",
   },
   {
     text: "ATS Resumes",
     icon: "file",
     href: "/start-project?service=resume-career",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-blue-50",
-    iconColor: "text-blue-500",
+    card: "bg-gradient-to-br from-cyan-400 via-sky-500 to-blue-600 shadow-[0_22px_42px_-24px_rgba(14,165,233,0.9)]",
   },
   {
     text: "Custom Software",
     icon: "code",
     href: "/start-project?service=custom-software",
-    card: "border-transparent bg-gradient-to-br from-violet-500 via-indigo-600 to-purple-700 text-white shadow-[0_22px_42px_-24px_rgba(109,40,217,0.88)]",
-    iconWrap: "bg-white/15",
-    iconColor: "text-white",
+    card: "bg-gradient-to-br from-violet-500 via-indigo-600 to-purple-700 shadow-[0_22px_42px_-24px_rgba(109,40,217,0.88)]",
   },
   {
     text: "Booking Systems",
     icon: "clock",
     href: "/start-project?service=website-development",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-pink-50",
-    iconColor: "text-pink-500",
+    card: "bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 shadow-[0_22px_42px_-24px_rgba(244,63,94,0.9)]",
   },
   {
     text: "Business Websites",
     icon: "globe",
     href: "/start-project?service=website-development",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-blue-50",
-    iconColor: "text-blue-500",
+    card: "bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-600 shadow-[0_22px_42px_-24px_rgba(59,130,246,0.9)]",
   },
   {
     text: "Mobile Apps",
     icon: "smartphone",
     href: "/start-project?service=mobile-app-development",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-rose-50",
-    iconColor: "text-rose-500",
+    card: "bg-gradient-to-br from-rose-400 via-pink-500 to-fuchsia-600 shadow-[0_22px_42px_-24px_rgba(236,72,153,0.9)]",
   },
   {
     text: "AI Chatbots",
     icon: "bot",
     href: "/start-project?service=ai-automation",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-purple-50",
-    iconColor: "text-purple-500",
+    card: "bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-600 shadow-[0_22px_42px_-24px_rgba(139,92,246,0.9)]",
   },
   {
     text: "Ecommerce Stores",
     icon: "briefcase",
     href: "/start-project?service=website-development",
-    card: "border-line bg-white text-ink",
-    iconWrap: "bg-indigo-50",
-    iconColor: "text-indigo-500",
+    card: "bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 shadow-[0_22px_42px_-24px_rgba(249,115,22,0.9)]",
   },
 ];
 
@@ -263,25 +241,23 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Clean full-width service strip */}
-          <div className="relative w-screen overflow-hidden bg-gradient-to-b from-white/90 via-white to-white/90 py-5 sm:py-6">
-            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r from-white to-transparent sm:w-12" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l from-white to-transparent sm:w-12" />
+          {/* Full-width gradient service rail — floats over the hero backdrop */}
+          <div className="relative w-screen overflow-hidden py-6 sm:py-8">
             <div className="flex w-max gap-4 px-4 animate-service-rail hover:[animation-play-state:paused] sm:gap-5 sm:px-5">
               {[...serviceRailItems, ...serviceRailItems, ...serviceRailItems].map((item, i) => (
                 <Link
                   key={item.text + i}
                   href={item.href}
-                  className={`flex h-[118px] w-[162px] shrink-0 flex-col items-center justify-center rounded-2xl border px-3 text-center shadow-[0_18px_34px_-30px_rgba(15,23,42,0.38)] transition duration-300 hover:-translate-y-1 hover:border-accent/20 hover:shadow-[0_22px_42px_-30px_rgba(40,87,255,0.36)] sm:h-[132px] sm:w-[178px] lg:w-[188px] ${item.card}`}
+                  className={`flex h-[118px] w-[162px] shrink-0 flex-col items-center justify-center rounded-3xl px-3 text-center text-white ring-1 ring-white/25 transition duration-300 hover:-translate-y-1.5 hover:-rotate-1 hover:brightness-110 sm:h-[132px] sm:w-[178px] lg:w-[188px] ${item.card}`}
                 >
-                  <span className={`grid size-11 place-items-center rounded-xl ${item.iconWrap}`}>
+                  <span className="grid size-11 place-items-center rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
                     {item.icon === "whatsapp" ? (
-                      <WhatsAppIcon className={`size-7 ${item.iconColor}`} />
+                      <WhatsAppIcon className="size-7 text-white" />
                     ) : (
-                      <Icon name={item.icon} className={`size-7 ${item.iconColor}`} />
+                      <Icon name={item.icon} className="size-7 text-white" />
                     )}
                   </span>
-                  <span className="mt-3 text-[15px] font-extrabold leading-[1.12] tracking-normal sm:text-base">
+                  <span className="mt-3 text-[15px] font-extrabold leading-[1.12] tracking-normal drop-shadow-sm sm:text-base">
                     {item.text}
                   </span>
                 </Link>
