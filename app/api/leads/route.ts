@@ -133,9 +133,9 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // fire-and-forget notifications
-  notifyNewLead(lead).catch(() => {});
-  confirmLeadToClient(lead).catch(() => {});
+  // Must await on serverless — the runtime freezes once the response returns.
+  await notifyNewLead(lead, answers).catch(() => {});
+  await confirmLeadToClient(lead).catch(() => {});
 
   return NextResponse.json({ ok: true, leadId: lead.id, leadScore });
 }
