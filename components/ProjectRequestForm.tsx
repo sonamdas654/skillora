@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { serviceCategories, getService, type FormField } from "@/lib/services";
 import { budgetRanges, projectStatusOptions, contactTimes } from "@/lib/site";
 import { DEMO_CONCEPTS } from "@/lib/demoConcepts";
+import { WebPreview, DashboardPreview, ResumePreview, SoftwarePreview } from "@/components/ConceptPreviews";
 import Icon from "./Icons";
 
 const STEPS = [
@@ -1598,6 +1599,21 @@ function DemoPreviewModal({
                   </div>
                 )}
               </div>
+            )}
+
+            {/* Output-style mockups for concepts without bespoke simulations */}
+            {concept.id.startsWith("web-") &&
+              !["web-saas", "web-ecommerce", "web-local"].includes(concept.id) && (
+                <WebPreview id={concept.id} accent={concept.accent} />
+              )}
+            {concept.id.startsWith("dash-") && (
+              <DashboardPreview id={concept.id} accent={concept.accent} />
+            )}
+            {concept.id.startsWith("cv-") && (
+              <ResumePreview id={concept.id} accent={concept.accent} />
+            )}
+            {concept.id.startsWith("soft-") && (
+              <SoftwarePreview id={concept.id} accent={concept.accent} />
             )}
           </div>
         </div>
