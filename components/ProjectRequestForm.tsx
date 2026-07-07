@@ -323,6 +323,15 @@ function calculateEstimate(
     if (legalPages.length > 0) {
       add(priceLine("Legal/policy page setup", legalPages.length * 799, legalPages.length * 2000, "Policy page structure and placement for customer trust."));
     }
+    if (answers["has_logo"] === "No") {
+      add(priceLine("Logo design", 2799, 4000, "You don't have a logo yet, so we'll design one for the site."));
+    }
+    if (needsSetupHelp(answers["content_ready"] as string)) {
+      add(priceLine("Content writing", 3499, 5000, "We'll write the page text/content since yours isn't ready."));
+    }
+    if (needsSetupHelp(answers["images_ready"] as string)) {
+      add(priceLine("Image sourcing & editing", 2099, 3000, "We'll source and prepare suitable images since you don't have them ready."));
+    }
   } else if (category === "mobile-app-development") {
     const platforms = selectedList(answers["platform"]);
     if (platforms.includes("Both")) {
@@ -929,7 +938,8 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
             Live price guide
           </h3>
           <p className="mt-1 text-[11px] leading-4 text-ink-soft">
-            Skilloura is kept about 30% below market, not heavily discounted. Final written quote comes after review.
+            &quot;Typical market price&quot; is an approximate range agencies/freelancers in India charge for similar
+            work — shown only for comparison. Skilloura is kept about 30% below that. Your final written quote comes after review.
           </p>
         </div>
         <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold text-mint ring-1 ring-mint/20">
@@ -943,7 +953,7 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
 
       <div className="grid gap-2 sm:grid-cols-3">
         <div className="rounded-xl border border-line bg-white px-3 py-2.5">
-          <p className="text-[11px] font-semibold text-ink-soft">Market benchmark</p>
+          <p className="text-[11px] font-semibold text-ink-soft">Typical market price</p>
           <p className="mt-1 text-lg font-black text-ink">{formatMoney(estimate.marketTotal)}</p>
         </div>
         <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2.5">
@@ -1005,7 +1015,7 @@ function BudgetFitPanel({
           <p className="mt-1 text-xl font-black text-ink">{formatMoney(estimate.ourTotal)}</p>
         </div>
         <div>
-          <p className="text-[11px] font-semibold text-ink-soft">Market benchmark</p>
+          <p className="text-[11px] font-semibold text-ink-soft">Typical market price</p>
           <p className="mt-1 text-xl font-black text-ink">{formatMoney(estimate.marketTotal)}</p>
         </div>
         <div>
@@ -2006,7 +2016,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
             <div>
               <h2 className="text-xl font-bold text-ink">Choose a Reference Design</h2>
               <p className="text-sm text-ink-soft mt-1">
-                Select one of our 4 premium templates as a design reference style for your project, or click Continue to skip.
+                {`${(data.serviceCategory ? DEMO_CONCEPTS[data.serviceCategory] ?? [] : []).length} concepts related to your selected service — pick one as a design reference, or click Continue to skip.`}
               </p>
             </div>
 
@@ -2279,13 +2289,17 @@ export default function ProjectRequestForm({ initialService }: { initialService?
             )}
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
-                <label className={labelCls}>Preferred contact method</label>
-                <RadioGroup
-                  name="Contact method"
+                <label className={labelCls}>Preferred contact method (pick one or more)</label>
+                <MultiSelect
                   options={["WhatsApp", "Email", "Call"]}
-                  value={data.preferredContact}
-                  onChange={(v) => set("preferredContact", v)}
+                  values={data.preferredContact ? data.preferredContact.split(", ").filter(Boolean) : []}
+                  onChange={(v) => set("preferredContact", (v as string[]).join(", "))}
                 />
+                <p className="mt-2 text-xs leading-4 text-ink-soft">
+                  We already have your email (<span className="font-semibold text-ink">{data.email || "step 1"}</span>) and
+                  WhatsApp number (<span className="font-semibold text-ink">{data.phone || "step 1"}</span>) from step 1 —
+                  just tell us how you&apos;d prefer to be reached.
+                </p>
               </div>
               <div>
                 <label className={labelCls}>Best time to contact</label>
