@@ -52,8 +52,8 @@ export default function Footer() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+      <div className="relative mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-6">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Brand + CTA */}
           <div className="max-w-sm">
             <Logo size="lg" />
@@ -123,7 +123,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-accent/10 pt-6 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-accent/10 pt-5 sm:flex-row">
           <p className="text-xs font-medium text-ink-soft">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
