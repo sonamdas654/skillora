@@ -38,7 +38,7 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-[1520px] items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 sm:h-[88px] max-w-[1520px] items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
 
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">

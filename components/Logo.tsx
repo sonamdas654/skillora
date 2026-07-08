@@ -5,7 +5,7 @@ import Image from "next/image";
 // top, full "Skilloura" wordmark + tagline below) — never recreated with
 // HTML text, so the name always stays fully legible.
 export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
-  const heightClass = size === "lg" ? "h-16 sm:h-20" : "h-12 sm:h-14";
+  const heightClass = size === "lg" ? "h-20 sm:h-24" : "h-16 sm:h-[72px]";
   return (
     <Link href="/" className="inline-flex items-center" aria-label="Skilloura home">
       <Image

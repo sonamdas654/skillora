@@ -7,7 +7,7 @@ export default function PageShell({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main className="pt-16">{children}</main>
+      <main className="pt-20 sm:pt-[88px]">{children}</main>
       <Footer />
       <WhatsAppSticky />
     </>
