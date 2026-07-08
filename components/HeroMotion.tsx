@@ -29,7 +29,10 @@ export default function HeroMotion() {
     if (!fctx || !dctx) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    // Coarse pointer = phone/tablet: lower resolution + half-rate flow field
+    // so the hero doesn't drain battery on mobile GPUs.
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const DPR = Math.min(window.devicePixelRatio || 1, isCoarse ? 1.5 : 2);
     const COLORS = ["40,87,255", "139,92,246", "16,185,129"];
     const LINK_DIST = 130;
     const FLOW_SCALE = 0.14; // flow field renders tiny, blur hides it
@@ -79,9 +82,12 @@ export default function HeroMotion() {
       }
     };
 
+    let frame = 0;
     const step = () => {
       const t = performance.now() / 1000;
-      drawFlow(t);
+      // On mobile the blurred flow field only needs ~30fps to look identical.
+      frame++;
+      if (!isCoarse || frame % 2 === 0) drawFlow(t);
 
       dctx.clearRect(0, 0, w, h);
       for (const p of particles) {
@@ -138,12 +144,34 @@ export default function HeroMotion() {
     };
 
     resize();
-    step();
-    window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseleave", onLeave);
-    return () => {
+
+    // Only animate while the hero is actually on screen — once the user
+    // scrolls past it, the rAF loop stops entirely.
+    let running = false;
+    const start = () => {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(step);
+      }
+    };
+    const stop = () => {
+      running = false;
       cancelAnimationFrame(raf);
+    };
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0 }
+    );
+    io.observe(dots.parentElement!);
+
+    window.addEventListener("resize", resize);
+    if (!isCoarse) {
+      window.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseleave", onLeave);
+    }
+    return () => {
+      stop();
+      io.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);

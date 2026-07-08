@@ -210,6 +210,7 @@ model Testimonial {
   rating         Int
   review         String
   status         String   @default("pending") // only real, verified reviews go active
+  inviteToken    String?  @unique // jti of the review-invite link that created this (one review per link)
   createdAt      DateTime @default(now())
 }
 

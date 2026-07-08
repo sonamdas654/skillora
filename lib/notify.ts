@@ -146,6 +146,28 @@ export async function confirmLeadToClient(lead: { clientName: string; email: str
   );
 }
 
+export async function notifyNewReview(review: {
+  clientName: string;
+  clientBusiness?: string | null;
+  rating: number;
+  review: string;
+}) {
+  await sendEmail(
+    ADMIN,
+    `New client review (${review.rating}★) from ${review.clientName}`,
+    `<h2>New review submitted</h2>
+     ${section(
+       "Review",
+       row("Client", review.clientName) +
+         row("Business", review.clientBusiness) +
+         row("Rating", "★".repeat(review.rating) + ` (${review.rating}/5)`) +
+         row("Review", review.review)
+     )}
+     <p style="font-size:13px;color:#475569">It is saved as <b>Pending</b> — approve it in
+     Admin → Testimonials to show it on the homepage.</p>`
+  );
+}
+
 export async function notifyContactMessage(msg: { name: string; email: string; message: string }) {
   await sendEmail(
     ADMIN,

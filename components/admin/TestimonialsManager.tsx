@@ -24,6 +24,44 @@ export default function TestimonialsManager({
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [showLinkForm, setShowLinkForm] = useState(false);
+  const [linkSaving, setLinkSaving] = useState(false);
+  const [linkError, setLinkError] = useState("");
+  const [reviewLink, setReviewLink] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  async function generateLink(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLinkSaving(true);
+    setLinkError("");
+    setReviewLink("");
+    setCopied(false);
+    const fd = new FormData(e.currentTarget);
+    const res = await fetch("/api/admin/review-links", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        clientName: fd.get("clientName"),
+        clientBusiness: fd.get("clientBusiness"),
+      }),
+    });
+    setLinkSaving(false);
+    if (res.ok) {
+      const j = await res.json();
+      setReviewLink(j.url);
+    } else {
+      const j = await res.json().catch(() => ({}));
+      setLinkError(j.error || "Failed to generate link");
+    }
+  }
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(reviewLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {}
+  }
 
   async function create(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -69,17 +107,82 @@ export default function TestimonialsManager({
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold text-ink">Testimonials</h1>
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-deep"
-        >
-          {showForm ? "Cancel" : "+ Add review"}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              setShowLinkForm(!showLinkForm);
+              setShowForm(false);
+            }}
+            className="rounded-full border border-accent/30 bg-white px-5 py-2.5 text-sm font-semibold text-accent hover:border-accent"
+          >
+            {showLinkForm ? "Cancel" : "Get review link"}
+          </button>
+          <button
+            onClick={() => {
+              setShowForm(!showForm);
+              setShowLinkForm(false);
+            }}
+            className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-deep"
+          >
+            {showForm ? "Cancel" : "+ Add review"}
+          </button>
+        </div>
       </div>
       <p className="mt-2 text-sm text-ink-soft">
         Only add <strong>real reviews from real clients</strong> — fake reviews destroy trust
         and can get you flagged. Reviews marked &quot;active&quot; appear on the homepage.
       </p>
+
+      {showLinkForm && (
+        <form onSubmit={generateLink} className="mt-6 rounded-2xl border border-line bg-white p-6 space-y-4">
+          <p className="text-sm text-ink-soft">
+            Generate a <strong>personal review link</strong> for a delivered client and send it
+            on WhatsApp. The client rates and writes the review themselves — it arrives as
+            &quot;Pending&quot; for your approval. One review per link, valid 30 days.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-ink">Client name *</label>
+              <input name="clientName" required className={inputCls} />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-semibold text-ink">Business</label>
+              <input name="clientBusiness" placeholder="e.g. Spice Route, Pune" className={inputCls} />
+            </div>
+          </div>
+          {linkError && <p className="text-sm font-medium text-red-500">{linkError}</p>}
+          <button
+            disabled={linkSaving}
+            className="rounded-full bg-accent px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+          >
+            {linkSaving ? "Generating..." : "Generate link"}
+          </button>
+          {reviewLink && (
+            <div className="rounded-xl border border-mint/25 bg-mint/10 p-4">
+              <p className="break-all text-xs font-medium text-ink">{reviewLink}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={copyLink}
+                  className="rounded-full bg-mint px-4 py-1.5 text-xs font-semibold text-white"
+                >
+                  {copied ? "Copied!" : "Copy link"}
+                </button>
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `Thank you for working with Skilloura! It would mean a lot if you could share a short review here: ${reviewLink}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-mint/40 px-4 py-1.5 text-xs font-semibold text-mint"
+                >
+                  Share on WhatsApp
+                </a>
+              </div>
+            </div>
+          )}
+        </form>
+      )}
 
       {showForm && (
         <form onSubmit={create} className="mt-6 rounded-2xl border border-line bg-white p-6 space-y-4">

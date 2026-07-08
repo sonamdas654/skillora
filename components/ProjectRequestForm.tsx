@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 import { serviceCategories, getService, type FormField } from "@/lib/services";
 import { budgetRanges, projectStatusOptions, contactTimes } from "@/lib/site";
 import { DEMO_CONCEPTS } from "@/lib/demoConcepts";
@@ -1636,6 +1637,8 @@ function DemoPreviewModal({
   );
 }
 
+const DRAFT_KEY = "skilloura_form_draft";
+
 export default function ProjectRequestForm({ initialService }: { initialService?: string }) {
   const router = useRouter();
   const [step, setStep] = useState(0);
@@ -1648,6 +1651,76 @@ export default function ProjectRequestForm({ initialService }: { initialService?
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [previewConcept, setPreviewConcept] = useState<any | null>(null);
+  const [draftRestored, setDraftRestored] = useState(false);
+  const draftLoaded = useRef(false);
+
+  // Autosave draft: files can't be persisted (File objects), terms must be
+  // re-accepted, so both are excluded. Draft expires after 7 days.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(DRAFT_KEY);
+      if (raw) {
+        const draft = JSON.parse(raw);
+        const fresh =
+          draft?.v === 1 &&
+          typeof draft.savedAt === "number" &&
+          Date.now() - draft.savedAt < 7 * 24 * 60 * 60 * 1000;
+        const hasContent =
+          draft?.data &&
+          (draft.data.clientName || draft.data.email || draft.data.phone ||
+            draft.data.serviceCategory || draft.data.projectDescription ||
+            Object.keys(draft.dynamicAnswers ?? {}).length > 0);
+        if (fresh && hasContent) {
+          const sameService =
+            !initialService || !draft.data?.serviceCategory || draft.data.serviceCategory === initialService;
+          if (sameService) {
+            setData({ ...initialData, ...draft.data, termsAccepted: false });
+            setDynamicAnswers(draft.dynamicAnswers ?? {});
+            setStep(Math.min(Math.max(draft.step ?? 0, 0), STEPS.length - 1));
+          } else {
+            // Arrived via a different service link — keep personal details only.
+            const { clientName, email, phone, businessName, cityCountry } = draft.data ?? {};
+            setData((d) => ({
+              ...d,
+              clientName: clientName ?? "",
+              email: email ?? "",
+              phone: phone ?? "",
+              businessName: businessName ?? "",
+              cityCountry: cityCountry ?? "",
+            }));
+          }
+          setDraftRestored(true);
+        } else {
+          localStorage.removeItem(DRAFT_KEY);
+        }
+      }
+    } catch {
+      // corrupted draft — start clean
+      try { localStorage.removeItem(DRAFT_KEY); } catch {}
+    }
+    draftLoaded.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!draftLoaded.current) return;
+    const t = setTimeout(() => {
+      try {
+        const hasContent =
+          data.clientName || data.email || data.phone || data.serviceCategory ||
+          data.projectDescription || Object.keys(dynamicAnswers).length > 0;
+        if (!hasContent) {
+          localStorage.removeItem(DRAFT_KEY);
+          return;
+        }
+        localStorage.setItem(
+          DRAFT_KEY,
+          JSON.stringify({ v: 1, step, data, dynamicAnswers, savedAt: Date.now() })
+        );
+      } catch {}
+    }, 400);
+    return () => clearTimeout(t);
+  }, [step, data, dynamicAnswers]);
 
   const estimate = useMemo(() => {
     return calculateEstimate(data.serviceCategory, data.serviceType, dynamicAnswers, {
@@ -1723,6 +1796,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
       return;
     }
     setError("");
+    try { track("form_step_completed", { step: STEPS[step], service: data.serviceCategory || "none" }); } catch {}
     setStep((s) => Math.min(s + 1, STEPS.length - 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -1858,6 +1932,8 @@ export default function ProjectRequestForm({ initialService }: { initialService?
         await fetch("/api/upload", { method: "POST", body: fd }).catch(() => {});
       }
 
+      try { track("lead_submitted", { service: data.serviceCategory || "unknown" }); } catch {}
+      try { localStorage.removeItem(DRAFT_KEY); } catch {}
       router.push("/thank-you");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
@@ -1889,6 +1965,24 @@ export default function ProjectRequestForm({ initialService }: { initialService?
       <p className="mt-3 sm:hidden text-sm font-semibold text-accent">
         Step {step + 1} of {STEPS.length}: {STEPS[step]}
       </p>
+
+      {draftRestored && (
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-mint/25 bg-mint/10 px-4 py-2.5">
+          <p className="text-sm font-medium text-ink">
+            Welcome back — your earlier answers were restored so you can continue where you left off.
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              try { localStorage.removeItem(DRAFT_KEY); } catch {}
+              window.location.href = "/start-project";
+            }}
+            className="shrink-0 text-xs font-semibold text-ink-soft underline-offset-2 hover:text-accent hover:underline"
+          >
+            Start fresh
+          </button>
+        </div>
+      )}
 
       <div className="mt-8 rounded-3xl border border-line bg-white p-6 sm:p-8">
         {/* Step 1: Personal details */}

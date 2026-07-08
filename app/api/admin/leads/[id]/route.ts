@@ -25,6 +25,30 @@ export async function GET(
   return NextResponse.json({ lead });
 }
 
+// Permanently delete a lead (used for spam). Children without FK cascade
+// (quotations, invoices, payments, projects) are removed explicitly first.
+export async function DELETE(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await params;
+  const lead = await prisma.lead.findUnique({ where: { id } });
+  if (!lead) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  await prisma.$transaction([
+    prisma.payment.deleteMany({ where: { leadId: id } }),
+    prisma.invoice.deleteMany({ where: { leadId: id } }),
+    prisma.quotation.deleteMany({ where: { leadId: id } }),
+    prisma.project.deleteMany({ where: { leadId: id } }),
+    // formAnswers/uploadedFiles/notes/followups cascade via FK
+    prisma.lead.delete({ where: { id } }),
+  ]);
+  return NextResponse.json({ ok: true });
+}
+
 const patchSchema = z.object({
   leadStatus: z.enum(LEAD_STATUSES).optional(),
   leadScore: z.enum(["High", "Medium", "Low"]).optional(),

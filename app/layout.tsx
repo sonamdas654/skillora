@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Instrument_Serif } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { site } from "@/lib/site";
 
@@ -53,7 +54,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
