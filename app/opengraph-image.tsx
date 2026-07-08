@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const alt = "Skilloura — Smart Digital Services, Delivered with Skill.";
 export const size = { width: 1200, height: 630 };
@@ -14,7 +16,10 @@ const services = [
   "Dashboards",
 ];
 
-export default function Image() {
+export default async function Image() {
+  const markBuffer = await readFile(join(process.cwd(), "public", "logo-mark.png"));
+  const markSrc = `data:image/png;base64,${markBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -58,18 +63,20 @@ export default function Image() {
           }}
         />
 
+        <img src={markSrc} width={110} height={110} style={{ display: "flex" }} />
+
         <div
           style={{
+            marginTop: 8,
             display: "flex",
             alignItems: "baseline",
-            fontSize: 96,
+            fontSize: 84,
             fontWeight: 800,
             letterSpacing: -3,
           }}
         >
           <span style={{ color: "#0f172a" }}>Skill</span>
-          <span style={{ color: "#2857ff" }}>o</span>
-          <span style={{ color: "#0f172a" }}>ura</span>
+          <span style={{ color: "#2857ff" }}>oura</span>
           <span style={{ color: "#2857ff" }}>.</span>
         </div>
         <div
