@@ -48,5 +48,8 @@ uploads/
 # local verification screenshots
 verification-*.png
 
+# local handoff/brain doc (not for the public repo)
+SKILLORA_HANDOFF.md
+
 .vercel
 .env*
