@@ -8,9 +8,8 @@ import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section, SectionHeading } from "@/components/Section";
-import { ServiceCard, PackageCard, PortfolioCard } from "@/components/Cards";
+import { ServiceCard, PackageCard } from "@/components/Cards";
 import { serviceCategories } from "@/lib/services";
-import { portfolioItems } from "@/lib/portfolio";
 import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
@@ -35,6 +34,42 @@ const steps = [
   { title: "Scope, price and timeline finalized", desc: "Written quotation with exactly what's included. No hidden charges." },
   { title: "Advance payment and work start", desc: "40–50% advance and your project officially begins." },
   { title: "Preview, revision and final delivery", desc: "You approve a preview first, revisions happen, then full delivery." },
+];
+
+// Impact / trust numbers — honest, capability-based stats (no fake client counts).
+const impactStats = [
+  {
+    value: "20+",
+    label: "Digital Services",
+    desc: "Websites, apps, AI, design, video and more under one roof.",
+    icon: "spark",
+    tile: "from-blue-500 to-indigo-600",
+    glow: "rgba(40,87,255,0.35)",
+  },
+  {
+    value: "50+",
+    label: "Project Concepts",
+    desc: "Ready reference designs to lock your vision before work starts.",
+    icon: "palette",
+    tile: "from-violet-500 to-purple-600",
+    glow: "rgba(139,92,246,0.35)",
+  },
+  {
+    value: "24/7",
+    label: "Support Ready",
+    desc: "Direct WhatsApp and email access — no ticket queues.",
+    icon: "clock",
+    tile: "from-emerald-400 to-teal-600",
+    glow: "rgba(16,185,129,0.35)",
+  },
+  {
+    value: "100%",
+    label: "Clear Requirement Process",
+    desc: "Written scope and quote before any payment, every time.",
+    icon: "check",
+    tile: "from-sky-400 to-cyan-600",
+    glow: "rgba(14,165,233,0.35)",
+  },
 ];
 
 const whyChoose = [
@@ -315,7 +350,61 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Section 3: Services Overview ────────────────── */}
+        {/* ── Section 3: Impact / Trust Numbers ───────────── */}
+        <Section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-[#f4f8ff] via-[#f9fbff] to-[#f1f9f5]">
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(50% 65% at 10% 5%, rgba(40,87,255,0.09), transparent 60%), radial-gradient(45% 60% at 90% 95%, rgba(16,185,129,0.09), transparent 60%)",
+            }}
+            aria-hidden
+          />
+          <div className="relative">
+            <Reveal>
+              <SectionHeading
+                eyebrow="Impact"
+                title={
+                  <>
+                    Skilloura Impact in{" "}
+                    <span className="font-accent font-normal text-accent">Numbers</span>
+                  </>
+                }
+                subtitle="Measurable digital delivery — every project starts with a written requirement and ends with a clean, documented handover."
+              />
+            </Reveal>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {impactStats.map((stat, i) => (
+                <Reveal key={stat.label} delay={Math.min(i * 0.07, 0.28)}>
+                  <div
+                    className="group relative h-full overflow-hidden rounded-3xl border border-white/80 bg-white/60 p-7 text-center shadow-[0_24px_55px_-30px_rgba(15,23,42,0.3)] ring-1 ring-line/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5"
+                    style={{ ["--stat-glow" as string]: stat.glow }}
+                  >
+                    <div
+                      className="pointer-events-none absolute inset-x-0 -top-16 h-32 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                      style={{ background: "radial-gradient(60% 100% at 50% 0%, var(--stat-glow), transparent 70%)" }}
+                      aria-hidden
+                    />
+                    <span
+                      className={`relative mx-auto grid size-14 place-items-center rounded-2xl bg-gradient-to-br text-white shadow-[0_14px_28px_-12px_var(--stat-glow)] ring-1 ring-white/40 ${stat.tile}`}
+                    >
+                      <Icon name={stat.icon} className="size-6" />
+                    </span>
+                    <p className="relative mt-5 text-4xl font-extrabold tracking-tight text-ink">
+                      {stat.value}
+                    </p>
+                    <p className="relative mt-1.5 text-sm font-bold uppercase tracking-wide text-ink">
+                      {stat.label}
+                    </p>
+                    <p className="relative mt-2 text-sm leading-6 text-ink-soft">{stat.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </Section>
+
+        {/* ── Section 4: Services Overview ────────────────── */}
         <Section className="bg-soft-panel border-y border-line" id="services">
           <Reveal>
             <SectionHeading
@@ -338,7 +427,7 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Section 4: How It Works ─────────────────────── */}
+        {/* ── Section 5: How It Works ─────────────────────── */}
         <Section id="how-it-works" className="bg-wash-mint border-b border-line">
           <Reveal>
             <SectionHeading
@@ -367,7 +456,7 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Section 5: Featured Packages ────────────────── */}
+        {/* ── Section 6: Featured Packages ────────────────── */}
         <Section className="bg-soft-panel border-y border-line">
           <Reveal>
             <SectionHeading
@@ -395,29 +484,6 @@ export default async function HomePage() {
               </Link>
             </p>
           </Reveal>
-        </Section>
-
-        {/* ── Section 6: Portfolio Preview ────────────────── */}
-        <Section id="portfolio" className="bg-wash-blue border-y border-line">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Work"
-              title={
-                <>
-                  Featured Work &{" "}
-                  <span className="font-accent font-normal text-accent">Concepts</span>
-                </>
-              }
-              subtitle="Concept builds that show exactly what we deliver. Live client projects are added here as they complete — with permission, never faked."
-            />
-          </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {portfolioItems.map((item, i) => (
-              <Reveal key={item.slug} delay={Math.min(i * 0.06, 0.3)}>
-                <PortfolioCard item={item} />
-              </Reveal>
-            ))}
-          </div>
         </Section>
 
         {/* ── Section 7: Why Choose Me ────────────────────── */}
