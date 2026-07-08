@@ -56,7 +56,7 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           {/* Brand + CTA */}
           <div className="max-w-sm">
-            <Logo />
+            <Logo size="lg" />
             <p className="mt-4 text-sm leading-6 text-ink-soft">
               {site.tagline} Websites, apps, AI automation, design, dashboards
               and marketing — with a clear requirement-based process.

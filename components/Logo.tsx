@@ -1,35 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Logo({ light = false }: { light?: boolean }) {
+// Renders the real Skilloura lockup artwork exactly as designed (mark on
+// top, full "Skilloura" wordmark + tagline below) — never recreated with
+// HTML text, so the name always stays fully legible.
+export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
+  const heightClass = size === "lg" ? "h-16 sm:h-20" : "h-12 sm:h-14";
   return (
-    <Link href="/" className="flex flex-col items-start justify-center group" aria-label="Skilloura home">
-      <div className="flex items-center gap-1 font-extrabold text-2xl tracking-tight leading-none">
-        <span className={light ? "text-white" : "text-ink"}>Skill</span>
-
-        {/* Official Skilloura mark */}
-        <Image
-          src="/logo-mark.png"
-          alt=""
-          width={64}
-          height={64}
-          priority
-          className="h-[26px] w-[26px] sm:h-[30px] sm:w-[30px] inline-block transition-transform duration-500 group-hover:rotate-[20deg]"
-        />
-
-        <span className={light ? "text-white" : "text-ink"}>ura</span>
-        <span className="text-accent animate-pulse">.</span>
-      </div>
-      
-      {/* Dynamic Sub-tagline */}
-      <span 
-        className={`text-[8px] sm:text-[9px] font-bold tracking-[0.16em] uppercase mt-1 transition-colors ${
-          light ? "text-white/60" : "text-ink-soft group-hover:text-accent"
-        }`}
-      >
-        ALL DIGITAL SOLUTIONS
-      </span>
+    <Link href="/" className="inline-flex items-center" aria-label="Skilloura home">
+      <Image
+        src="/logo-full.png"
+        alt="Skilloura — All Digital Solutions"
+        width={911}
+        height={711}
+        priority
+        className={`${heightClass} w-auto transition-transform duration-300 hover:scale-[1.03]`}
+      />
     </Link>
   );
 }
-
