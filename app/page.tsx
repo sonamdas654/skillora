@@ -351,7 +351,10 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 3: Impact / Trust Numbers ───────────── */}
-        <Section className="relative overflow-hidden border-b border-line bg-gradient-to-b from-[#f4f8ff] via-[#f9fbff] to-[#f1f9f5]">
+        <Section
+          padding="py-16 sm:py-20"
+          className="relative overflow-hidden border-b border-line bg-gradient-to-b from-[#f4f8ff] via-[#f9fbff] to-[#f1f9f5]"
+        >
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -405,7 +408,7 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 4: Services Overview ────────────────── */}
-        <Section className="bg-soft-panel border-y border-line" id="services">
+        <Section padding="pt-14 sm:pt-16 pb-20 sm:pb-28" className="bg-soft-panel border-y border-line" id="services">
           <Reveal>
             <SectionHeading
               eyebrow="Services"

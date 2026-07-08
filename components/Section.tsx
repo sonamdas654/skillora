@@ -4,13 +4,15 @@ export function Section({
   children,
   className = "",
   id,
+  padding = "py-20 sm:py-28",
 }: {
   children: ReactNode;
   className?: string;
   id?: string;
+  padding?: string;
 }) {
   return (
-    <section id={id} className={`py-20 sm:py-28 ${className}`}>
+    <section id={id} className={`${padding} ${className}`}>
       <div className="mx-auto max-w-[1520px] px-5 sm:px-8 lg:px-12">{children}</div>
     </section>
   );
