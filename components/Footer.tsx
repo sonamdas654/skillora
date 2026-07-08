@@ -123,7 +123,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 rounded-2xl border border-white/70 bg-white/55 px-6 py-4 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.25)] ring-1 ring-line/50 backdrop-blur-xl sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-accent/10 pt-6 sm:flex-row">
           <p className="text-xs font-medium text-ink-soft">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
