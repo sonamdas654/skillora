@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { whatsappLink } from "@/lib/site";
+import { getService } from "@/lib/services";
 import { WhatsAppIcon } from "./Header";
 
 // Slim conversion bar pinned to the bottom on phones/tablets. Slides in
@@ -28,6 +29,14 @@ export default function MobileCtaBar() {
     return null;
   }
 
+  // On a service page, carry that service into both CTAs.
+  const serviceSlug = pathname.startsWith("/services/") ? pathname.split("/")[2] : undefined;
+  const service = serviceSlug ? getService(serviceSlug) : undefined;
+  const waMessage = service
+    ? `Hi! I'm interested in ${service.name}. Can we discuss?`
+    : "Hi! I want to discuss a project with Skilloura.";
+  const quoteHref = service ? `/start-project?service=${service.slug}` : "/start-project";
+
   return (
     <div
       className={`fixed inset-x-0 bottom-0 z-40 lg:hidden transition-transform duration-300 ${
@@ -37,7 +46,7 @@ export default function MobileCtaBar() {
       <div className="border-t border-line bg-white/95 px-3 pt-2.5 backdrop-blur-md pb-[calc(0.625rem+env(safe-area-inset-bottom))] shadow-[0_-8px_30px_-12px_rgba(11,19,48,0.18)]">
         <div className="mx-auto flex max-w-md items-center gap-2.5">
           <a
-            href={whatsappLink("Hi! I want to discuss a project with Skilloura.")}
+            href={whatsappLink(waMessage)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-mint/40 bg-mint/10 px-4 py-3 text-sm font-bold text-mint"
@@ -46,7 +55,7 @@ export default function MobileCtaBar() {
             WhatsApp
           </a>
           <Link
-            href="/start-project"
+            href={quoteHref}
             className="inline-flex flex-[1.4] items-center justify-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(40,87,255,0.8)]"
           >
             Get Free Quote

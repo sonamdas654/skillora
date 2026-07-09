@@ -211,6 +211,81 @@ Design details, colors and technical choices — that's what you're hiring a pro
 
 Clients who share complete content upfront get their websites 2–3x faster, with fewer revisions and no scope arguments. One organized afternoon saves weeks.`,
   },
+  {
+    slug: "whatsapp-automation-for-small-business",
+    title: "WhatsApp Automation for Small Business: What It Can Actually Do in 2026",
+    metaDescription:
+      "Auto-replies, order updates, booking confirmations and lead follow-ups on WhatsApp — what automation really does for Indian small businesses, and what it costs.",
+    date: "2026-07-09",
+    readMinutes: 6,
+    category: "AI & Automation",
+    content: `Your customers are already on WhatsApp — that part needs no convincing. The question is whether you should keep answering every message manually. For most small businesses, the honest answer is no: 70–80% of incoming messages are the same five questions, and automation handles those perfectly.
+
+## What WhatsApp automation actually does
+
+- Instant replies to common questions — timings, prices, location, availability — even at 2 AM
+- Order and booking confirmations sent automatically, with reminders before appointments
+- New lead capture — every enquiry saved with name and number, nothing lost in chat history
+- Follow-up messages for quotes you sent last week (this alone recovers real revenue)
+- Catalog sharing — send your product list or price menu with one tap
+
+## What it can't do
+
+Automation doesn't close deals or handle angry customers — humans do. The right setup answers the repetitive 80% instantly and hands the important 20% to you with full context. Anyone promising a "fully automatic business" is selling you a disappointment.
+
+## Real examples by business type
+
+- Salon: booking requests get slot options automatically; day-before reminders reduce no-shows
+- Restaurant: menu link and order instructions sent instantly; regulars get updates about specials
+- Coaching centre: batch timings, fee structure and demo class booking — answered without lifting a finger
+- Retail shop: "Is this available?" gets a catalog link; new arrivals go to interested customers
+
+## What it costs
+
+Simple auto-reply and lead-capture setups start around ₹7,000 with Skilloura (market benchmark is near ₹10,000). Deeper flows — order updates, payment reminders, AI-powered replies that understand free-form questions — range ₹14,000–₹35,000 depending on scope. WhatsApp Business API fees, where required, are third-party costs and always listed separately in your quote.
+
+## Where to start
+
+Don't automate everything on day one. Start with auto-replies for your five most common questions plus lead capture. Measure for a month, then extend to whatever eats the most of your time. That's the order that pays for itself fastest.`,
+  },
+  {
+    slug: "signs-your-business-needs-a-dashboard",
+    title: "5 Signs Your Business Has Outgrown Excel (And Needs a Dashboard)",
+    metaDescription:
+      "Manual reports every Monday, numbers that don't match, decisions made on gut feel — when a Power BI dashboard pays for itself, and what it costs in India.",
+    date: "2026-07-09",
+    readMinutes: 5,
+    category: "Data & Dashboards",
+    content: `Excel is brilliant — until your business grows past it. Most owners don't notice the crossover point because the pain arrives slowly: reports take a little longer each month, numbers disagree a little more often. Here are the five signs it's time.
+
+## 1. Someone spends hours every week making the same report
+
+If a person copies data from multiple files every Monday to build the same summary, you're paying a salary for work a dashboard does automatically. The report that takes three hours should take zero — refreshed every morning before you open the office.
+
+## 2. Two reports show two different numbers
+
+Sales says one figure, accounts says another, and the truth is a third number nobody has. This happens when data lives in disconnected files with manual copy-paste in between. A dashboard pulls from the source systems directly — one number, one truth.
+
+## 3. You find out about problems weeks late
+
+Stock that ran out, an invoice that's 45 days overdue, a branch whose sales quietly dropped — Excel tells you at month-end, if someone builds the report. A dashboard shows it the day it happens, with alerts for the things you can't afford to miss.
+
+## 4. Decisions are made on gut feel
+
+Which product actually makes you the most margin? Which marketing channel brings buyers, not just clicks? If the answer is "I think..." rather than "I know", the data exists — it's just not visible. Seeing it changes what you decide.
+
+## 5. Your team asks you for numbers instead of acting on them
+
+When every question needs the owner to dig through files, the owner becomes the bottleneck. A shared dashboard with the right access lets managers see their own numbers and act — while you see everything.
+
+## What a dashboard costs
+
+A single-purpose Power BI dashboard (sales, inventory or cashflow) starts around ₹10,500 with Skilloura against a market benchmark near ₹15,000. Multi-source executive dashboards with automated refresh land between ₹21,000–₹42,000 depending on how many systems feed them. Compare that with the monthly hours currently spent building reports by hand — most dashboards pay for themselves inside a quarter.
+
+## The honest caveat
+
+A dashboard is only as good as the data feeding it. If your sales live in a notebook, start by digitizing the source (a simple billing system or even a structured sheet) — then the dashboard becomes genuinely powerful.`,
+  },
 ];
 
 export function getBlogPost(slug: string) {

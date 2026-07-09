@@ -24,6 +24,7 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
         width={903}
         height={560}
         priority
+        sizes={size === "lg" ? "160px" : "120px"}
         className={`${img} w-auto transition-transform duration-300 group-hover:scale-[1.03]`}
       />
       <span
