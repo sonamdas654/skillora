@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Icon from "./Icons";
+import PortfolioMockup from "./PortfolioMockup";
 import type { ServiceCategory, ServicePackage } from "@/lib/services";
 import type { PortfolioItem } from "@/lib/portfolio";
 
@@ -186,29 +187,14 @@ export function PackageCard({
 export function PortfolioCard({ item }: { item: PortfolioItem }) {
   return (
     <div className="card-lift group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white">
-      <div
-        className="relative h-44 overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, ${item.accent}14, ${item.accent}30)`,
-        }}
-      >
-        <div
-          className="absolute -right-10 -top-10 size-40 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-125"
-          style={{ background: `${item.accent}33` }}
-          aria-hidden
-        />
-        <span
-          className="absolute left-5 top-5 grid size-12 place-items-center rounded-xl text-white shadow-lg"
-          style={{ background: item.accent }}
-        >
-          <Icon name={item.icon} className="size-6" />
-        </span>
+      <div className="relative">
+        <PortfolioMockup slug={item.slug} accent={item.accent} />
         {item.isDemo && (
-          <span className="absolute right-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink-soft backdrop-blur">
+          <span className="absolute right-4 top-8 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink-soft backdrop-blur">
             Concept
           </span>
         )}
-        <span className="absolute bottom-4 left-5 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
+        <span className="absolute bottom-3 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
           {item.industry}
         </span>
       </div>

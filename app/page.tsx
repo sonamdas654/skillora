@@ -2,6 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppSticky from "@/components/WhatsAppSticky";
+import MobileCtaBar from "@/components/MobileCtaBar";
 import Hero3DLoader from "@/components/Hero3DLoader";
 import HeroMotion from "@/components/HeroMotion";
 import Reveal from "@/components/Reveal";
@@ -15,6 +16,8 @@ import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
 import { prisma } from "@/lib/db";
 import JsonLd from "@/components/JsonLd";
+import CountUp from "@/components/CountUp";
+import EstimateTeaser from "@/components/EstimateTeaser";
 import { professionalServiceSchema } from "@/lib/schema";
 
 export const dynamic = "force-dynamic";
@@ -45,7 +48,8 @@ const steps = [
 // Impact / trust numbers — honest, capability-based stats (no fake client counts).
 const impactStats = [
   {
-    value: "20+",
+    num: 20,
+    suffix: "+",
     label: "Digital Services",
     desc: "Websites, apps, AI, design, video and more under one roof.",
     icon: "spark",
@@ -53,7 +57,8 @@ const impactStats = [
     glow: "rgba(40,87,255,0.35)",
   },
   {
-    value: "50+",
+    num: 50,
+    suffix: "+",
     label: "Project Concepts",
     desc: "Ready reference designs to lock your vision before work starts.",
     icon: "palette",
@@ -61,7 +66,8 @@ const impactStats = [
     glow: "rgba(139,92,246,0.35)",
   },
   {
-    value: "24/7",
+    num: 24,
+    suffix: "/7",
     label: "Support Ready",
     desc: "Direct WhatsApp and email access — no ticket queues.",
     icon: "clock",
@@ -69,7 +75,8 @@ const impactStats = [
     glow: "rgba(16,185,129,0.35)",
   },
   {
-    value: "100%",
+    num: 100,
+    suffix: "%",
     label: "Clear Requirement Process",
     desc: "Written scope and quote before any payment, every time.",
     icon: "check",
@@ -400,8 +407,8 @@ export default async function HomePage() {
                     >
                       <Icon name={stat.icon} className="size-6" />
                     </span>
-                    <p className="relative mt-5 text-4xl font-extrabold tracking-tight text-ink">
-                      {stat.value}
+                    <p className="relative mt-5 text-4xl font-extrabold tracking-tight text-ink tabular-nums">
+                      <CountUp value={stat.num} suffix={stat.suffix} />
                     </p>
                     <p className="relative mt-1.5 text-sm font-bold uppercase tracking-wide text-ink">
                       {stat.label}
@@ -493,6 +500,22 @@ export default async function HomePage() {
                 View full pricing details <Icon name="arrow" className="size-4" />
               </Link>
             </p>
+          </Reveal>
+
+          {/* Instant estimate teaser — same data + 30% rule as the full form */}
+          <Reveal delay={0.25}>
+            <div className="mx-auto mt-12 max-w-4xl">
+              <div className="mb-6 text-center">
+                <h3 className="text-xl sm:text-2xl font-bold text-ink">
+                  Curious what <span className="font-accent font-normal text-accent">your project</span>{" "}
+                  costs?
+                </h3>
+                <p className="mt-1.5 text-sm text-ink-soft">
+                  Two taps for a guide price — exact quote comes from the smart form.
+                </p>
+              </div>
+              <EstimateTeaser />
+            </div>
           </Reveal>
         </Section>
 
@@ -638,6 +661,7 @@ export default async function HomePage() {
       </main>
       <Footer />
       <WhatsAppSticky />
+      <MobileCtaBar />
     </>
   );
 }

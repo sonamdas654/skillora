@@ -79,6 +79,51 @@ const WEB_CONTENT: Record<string, { brand: string; hero: string; sub: string; ca
     ],
     cta: "Book appointment",
   },
+  // Portfolio concept cards reuse the same renderer with their own content
+  "web-restaurant": {
+    brand: "Spice Route",
+    hero: "Order your favourites in 2 taps",
+    sub: "Full menu with photos, table booking and WhatsApp ordering — zero commission.",
+    cards: [
+      { t: "Paneer Tikka", s: "₹240 · bestseller" },
+      { t: "Dal Makhani", s: "₹210" },
+      { t: "Butter Naan", s: "₹45" },
+    ],
+    cta: "Order on WhatsApp",
+  },
+  "web-gym": {
+    brand: "IronCore Gym",
+    hero: "Stronger every single week",
+    sub: "Membership plans, trainer profiles and class schedule — join in 60 seconds.",
+    cards: [
+      { t: "Monthly Plan", s: "₹1,499" },
+      { t: "Quarterly", s: "₹3,999 · save 11%" },
+      { t: "Annual Pro", s: "₹11,999" },
+    ],
+    cta: "Get free trial",
+  },
+  "web-salon": {
+    brand: "Luxe Salon",
+    hero: "Look amazing, book in seconds",
+    sub: "Service menu with prices, stylist picks and online slot booking.",
+    cards: [
+      { t: "Hair Spa", s: "₹899 · 45 min" },
+      { t: "Bridal Package", s: "₹12,500" },
+      { t: "Classic Facial", s: "₹1,199" },
+    ],
+    cta: "Book appointment",
+  },
+  "web-ecommerce": {
+    brand: "CraftKart",
+    hero: "Handmade. Delivered pan-India.",
+    sub: "Product catalog, secure checkout and order tracking — built to convert.",
+    cards: [
+      { t: "Terracotta Vase", s: "₹649 · ★4.8" },
+      { t: "Jute Tote Bag", s: "₹399" },
+      { t: "Brass Diya Set", s: "₹899 · new" },
+    ],
+    cta: "Shop now",
+  },
 };
 
 export function WebPreview({ id, accent }: { id: string; accent: string }) {

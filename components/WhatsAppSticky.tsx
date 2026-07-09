@@ -8,7 +8,7 @@ export default function WhatsAppSticky() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-50 grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)] hover:scale-110 transition-transform"
+      className="fixed bottom-5 right-5 z-50 hidden lg:grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)] hover:scale-110 transition-transform"
     >
       <WhatsAppIcon className="size-7" />
     </a>

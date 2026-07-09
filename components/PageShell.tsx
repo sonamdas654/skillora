@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import WhatsAppSticky from "./WhatsAppSticky";
+import MobileCtaBar from "./MobileCtaBar";
 
 export default function PageShell({ children }: { children: ReactNode }) {
   return (
@@ -10,6 +11,7 @@ export default function PageShell({ children }: { children: ReactNode }) {
       <main className="pt-20 sm:pt-[88px]">{children}</main>
       <Footer />
       <WhatsAppSticky />
+      <MobileCtaBar />
     </>
   );
 }
