@@ -6,6 +6,7 @@ import Icon from "@/components/Icons";
 import { Section, SectionHeading } from "@/components/Section";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/how-it-works" },
   title: "How It Works — Clear 8-Step Project Process",
   description:
     "From requirement submission to final delivery: how projects work at Skilloura. Smart forms, written quotations, preview before delivery and professional handover.",

@@ -7,8 +7,11 @@ import FaqAccordion from "@/components/FaqAccordion";
 import { Section } from "@/components/Section";
 import { allFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { faqSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/faq" },
   title: "FAQ — Pricing, Process, Revisions & Delivery Questions",
   description:
     "Answers to common questions about submitting projects, advance payment, revisions, file uploads, delivery and maintenance at Skilloura.",
@@ -17,6 +20,7 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <PageShell>
+      <JsonLd data={faqSchema(allFaqs)} />
       <PageHero
         eyebrow="FAQ"
         title={

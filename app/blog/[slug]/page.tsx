@@ -4,8 +4,13 @@ import Link from "next/link";
 import PageShell from "@/components/PageShell";
 import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
+import Image from "next/image";
 import { blogPosts, getBlogPost, type BlogPost } from "@/lib/blog";
 import { prisma } from "@/lib/db";
+import { site } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import ShareButtons from "@/components/ShareButtons";
+import { blogPostingSchema, breadcrumbSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -35,7 +40,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await resolvePost(slug);
   if (!post) return {};
-  return { title: post.title, description: post.metaDescription };
+  return {
+    title: post.title,
+    description: post.metaDescription,
+    alternates: { canonical: `/blog/${slug}` },
+  };
 }
 
 function renderContent(content: string) {
@@ -77,14 +86,27 @@ export default async function BlogPostPage({
   const post = await resolvePost(slug);
   if (!post) notFound();
 
+  const postUrl = `${site.url}/blog/${post.slug}`;
+
   return (
     <PageShell>
+      <JsonLd
+        data={[
+          blogPostingSchema(post),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
       <div className="relative overflow-hidden border-b border-line">
         <div className="absolute inset-0 bg-hero-glow" aria-hidden />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 py-16 sm:py-20">
           <div className="flex items-center gap-2 text-xs font-semibold">
             <span className="rounded-full bg-accent-soft px-3 py-1 text-accent">{post.category}</span>
             <span className="text-ink-soft">
+              Published{" "}
               {new Date(post.date).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
             </span>
             <span className="text-ink-soft">· {post.readMinutes} min read</span>
@@ -92,11 +114,24 @@ export default async function BlogPostPage({
           <h1 className="mt-5 text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold tracking-tight leading-[1.12] text-ink">
             {post.title}
           </h1>
+          {/* Author strip */}
+          <div className="mt-6 flex items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-full border border-line bg-white p-1.5">
+              <Image src="/logo-mark.png" alt="" width={40} height={40} className="size-full object-contain" />
+            </span>
+            <div>
+              <p className="text-sm font-bold text-ink">Skilloura Team</p>
+              <p className="text-xs text-ink-soft">Websites, apps, AI automation &amp; digital growth</p>
+            </div>
+          </div>
         </div>
       </div>
       <Section>
         <article className="mx-auto max-w-3xl">
           {renderContent(post.content)}
+          <div className="mt-10 border-t border-line pt-6">
+            <ShareButtons url={postUrl} title={post.title} />
+          </div>
           <div className="mt-14 rounded-3xl bg-gradient-to-br from-accent to-accent-deep p-8 text-white text-center">
             <h2 className="text-2xl font-bold">
               Need help with this for{" "}

@@ -5,6 +5,7 @@ import { Section } from "@/components/Section";
 import Icon from "@/components/Icons";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/start-project" },
   title: "Submit Project Requirement — Get a Clear Plan & Quote",
   description:
     "Submit your website, app, AI automation, design or digital project requirement through a smart form. Upload files, set budget and deadline — reply within 24 hours.",

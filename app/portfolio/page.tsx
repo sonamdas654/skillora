@@ -11,6 +11,7 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/portfolio" },
   title: "Portfolio — Featured Work & Concepts",
   description:
     "Featured concepts across websites, ecommerce, AI chatbots and dashboards. Real client projects are added with permission as they complete — never faked.",

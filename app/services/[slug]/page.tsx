@@ -10,6 +10,8 @@ import { PackageCard } from "@/components/Cards";
 import { serviceCategories, getService } from "@/lib/services";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
+import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return serviceCategories.map((s) => ({ slug: s.slug }));
@@ -26,6 +28,7 @@ export async function generateMetadata({
   return {
     title: `${service.name} — Get a Custom Quote`,
     description: service.description,
+    alternates: { canonical: `/services/${slug}` },
   };
 }
 
@@ -40,6 +43,17 @@ export default async function ServiceDetailPage({
 
   return (
     <PageShell>
+      <JsonLd
+        data={[
+          serviceSchema(service),
+          faqSchema(service.faqs),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.name, path: `/services/${service.slug}` },
+          ]),
+        ]}
+      />
       {/* Service hero */}
       <div className="relative overflow-hidden border-b border-line">
         <div className="absolute inset-0 bg-hero-glow" aria-hidden />

@@ -14,8 +14,14 @@ import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
 import { prisma } from "@/lib/db";
+import JsonLd from "@/components/JsonLd";
+import { professionalServiceSchema } from "@/lib/schema";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = {
+  alternates: { canonical: "/" },
+};
 
 const trustPoints = [
   "Clear pricing before work",
@@ -207,6 +213,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={professionalServiceSchema()} />
       <Header />
       <main>
         {/* ── Section 1: Hero ─────────────────────────────── */}

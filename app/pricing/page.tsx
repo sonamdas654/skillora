@@ -8,6 +8,7 @@ import { PackageCard } from "@/components/Cards";
 import { serviceCategories } from "@/lib/services";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pricing" },
   title: "Pricing — Transparent Packages for Every Digital Service",
   description:
     "Guide pricing for websites, apps, AI automation, design, video, marketing, dashboards and more. Skilloura estimates stay about 30% below market benchmark, with written quotation before payment.",

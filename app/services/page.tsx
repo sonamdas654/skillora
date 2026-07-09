@@ -7,6 +7,7 @@ import Link from "next/link";
 import Icon from "@/components/Icons";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/services" },
   title: "Services — Websites, Apps, AI Automation, Design & More",
   description:
     "Choose from 9 digital service categories: website development, mobile apps, AI automation, branding, video editing, marketing, dashboards, career services and custom software.",

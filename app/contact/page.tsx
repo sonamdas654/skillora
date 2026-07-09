@@ -8,6 +8,7 @@ import { site, whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact — Ask Anything, Get a Reply Within 24 Hours",
   description:
     "Contact Skilloura for websites, apps, AI automation, design and digital services. WhatsApp, email or contact form — reply within 24 hours.",

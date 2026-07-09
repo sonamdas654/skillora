@@ -4,9 +4,10 @@ import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { Section, SectionHeading } from "@/components/Section";
-import { site } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About — The Story Behind Skilloura",
   description:
     "Skilloura means Skill + Aura: digital services delivered with professional impact. A personal digital agency with a clear requirement-based process.",
@@ -119,6 +120,60 @@ export default function AboutPage() {
               </div>
             </Reveal>
           ))}
+        </div>
+      </Section>
+
+      {/* Founder / person behind the work — real accountability, no stock faces */}
+      <Section className="bg-soft-panel border-b border-line">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <SectionHeading
+              eyebrow="The person behind it"
+              title={
+                <>
+                  One builder,{" "}
+                  <span className="font-accent font-normal text-accent">full accountability</span>
+                </>
+              }
+            />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="mt-10 rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
+              <div className="space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
+                <p>
+                  Skilloura is run hands-on by its founder — the same person who reads your
+                  requirement, asks the right questions, writes your quotation and builds your
+                  project. There is no sales team promising things the delivery team can&apos;t do,
+                  because they are the same person.
+                </p>
+                <p>
+                  Every process on this site — the smart requirement form, written scope before
+                  payment, preview before delivery — exists because of one belief:{" "}
+                  <strong className="text-ink">
+                    clients don&apos;t get burned by bad developers as often as they get burned by
+                    unclear agreements.
+                  </strong>{" "}
+                  Fix the clarity, and the work takes care of itself.
+                </p>
+                <p>
+                  Questions before starting? Message directly on{" "}
+                  <a
+                    href={whatsappLink("Hi! I read the About page and have a question.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-mint hover:underline"
+                  >
+                    WhatsApp
+                  </a>{" "}
+                  or email{" "}
+                  <a href={`mailto:${site.email}`} className="font-semibold text-accent hover:underline">
+                    {site.email}
+                  </a>
+                  . You&apos;ll get a reply from the person who&apos;ll actually do the work.
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </Section>
 
