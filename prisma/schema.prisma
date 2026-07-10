@@ -226,6 +226,20 @@ model BlogPost {
   updatedAt       DateTime @updatedAt
 }
 
+// One-time login codes for the client portal. Only emails that already
+// exist on a Lead can request a code; codes are stored hashed.
+model ClientOtp {
+  id        String   @id @default(cuid())
+  email     String
+  codeHash  String
+  expiresAt DateTime
+  attempts  Int      @default(0)
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
 model ContactMessage {
   id        String   @id @default(cuid())
   name      String

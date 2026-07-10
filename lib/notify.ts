@@ -168,6 +168,62 @@ export async function notifyNewReview(review: {
   );
 }
 
+export async function sendClientOtp(email: string, code: string) {
+  await sendEmail(
+    email,
+    `${code} is your Skilloura login code`,
+    `<h2 style="margin:0 0 8px">Your login code</h2>
+     <p style="font-size:32px;font-weight:800;letter-spacing:6px;margin:12px 0;color:#1a3fd6">${esc(code)}</p>
+     <p style="font-size:13px;color:#475569">Enter this code on the Skilloura client portal to sign in.
+     It expires in <b>10 minutes</b>. If you didn't request it, you can safely ignore this email.</p>`
+  );
+}
+
+export async function notifyQuotationAccepted(q: {
+  quoteNumber: string;
+  quoteAmount: number;
+  clientName: string;
+  email: string;
+}) {
+  await sendEmail(
+    ADMIN,
+    `Quotation ${q.quoteNumber} ACCEPTED by ${q.clientName}`,
+    `<h2>Quotation accepted 🎉</h2>
+     ${section(
+       "Details",
+       row("Quotation", q.quoteNumber) +
+         row("Amount", "₹" + q.quoteAmount.toLocaleString("en-IN")) +
+         row("Client", q.clientName) +
+         row("Email", q.email)
+     )}
+     <p style="font-size:13px;color:#475569">Next step: share advance payment details / confirm payment in Admin → Payments.</p>`
+  );
+}
+
+export async function notifyPaymentClaimed(p: {
+  clientName: string;
+  email: string;
+  amount: number;
+  reference: string;
+  invoiceNumber?: string | null;
+}) {
+  await sendEmail(
+    ADMIN,
+    `Payment reference submitted by ${p.clientName} — ₹${p.amount.toLocaleString("en-IN")}`,
+    `<h2>Client says they paid</h2>
+     ${section(
+       "Details",
+       row("Client", p.clientName) +
+         row("Email", p.email) +
+         row("Amount", "₹" + p.amount.toLocaleString("en-IN")) +
+         row("UPI/Txn reference", p.reference) +
+         row("Invoice", p.invoiceNumber)
+     )}
+     <p style="font-size:13px;color:#475569">Verify the credit in your bank/UPI app, then mark this payment
+     as <b>Completed</b> in Admin → the client sees it as confirmed.</p>`
+  );
+}
+
 export async function notifyContactMessage(msg: { name: string; email: string; message: string }) {
   await sendEmail(
     ADMIN,

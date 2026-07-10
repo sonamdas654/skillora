@@ -12,6 +12,7 @@ const company = [
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
+  { href: "/client/login", label: "Client Login" },
 ];
 
 const legal = [
