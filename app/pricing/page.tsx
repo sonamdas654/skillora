@@ -14,33 +14,7 @@ export const metadata: Metadata = {
     "Guide pricing for websites, apps, AI automation, design, video, marketing, dashboards and more. Skilloura estimates stay about 30% below market benchmark, with written quotation before payment.",
 };
 
-const maintenancePlans = [
-  {
-    name: "Basic Maintenance",
-    price: "₹5,600",
-    period: "/month",
-    features: ["Minor content update", "Backup", "Small bug fix"],
-  },
-  {
-    name: "Standard Maintenance",
-    price: "₹8,400",
-    period: "/month",
-    features: ["Monthly updates", "Bug fixing", "Speed check", "Small changes"],
-    highlighted: true,
-  },
-  {
-    name: "Premium Maintenance",
-    price: "₹14,000",
-    period: "/month",
-    features: [
-      "Priority support",
-      "SEO support",
-      "Feature improvement",
-      "Monthly report",
-      "Automation monitoring",
-    ],
-  },
-];
+import { maintenancePlans } from "@/lib/maintenancePlans";
 
 const paymentRules = [
   "Project starts after 40–50% advance payment",

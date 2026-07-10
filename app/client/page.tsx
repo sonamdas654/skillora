@@ -76,6 +76,7 @@ export default async function ClientDashboard() {
       quotations: { orderBy: { createdAt: "desc" } },
       invoices: { orderBy: { createdAt: "desc" } },
       payments: { orderBy: { createdAt: "desc" } },
+      deliveryFiles: { orderBy: { createdAt: "desc" } },
     },
   });
 
@@ -197,6 +198,34 @@ export default async function ClientDashboard() {
                           </span>
                         </Link>
                       ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Delivered files */}
+              {lead.deliveryFiles.length > 0 && (
+                <div className="mt-6">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-ink-soft">
+                    Files &amp; deliverables
+                  </h3>
+                  <div className="mt-2 space-y-2">
+                    {lead.deliveryFiles.map((f) => (
+                      <a
+                        key={f.id}
+                        href={`/api/client/files/${f.id}`}
+                        className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line px-4 py-3 transition-colors hover:border-accent"
+                      >
+                        <span className="text-sm font-semibold text-ink">
+                          📎 {f.fileName}
+                          {f.note && (
+                            <span className="ml-2 font-normal text-ink-soft">· {f.note}</span>
+                          )}
+                        </span>
+                        <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-bold text-accent">
+                          Download
+                        </span>
+                      </a>
+                    ))}
                   </div>
                 </div>
               )}

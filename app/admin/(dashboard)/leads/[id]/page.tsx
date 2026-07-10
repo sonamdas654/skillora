@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { whatsappLink } from "@/lib/site";
 import LeadActions from "@/components/admin/LeadActions";
 import AiAssist from "@/components/admin/AiAssist";
+import DeliveryManager from "@/components/admin/DeliveryManager";
 
 export const metadata = { title: "Lead Detail", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -19,6 +20,7 @@ export default async function LeadDetailPage({
     include: {
       formAnswers: true,
       uploadedFiles: true,
+      deliveryFiles: { orderBy: { createdAt: "desc" } },
       notes: { orderBy: { createdAt: "desc" }, include: { user: { select: { name: true } } } },
     },
   });
@@ -135,6 +137,18 @@ export default async function LeadDetailPage({
               </ul>
             )}
           </div>
+
+          {/* Deliverables → client portal */}
+          <DeliveryManager
+            leadId={lead.id}
+            files={lead.deliveryFiles.map((f) => ({
+              id: f.id,
+              fileName: f.fileName,
+              fileSize: f.fileSize,
+              note: f.note,
+              createdAt: f.createdAt.toISOString(),
+            }))}
+          />
         </div>
 
         <div className="space-y-6">

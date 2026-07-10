@@ -11,6 +11,7 @@ const nav = [
   { href: "/admin/invoices", label: "Invoices" },
   { href: "/admin/projects", label: "Projects" },
   { href: "/admin/followups", label: "Follow-ups" },
+  { href: "/admin/tickets", label: "Tickets" },
   { href: "/admin/portfolio", label: "Portfolio" },
   { href: "/admin/testimonials", label: "Testimonials" },
   { href: "/admin/blog", label: "Blog" },

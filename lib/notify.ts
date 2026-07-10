@@ -224,6 +224,71 @@ export async function notifyPaymentClaimed(p: {
   );
 }
 
+export async function notifyFilesDelivered(d: {
+  clientName: string;
+  email: string;
+  fileCount: number;
+}) {
+  await sendEmail(
+    d.email,
+    `Your project files are ready — Skilloura`,
+    `<h2>Hi ${esc(d.clientName)},</h2>
+     <p>${d.fileCount} ${d.fileCount === 1 ? "file has" : "files have"} been delivered to your
+     client portal. Log in to view and download them:</p>
+     <p><a href="https://www.skilloura.com/client/login" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Open client portal</a></p>
+     <p style="font-size:13px;color:#475569">Sign in with this email address — a login code will be sent to you.</p>
+     <p>— Skilloura · Smart Digital Services, Delivered with Skill.</p>`
+  );
+}
+
+export async function notifyNewTicket(t: {
+  clientName?: string | null;
+  email: string;
+  subject: string;
+  message: string;
+  ticketId: string;
+}) {
+  await sendEmail(
+    ADMIN,
+    `Support ticket: ${t.subject}`,
+    `<h2>New support ticket</h2>
+     ${section(
+       "Ticket",
+       row("From", t.clientName || t.email) +
+         row("Email", t.email) +
+         row("Subject", t.subject) +
+         row("Message", t.message)
+     )}
+     <p style="font-size:13px;color:#475569">Reply from Admin → Tickets — the client sees it in
+     their portal and gets an email.</p>`
+  );
+}
+
+export async function notifyTicketReply(t: {
+  toClient: boolean;
+  email: string;
+  subject: string;
+  message: string;
+}) {
+  if (t.toClient) {
+    await sendEmail(
+      t.email,
+      `Reply to your ticket: ${t.subject}`,
+      `<h2>You have a reply</h2>
+       <p style="white-space:pre-line">${esc(t.message)}</p>
+       <p><a href="https://www.skilloura.com/client/login" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">View in portal</a></p>
+       <p>— Skilloura</p>`
+    );
+  } else {
+    await sendEmail(
+      ADMIN,
+      `Client replied: ${t.subject}`,
+      `<h2>Client reply on ticket</h2>
+       ${section("Reply", row("From", t.email) + row("Message", t.message))}`
+    );
+  }
+}
+
 export async function notifyContactMessage(msg: { name: string; email: string; message: string }) {
   await sendEmail(
     ADMIN,

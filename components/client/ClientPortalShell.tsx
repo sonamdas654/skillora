@@ -24,6 +24,24 @@ export default function ClientPortalShell({
             <LogoutButton />
           </div>
         </div>
+        <nav
+          className="mx-auto flex max-w-5xl gap-1 px-4 pb-2 sm:px-6"
+          aria-label="Portal navigation"
+        >
+          {[
+            { href: "/client", label: "Dashboard" },
+            { href: "/client/support", label: "Support" },
+            { href: "/client/maintenance", label: "Maintenance" },
+          ].map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="rounded-full px-3.5 py-1.5 text-xs font-semibold text-ink-soft hover:bg-accent-soft hover:text-accent transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
       </header>
       <main className="mx-auto max-w-5xl px-4 sm:px-6 py-8 sm:py-10">{children}</main>
       <footer className="mx-auto max-w-5xl px-4 sm:px-6 pb-8">

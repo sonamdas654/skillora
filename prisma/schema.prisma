@@ -82,6 +82,8 @@ model Lead {
   projects              Project[]
   notes                 Note[]
   followups             Followup[]
+  deliveryFiles         DeliveryFile[]
+  tickets               Ticket[]
 }
 
 model FormAnswer {
@@ -224,6 +226,46 @@ model BlogPost {
   status          String   @default("draft")
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+// Final deliverables the owner uploads for a client (live links docs,
+// credentials PDF, source zip, training video...). Client downloads via
+// an ownership-checked proxy from the portal.
+model DeliveryFile {
+  id             String   @id @default(cuid())
+  leadId         String
+  lead           Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  fileName       String
+  storedFileName String
+  fileType       String
+  fileSize       Int
+  blobUrl        String?
+  note           String?
+  createdAt      DateTime @default(now())
+}
+
+// Client support tickets — scoped by the portal email.
+model Ticket {
+  id        String          @id @default(cuid())
+  email     String
+  leadId    String?
+  lead      Lead?           @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  subject   String
+  status    String          @default("Open") // Open | Replied | Closed
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  messages  TicketMessage[]
+
+  @@index([email])
+}
+
+model TicketMessage {
+  id        String   @id @default(cuid())
+  ticketId  String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  sender    String // "client" | "admin"
+  message   String
+  createdAt DateTime @default(now())
 }
 
 // One-time login codes for the client portal. Only emails that already
