@@ -20,6 +20,29 @@ export async function sendOwnerWhatsApp(text: string) {
   }
 }
 
+// Instant Telegram ping to the owner. No-ops unless TELEGRAM_BOT_TOKEN +
+// TELEGRAM_CHAT_ID are set. Never throws.
+export async function sendOwnerTelegram(text: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, disable_web_page_preview: true }),
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (err) {
+    console.error("[telegram-alert] failed:", err);
+  }
+}
+
+// One call → every instant channel the owner has configured.
+export async function ownerPing(text: string) {
+  await Promise.all([sendOwnerWhatsApp(text), sendOwnerTelegram(text)]);
+}
+
 async function sendEmail(to: string, subject: string, html: string) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
@@ -151,8 +174,8 @@ export async function notifyNewLead(
     html
   );
 
-  // Instant heads-up on the owner's own WhatsApp (no-op until CallMeBot env is set)
-  await sendOwnerWhatsApp(
+  // Instant heads-up on the owner's phone (WhatsApp/Telegram — whichever is configured)
+  await ownerPing(
     `🔔 New Skilloura lead!\n${lead.clientName} — ${lead.serviceCategory}${lead.serviceType ? ` (${lead.serviceType})` : ""}\nBudget: ${lead.budgetRange}\nPhone: ${lead.phone}\n${siteUrl}/admin/leads/${lead.id}`
   );
 }
@@ -188,6 +211,9 @@ export async function notifyNewReview(review: {
      <p style="font-size:13px;color:#475569">It is saved as <b>Pending</b> — approve it in
      Admin → Testimonials to show it on the homepage.</p>`
   );
+  await ownerPing(
+    `⭐ New review: ${review.rating}/5 from ${review.clientName}!\nAdmin → Testimonials me approve karo.`
+  );
 }
 
 export async function sendClientOtp(email: string, code: string) {
@@ -220,6 +246,9 @@ export async function notifyQuotationAccepted(q: {
      )}
      <p style="font-size:13px;color:#475569">Next step: share advance payment details / confirm payment in Admin → Payments.</p>`
   );
+  await ownerPing(
+    `✅ Quotation ACCEPTED!\n${q.clientName} ne ${q.quoteNumber} accept kiya — ₹${q.quoteAmount.toLocaleString("en-IN")}`
+  );
 }
 
 export async function notifyPaymentClaimed(p: {
@@ -243,6 +272,9 @@ export async function notifyPaymentClaimed(p: {
      )}
      <p style="font-size:13px;color:#475569">Verify the credit in your bank/UPI app, then mark this payment
      as <b>Completed</b> in Admin → the client sees it as confirmed.</p>`
+  );
+  await ownerPing(
+    `💰 Payment claim: ${p.clientName} says paid ₹${p.amount.toLocaleString("en-IN")}${p.invoiceNumber ? ` (${p.invoiceNumber})` : ""}\nRef: ${p.reference}\nBank me check karke Admin me Completed karo.`
   );
 }
 
@@ -284,6 +316,7 @@ export async function notifyNewTicket(t: {
      <p style="font-size:13px;color:#475569">Reply from Admin → Tickets — the client sees it in
      their portal and gets an email.</p>`
   );
+  await ownerPing(`🎫 New support ticket: "${t.subject}"\nFrom: ${t.clientName || t.email}`);
 }
 
 export async function notifyTicketReply(t: {
