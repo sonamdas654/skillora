@@ -63,7 +63,8 @@ export default function FollowupsManager({
     router.refresh();
   }
 
-  const now = Date.now();
+  // Captured once per mount — "overdue" doesn't need to tick live.
+  const [now] = useState(() => Date.now());
   const pending = followups.filter((f) => f.status === "Pending");
   const overdue = pending.filter((f) => new Date(f.date).getTime() < now);
   const done = followups.filter((f) => f.status !== "Pending");

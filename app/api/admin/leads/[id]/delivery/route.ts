@@ -12,7 +12,7 @@ const ALLOWED_EXT = ["jpg", "jpeg", "png", "pdf", "docx", "xlsx", "zip", "mp4", 
 const MAX_FILE_SIZE = 25 * 1024 * 1024;
 const MAX_FILES = 10;
 
-const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+const blobEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 const DELIVERY_DIR = path.join(process.cwd(), "uploads", "delivery");
 
 export async function POST(
@@ -32,7 +32,7 @@ export async function POST(
   if (files.length === 0) return NextResponse.json({ error: "No files" }, { status: 400 });
   if (files.length > MAX_FILES) return NextResponse.json({ error: `Max ${MAX_FILES} files` }, { status: 400 });
 
-  if (!useBlob()) await mkdir(DELIVERY_DIR, { recursive: true });
+  if (!blobEnabled()) await mkdir(DELIVERY_DIR, { recursive: true });
 
   const saved = [];
   for (const file of files) {
@@ -50,7 +50,7 @@ export async function POST(
     const buffer = Buffer.from(await file.arrayBuffer());
 
     let blobUrl: string | null = null;
-    if (useBlob()) {
+    if (blobEnabled()) {
       const { put } = await import("@vercel/blob");
       const blob = await put(`delivery/${storedName}`, buffer, {
         access: "public", // unguessable pathname; download goes through client-auth proxy

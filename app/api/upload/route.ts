@@ -12,7 +12,7 @@ const MAX_FILES = 10;
 // Storage: Vercel Blob in production (BLOB_READ_WRITE_TOKEN set), local disk
 // outside /public otherwise. Either way files are served only via the
 // admin download API — blob URLs are never exposed to the client.
-const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+const blobEnabled = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 const UPLOAD_DIR = path.join(process.cwd(), "uploads");
 
 export async function POST(req: NextRequest) {
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Max ${MAX_FILES} files` }, { status: 400 });
   }
 
-  if (!useBlob()) await mkdir(UPLOAD_DIR, { recursive: true });
+  if (!blobEnabled()) await mkdir(UPLOAD_DIR, { recursive: true });
 
   const saved = [];
   for (const file of files) {
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await file.arrayBuffer());
 
     let blobUrl: string | null = null;
-    if (useBlob()) {
+    if (blobEnabled()) {
       const { put } = await import("@vercel/blob");
       const blob = await put(`uploads/${storedName}`, buffer, {
         access: "public", // pathname is unguessable; download still goes through admin auth

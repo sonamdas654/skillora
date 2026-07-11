@@ -63,7 +63,9 @@ export default async function Image() {
           }}
         />
 
-        <img src={markSrc} width={110} height={110} style={{ display: "flex" }} />
+        {/* next/image can't run inside ImageResponse — plain img is required here */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={markSrc} alt="" width={110} height={110} style={{ display: "flex" }} />
 
         <div
           style={{

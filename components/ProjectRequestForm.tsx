@@ -1053,6 +1053,9 @@ function DemoPreviewModal({
   onSelect,
   selected,
 }: {
+  // Concepts come from DEMO_CONCEPTS with per-service shapes; the modal
+  // reads dynamic fields per id, so a strict type adds no safety here.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   concept: any;
   onClose: () => void;
   onSelect: (title: string) => void;
@@ -1523,7 +1526,7 @@ function DemoPreviewModal({
                       <span className="text-indigo-600">✦</span>
                       <span>{concept.id === 'brand-minimal' ? 'NEXUS' : 'LIVELY'}</span>
                     </div>
-                    <p className="text-[8px] italic text-slate-455 font-serif">"Empowering modern connectivity solutions"</p>
+                    <p className="text-[8px] italic text-slate-455 font-serif">&ldquo;Empowering modern connectivity solutions&rdquo;</p>
                   </div>
 
                   <div className="grid grid-cols-4 gap-2 pt-3 border-t border-slate-500/10">
@@ -1581,7 +1584,7 @@ function DemoPreviewModal({
                         </div>
                       </div>
                       <p className="text-[9px] leading-relaxed text-slate-350">
-                        Are you losing business calls due to poor SEO listings? Let's optimize maps keywords and citations!
+                        Are you losing business calls due to poor SEO listings? Let&apos;s optimize maps keywords and citations!
                       </p>
                       <div className="flex justify-between items-center text-[8px] text-slate-400 border-t border-slate-855 pt-2">
                         <button
@@ -1650,55 +1653,61 @@ export default function ProjectRequestForm({ initialService }: { initialService?
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  // Concept shapes vary per service (see DemoPreviewModal note)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [previewConcept, setPreviewConcept] = useState<any | null>(null);
   const [draftRestored, setDraftRestored] = useState(false);
   const draftLoaded = useRef(false);
 
   // Autosave draft: files can't be persisted (File objects), terms must be
   // re-accepted, so both are excluded. Draft expires after 7 days.
+  // Restore runs in a rAF so state updates aren't synchronous in the effect.
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(DRAFT_KEY);
-      if (raw) {
-        const draft = JSON.parse(raw);
-        const fresh =
-          draft?.v === 1 &&
-          typeof draft.savedAt === "number" &&
-          Date.now() - draft.savedAt < 7 * 24 * 60 * 60 * 1000;
-        const hasContent =
-          draft?.data &&
-          (draft.data.clientName || draft.data.email || draft.data.phone ||
-            draft.data.serviceCategory || draft.data.projectDescription ||
-            Object.keys(draft.dynamicAnswers ?? {}).length > 0);
-        if (fresh && hasContent) {
-          const sameService =
-            !initialService || !draft.data?.serviceCategory || draft.data.serviceCategory === initialService;
-          if (sameService) {
-            setData({ ...initialData, ...draft.data, termsAccepted: false });
-            setDynamicAnswers(draft.dynamicAnswers ?? {});
-            setStep(Math.min(Math.max(draft.step ?? 0, 0), STEPS.length - 1));
+    const raf = requestAnimationFrame(() => {
+      try {
+        const raw = localStorage.getItem(DRAFT_KEY);
+        if (raw) {
+          const draft = JSON.parse(raw);
+          const fresh =
+            draft?.v === 1 &&
+            typeof draft.savedAt === "number" &&
+            Date.now() - draft.savedAt < 7 * 24 * 60 * 60 * 1000;
+          const hasContent =
+            draft?.data &&
+            (draft.data.clientName || draft.data.email || draft.data.phone ||
+              draft.data.serviceCategory || draft.data.projectDescription ||
+              Object.keys(draft.dynamicAnswers ?? {}).length > 0);
+          if (fresh && hasContent) {
+            const sameService =
+              !initialService || !draft.data?.serviceCategory || draft.data.serviceCategory === initialService;
+            if (sameService) {
+              setData({ ...initialData, ...draft.data, termsAccepted: false });
+              setDynamicAnswers(draft.dynamicAnswers ?? {});
+              setStep(Math.min(Math.max(draft.step ?? 0, 0), STEPS.length - 1));
+            } else {
+              // Arrived via a different service link — keep personal details only.
+              const { clientName, email, phone, businessName, cityCountry } = draft.data ?? {};
+              setData((d) => ({
+                ...d,
+                clientName: clientName ?? "",
+                email: email ?? "",
+                phone: phone ?? "",
+                businessName: businessName ?? "",
+                cityCountry: cityCountry ?? "",
+              }));
+            }
+            setDraftRestored(true);
           } else {
-            // Arrived via a different service link — keep personal details only.
-            const { clientName, email, phone, businessName, cityCountry } = draft.data ?? {};
-            setData((d) => ({
-              ...d,
-              clientName: clientName ?? "",
-              email: email ?? "",
-              phone: phone ?? "",
-              businessName: businessName ?? "",
-              cityCountry: cityCountry ?? "",
-            }));
+            localStorage.removeItem(DRAFT_KEY);
           }
-          setDraftRestored(true);
-        } else {
-          localStorage.removeItem(DRAFT_KEY);
         }
+      } catch {
+        // corrupted draft — start clean
+        try { localStorage.removeItem(DRAFT_KEY); } catch {}
       }
-    } catch {
-      // corrupted draft — start clean
-      try { localStorage.removeItem(DRAFT_KEY); } catch {}
-    }
-    draftLoaded.current = true;
+      draftLoaded.current = true;
+    });
+    return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

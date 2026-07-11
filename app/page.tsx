@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppSticky from "@/components/WhatsAppSticky";
 import MobileCtaBar from "@/components/MobileCtaBar";
-import Hero3DLoader from "@/components/Hero3DLoader";
 import HeroMotion from "@/components/HeroMotion";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";

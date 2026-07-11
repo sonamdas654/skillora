@@ -1,0 +1,18 @@
+# Dependabot — watches npm packages for updates. Grouped weekly PRs to
+# keep noise low; security advisories additionally trigger immediate PRs
+# (GitHub enables those automatically once this file exists).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    groups:
+      all-minor-and-patch:
+        update-types: ["minor", "patch"]
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly

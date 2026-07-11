@@ -3,6 +3,23 @@
 const FROM = process.env.EMAIL_FROM || "Skilloura <onboarding@resend.dev>";
 const ADMIN = process.env.ADMIN_EMAIL || "sonamdasdj00@gmail.com";
 
+// Instant WhatsApp ping to the owner via CallMeBot (free). No-ops unless
+// CALLMEBOT_PHONE + CALLMEBOT_APIKEY are set. Never throws — an alert
+// failure must not break the main flow.
+export async function sendOwnerWhatsApp(text: string) {
+  const phone = process.env.CALLMEBOT_PHONE;
+  const apikey = process.env.CALLMEBOT_APIKEY;
+  if (!phone || !apikey) return;
+  try {
+    await fetch(
+      `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(phone)}&apikey=${encodeURIComponent(apikey)}&text=${encodeURIComponent(text)}`,
+      { signal: AbortSignal.timeout(10_000) }
+    );
+  } catch (err) {
+    console.error("[whatsapp-alert] failed:", err);
+  }
+}
+
 async function sendEmail(to: string, subject: string, html: string) {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
@@ -132,6 +149,11 @@ export async function notifyNewLead(
     ADMIN,
     `New lead: ${lead.clientName} — ${lead.serviceCategory} [${lead.leadScore ?? "Lead"}]`,
     html
+  );
+
+  // Instant heads-up on the owner's own WhatsApp (no-op until CallMeBot env is set)
+  await sendOwnerWhatsApp(
+    `🔔 New Skilloura lead!\n${lead.clientName} — ${lead.serviceCategory}${lead.serviceType ? ` (${lead.serviceType})` : ""}\nBudget: ${lead.budgetRange}\nPhone: ${lead.phone}\n${siteUrl}/admin/leads/${lead.id}`
   );
 }
 
@@ -287,6 +309,36 @@ export async function notifyTicketReply(t: {
        ${section("Reply", row("From", t.email) + row("Message", t.message))}`
     );
   }
+}
+
+export async function sendPaymentReminderToClient(p: {
+  clientName: string;
+  email: string;
+  invoiceNumber: string;
+  invoiceId: string;
+  balance: number;
+  reminderNo: number;
+}) {
+  await sendEmail(
+    p.email,
+    `Gentle reminder: invoice ${p.invoiceNumber} — Skilloura`,
+    `<h2>Hi ${esc(p.clientName)},</h2>
+     <p>A friendly reminder that invoice <b>${esc(p.invoiceNumber)}</b> has a pending balance of
+     <b>₹${p.balance.toLocaleString("en-IN")}</b>.</p>
+     <p>You can pay in under a minute from your client portal (UPI QR / UPI ID):</p>
+     <p><a href="https://www.skilloura.com/client/pay/${p.invoiceId}" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Pay now</a></p>
+     <p style="font-size:13px;color:#475569">Already paid? Just submit your transaction reference on the same page and we'll confirm it.
+     Any questions — reply to this email or message on WhatsApp.</p>
+     <p>— Skilloura</p>`
+  );
+}
+
+export async function notifyPaymentReminderSent(count: number) {
+  await sendEmail(
+    ADMIN,
+    `Auto payment reminders sent: ${count}`,
+    `<p>${count} gentle payment reminder${count === 1 ? "" : "s"} ${count === 1 ? "was" : "were"} emailed to client${count === 1 ? "" : "s"} today for overdue invoices. Details are logged as follow-ups on each lead.</p>`
+  );
 }
 
 export async function notifyContactMessage(msg: { name: string; email: string; message: string }) {

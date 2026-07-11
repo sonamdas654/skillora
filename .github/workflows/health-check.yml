@@ -1,0 +1,48 @@
+# 24/7 site health check — runs on GitHub's servers every 6 hours,
+# regardless of whether the owner's laptop is on. Fails loudly (GitHub
+# emails the repo owner automatically) if anything is broken.
+name: Health check
+
+on:
+  schedule:
+    - cron: "17 */6 * * *" # every 6 hours (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check key pages
+        run: |
+          set -e
+          fail=0
+          check() {
+            url="$1"; want="$2"; needle="$3"
+            code=$(curl -s -o /tmp/body -w "%{http_code}" --max-time 30 "$url" || echo 000)
+            if [ "$code" != "$want" ]; then echo "❌ $url -> $code (expected $want)"; fail=1; return; fi
+            if [ -n "$needle" ] && ! grep -q "$needle" /tmp/body; then echo "❌ $url missing content: $needle"; fail=1; return; fi
+            echo "✅ $url -> $code"
+          }
+          check "https://www.skilloura.com/" 200 "Skilloura"
+          check "https://www.skilloura.com/services" 200 ""
+          check "https://www.skilloura.com/pricing" 200 ""
+          check "https://www.skilloura.com/blog" 200 ""
+          check "https://www.skilloura.com/start-project" 200 ""
+          check "https://www.skilloura.com/contact" 200 ""
+          check "https://www.skilloura.com/client/login" 200 "Client portal"
+          check "https://www.skilloura.com/sitemap.xml" 200 "<urlset"
+          check "https://www.skilloura.com/robots.txt" 200 "Sitemap:"
+          check "https://www.skilloura.com/nonexistent-page-xyz-12345" 404 ""
+          exit $fail
+
+      - name: Check SSL certificate expiry (warn < 21 days)
+        run: |
+          end=$(echo | openssl s_client -servername www.skilloura.com -connect www.skilloura.com:443 2>/dev/null | openssl x509 -noout -enddate | cut -d= -f2)
+          end_epoch=$(date -d "$end" +%s)
+          now_epoch=$(date +%s)
+          days=$(( (end_epoch - now_epoch) / 86400 ))
+          echo "SSL certificate expires in $days days ($end)"
+          if [ "$days" -lt 21 ]; then echo "❌ SSL certificate expiring soon!"; exit 1; fi

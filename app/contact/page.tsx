@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
@@ -62,9 +63,9 @@ export default function ContactPage() {
                 <p className="mt-1 text-sm leading-6 text-ink-soft">
                   Every message gets a personal reply within 24 hours. For project requirements,
                   use the{" "}
-                  <a href="/start-project" className="font-semibold text-accent hover:underline">
+                  <Link href="/start-project" className="font-semibold text-accent hover:underline">
                     smart project form
-                  </a>{" "}
+                  </Link>{" "}
                   — it captures everything needed for an accurate quote.
                 </p>
               </div>
