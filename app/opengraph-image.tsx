@@ -86,12 +86,12 @@ export default async function Image() {
             marginTop: 6,
             fontSize: 22,
             fontWeight: 700,
-            letterSpacing: 10,
+            letterSpacing: 8,
             color: "#475569",
             display: "flex",
           }}
         >
-          ALL DIGITAL SOLUTIONS
+          SMART DIGITAL SERVICES
         </div>
 
         <div
