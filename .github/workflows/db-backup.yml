@@ -42,7 +42,7 @@ jobs:
         if: steps.gate.outputs.ready == 'true'
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npm ci
+        run: npm install --no-audit --no-fund
       - name: Export all tables
         if: steps.gate.outputs.ready == 'true'
         env:

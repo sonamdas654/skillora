@@ -12,6 +12,21 @@ updates:
     groups:
       all-minor-and-patch:
         update-types: ["minor", "patch"]
+    ignore:
+      # Major upgrades of framework-critical packages need a planned,
+      # tested migration — never an automated PR. (Prisma stays on 6.)
+      - dependency-name: "prisma"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@prisma/client"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
