@@ -46,7 +46,28 @@ interface CommonData {
   additionalNotes: string;
   termsAccepted: boolean;
   selectedDemoConcept: string;
+  designStyle: string;
+  budgetIntent: string;
 }
+
+const STYLE_OPTIONS = [
+  "Clean",
+  "Premium",
+  "Colorful",
+  "Corporate",
+  "Luxury",
+  "Minimal",
+  "3D / Modern",
+  "I don't know — suggest me",
+];
+
+const BUDGET_INTENTS = [
+  { value: "Basic & affordable", desc: "Get it done well, lowest sensible cost" },
+  { value: "Balanced quality", desc: "Good quality at a fair price" },
+  { value: "Premium", desc: "Best design & features, budget flexible" },
+  { value: "Urgent delivery", desc: "Speed matters most — need it fast" },
+  { value: "Just exploring", desc: "Comparing options, no rush yet" },
+];
 
 const initialData: CommonData = {
   clientName: "",
@@ -71,6 +92,8 @@ const initialData: CommonData = {
   additionalNotes: "",
   termsAccepted: false,
   selectedDemoConcept: "",
+  designStyle: "",
+  budgetIntent: "",
 };
 
 interface EstimateLine {
@@ -1641,6 +1664,8 @@ export default function ProjectRequestForm({ initialService }: { initialService?
   const [previewConcept, setPreviewConcept] = useState<any | null>(null);
   const [draftRestored, setDraftRestored] = useState(false);
   const draftLoaded = useRef(false);
+  const submittedRef = useRef(false);
+  const partialSentRef = useRef(false);
 
   // Autosave draft: files can't be persisted (File objects), terms must be
   // re-accepted, so both are excluded. Draft expires after 7 days.
@@ -1713,6 +1738,48 @@ export default function ProjectRequestForm({ initialService }: { initialService?
     }, 400);
     return () => clearTimeout(t);
   }, [step, data, dynamicAnswers]);
+
+  // Progressive lead capture: if someone gives their contact details (step 1)
+  // and then leaves before submitting, send a partial lead so we can still
+  // follow up. Fires at most once; the server de-dupes and clears it if the
+  // person later completes the full submission.
+  useEffect(() => {
+    const maybeSendPartial = () => {
+      if (submittedRef.current || partialSentRef.current) return;
+      if (step < 1) return;
+      const emailOk = /^\S+@\S+\.\S+$/.test(data.email);
+      const phoneOk = data.phone.replace(/\D/g, "").length >= 7;
+      if (!emailOk || !phoneOk) return;
+      partialSentRef.current = true;
+      try {
+        const blob = new Blob(
+          [
+            JSON.stringify({
+              clientName: data.clientName,
+              email: data.email,
+              phone: data.phone,
+              serviceCategory:
+                (data.serviceCategory ? getService(data.serviceCategory)?.name : "") ||
+                data.serviceCategory ||
+                "",
+              projectDescription: data.projectDescription || "",
+            }),
+          ],
+          { type: "application/json" }
+        );
+        navigator.sendBeacon("/api/leads/partial", blob);
+      } catch {}
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") maybeSendPartial();
+    };
+    window.addEventListener("pagehide", maybeSendPartial);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.removeEventListener("pagehide", maybeSendPartial);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [step, data.email, data.phone, data.clientName, data.serviceCategory, data.projectDescription]);
 
   const estimate = useMemo(() => {
     return calculateEstimate(data.serviceCategory, data.serviceType, dynamicAnswers, {
@@ -1829,6 +1896,22 @@ export default function ProjectRequestForm({ initialService }: { initialService?
         });
       }
 
+      if (data.designStyle) {
+        formAnswers.push({
+          fieldKey: "design_style",
+          question: "Preferred design style",
+          answer: data.designStyle,
+        });
+      }
+
+      if (data.budgetIntent) {
+        formAnswers.push({
+          fieldKey: "budget_intent",
+          question: "Budget priority (what matters most)",
+          answer: data.budgetIntent,
+        });
+      }
+
       if (estimate) {
         const pricingLines = estimate.items
           .map((item) => item.name + ": " + formatMoney(item.ourPrice) + " - " + item.reason)
@@ -1902,6 +1985,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
       });
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Submission failed");
+      submittedRef.current = true; // completed — don't fire a partial-lead beacon on the redirect
 
       if (files.length > 0) {
         const fd = new FormData();
@@ -2022,6 +2106,19 @@ export default function ProjectRequestForm({ initialService }: { initialService?
                 />
               </div>
             </div>
+            {/* Micro-trust — reduce hesitation right where people give details */}
+            <div className="flex flex-wrap gap-x-4 gap-y-2 rounded-xl border border-line bg-background px-4 py-3">
+              {[
+                ["shield", "Your details stay private"],
+                ["check", "Free — no obligation"],
+                ["clock", "Personal reply within 24 hours"],
+                ["spark", "No spam, ever"],
+              ].map(([icon, text]) => (
+                <span key={text} className="flex items-center gap-1.5 text-xs font-medium text-ink-soft">
+                  <Icon name={icon} className="size-3.5 text-mint" /> {text}
+                </span>
+              ))}
+            </div>
           </div>
         )}
 
@@ -2086,16 +2183,6 @@ export default function ProjectRequestForm({ initialService }: { initialService?
                 onChange={(e) => set("projectDescription", e.target.value)}
               />
             </div>
-            <div>
-              <label className={labelCls}>Reference Links (optional)</label>
-              <textarea
-                rows={2}
-                className={inputCls}
-                placeholder="Links to websites/apps/designs you like — one per line"
-                value={data.referenceLinks}
-                onChange={(e) => set("referenceLinks", e.target.value)}
-              />
-            </div>
           </div>
         )}
 
@@ -2108,6 +2195,74 @@ export default function ProjectRequestForm({ initialService }: { initialService?
                 {`${(data.serviceCategory ? DEMO_CONCEPTS[data.serviceCategory] ?? [] : []).length} concepts related to your selected service — pick one as a design reference, or click Continue to skip.`}
               </p>
             </div>
+
+            {/* Preferred style */}
+            <div>
+              <label className={labelCls}>What style do you like?</label>
+              <div className="flex flex-wrap gap-2">
+                {STYLE_OPTIONS.map((s) => {
+                  const active = data.designStyle === s;
+                  const suggest = s.startsWith("I don't know");
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => set("designStyle", active ? "" : s)}
+                      className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+                        active
+                          ? "border-accent bg-accent text-white"
+                          : suggest
+                            ? "border-dashed border-accent/50 bg-accent-soft text-accent hover:bg-accent-soft/70"
+                            : "border-line bg-white text-ink hover:border-accent/50"
+                      }`}
+                    >
+                      {suggest ? "🤔 " : ""}{s}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Reference links + screenshots */}
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label className={labelCls}>Paste reference website links (optional)</label>
+                <textarea
+                  rows={3}
+                  className={inputCls}
+                  placeholder="Websites / apps / designs you like — one per line"
+                  value={data.referenceLinks}
+                  onChange={(e) => set("referenceLinks", e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={labelCls}>Upload reference screenshots (optional)</label>
+                <label className="flex h-[104px] cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-line bg-background text-center transition-colors hover:border-accent/50">
+                  <Icon name="spark" className="size-5 text-accent" />
+                  <span className="text-xs font-semibold text-ink">Click to add screenshots</span>
+                  <span className="text-[11px] text-ink-soft">
+                    {files.length > 0 ? `${files.length} file(s) added` : "PNG, JPG — added to your files"}
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => onFilesSelected(e.target.files)}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <a
+              href="/portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
+            >
+              Or explore our full live demos in a new tab
+              <Icon name="arrow" className="size-4" />
+            </a>
 
             <div className="grid gap-6 sm:grid-cols-2">
               {(data.serviceCategory ? DEMO_CONCEPTS[data.serviceCategory] ?? [] : []).map((concept) => {
@@ -2292,6 +2447,37 @@ export default function ProjectRequestForm({ initialService }: { initialService?
         {step === 5 && (
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-ink">Budget & timing</h2>
+            {/* Budget intent — what matters most, in the client's own words */}
+            <div>
+              <label className={labelCls}>What matters most to you?</label>
+              <div className="grid gap-2.5 sm:grid-cols-2">
+                {BUDGET_INTENTS.map((b) => {
+                  const active = data.budgetIntent === b.value;
+                  return (
+                    <button
+                      key={b.value}
+                      type="button"
+                      onClick={() => set("budgetIntent", active ? "" : b.value)}
+                      className={`flex items-start gap-3 rounded-xl border px-4 py-3 text-left transition-colors ${
+                        active ? "border-accent bg-accent-soft" : "border-line bg-white hover:border-accent/50"
+                      }`}
+                    >
+                      <span
+                        className={`mt-0.5 grid size-4.5 shrink-0 place-items-center rounded-full border ${
+                          active ? "border-accent bg-accent text-white" : "border-line"
+                        }`}
+                      >
+                        {active && <span className="text-[10px]">✓</span>}
+                      </span>
+                      <span>
+                        <span className="block text-sm font-bold text-ink">{b.value}</span>
+                        <span className="block text-xs text-ink-soft">{b.desc}</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             <div>
               <label className={labelCls}>
                 Budget Range <span className="text-red-500">*</span>

@@ -133,6 +133,12 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  // If a partial "Abandoned" capture exists for this email, remove it now that
+  // they've completed a full submission — keeps the dashboard free of dupes.
+  try {
+    await prisma.lead.deleteMany({ where: { email: d.email, leadStatus: "Abandoned" } });
+  } catch {}
+
   // Must await on serverless — the runtime freezes once the response returns.
   await notifyNewLead(lead, answers).catch(() => {});
   await confirmLeadToClient(lead).catch(() => {});
