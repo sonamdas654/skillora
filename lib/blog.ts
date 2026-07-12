@@ -159,7 +159,7 @@ Pick the task you hate most. If it's repetitive and happens on a screen, it can 
 
 - Domain: ₹800–1,200/year
 - Hosting: ₹2,000–5,000/year for most business sites
-- Maintenance: optional but wise, Skilloura plans from ₹5,600/month
+- Maintenance: optional but wise, Skilloura care plans from ₹1,999/month
 
 ## What makes prices vary
 
