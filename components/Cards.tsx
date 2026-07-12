@@ -185,13 +185,22 @@ export function PackageCard({
 }
 
 export function PortfolioCard({ item }: { item: PortfolioItem }) {
+  const serviceSlug =
+    item.serviceSlug ??
+    (item.category === "AI & Automation"
+      ? "ai-automation"
+      : item.category === "Data & Dashboards"
+        ? "data-dashboard"
+        : "website-development");
+  const hasDemo = Boolean(item.demoType);
+
   return (
     <div className="card-lift group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white">
       <div className="relative">
         <PortfolioMockup slug={item.slug} accent={item.accent} />
         {item.isDemo && (
           <span className="absolute right-4 top-8 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-ink-soft backdrop-blur">
-            Concept
+            Concept Project
           </span>
         )}
         <span className="absolute bottom-3 left-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-ink backdrop-blur">
@@ -208,20 +217,65 @@ export function PortfolioCard({ item }: { item: PortfolioItem }) {
           <span className="font-semibold text-ink">Solution: </span>
           {item.solution}
         </p>
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          {item.features.slice(0, 4).map((f) => (
+
+        {/* Enriched project facts (concept builds) */}
+        {(item.timeline || item.priceRange) && (
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs font-medium text-ink-soft">
+            {item.timeline && (
+              <span className="flex items-center gap-1.5">
+                <Icon name="clock" className="size-3.5 text-accent" /> {item.timeline}
+              </span>
+            )}
+            {item.priceRange && (
+              <span className="flex items-center gap-1.5">
+                <Icon name="spark" className="size-3.5 text-mint" /> {item.priceRange}
+              </span>
+            )}
+          </div>
+        )}
+
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {(item.tools ?? item.features).slice(0, 4).map((f) => (
             <span key={f} className="rounded-full bg-black/[0.04] px-2.5 py-1 text-[11px] font-medium text-ink-soft">
               {f}
             </span>
           ))}
         </div>
-        <Link
-          href={`/start-project?service=${item.category === "AI & Automation" ? "ai-automation" : item.category === "Data & Dashboards" ? "data-dashboard" : "website-development"}`}
-          className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
-        >
-          Want a similar project?
-          <Icon name="arrow" className="size-4 transition-transform group-hover:translate-x-1" />
-        </Link>
+
+        {item.clientProvides && item.clientProvides.length > 0 && (
+          <p className="mt-3 text-xs leading-5 text-ink-soft">
+            <span className="font-semibold text-ink">You provide: </span>
+            {item.clientProvides.join(", ")}
+          </p>
+        )}
+
+        {/* CTAs */}
+        <div className="mt-auto pt-5">
+          {hasDemo ? (
+            <>
+              <Link
+                href={`/portfolio/${item.slug}`}
+                className="flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-deep"
+              >
+                <Icon name="arrow" className="size-4" /> View Live Demo
+              </Link>
+              <Link
+                href={`/start-project?service=${serviceSlug}`}
+                className="mt-2 flex items-center justify-center gap-1 text-xs font-semibold text-ink-soft transition-colors hover:text-accent"
+              >
+                Build Similar Project
+              </Link>
+            </>
+          ) : (
+            <Link
+              href={`/start-project?service=${serviceSlug}`}
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
+            >
+              Build Similar Project
+              <Icon name="arrow" className="size-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

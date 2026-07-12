@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
 import { PortfolioCard } from "@/components/Cards";
+import TrustBand from "@/components/TrustBand";
 import { portfolioItems, type PortfolioItem } from "@/lib/portfolio";
 import { prisma } from "@/lib/db";
 
@@ -51,7 +52,7 @@ export default async function PortfolioPage() {
             <span className="font-accent font-normal text-accent">what&apos;s possible</span>
           </>
         }
-        subtitle="These concept builds show our capability and approach. As real client projects complete, they are added here with permission — no fake clients, no fake numbers, ever."
+        subtitle="Click any concept to explore a live, interactive demo — real, working pages that show exactly what we build. Concepts are labeled honestly; real client work is added with permission — never faked."
       />
       <Section>
 
@@ -62,8 +63,15 @@ export default async function PortfolioPage() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.15}>
+          <div className="mt-14">
+            <TrustBand />
+          </div>
+        </Reveal>
+
         <Reveal delay={0.2}>
-          <div className="mt-14 rounded-3xl border border-line bg-white p-8 sm:p-12 text-center">
+          <div className="mt-8 rounded-3xl border border-line bg-white p-8 sm:p-12 text-center">
             <h2 className="text-2xl sm:text-3xl font-bold text-ink">
               Want a project like these —{" "}
               <span className="font-accent font-normal text-accent">built for you?</span>
