@@ -59,9 +59,9 @@ const impactStats = [
   },
   {
     num: 24,
-    suffix: "/7",
-    label: "Support Ready",
-    desc: "Direct WhatsApp and email access — no ticket queues.",
+    suffix: "h",
+    label: "Reply Window",
+    desc: "We reply within 24 hours — direct WhatsApp and email, no ticket queues.",
     icon: "clock",
     tile: "from-emerald-400 to-teal-600",
     glow: "rgba(16,185,129,0.35)",

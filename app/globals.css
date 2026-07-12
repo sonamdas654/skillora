@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f8f6;
+  /* Premium Soft-Light Business SaaS theme */
+  --background: #fafaf7;  /* Warm off-white */
   --surface: #ffffff;
-  --ink: #0f172a;       /* Modern Slate 900 */
-  --ink-soft: #475569;  /* Modern Slate 600 */
-  --line: #e4e4e7;      /* Subtle Zinc 200 border */
-  --accent: #2857ff;     /* Royal blue */
-  --accent-deep: #1a3fd6;
-  --accent-soft: #f0f3ff; /* Softer, lighter blue tint */
-  --mint: #10b981;      /* Emerald green */
+  --ink: #111827;       /* Gray 900 */
+  --ink-soft: #6b7280;  /* Gray 500 — muted text */
+  --line: #e5e7eb;      /* Gray 200 border */
+  --accent: #2563eb;     /* Blue 600 — primary */
+  --accent-deep: #1d4ed8; /* Blue 700 */
+  --accent-soft: #eff4ff; /* Softer, lighter blue tint */
+  --mint: #10b981;      /* Emerald 500 — secondary */
   --wash-blue: #dde8fb; /* Navy-blue section wash */
   --wash-mint: #dbf4ec; /* WhatsApp-mint section wash (15% emerald over white) */
 }

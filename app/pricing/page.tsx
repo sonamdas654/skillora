@@ -86,10 +86,10 @@ export default function PricingPage() {
                 <span className="font-accent font-normal text-accent">Packages</span>
               </>
             }
-            subtitle="Maintenance is quoted separately from third-party hosting, domain, paid APIs and ad spend. The project form adds it only when you select maintenance."
+            subtitle="Keep your site safe, fast and growing after launch — starting at just ₹1,999/month. Maintenance is quoted separately from third-party hosting, domain, paid APIs and ad spend, and the project form adds it only when you select it."
           />
         </Reveal>
-        <div className="mt-12 grid gap-5 sm:grid-cols-3 max-w-4xl mx-auto">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           {maintenancePlans.map((pkg, i) => (
             <Reveal key={pkg.name} delay={i * 0.06}>
               <PackageCard pkg={pkg} />

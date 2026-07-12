@@ -12,7 +12,7 @@ const company = [
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
-  { href: "/client/login", label: "Client Login" },
+  // Client Login intentionally hidden until the portal is fully ready.
 ];
 
 const legal = [

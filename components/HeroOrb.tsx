@@ -27,6 +27,34 @@ function ServiceCard({ label, icon }: { label: string; icon: string }) {
   );
 }
 
+// Compact "new project request" form preview — signals the one-form,
+// quote-first flow right inside the hero art.
+function SmartFormPreview() {
+  return (
+    <div className="w-40 rounded-[18px] border border-white/80 bg-white/90 p-3 shadow-[0_18px_40px_-22px_rgba(37,99,235,0.5)] ring-1 ring-line/50 backdrop-blur-md">
+      <div className="flex items-center gap-1.5">
+        <span className="grid size-5 place-items-center rounded-md bg-accent-soft text-accent">
+          <Icon name="spark" className="size-3" />
+        </span>
+        <p className="text-[10px] font-bold text-ink">New project request</p>
+      </div>
+      <div className="mt-2 space-y-1.5">
+        <div className="flex items-center justify-between rounded-lg bg-background px-2 py-1">
+          <span className="text-[9px] font-semibold text-ink-soft">Service</span>
+          <span className="text-[9px] font-bold text-ink">Website + App</span>
+        </div>
+        <div className="flex items-center justify-between rounded-lg bg-background px-2 py-1">
+          <span className="text-[9px] font-semibold text-ink-soft">Budget</span>
+          <span className="text-[9px] font-bold text-ink">₹50k–1L</span>
+        </div>
+      </div>
+      <div className="mt-2 grid place-items-center rounded-lg bg-accent py-1.5 text-[9px] font-bold text-white shadow-[0_8px_18px_-8px_rgba(37,99,235,0.9)]">
+        Get free quote →
+      </div>
+    </div>
+  );
+}
+
 function Orb() {
   return (
     <div className="relative grid size-44 place-items-center">
@@ -52,9 +80,15 @@ function Orb() {
           alt="Skilloura"
           width={110}
           height={110}
-          className="size-24 object-contain drop-shadow-[0_6px_14px_rgba(40,87,255,0.35)]"
+          className="size-24 object-contain drop-shadow-[0_6px_14px_rgba(37,99,235,0.35)]"
         />
       </div>
+      {/* Soft contact reflection for 3D grounding */}
+      <span
+        className="absolute -bottom-3 left-1/2 h-4 w-28 -translate-x-1/2 rounded-full blur-md"
+        style={{ background: "radial-gradient(closest-side, rgba(37,99,235,0.28), transparent)" }}
+        aria-hidden
+      />
     </div>
   );
 }
@@ -126,23 +160,12 @@ export default function HeroOrb() {
           </div>
         </div>
 
-        {/* Mini dashboard card — bottom left */}
+        {/* Smart project-form preview — bottom left */}
         <div
-          className="absolute -left-4 bottom-4 animate-float"
+          className="absolute -left-5 bottom-2 animate-float"
           style={{ animationDelay: "0.8s" }}
         >
-          <div className="w-32 rounded-[18px] border border-white/80 bg-white/90 p-3 shadow-[0_16px_36px_-22px_rgba(15,23,42,0.4)] ring-1 ring-line/50 backdrop-blur-md">
-            <p className="text-[9px] font-bold uppercase tracking-wider text-ink-soft">Growth</p>
-            <div className="mt-2 flex h-10 items-end gap-1">
-              {[40, 60, 50, 75, 68, 90].map((h, i) => (
-                <span
-                  key={i}
-                  className="flex-1 rounded-sm bg-gradient-to-t from-accent/30 to-accent"
-                  style={{ height: `${h}%` }}
-                />
-              ))}
-            </div>
-          </div>
+          <SmartFormPreview />
         </div>
       </div>
 
