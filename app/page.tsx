@@ -483,7 +483,7 @@ export default async function HomePage() {
                   <span className="font-accent font-normal text-accent">Packages</span>
                 </>
               }
-              subtitle="Guide prices follow the same live-estimate rule: Skilloura is kept about 30% below market benchmark, then final quote is adjusted by selected scope."
+              subtitle="Transparent guide prices. Your final quote depends on scope, features, timeline and integrations — always confirmed in writing before any payment."
             />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">

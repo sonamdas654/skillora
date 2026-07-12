@@ -35,7 +35,7 @@ A restaurant website is not a generic template. It needs a menu page that's easy
 
 ## What it costs
 
-A professional restaurant website with menu, gallery, Maps, contact and WhatsApp ordering usually starts around ₹12,600 with Skilloura, against a market benchmark near ₹18,000. Add online ordering, payment gateway or booking and it moves toward ₹24,500+ depending on scope. Compare that to one month of aggregator commissions for a busy restaurant.
+A professional restaurant website with menu, gallery, Maps, contact and WhatsApp ordering usually starts around ₹12,600 with Skilloura. Add online ordering, payment gateway or booking and it moves toward ₹24,500+ depending on scope. Compare that to one month of aggregator commissions for a busy restaurant.
 
 ## The bottom line
 
@@ -142,18 +142,18 @@ Pick the task you hate most. If it's repetitive and happens on a screen, it can 
     slug: "website-development-cost-india",
     title: "Website Development Cost in India (2026): Honest Price Breakdown",
     metaDescription:
-      "What websites really cost in India in 2026: market benchmark vs Skilloura guide price, what affects scope, and what to avoid before you pay.",
+      "What websites really cost in India in 2026: transparent guide prices by type, what affects scope, and what to avoid before you pay.",
     date: "2026-05-15",
     readMinutes: 7,
     category: "Website Development",
-    content: `Website prices in India range from roughly ₹10,000 to ₹3,00,000+ for serious professional work — and the confusion is intentional. Skilloura shows market benchmark separately and keeps its estimate about 30% below that benchmark, so you can budget with context instead of guessing.
+    content: `Website prices in India range from roughly ₹10,000 to ₹3,00,000+ for serious professional work — and the confusion is intentional. Skilloura keeps pricing transparent: a clear guide price by project type, then a written quotation once your exact scope is known — so you can budget with context instead of guessing.
 
-## The real price tiers
+## The real price tiers (Skilloura guide prices)
 
-- Basic/landing website (1–3 pages): market benchmark around ₹10,000–₹18,000; Skilloura guide around ₹7,000–₹12,600. Contact form, WhatsApp button and mobile responsive layout.
-- Business website (5–8 pages): market benchmark around ₹18,000–₹35,000; Skilloura guide around ₹12,600–₹24,500. Services pages, gallery, Google Maps and basic SEO.
-- Premium/ecommerce: market benchmark around ₹35,000–₹70,000+; Skilloura guide around ₹24,500–₹49,000+. Product catalog, admin panel, payment gateway, booking or ordering systems.
-- Custom web application: market benchmark around ₹60,000+; Skilloura guide around ₹42,000+. Dashboards, user logins, complex logic — priced by selected scope.
+- Basic/landing website (1–3 pages): around ₹7,000–₹12,600. Contact form, WhatsApp button and mobile responsive layout.
+- Business website (5–8 pages): around ₹12,600–₹24,500. Services pages, gallery, Google Maps and basic SEO.
+- Premium/ecommerce: around ₹24,500–₹49,000+. Product catalog, admin panel, payment gateway, booking or ordering systems.
+- Custom web application: around ₹42,000+. Dashboards, user logins, complex logic — priced by selected scope.
 
 ## Recurring costs nobody mentions
 
@@ -242,7 +242,7 @@ Automation doesn't close deals or handle angry customers — humans do. The righ
 
 ## What it costs
 
-Simple auto-reply and lead-capture setups start around ₹7,000 with Skilloura (market benchmark is near ₹10,000). Deeper flows — order updates, payment reminders, AI-powered replies that understand free-form questions — range ₹14,000–₹35,000 depending on scope. WhatsApp Business API fees, where required, are third-party costs and always listed separately in your quote.
+Simple auto-reply and lead-capture setups start around ₹7,000 with Skilloura. Deeper flows — order updates, payment reminders, AI-powered replies that understand free-form questions — range ₹14,000–₹35,000 depending on scope. WhatsApp Business API fees, where required, are third-party costs and always listed separately in your quote.
 
 ## Where to start
 
@@ -280,7 +280,7 @@ When every question needs the owner to dig through files, the owner becomes the 
 
 ## What a dashboard costs
 
-A single-purpose Power BI dashboard (sales, inventory or cashflow) starts around ₹10,500 with Skilloura against a market benchmark near ₹15,000. Multi-source executive dashboards with automated refresh land between ₹21,000–₹42,000 depending on how many systems feed them. Compare that with the monthly hours currently spent building reports by hand — most dashboards pay for themselves inside a quarter.
+A single-purpose Power BI dashboard (sales, inventory or cashflow) starts around ₹10,500 with Skilloura. Multi-source executive dashboards with automated refresh land between ₹21,000–₹42,000 depending on how many systems feed them. Compare that with the monthly hours currently spent building reports by hand — most dashboards pay for themselves inside a quarter.
 
 ## The honest caveat
 

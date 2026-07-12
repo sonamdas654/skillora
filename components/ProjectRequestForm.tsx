@@ -940,8 +940,8 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
             Live price guide
           </h3>
           <p className="mt-1 text-[11px] leading-4 text-ink-soft">
-            &quot;Typical market price&quot; is an approximate range agencies/freelancers in India charge for similar
-            work — shown only for comparison. Skilloura is kept about 30% below that. Your final written quote comes after review.
+            A transparent guide estimate based on your selections. Your final written quote is
+            confirmed after review, before any payment.
           </p>
         </div>
         <span className="rounded-full bg-white px-3 py-1 text-[11px] font-bold text-mint ring-1 ring-mint/20">
@@ -953,36 +953,23 @@ function EstimatePanel({ estimate }: { estimate: EstimateResult }) {
         This is the delivery/service charge for planning, building/setup, testing, and handover. Domain, hosting, paid APIs, ad spend, store fees, and other third-party bills are separate unless written in the final quote.
       </div>
 
-      <div className="grid gap-2 sm:grid-cols-3">
-        <div className="rounded-xl border border-line bg-white px-3 py-2.5">
-          <p className="text-[11px] font-semibold text-ink-soft">Typical market price</p>
-          <p className="mt-1 text-lg font-black text-ink">{formatMoney(estimate.marketTotal)}</p>
-        </div>
-        <div className="rounded-xl border border-accent/20 bg-accent-soft px-3 py-2.5">
-          <p className="text-[11px] font-semibold text-accent">Skilloura estimate</p>
-          <p className="mt-1 text-lg font-black text-ink">{formatMoney(estimate.ourTotal)}</p>
-        </div>
-        <div className="rounded-xl border border-mint/20 bg-white px-3 py-2.5">
-          <p className="text-[11px] font-semibold text-ink-soft">Approx saving</p>
-          <p className="mt-1 text-lg font-black text-mint">{formatMoney(estimate.savings)}</p>
-        </div>
+      <div className="rounded-xl border border-accent/20 bg-accent-soft px-4 py-3.5">
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-accent">
+          Guide estimate
+        </p>
+        <p className="mt-1 text-2xl font-black text-ink">{formatMoney(estimate.ourTotal)}</p>
       </div>
 
       <div className="space-y-2">
-        <p className="text-[11px] font-bold uppercase text-ink-soft">Why this amount?</p>
+        <p className="text-[11px] font-bold uppercase text-ink-soft">What&apos;s included</p>
         {estimate.items.map((item) => (
-          <div key={item.name} className="grid gap-2 rounded-xl bg-white px-3 py-2.5 text-xs sm:grid-cols-[1fr_auto_auto] sm:items-center">
+          <div key={item.name} className="grid gap-2 rounded-xl bg-white px-3 py-2.5 text-xs sm:grid-cols-[1fr_auto] sm:items-center">
             <div>
               <p className="font-bold text-ink">{item.name}</p>
               <p className="mt-0.5 leading-4 text-ink-soft">{item.reason}</p>
             </div>
-            <div className="text-ink-soft sm:text-right">
-              <span className="font-semibold text-ink">{formatMoney(item.marketPrice)}</span>
-              <span className="ml-1">market</span>
-            </div>
             <div className="text-accent sm:text-right">
               <span className="font-extrabold">{formatMoney(item.ourPrice)}</span>
-              <span className="ml-1">Skilloura</span>
             </div>
           </div>
         ))}
@@ -1011,14 +998,10 @@ function BudgetFitPanel({
 
   return (
     <div className="rounded-2xl border border-line bg-white p-4.5 space-y-4">
-      <div className="grid gap-2 sm:grid-cols-3">
+      <div className="grid gap-2 sm:grid-cols-2">
         <div>
-          <p className="text-[11px] font-semibold text-ink-soft">Actual Skilloura estimate</p>
+          <p className="text-[11px] font-semibold text-ink-soft">Skilloura guide estimate</p>
           <p className="mt-1 text-xl font-black text-ink">{formatMoney(estimate.ourTotal)}</p>
-        </div>
-        <div>
-          <p className="text-[11px] font-semibold text-ink-soft">Typical market price</p>
-          <p className="mt-1 text-xl font-black text-ink">{formatMoney(estimate.marketTotal)}</p>
         </div>
         <div>
           <p className="text-[11px] font-semibold text-ink-soft">Best budget range</p>
@@ -1848,32 +1831,19 @@ export default function ProjectRequestForm({ initialService }: { initialService?
 
       if (estimate) {
         const pricingLines = estimate.items
-          .map(
-            (item) =>
-              item.name +
-              ": market " +
-              formatMoney(item.marketPrice) +
-              ", Skilloura " +
-              formatMoney(item.ourPrice) +
-              " - " +
-              item.reason
-          )
+          .map((item) => item.name + ": " + formatMoney(item.ourPrice) + " - " + item.reason)
           .join("\n");
         const guidance = getBudgetGuidance(estimate, data.budgetRange);
 
         formAnswers.push({
           fieldKey: "estimated_quote",
-          question: "Market benchmark vs Skilloura estimate",
+          question: "Skilloura guide estimate (internal)",
           answer:
-            "Market benchmark: " +
-            formatMoney(estimate.marketTotal) +
-            "\nSkilloura estimate: " +
+            "Guide estimate shown to client: " +
             formatMoney(estimate.ourTotal) +
-            "\nApprox saving: " +
-            formatMoney(estimate.savings) +
             "\nRecommended budget range: " +
             estimate.recommendedBudgetRange +
-            "\nPricing rule: Skilloura estimate is approx 30% below market benchmark.",
+            "\n(Internal reference only — confirm the exact amount in the written quotation.)",
         });
         formAnswers.push({
           fieldKey: "pricing_inclusion_note",

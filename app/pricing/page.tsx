@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/pricing" },
   title: "Pricing — Transparent Packages for Every Digital Service",
   description:
-    "Guide pricing for websites, apps, AI automation, design, video, marketing, dashboards and more. Skilloura estimates stay about 30% below market benchmark, with written quotation before payment.",
+    "Transparent guide pricing for websites, apps, AI automation, design, video, marketing, dashboards and more. Your final quote depends on scope, features, timeline and integrations — always in writing before any payment.",
 };
 
 import { maintenancePlans } from "@/lib/maintenancePlans";
@@ -36,7 +36,7 @@ export default function PricingPage() {
             <span className="font-accent font-normal text-accent">zero surprises</span>
           </>
         }
-        subtitle="Guide prices use the same rule as the project form: market benchmark is shown separately, Skilloura estimate is kept about 30% below it, and the exact quote changes with scope, deadline, domain, hosting and maintenance needs."
+        subtitle="Transparent guide pricing. Your final quote depends on scope, features, timeline, integrations and any third-party costs (domain, hosting, paid APIs) — confirmed in writing before any payment."
       />
 
       {serviceCategories.map((service, idx) => (

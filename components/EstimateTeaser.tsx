@@ -6,9 +6,9 @@ import { track } from "@vercel/analytics";
 import Icon from "./Icons";
 import { serviceCategories } from "@/lib/services";
 
-// Two-tap price preview on the homepage. Uses the same guide packages and
-// the same "≈30% below market benchmark" rule as the full form — honest
-// ranges only, exact quote always comes from the written quotation.
+// Two-tap transparent guide-price preview on the homepage. Shows the same
+// package guide prices as /pricing — the exact quote always comes from the
+// written quotation after reviewing scope.
 function parsePrice(price: string): number | null {
   const digits = price.replace(/[^0-9]/g, "");
   return digits ? Number(digits) : null;
@@ -33,7 +33,6 @@ export default function EstimateTeaser() {
   );
   const pkg = service.packages[Math.min(pkgIndex, service.packages.length - 1)];
   const ourPrice = parsePrice(pkg.price);
-  const marketPrice = ourPrice ? Math.round(ourPrice / 0.7 / 100) * 100 : null;
 
   function interact() {
     if (!touched) {
@@ -98,19 +97,18 @@ export default function EstimateTeaser() {
 
         {/* Result */}
         <div className="rounded-2xl border border-line bg-white p-6 text-center">
-          {ourPrice && marketPrice ? (
+          {ourPrice ? (
             <>
-              <p className="text-xs font-semibold text-ink-soft">
-                Market benchmark:{" "}
-                <span className="line-through decoration-red-400/70">{money(marketPrice)}</span>
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-soft">
+                Guide price from
               </p>
               <p className="mt-2 text-4xl font-extrabold tracking-tight text-ink">
                 {money(ourPrice)}
                 <span className="text-lg font-bold text-accent">+</span>
               </p>
-              <p className="mt-1 text-xs font-semibold text-mint">
-                ≈30% below market{pkg.delivery ? ` · ${pkg.delivery}` : ""}
-              </p>
+              {pkg.delivery && (
+                <p className="mt-1 text-xs font-semibold text-mint">Delivery: {pkg.delivery}</p>
+              )}
             </>
           ) : (
             <>

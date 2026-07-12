@@ -34,7 +34,7 @@ export const allFaqs: Faq[] = [
   },
   {
     q: "How is the price decided?",
-    a: "Pricing is based on scope: pages/screens, features, integrations, deadline, domain/hosting setup and maintenance needs. The form shows market benchmark and Skilloura estimate; Skilloura is kept about 30% below market, then the final written quote confirms the exact amount before any commitment.",
+    a: "Pricing is transparent and based on your scope: pages/screens, features, integrations, deadline, domain/hosting setup and maintenance needs. You see a clear guide price while filling the form, then the final written quote confirms the exact amount — before any commitment. Third-party costs (domain, hosting, paid APIs) are always listed separately.",
   },
   {
     q: "Will I see the work before final payment?",
