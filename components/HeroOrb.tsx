@@ -14,7 +14,7 @@ const services: { label: string; icon: string; pos: string; delay: string }[] = 
   { label: "AI Automation", icon: "bot", pos: "-left-2 top-1/2 -translate-y-1/2", delay: "1.2s" },
   { label: "Branding", icon: "palette", pos: "-right-1 top-1/2 -translate-y-1/2", delay: "0.9s" },
   { label: "SEO & Marketing", icon: "megaphone", pos: "left-6 bottom-44", delay: "0.3s" },
-  { label: "Maintenance", icon: "clock", pos: "right-6 bottom-44", delay: "1.5s" },
+  { label: "Maintenance", icon: "clock", pos: "right-8 bottom-52", delay: "1.5s" },
 ];
 
 function ServiceCard({ label, icon }: { label: string; icon: string }) {
@@ -221,8 +221,8 @@ export default function HeroOrb() {
           </div>
         ))}
 
-        {/* WhatsApp reply — top center */}
-        <div className="absolute left-1/2 top-1 -translate-x-1/2 animate-float" style={{ animationDelay: "0.4s" }}>
+        {/* WhatsApp reply — top left */}
+        <div className="absolute left-0 top-1 animate-float" style={{ animationDelay: "0.4s" }}>
           <WhatsAppBubble />
         </div>
 
