@@ -38,6 +38,8 @@ export interface ServiceCategory {
   startingPrice: string;
   timeline: string;
   bestFor: string;
+  outcome: string;
+  exampleProject: string;
   services: string[];
   whoFor: string[];
   whatYouGet: string[];
@@ -64,6 +66,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹7,000",
     timeline: "3–20 days",
     bestFor: "Businesses, shops, restaurants, professionals and startups",
+    outcome:
+      "Get a professional website that builds trust, collects leads and connects customers to WhatsApp.",
+    exampleProject: "Restaurant site with menu, WhatsApp ordering and Google Maps.",
     services: [
       "Business website",
       "Restaurant website",
@@ -276,6 +281,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹35,000",
     timeline: "2–8 weeks",
     bestFor: "Businesses that need booking, ordering or customer apps",
+    outcome:
+      "Give customers a fast branded app to book, order and reorder — with notifications that bring them back.",
+    exampleProject: "Salon booking app with time slots, reminders and repeat-customer offers.",
     services: [
       "Android app",
       "iOS app",
@@ -410,6 +418,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹7,000",
     timeline: "3–15 days",
     bestFor: "Businesses drowning in repetitive manual work",
+    outcome:
+      "Save hours every week by automating replies, reports, follow-ups and repetitive workflows.",
+    exampleProject: "WhatsApp bot that answers FAQs 24/7 and forwards hot leads to you.",
     services: [
       "AI chatbot",
       "AI agent",
@@ -531,6 +542,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹1,800",
     timeline: "1–5 days",
     bestFor: "New businesses and rebrands",
+    outcome:
+      "Look established from day one with a memorable logo and a consistent brand customers trust.",
+    exampleProject: "Full brand kit — logo, colours, fonts and social templates for a new cafe.",
     services: [
       "Logo design",
       "Business card",
@@ -642,6 +656,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹700",
     timeline: "1–7 days",
     bestFor: "Creators, brands and businesses running ads",
+    outcome:
+      "Stop the scroll and win attention with sharp reels, ads and videos made to convert.",
+    exampleProject: "10 ad-ready reels a month for a clothing brand's Instagram.",
     services: [
       "Video editing",
       "Shorts/Reels editing",
@@ -755,6 +772,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹5,600",
     timeline: "Ongoing / campaign based",
     bestFor: "Businesses that want more customers online",
+    outcome:
+      "Bring more local customers through Google, social media and conversion-focused pages.",
+    exampleProject: "Google Business + local SEO that ranks a clinic in nearby searches.",
     services: [
       "SEO setup",
       "Google Business Profile setup",
@@ -863,6 +883,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹3,500",
     timeline: "2–10 days",
     bestFor: "Businesses tracking sales, inventory or operations",
+    outcome:
+      "Turn messy Excel data into clear dashboards for sales, inventory and decisions.",
+    exampleProject: "Live sales & inventory dashboard built from daily Excel sheets.",
     services: [
       "Excel dashboard",
       "Power BI dashboard",
@@ -962,6 +985,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹800",
     timeline: "1–5 days",
     bestFor: "Job seekers and professionals",
+    outcome:
+      "Present your profile professionally with ATS resume, LinkedIn and portfolio website.",
+    exampleProject: "ATS resume + optimised LinkedIn that lands more interview calls.",
     services: [
       "Resume creation",
       "ATS resume",
@@ -1042,6 +1068,9 @@ export const serviceCategories: ServiceCategory[] = [
     startingPrice: "₹28,000",
     timeline: "2–8 weeks",
     bestFor: "Businesses that outgrew Excel and manual processes",
+    outcome:
+      "Replace messy Excel and manual work with one custom system your whole team can run on.",
+    exampleProject: "Billing + inventory system replacing five scattered spreadsheets.",
     services: [
       "Admin panel",
       "Inventory management system",
