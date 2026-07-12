@@ -1,6 +1,8 @@
 // Email notifications — plan section 28. Uses Resend HTTP API when
 // RESEND_API_KEY is set; otherwise logs to server console (dev mode).
 const FROM = process.env.EMAIL_FROM || "Skilloura <onboarding@resend.dev>";
+// ADMIN_EMAIL can be comma-separated to notify multiple inboxes
+// (e.g. "contact@skilloura.com, owner-personal@gmail.com").
 const ADMIN = process.env.ADMIN_EMAIL || "contact@skilloura.com";
 
 // Instant WhatsApp ping to the owner via CallMeBot (free). No-ops unless
@@ -56,7 +58,13 @@ async function sendEmail(to: string, subject: string, html: string) {
         Authorization: `Bearer ${key}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ from: FROM, to, subject, html }),
+      // Resend needs an array when there are multiple recipients.
+      body: JSON.stringify({
+        from: FROM,
+        to: to.includes(",") ? to.split(",").map((s) => s.trim()).filter(Boolean) : to,
+        subject,
+        html,
+      }),
     });
     if (!res.ok) {
       console.error(`[email] send rejected (${res.status}):`, await res.text());
