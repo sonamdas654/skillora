@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import WhatsAppSticky from "@/components/WhatsAppSticky";
 import MobileCtaBar from "@/components/MobileCtaBar";
 import HeroMotion from "@/components/HeroMotion";
+import HeroOrb from "@/components/HeroOrb";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -24,14 +25,6 @@ export const dynamic = "force-dynamic";
 export const metadata = {
   alternates: { canonical: "/" },
 };
-
-const trustPoints = [
-  "Clear pricing before work",
-  "Preview before final delivery",
-  "Secure file handling",
-  "WhatsApp support",
-  "Requirement-based custom solution",
-];
 
 const steps = [
   { title: "Select the service", desc: "Pick from 9 service categories — websites, apps, AI, design, marketing and more." },
@@ -229,7 +222,7 @@ export default async function HomePage() {
           <HeroMotion />
           <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-8 sm:pb-10">
             <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-              {/* Left — sharp value proposition */}
+              {/* Left — value proposition */}
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                 <Reveal>
                   <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-ink-soft shadow-sm">
@@ -238,17 +231,18 @@ export default async function HomePage() {
                   </p>
                 </Reveal>
                 <Reveal delay={0.08}>
-                  <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight leading-[1.08] text-ink">
+                  <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink">
                     Build Your Website, Automation &{" "}
                     <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
                       Digital Growth System
-                    </span>
+                    </span>{" "}
+                    with Skilloura
                   </h1>
                 </Reveal>
                 <Reveal delay={0.16}>
                   <p className="mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft">
                     Submit your requirement once. Skilloura reviews your project, prepares a clear
-                    scope, and shares a written quote — before any payment.
+                    scope, and shares a written quote before any payment.
                   </p>
                 </Reveal>
                 <Reveal delay={0.24}>
@@ -257,25 +251,22 @@ export default async function HomePage() {
                       href="/start-project"
                       className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
                     >
-                      Submit Project Requirement
+                      Get a Free Quote
                       <Icon name="arrow" className="size-5" />
                     </Link>
-                    <a
-                      href={whatsappLink("Hi! I want to discuss a project.")}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-mint hover:text-mint transition-colors"
+                    <Link
+                      href="/how-it-works"
+                      className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
                     >
-                      <WhatsAppIcon className="size-5 text-mint" />
-                      Chat on WhatsApp
-                    </a>
+                      See How It Works
+                    </Link>
                   </div>
                 </Reveal>
                 <Reveal delay={0.32}>
-                  <ul className="mt-9 flex flex-wrap justify-center gap-x-6 gap-y-3 lg:justify-start">
-                    {trustPoints.map((t) => (
+                  <ul className="mt-9 grid grid-cols-2 gap-x-6 gap-y-3 text-left">
+                    {["Fast Turnaround", "Transparent Pricing", "Expert Support", "Written Scope Before Payment"].map((t) => (
                       <li key={t} className="flex items-center gap-1.5 text-sm font-semibold text-ink-soft">
-                        <Icon name="check" className="size-4 text-mint" />
+                        <Icon name="check" className="size-4 shrink-0 text-mint" />
                         {t}
                       </li>
                     ))}
@@ -283,71 +274,9 @@ export default async function HomePage() {
                 </Reveal>
               </div>
 
-              {/* Right — "requirement → quote" story visual */}
+              {/* Right — premium Skilloura orb + floating service cards */}
               <Reveal delay={0.2} className="w-full">
-                <div className="relative mx-auto max-w-md lg:mr-0">
-                  {/* Card 1: smart requirement form */}
-                  <div className="relative z-10 rounded-3xl border border-white/80 bg-white/70 p-5 shadow-[0_30px_70px_-30px_rgba(15,23,42,0.4)] ring-1 ring-line/60 backdrop-blur-xl">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-bold uppercase tracking-wider text-accent">Smart requirement form</p>
-                      <span className="flex gap-1" aria-hidden>
-                        <span className="size-2 rounded-full bg-red-300" />
-                        <span className="size-2 rounded-full bg-amber-300" />
-                        <span className="size-2 rounded-full bg-emerald-300" />
-                      </span>
-                    </div>
-                    <div className="mt-4 space-y-3">
-                      <div className="rounded-xl border border-line bg-white px-3 py-2.5">
-                        <p className="text-[10px] font-semibold text-ink-soft">Service</p>
-                        <p className="text-sm font-bold text-ink">Business Website</p>
-                      </div>
-                      <div className="rounded-xl border border-line bg-white px-3 py-2.5">
-                        <p className="text-[10px] font-semibold text-ink-soft">What you need</p>
-                        <div className="mt-1 space-y-1.5">
-                          <span className="block h-1.5 w-full rounded-full bg-black/[0.06]" />
-                          <span className="block h-1.5 w-4/5 rounded-full bg-black/[0.06]" />
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between rounded-xl bg-accent px-3.5 py-2.5">
-                        <span className="text-sm font-bold text-white">Submit requirement</span>
-                        <Icon name="arrow" className="size-4 text-white" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card 2: WhatsApp review bubble */}
-                  <div className="relative z-20 -mt-3 ml-auto w-[86%] rounded-2xl rounded-tr-sm border border-mint/25 bg-mint/10 p-3.5 shadow-[0_18px_40px_-24px_rgba(16,185,129,0.7)] backdrop-blur">
-                    <div className="flex items-start gap-2.5">
-                      <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-mint text-white">
-                        <WhatsAppIcon className="size-4" />
-                      </span>
-                      <div>
-                        <p className="text-[11px] font-bold text-ink">Skilloura</p>
-                        <p className="mt-0.5 text-xs leading-5 text-ink">
-                          Reviewed! Scope tayaar hai — quote neeche 👇
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card 3: written quote card */}
-                  <div className="relative z-30 -mt-2 w-[92%] rounded-2xl border border-white/80 bg-white/80 p-4 shadow-[0_24px_55px_-28px_rgba(40,87,255,0.6)] ring-1 ring-accent/15 backdrop-blur-xl">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-bold text-ink">Written quote</p>
-                      <span className="rounded-full bg-mint/10 px-2.5 py-1 text-[10px] font-bold text-mint">Before any payment</span>
-                    </div>
-                    <div className="mt-3 flex items-end justify-between">
-                      <div>
-                        <p className="text-[11px] text-ink-soft">Business Website</p>
-                        <p className="text-2xl font-extrabold tracking-tight text-ink">₹12,600<span className="text-base font-bold text-accent">+</span></p>
-                      </div>
-                      <div className="text-right text-[11px] font-semibold text-ink-soft">
-                        <p>5–10 days</p>
-                        <p className="text-mint">Written scope ✓</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <HeroOrb />
               </Reveal>
             </div>
           </div>
