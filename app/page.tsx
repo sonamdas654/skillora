@@ -85,7 +85,7 @@ const whyChoose = [
   { icon: "shield", title: "Secure file handling", desc: "Your files stay private, linked only to your project." },
   { icon: "clock", title: "Preview before final delivery", desc: "You see and approve the work before final payment." },
   { icon: "check", title: "Professional delivery process", desc: "Documentation, credentials, training video — proper handover, every time." },
-  { icon: "spark", title: "Maintenance support available", desc: "Monthly plans from ₹5,600 so your project stays healthy after launch." },
+  { icon: "spark", title: "Maintenance support available", desc: "Monthly care plans start from ₹1,999/month so your project stays healthy after launch." },
 ];
 
 // Every rail card carries its own full gradient (Power BI / Custom Software

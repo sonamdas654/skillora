@@ -67,6 +67,12 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:flex items-center gap-2.5">
+          <Link
+            href="/client/login"
+            className="rounded-full px-3.5 py-2 text-sm font-semibold text-ink-soft transition-colors hover:text-accent"
+          >
+            Client Login
+          </Link>
           <a
             href={whatsappLink("Hi! I want to discuss a project.")}
             target="_blank"
@@ -116,8 +122,14 @@ export default function Header() {
               </Link>
             ))}
             <Link
+              href="/client/login"
+              className="mt-1 rounded-xl border border-line px-4 py-3 text-center text-base font-semibold text-ink hover:border-accent hover:text-accent"
+            >
+              Client Login
+            </Link>
+            <Link
               href="/start-project"
-              className="mt-2 rounded-xl bg-accent px-4 py-3.5 text-center text-base font-semibold text-white"
+              className="mt-1 rounded-xl bg-accent px-4 py-3.5 text-center text-base font-semibold text-white"
             >
               Submit Project
             </Link>

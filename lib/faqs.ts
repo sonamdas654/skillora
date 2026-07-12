@@ -22,7 +22,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "Do you provide maintenance?",
-    a: "Yes — monthly maintenance plans start at ₹5,600/month. Domain, hosting, paid APIs and ad spend are separate third-party costs unless they are written into the final quote.",
+    a: "Yes — monthly maintenance plans start at ₹1,999/month. Domain, hosting, paid APIs and ad spend are separate third-party costs unless they are written into the final quote.",
   },
 ];
 
