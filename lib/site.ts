@@ -4,7 +4,7 @@ export const site = {
   tagline: "Smart Digital Services, Delivered with Skill.",
   positioning:
     "I help businesses, creators and professionals build websites, apps, AI automation, designs, dashboards and digital systems with a clear requirement-based process.",
-  email: "sonamdasdj00@gmail.com",
+  email: "contact@skilloura.com",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "916370133101",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://skilloura.com",
 };
