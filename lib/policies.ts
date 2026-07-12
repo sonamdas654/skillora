@@ -66,7 +66,7 @@ export const policies: Policy[] = [
       {
         heading: "Data deletion request",
         points: [
-          "Email sonamdasdj00@gmail.com with the request and your submitted details.",
+          "Email contact@skilloura.com with the request and your submitted details.",
           "Your lead data and files will be permanently deleted within 7 working days, unless legally required for invoicing records.",
         ],
       },

@@ -1,7 +1,7 @@
 // Email notifications — plan section 28. Uses Resend HTTP API when
 // RESEND_API_KEY is set; otherwise logs to server console (dev mode).
 const FROM = process.env.EMAIL_FROM || "Skilloura <onboarding@resend.dev>";
-const ADMIN = process.env.ADMIN_EMAIL || "sonamdasdj00@gmail.com";
+const ADMIN = process.env.ADMIN_EMAIL || "contact@skilloura.com";
 
 // Instant WhatsApp ping to the owner via CallMeBot (free). No-ops unless
 // CALLMEBOT_PHONE + CALLMEBOT_APIKEY are set. Never throws — an alert
