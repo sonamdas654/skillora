@@ -4,6 +4,13 @@ import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { Section, SectionHeading } from "@/components/Section";
+import {
+  SampleQuotation,
+  SampleTimeline,
+  SampleRevisionChecklist,
+  SampleHandoverChecklist,
+  SampleInvoice,
+} from "@/components/SampleDocs";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
@@ -99,6 +106,67 @@ export default function HowItWorksPage() {
               </div>
             </Reveal>
           ))}
+        </div>
+      </Section>
+
+      {/* What you receive before payment — the written quotation, made visible */}
+      <Section className="bg-soft-panel border-y border-line">
+        <Reveal>
+          <SectionHeading
+            eyebrow="Before you pay anything"
+            title={
+              <>
+                What you receive{" "}
+                <span className="font-accent font-normal text-accent">before payment</span>
+              </>
+            }
+            subtitle="You approve a written quotation first. It spells out exactly what you get, what you pay and what's excluded — so there are no surprises. Here's a real sample."
+          />
+        </Reveal>
+        <div className="mx-auto mt-10 max-w-3xl">
+          <Reveal>
+            <SampleQuotation />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              {[
+                "Requirement summary",
+                "Scope (included)",
+                "Timeline",
+                "Final quote",
+                "Revision count",
+                "Payment terms",
+                "Exclusions",
+              ].map((t) => (
+                <div key={t} className="flex items-center gap-2 rounded-xl border border-line bg-white px-3.5 py-2.5">
+                  <Icon name="check" className="size-4 shrink-0 text-mint" />
+                  <span className="text-xs font-semibold text-ink">{t}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* Sample documents — the paperwork clients actually get */}
+      <Section>
+        <Reveal>
+          <SectionHeading
+            eyebrow="See the paperwork"
+            title={
+              <>
+                Sample documents you&apos;ll{" "}
+                <span className="font-accent font-normal text-accent">actually get</span>
+              </>
+            }
+            subtitle="Illustrative samples of the timeline, checklists and invoice format used on every project — so you know exactly how things run."
+          />
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal><SampleTimeline /></Reveal>
+          <Reveal delay={0.05}><SampleRevisionChecklist /></Reveal>
+          <Reveal delay={0.1}><SampleHandoverChecklist /></Reveal>
+          <Reveal delay={0.15}><SampleInvoice /></Reveal>
         </div>
       </Section>
 
