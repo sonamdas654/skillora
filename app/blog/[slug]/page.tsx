@@ -10,7 +10,7 @@ import { prisma } from "@/lib/db";
 import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import ShareButtons from "@/components/ShareButtons";
-import { blogPostingSchema, breadcrumbSchema } from "@/lib/schema";
+import { blogPostingSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -87,6 +87,10 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const postUrl = `${site.url}/blog/${post.slug}`;
+  const relatedPosts = (post.relatedSlugs ?? [])
+    .map((s) => blogPosts.find((p) => p.slug === s))
+    .filter((p): p is BlogPost => Boolean(p))
+    .map((p) => ({ slug: p.slug, title: p.title }));
 
   return (
     <PageShell>
@@ -98,6 +102,7 @@ export default async function BlogPostPage({
             { name: "Blog", path: "/blog" },
             { name: post.title, path: `/blog/${post.slug}` },
           ]),
+          ...(post.faqs && post.faqs.length > 0 ? [faqSchema(post.faqs)] : []),
         ]}
       />
       <div className="relative overflow-hidden border-b border-line">
@@ -128,10 +133,121 @@ export default async function BlogPostPage({
       </div>
       <Section>
         <article className="mx-auto max-w-3xl">
+          {/* Quick answer / TL;DR — great for readers and AI answer engines */}
+          {post.keyTakeaways && post.keyTakeaways.length > 0 && (
+            <div className="rounded-2xl border border-accent/20 bg-accent-soft p-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-accent">Quick answer</p>
+              <ul className="mt-3 space-y-2">
+                {post.keyTakeaways.map((t) => (
+                  <li key={t} className="flex items-start gap-2.5 text-sm leading-6 text-ink">
+                    <Icon name="check" className="mt-1 size-4 shrink-0 text-mint" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {renderContent(post.content)}
+
+          {/* Cost breakdown table */}
+          {post.costTable && post.costTable.length > 0 && (
+            <div className="mt-10">
+              <h2 className="text-2xl font-bold text-ink">Cost breakdown</h2>
+              <div className="mt-4 overflow-x-auto rounded-2xl border border-line">
+                <table className="w-full text-left text-sm">
+                  <thead className="bg-soft-panel text-xs uppercase tracking-wide text-ink-soft">
+                    <tr>
+                      <th className="px-4 py-3">What you get</th>
+                      <th className="px-4 py-3 text-right">Guide price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {post.costTable.map((row) => (
+                      <tr key={row.item} className="border-t border-line">
+                        <td className="px-4 py-3 text-ink">{row.item}</td>
+                        <td className="px-4 py-3 text-right font-semibold text-ink">{row.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 text-xs text-ink-soft">
+                Guide prices. Your final quote depends on scope, features and integrations — always in
+                writing before any payment. Domain, hosting and paid APIs are separate third-party costs.
+              </p>
+            </div>
+          )}
+
+          {/* See it live — link to the matching demo */}
+          {post.demoSlug && (
+            <div className="mt-10 flex flex-col items-start gap-3 rounded-2xl border border-line bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-bold text-ink">See a live example</p>
+                <p className="text-sm text-ink-soft">Explore a real, working concept demo — no sign-up.</p>
+              </div>
+              <Link
+                href={post.demoSlug}
+                target="_blank"
+                className="shrink-0 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent"
+              >
+                {post.demoLabel ?? "View live demo"} →
+              </Link>
+            </div>
+          )}
+
+          {/* FAQ — rendered + emitted as FAQPage schema above */}
+          {post.faqs && post.faqs.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold text-ink">Frequently asked questions</h2>
+              <div className="mt-5 space-y-4">
+                {post.faqs.map((f) => (
+                  <div key={f.q} className="rounded-2xl border border-line bg-white p-5">
+                    <p className="font-bold text-ink">{f.q}</p>
+                    <p className="mt-2 text-sm leading-7 text-ink-soft">{f.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sources / citations */}
+          {post.sources && post.sources.length > 0 && (
+            <div className="mt-10 rounded-2xl bg-soft-panel p-5">
+              <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Sources</p>
+              <ul className="mt-2 space-y-1 text-sm">
+                {post.sources.map((s) => (
+                  <li key={s.url}>
+                    <a href={s.url} target="_blank" rel="noopener noreferrer nofollow" className="text-accent hover:underline">
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="mt-10 border-t border-line pt-6">
             <ShareButtons url={postUrl} title={post.title} />
           </div>
+
+          {/* Internal links — related reading */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-10">
+              <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Related reading</p>
+              <ul className="mt-3 space-y-2">
+                {relatedPosts.map((r) => (
+                  <li key={r.slug}>
+                    <Link href={`/blog/${r.slug}`} className="text-sm font-semibold text-accent hover:underline">
+                      {r.title} →
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Targeted CTA — to the relevant service, else generic */}
           <div className="mt-14 rounded-3xl bg-gradient-to-br from-accent to-accent-deep p-8 text-white text-center">
             <h2 className="text-2xl font-bold">
               Need help with this for{" "}
@@ -140,12 +256,22 @@ export default async function BlogPostPage({
             <p className="mt-2 text-white/85 text-sm">
               Submit your requirement and get a clear plan, honest pricing and a written scope.
             </p>
-            <Link
-              href="/start-project"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-accent hover:scale-[1.03] transition-transform"
-            >
-              Submit Project Requirement <Icon name="arrow" className="size-4" />
-            </Link>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Link
+                href={post.serviceCtaSlug ? `/start-project?service=${post.serviceCtaSlug}` : "/start-project"}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-accent hover:scale-[1.03] transition-transform"
+              >
+                {post.serviceCtaLabel ?? "Submit Project Requirement"} <Icon name="arrow" className="size-4" />
+              </Link>
+              {post.serviceCtaSlug && (
+                <Link
+                  href={`/services/${post.serviceCtaSlug}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+                >
+                  See service &amp; pricing
+                </Link>
+              )}
+            </div>
           </div>
         </article>
       </Section>

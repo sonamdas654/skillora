@@ -8,6 +8,17 @@ export interface BlogPost {
   // Markdown-ish: paragraphs split by \n\n, lines starting with "## " are headings,
   // lines starting with "- " are list items.
   content: string;
+  // Structured "answer page" fields (GEO / AI-search friendly) — all optional
+  // so existing and DB posts keep working.
+  keyTakeaways?: string[];
+  costTable?: { item: string; price: string }[];
+  faqs?: { q: string; a: string }[];
+  serviceCtaSlug?: string;
+  serviceCtaLabel?: string;
+  demoSlug?: string; // links to a live /demo/<id> or /portfolio/<slug>
+  demoLabel?: string;
+  relatedSlugs?: string[];
+  sources?: { label: string; url: string }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -285,6 +296,397 @@ A single-purpose Power BI dashboard (sales, inventory or cashflow) starts around
 ## The honest caveat
 
 A dashboard is only as good as the data feeding it. If your sales live in a notebook, start by digitizing the source (a simple billing system or even a structured sheet) — then the dashboard becomes genuinely powerful.`,
+  },
+  {
+    slug: "restaurant-website-cost-india",
+    title: "Restaurant Website Cost in India (2026): Real Prices & What's Included",
+    metaDescription:
+      "How much does a restaurant website cost in India? A clear 2026 breakdown — menu, WhatsApp ordering, table booking and Google Maps — with guide prices and a live demo.",
+    date: "2026-07-10",
+    readMinutes: 7,
+    category: "Website Development",
+    keyTakeaways: [
+      "A professional restaurant website in India typically costs ₹12,000–₹25,000 for a menu + gallery + WhatsApp ordering + Google Maps site.",
+      "Add online ordering, payments or table booking and it moves toward ₹25,000–₹45,000.",
+      "The website pays for itself by cutting aggregator commission (often 18–30% per order) on direct orders.",
+      "You can explore a real, working restaurant website concept below before deciding.",
+    ],
+    content: `If you run a restaurant, your biggest hidden cost isn't rent or staff — it's commission. Every order through a food aggregator can carry 18–30% commission. A website you own turns repeat customers into direct, commission-free orders. So what does one actually cost in India in 2026?
+
+## A real example
+
+Take a mid-size family restaurant in a Tier-2 city. They were paying heavy monthly commissions and still had customers calling to ask "are you open?" and "what's on the menu?". A simple website — digital menu, photo gallery, WhatsApp "Order now" button, Google Maps and table booking — fixed both problems. Walk-ins found them on Maps, and regulars started ordering directly on WhatsApp.
+
+## What a restaurant website should include
+
+- A digital menu that's easy to update yourself (prices change often)
+- WhatsApp order button on every page — direct, zero-commission orders
+- Google Maps integration so walk-ins can navigate to you
+- Photo gallery — your ambience sells before the food does
+- Table booking or reservation enquiry
+- Fast, mobile-first design — 90%+ of your visitors are on phones
+
+## Mistakes to avoid
+
+- Paying for a heavy template you can't update — menus go stale fast
+- Skipping Google Maps and a Google Business Profile (that's where "restaurants near me" traffic comes from)
+- No WhatsApp button — you lose the easiest, most familiar way for Indian customers to order
+- Slow, image-heavy pages that take forever to load on mobile data
+
+## Checklist before you start
+
+- Final menu with categories and current prices
+- 8–15 good photos (food + interior)
+- Logo (if you have one) and brand colours
+- Address, opening hours and contact number
+- Whether you want online payment now or later
+
+## What it costs
+
+Guide prices below. A clean menu + WhatsApp ordering site starts around ₹12,600; add online payments, a live ordering cart or multi-outlet support and it scales up. Compare any of these to a single busy month of aggregator commission.`,
+    costTable: [
+      { item: "Starter — menu, gallery, WhatsApp order, Maps (up to 5 pages)", price: "₹12,600+" },
+      { item: "Standard — above + table booking, offers section, basic SEO", price: "₹18,900+" },
+      { item: "Premium — online ordering cart + payment gateway", price: "₹30,000+" },
+      { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does a restaurant website cost in India?", a: "A professional restaurant website with menu, gallery, WhatsApp ordering and Google Maps typically costs ₹12,000–₹25,000. Adding online ordering with payments moves it toward ₹30,000–₹45,000 depending on features." },
+      { q: "Can customers order directly without an aggregator?", a: "Yes. A WhatsApp order button lets customers order directly with zero commission. You can also add a full online ordering cart with UPI/card payments if you want a self-serve checkout." },
+      { q: "How long does it take to build?", a: "A standard restaurant website is usually ready in 5–8 working days once you share the menu, photos and details." },
+      { q: "Can I update the menu myself?", a: "Yes — we build the menu so you can edit items and prices easily, or we handle updates for you under a small monthly maintenance plan." },
+      { q: "Do I still need Zomato/Swiggy?", a: "Aggregators are great for discovery. Your website is for profit and for owning your repeat customers. Most smart restaurants use both." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a restaurant website quote",
+    demoSlug: "/portfolio/restaurant-website-concept",
+    demoLabel: "Explore a live restaurant demo",
+    relatedSlugs: ["why-every-restaurant-needs-a-website", "website-development-cost-india", "how-small-businesses-get-more-leads-online"],
+  },
+  {
+    slug: "gym-website-cost-india",
+    title: "Gym Website Cost in India: Plans, Trainers, Booking & Real Prices",
+    metaDescription:
+      "What does a gym or fitness studio website cost in India? Membership plans, trainer profiles, class schedule, lead form and BMI tools — with 2026 guide prices and a live demo.",
+    date: "2026-07-09",
+    readMinutes: 6,
+    category: "Website Development",
+    keyTakeaways: [
+      "A gym website in India typically costs ₹12,000–₹22,000 for plans, trainers, schedule and a lead-capture form.",
+      "Its main job is converting 'gym near me' searches into trial bookings.",
+      "A free trial lead form + WhatsApp follow-up is the single biggest conversion booster.",
+      "Try a live gym website concept below before you commit.",
+    ],
+    content: `Most gyms still rely on walk-ins and word of mouth. But when someone searches "gym near me" at 11pm after deciding to get fit, your plans, trainers and timings need to be visible — or they join the gym that showed up. Here's what a gym website costs in India and what actually drives sign-ups.
+
+## A real example
+
+A neighbourhood gym had great equipment but an empty website — just a logo and a phone number. After adding clear membership plans, trainer profiles, a class schedule and a "Book a free trial" form that dropped leads straight to WhatsApp, trial bookings became a steady weekly stream instead of random walk-ins.
+
+## What a gym website should include
+
+- Membership plans with clear pricing (monthly, quarterly, annual)
+- Trainer profiles with specialities and experience
+- Class schedule / timetable
+- "Book a free trial" lead form → WhatsApp follow-up
+- A BMI or fitness calculator to pull people in
+- Photos of the space, equipment and community
+
+## Mistakes to avoid
+
+- Hiding your prices — people won't call to ask, they'll just leave
+- No trial offer or lead form — you lose the warmest prospects
+- Forgetting Google Business Profile + Maps for local discovery
+- Stock-photo-only pages that don't show your actual gym
+
+## Checklist before you start
+
+- Membership plans and prices
+- Trainer names, photos and specialities
+- Class timings
+- 6–10 real photos of your gym
+- Your WhatsApp number for lead follow-up
+
+## What it costs
+
+Guide prices below — a lead-focused gym site starts around ₹12,000.`,
+    costTable: [
+      { item: "Starter — plans, trainers, schedule, lead form (up to 6 pages)", price: "₹12,000+" },
+      { item: "Standard — above + BMI tool, gallery, offers, basic SEO", price: "₹18,000+" },
+      { item: "Premium — member area / online plan purchase", price: "₹28,000+" },
+      { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does a gym website cost in India?", a: "A professional gym website with membership plans, trainer profiles, class schedule and a lead form typically costs ₹12,000–₹22,000. A member login or online plan purchase adds to that." },
+      { q: "What's the most important feature for a gym website?", a: "A clear 'Book a free trial' lead form that sends enquiries straight to your WhatsApp. Trials convert far better than asking people to call." },
+      { q: "How long does it take?", a: "Usually 5–8 working days after you share plans, trainer details and photos." },
+      { q: "Can members pay or renew online?", a: "Yes, that's a premium add-on — an online plan purchase or member area with renewals." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a gym website quote",
+    demoSlug: "/portfolio/gym-website-concept",
+    demoLabel: "Explore a live gym demo",
+    relatedSlugs: ["restaurant-website-cost-india", "website-development-cost-india", "how-small-businesses-get-more-leads-online"],
+  },
+  {
+    slug: "salon-booking-website-india",
+    title: "Salon Booking Website: Features, Cost & What Actually Gets Bookings",
+    metaDescription:
+      "A salon booking website with service menu, prices, online appointments and Instagram gallery — what it needs, common mistakes, and 2026 guide prices in India, with a live demo.",
+    date: "2026-07-08",
+    readMinutes: 6,
+    category: "Website Development",
+    keyTakeaways: [
+      "A salon booking website in India typically costs ₹10,000–₹20,000.",
+      "Online slot booking + WhatsApp confirmation is what turns visitors into appointments.",
+      "Showing services with prices upfront removes hesitation and phone-tag.",
+      "Try a live salon booking concept below.",
+    ],
+    content: `Salons live and die by their calendar. Every missed call during a busy slot is a lost appointment. A booking website lets clients see your services, prices and open slots — and book in a few taps, any time. Here's what it costs and what actually drives bookings.
+
+## A real example
+
+A salon was losing evening bookings because the front desk couldn't answer calls while working. Adding an online booking flow — pick a service, pick a slot, confirm on WhatsApp — meant clients booked themselves, even after closing time. The calendar filled without extra phone work.
+
+## What a salon website should include
+
+- Service menu with clear prices and durations
+- Online appointment booking with slot selection
+- WhatsApp confirmation so no booking is missed
+- Instagram gallery to show real work
+- Offers / packages section
+- Mobile-first design — clients book from their phones
+
+## Mistakes to avoid
+
+- No prices listed — clients hesitate and drop off
+- A booking form that just emails you (nobody checks email fast enough)
+- No Instagram or gallery — clients want to see your actual work
+- Ignoring Google Business Profile for "salon near me" searches
+
+## Checklist before you start
+
+- Service list with prices and durations
+- Working hours and available slots logic
+- Instagram handle and 8–12 photos
+- Logo and brand colours
+- WhatsApp number for confirmations
+
+## What it costs
+
+Guide prices below — an elegant booking-ready salon site starts around ₹10,000.`,
+    costTable: [
+      { item: "Starter — service menu, prices, booking enquiry, gallery", price: "₹10,000+" },
+      { item: "Standard — above + slot-based booking, WhatsApp confirm, SEO", price: "₹16,000+" },
+      { item: "Premium — online payment / deposit at booking", price: "₹24,000+" },
+      { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does a salon website cost in India?", a: "A salon booking website with service menu, prices, online appointments and gallery typically costs ₹10,000–₹20,000. Taking a deposit or full payment at booking is a premium add-on." },
+      { q: "Can clients book appointments online?", a: "Yes — they pick a service and an available slot, and you get a WhatsApp confirmation. You approve or adjust as needed." },
+      { q: "How long does it take to build?", a: "Usually 4–7 working days once you share your services, prices and photos." },
+      { q: "Do I need to show prices?", a: "Strongly recommended. Clients rarely call to ask prices — they book the salon that's transparent." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a salon website quote",
+    demoSlug: "/portfolio/salon-website-concept",
+    demoLabel: "Explore a live salon demo",
+    relatedSlugs: ["gym-website-cost-india", "restaurant-website-cost-india", "how-small-businesses-get-more-leads-online"],
+  },
+  {
+    slug: "doctor-clinic-website-india",
+    title: "Doctor & Clinic Website: Appointments, OPD Timings & Cost in India",
+    metaDescription:
+      "A clinic website with doctor profiles, OPD timings, appointment booking and WhatsApp reminders — features, mistakes to avoid and 2026 guide prices in India, plus a live demo.",
+    date: "2026-07-07",
+    readMinutes: 6,
+    category: "Website Development",
+    keyTakeaways: [
+      "A doctor/clinic website in India typically costs ₹10,000–₹22,000.",
+      "Online appointment booking + visible OPD timings reduce busy phone lines.",
+      "Trust matters most — doctor credentials, services and clean design.",
+      "Explore a live clinic booking concept below.",
+    ],
+    content: `Patients increasingly search online before choosing a clinic — for timings, doctors and how to book. A clean, trustworthy clinic website turns those searches into appointments and cuts down chaotic phone lines. Here's what it costs and what to include.
+
+## A real example
+
+A clinic's single phone line stayed busy through OPD hours, so new patients simply couldn't get through. A website with doctor profiles, live OPD timings and one-tap appointment booking (with a WhatsApp reminder before the visit) let patients book without calling — and reduced no-shows.
+
+## What a clinic website should include
+
+- Doctor profiles with qualifications and specialities
+- OPD timings and services offered
+- Appointment / token booking
+- WhatsApp reminders before the visit
+- Clear location, directions and contact
+- Calm, trustworthy, mobile-first design
+
+## Mistakes to avoid
+
+- Hiding OPD timings — the #1 thing patients look for
+- A single phone line as the only way to book
+- Cluttered, hard-to-read design that undermines trust
+- No Google Business Profile for "clinic/doctor near me"
+
+## Checklist before you start
+
+- Doctor names, photos and qualifications
+- Services and OPD timings
+- Address and directions
+- WhatsApp number for reminders
+- Any registration/compliance details to display
+
+## What it costs
+
+Guide prices below — a booking-ready clinic site starts around ₹10,000.`,
+    costTable: [
+      { item: "Starter — doctor profiles, timings, services, booking enquiry", price: "₹10,000+" },
+      { item: "Standard — above + slot/token booking, WhatsApp reminders, SEO", price: "₹16,000+" },
+      { item: "Premium — patient records / multi-doctor scheduling", price: "₹28,000+" },
+      { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does a clinic website cost in India?", a: "A doctor or clinic website with profiles, OPD timings and appointment booking typically costs ₹10,000–₹22,000. Multi-doctor scheduling or patient records add to that." },
+      { q: "Can patients book appointments online?", a: "Yes — patients pick a doctor and an available slot, and get a WhatsApp reminder before the visit, which also reduces no-shows." },
+      { q: "How long does it take?", a: "Usually 5–8 working days once you share doctor details, timings and services." },
+      { q: "Is patient data safe?", a: "We use secure hosting and only collect what's needed for booking. Sensitive records features are handled with extra care and clear consent." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a clinic website quote",
+    demoSlug: "/demo/web-clinic",
+    demoLabel: "Explore a live clinic demo",
+    relatedSlugs: ["salon-booking-website-india", "website-development-cost-india", "how-small-businesses-get-more-leads-online"],
+  },
+  {
+    slug: "ai-chatbot-for-small-business-india",
+    title: "AI Chatbot for Small Business: What It Does & What It Costs (India)",
+    metaDescription:
+      "An AI chatbot answers customer questions 24/7 on your website and WhatsApp, captures leads and hands complex chats to a human. Features, pricing and a live demo you can chat with.",
+    date: "2026-07-06",
+    readMinutes: 7,
+    category: "AI & Automation",
+    keyTakeaways: [
+      "An AI chatbot for a small business in India typically costs ₹15,000–₹40,000 to set up, plus optional monthly upkeep.",
+      "It answers FAQs 24/7 on your website and WhatsApp, captures leads and escalates complex chats to a human.",
+      "Best ROI: businesses that answer the same questions (price, hours, location, availability) all day.",
+      "You can chat with a live AI support demo below.",
+    ],
+    content: `If you answer the same customer questions — "what are your prices?", "are you open?", "do you have this?" — dozens of times a day, an AI chatbot pays for itself fast. Trained on your own information, it replies instantly, day and night, and only passes the tricky chats to you. Here's what it does and what it costs in India.
+
+## A real example
+
+A small business was losing late-night enquiries because nobody was there to reply. An AI chatbot trained on their FAQs started answering pricing, timing and availability questions instantly on the website and WhatsApp — and captured the visitor's name and number so the team could follow up the next morning. No lead went cold overnight.
+
+## What an AI chatbot actually does
+
+- Answers FAQs 24/7 in your business's own words
+- Works on your website and WhatsApp
+- Captures leads (name, number, requirement)
+- Hands complex or sensitive chats to a human
+- Learns from your content — menus, policies, service lists
+
+## Mistakes to avoid
+
+- Expecting it to replace humans entirely — it should escalate, not pretend
+- Not training it on real, current business info
+- No lead capture — answering questions but not collecting contacts
+- Hiding it — put it where customers already are (site + WhatsApp)
+
+## Checklist before you start
+
+- A list of your 20–30 most common questions and answers
+- Business info: hours, location, policies, pricing ranges
+- Your WhatsApp Business number
+- Who should receive escalated chats and leads
+
+## What it costs
+
+Guide prices below. Set-up depends on how many sources it learns from and whether it runs on web only or web + WhatsApp.`,
+    costTable: [
+      { item: "Basic — website FAQ bot trained on your content", price: "₹15,000+" },
+      { item: "Business — web + WhatsApp, lead capture, human handover", price: "₹25,000+" },
+      { item: "Advanced — multi-source, bookings/orders, analytics", price: "₹40,000+" },
+      { item: "Optional monthly upkeep & improvements", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does an AI chatbot cost for a small business in India?", a: "Set-up typically costs ₹15,000–₹40,000 depending on whether it runs on web only or web + WhatsApp, how many sources it learns from, and whether it captures leads or takes bookings. Optional monthly upkeep starts at ₹1,999." },
+      { q: "Does it work on WhatsApp?", a: "Yes. The chatbot can answer on both your website and WhatsApp, which is where most Indian customers prefer to chat." },
+      { q: "Will it replace my team?", a: "No — it handles repetitive questions and captures leads 24/7, then hands complex or sensitive chats to a human. It frees your team, it doesn't replace them." },
+      { q: "What does it need to learn from?", a: "Your real business information: common questions and answers, hours, location, policies and pricing ranges. The better the inputs, the better the answers." },
+      { q: "Can it capture leads?", a: "Yes — it collects the visitor's name, number and requirement and passes them to you, so no enquiry is lost overnight." },
+    ],
+    serviceCtaSlug: "ai-automation",
+    serviceCtaLabel: "Get an AI chatbot quote",
+    demoSlug: "/portfolio/ai-chatbot-concept",
+    demoLabel: "Chat with a live AI demo",
+    relatedSlugs: ["how-ai-automation-saves-business-time", "whatsapp-automation-for-small-business", "how-small-businesses-get-more-leads-online"],
+  },
+  {
+    slug: "google-business-profile-setup-guide",
+    title: "Google Business Profile Setup: The 2026 Local SEO Checklist",
+    metaDescription:
+      "A step-by-step 2026 guide to setting up and optimising your Google Business Profile — categories, hours, photos, services, reviews — so you show up for 'near me' searches.",
+    date: "2026-07-05",
+    readMinutes: 7,
+    category: "Digital Marketing",
+    keyTakeaways: [
+      "A complete, accurate Google Business Profile is the single highest-ROI local SEO move — and it's free.",
+      "The essentials: correct category, accurate hours, phone, description, services, and real photos.",
+      "Genuine reviews and consistent name/phone/hours across the web boost local ranking.",
+      "In 2026, AI search rewards structured, trusted, consistent business information — your profile is a big part of that.",
+    ],
+    content: `When someone searches "salon near me" or "web designer in [city]", Google shows local businesses first — pulled from Google Business Profiles, not websites. A complete, accurate profile is the highest-return, lowest-cost marketing you can do. Here's how to set it up properly in 2026.
+
+## Why it matters more in 2026
+
+Search is shifting toward AI-generated answers and "near me" intent. These systems favour businesses with structured, consistent, trusted information — accurate hours, a clear category, real photos and genuine reviews. Your Google Business Profile is where much of that trust signal lives. Getting it right helps you show up both in the classic map pack and in AI answers.
+
+## Step-by-step setup
+
+- Claim or create your profile and verify you own the business
+- Choose the most accurate primary category (be specific, e.g. "Website designer", not just "Agency")
+- Add relevant additional categories
+- Set accurate opening hours (don't leave "Open 24 hours" if you're not)
+- Add your phone number and website
+- Write a clear, keyword-natural business description
+- List your services
+- Upload a real logo, cover photo and 5–10 genuine photos of your work or space
+
+## Mistakes to avoid
+
+- Wrong or vague category — it decides which searches you appear in
+- Inaccurate hours (a top reason for bad reviews and lost trust)
+- Stock photos only — real photos build far more trust
+- Fake reviews — Google penalises them and customers see through them
+- Inconsistent name, phone or hours across your website and other listings
+
+## Checklist
+
+- Verified profile
+- Accurate primary + additional categories
+- Correct hours and phone
+- Description and full service list
+- Logo, cover and 5–10 real photos
+- A steady flow of genuine reviews from real customers
+- Same name/phone/hours on your website (add LocalBusiness structured data)
+
+## The honest part about reviews
+
+Never buy or fake reviews. Ask real, happy customers with a direct review link, respond to every review politely, and let them build over time. Slow and genuine beats fast and fake — every time.`,
+    faqs: [
+      { q: "Is Google Business Profile free?", a: "Yes, completely free. It's the highest-return local marketing you can do — claim it, verify ownership, and complete every section." },
+      { q: "Which category should I choose?", a: "Pick the most specific, accurate primary category for your core service (for example 'Website designer' or 'Software company'), then add relevant additional categories. The category strongly affects which searches you appear in." },
+      { q: "How do I get more reviews?", a: "Share your profile's direct review link with real, satisfied customers over WhatsApp or email, and respond to every review. Never buy or fake reviews — Google penalises them." },
+      { q: "Does my website affect my Google Business Profile ranking?", a: "Yes. Consistent name, phone and hours across your website and profile, plus LocalBusiness structured data on your site, reinforce trust and help local ranking." },
+      { q: "Why does this matter more with AI search in 2026?", a: "AI answer engines favour businesses with structured, consistent, trusted information. An accurate, complete profile plus matching website data makes you more likely to appear in both map results and AI-generated answers." },
+    ],
+    serviceCtaSlug: "digital-marketing",
+    serviceCtaLabel: "Get help with local SEO",
+    relatedSlugs: ["how-small-businesses-get-more-leads-online", "website-vs-instagram-page-for-business"],
+    sources: [
+      { label: "Google — Business Profile Help (official)", url: "https://support.google.com/business" },
+    ],
   },
 ];
 
