@@ -24,6 +24,21 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "why-every-restaurant-needs-a-website",
+    keyTakeaways: [
+      "A restaurant website brings direct, commission-free orders via WhatsApp.",
+      "It also captures walk-ins through Google Maps and shows your menu 24/7.",
+      "Aggregators are for discovery; your website is for profit — use both.",
+    ],
+    faqs: [
+      { q: "Do I still need Zomato or Swiggy if I have a website?", a: "Aggregators help with discovery, but you pay commission on every order. Your website gives you direct, commission-free orders from repeat customers. Most restaurants use both." },
+      { q: "How do customers order from my website?", a: "A WhatsApp order button lets them order directly with zero commission. You can also add a full online ordering cart with payments." },
+      { q: "What does a restaurant website cost?", a: "A professional menu + WhatsApp ordering site starts around ₹12,600, scaling up with online ordering and payments. See our restaurant website cost guide." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a restaurant website quote",
+    demoSlug: "/portfolio/restaurant-website-concept",
+    demoLabel: "Explore a live restaurant demo",
+    relatedSlugs: ["restaurant-website-cost-india", "how-small-businesses-get-more-leads-online"],
     title: "Why Every Restaurant Needs a Website (Not Just a Zomato Listing)",
     metaDescription:
       "A restaurant website with menu, WhatsApp ordering and Google Maps brings direct orders without commission. Here's what it needs and what it costs.",
@@ -54,6 +69,19 @@ Aggregators are for discovery. Your website is for profit. Smart restaurants use
   },
   {
     slug: "how-small-businesses-get-more-leads-online",
+    keyTakeaways: [
+      "Build the free foundation first: Google Business Profile + a lead-focused website.",
+      "Make contact effortless — WhatsApp on every page beats long forms.",
+      "Add paid ads only after the free basics are converting.",
+    ],
+    faqs: [
+      { q: "Do I need a big ad budget to get leads?", a: "No. Ads amplify what already works. Most small businesses skip the free foundation — a complete Google Business Profile and a lead-focused website — which is where the cheapest leads come from." },
+      { q: "What's the single highest-ROI free step?", a: "A complete, accurate Google Business Profile. It gets you into 'near me' results for free. See our Google Business Profile setup guide." },
+      { q: "How do I turn website visitors into leads?", a: "Make contact effortless: a WhatsApp button on every page, a short form, visible phone number, and pages that answer what customers actually search for." },
+    ],
+    serviceCtaSlug: "digital-marketing",
+    serviceCtaLabel: "Get help getting more leads",
+    relatedSlugs: ["google-business-profile-setup-guide", "website-vs-instagram-page-for-business"],
     title: "How Small Businesses Can Get More Leads Online (Without Big Budgets)",
     metaDescription:
       "Practical lead generation for small businesses: Google Business Profile, a lead-focused website, WhatsApp automation and local SEO — in the right order.",
@@ -84,6 +112,19 @@ Profile → website → WhatsApp flow → ads. Businesses that run ads without t
   },
   {
     slug: "website-vs-instagram-page-for-business",
+    keyTakeaways: [
+      "Instagram is rented space; a website is an asset you own.",
+      "A website ranks on Google, captures leads and works even when you don't post.",
+      "Best combo: use Instagram for reach, your website to convert and own customers.",
+    ],
+    faqs: [
+      { q: "Is an Instagram page enough for my business?", a: "Instagram is great for reach, but you don't own it, it doesn't rank on Google, and it makes buyers hunt for your details. A website ranks, captures leads and works 24/7 — most businesses need both." },
+      { q: "Will a website really show up on Google?", a: "Yes — a proper website with the right pages and a Google Business Profile can rank for what your customers search, which Instagram alone can't do." },
+      { q: "What does a business website cost?", a: "A professional small-business website typically starts around ₹7,000–₹18,000 depending on pages and features. See our website cost guide." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a business website quote",
+    relatedSlugs: ["website-development-cost-india", "how-small-businesses-get-more-leads-online"],
     title: "Website vs Instagram Page: What Does Your Business Actually Need?",
     metaDescription:
       "Instagram builds audience, a website builds trust and converts. Why serious businesses need both — and which one to invest in first.",
@@ -117,6 +158,21 @@ Instagram for reach, website for trust and conversion. If budget forces a choice
   },
   {
     slug: "how-ai-automation-saves-business-time",
+    keyTakeaways: [
+      "Automation handles repetitive work — replies, follow-ups, reports — 24/7.",
+      "Best ROI where the same task repeats daily: enquiries, order updates, data entry.",
+      "It frees your team for real work; it doesn't replace them.",
+    ],
+    faqs: [
+      { q: "What can AI automation actually do for a small business?", a: "Answer repeat questions 24/7, capture and route leads, send order/booking updates, follow up, and cut manual data entry — freeing your team for higher-value work." },
+      { q: "Is it expensive?", a: "Automation projects typically start around ₹7,000 and scale with complexity. Most pay for themselves quickly by saving hours every week." },
+      { q: "Will it replace my staff?", a: "No. It handles repetitive tasks and escalates complex ones to a human. It removes busywork, not people." },
+    ],
+    serviceCtaSlug: "ai-automation",
+    serviceCtaLabel: "Get an automation quote",
+    demoSlug: "/portfolio/ai-chatbot-concept",
+    demoLabel: "Chat with a live AI demo",
+    relatedSlugs: ["ai-chatbot-for-small-business-india", "whatsapp-automation-pricing-india"],
     title: "How AI Automation Saves Small Businesses 10+ Hours Every Week",
     metaDescription:
       "Real examples of AI and workflow automation for small businesses: WhatsApp auto-replies, lead follow-up, Excel reports and invoice processing.",
@@ -151,6 +207,19 @@ Pick the task you hate most. If it's repetitive and happens on a screen, it can 
   },
   {
     slug: "website-development-cost-india",
+    keyTakeaways: [
+      "Website cost in India depends on pages, features, integrations and timeline.",
+      "Simple business sites start ~₹7,000; ecommerce and custom apps go much higher.",
+      "Domain, hosting and paid APIs are separate third-party costs — always listed clearly.",
+    ],
+    faqs: [
+      { q: "How much does a website cost in India?", a: "A simple business website typically starts around ₹7,000; a standard multi-page site with SEO and integrations is ₹15,000–₹30,000; ecommerce and custom apps go from ₹28,000 upward. Your final quote depends on scope and is confirmed in writing first." },
+      { q: "Why do website prices vary so much?", a: "Pages, features (booking, payments, login), integrations, design complexity and timeline all affect price. That's why a written scope matters — so you know exactly what you're paying for." },
+      { q: "Are domain and hosting included?", a: "Those are third-party costs (roughly ₹800–₹1,200/yr domain, ₹2,000–₹5,000/yr hosting) and are listed separately from the build unless bundled." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a website quote",
+    relatedSlugs: ["restaurant-website-cost-india", "ecommerce-website-for-small-sellers-india", "what-to-prepare-before-building-a-website"],
     title: "Website Development Cost in India (2026): Honest Price Breakdown",
     metaDescription:
       "What websites really cost in India in 2026: transparent guide prices by type, what affects scope, and what to avoid before you pay.",
@@ -188,6 +257,19 @@ Decide what the website must DO (get calls? take orders? build trust?), list mus
   },
   {
     slug: "what-to-prepare-before-building-a-website",
+    keyTakeaways: [
+      "Prep = a faster, cheaper, better website with fewer revisions.",
+      "Have your content, images, logo, references and goals ready before you start.",
+      "Clarity on what you want up front avoids scope creep and delays.",
+    ],
+    faqs: [
+      { q: "What do I need before building a website?", a: "Your business content and page structure, good images/logo, 2–3 reference sites you like, your goals (leads, orders, bookings), and any domain/hosting details. The more ready you are, the faster and smoother it goes." },
+      { q: "What if I don't have content or images yet?", a: "That's fine — we guide you on what's needed, use clean placeholders to start, and can arrange copywriting or stock/AI images as an add-on." },
+      { q: "How does good preparation save money?", a: "Clear requirements up front mean fewer revisions and less rework — which keeps the timeline and cost down." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Start your website project",
+    relatedSlugs: ["website-development-cost-india", "website-vs-instagram-page-for-business"],
     title: "What to Prepare Before Building a Website (Save Time & Money)",
     metaDescription:
       "A practical checklist of what to prepare before hiring a website developer: content, images, logo, domain access and reference sites.",
@@ -224,6 +306,21 @@ Clients who share complete content upfront get their websites 2–3x faster, wit
   },
   {
     slug: "whatsapp-automation-for-small-business",
+    keyTakeaways: [
+      "WhatsApp is where Indian customers actually message — automate it well.",
+      "Instant replies, order updates, follow-ups and lead routing, 24/7.",
+      "Do it via the official WhatsApp Business API, with consent — no grey-market hacks.",
+    ],
+    faqs: [
+      { q: "What can WhatsApp automation do for a small business?", a: "Send instant auto-replies to FAQs, capture and route leads, confirm orders/bookings, follow up with warm leads, and hand complex chats to a human — all 24/7." },
+      { q: "How much does it cost?", a: "Setup typically starts around ₹10,000 and scales with AI answers and integrations. Official WhatsApp Business API usage is billed separately by the provider. See our WhatsApp automation pricing guide." },
+      { q: "Is it compliant?", a: "Yes, when set up via the official WhatsApp Business API with proper consent. We avoid grey-market tools that risk your number being banned." },
+    ],
+    serviceCtaSlug: "ai-automation",
+    serviceCtaLabel: "Get a WhatsApp automation quote",
+    demoSlug: "/portfolio/ai-chatbot-concept",
+    demoLabel: "Chat with a live automation demo",
+    relatedSlugs: ["whatsapp-automation-pricing-india", "ai-chatbot-for-small-business-india"],
     title: "WhatsApp Automation for Small Business: What It Can Actually Do in 2026",
     metaDescription:
       "Auto-replies, order updates, booking confirmations and lead follow-ups on WhatsApp — what automation really does for Indian small businesses, and what it costs.",
@@ -261,6 +358,21 @@ Don't automate everything on day one. Start with auto-replies for your five most
   },
   {
     slug: "signs-your-business-needs-a-dashboard",
+    keyTakeaways: [
+      "If you make decisions from messy Excel, a dashboard turns data into clarity.",
+      "Live KPIs for sales, inventory and cashflow — no more manual report-building.",
+      "A single-purpose dashboard starts around ₹10,500 and often pays back in a quarter.",
+    ],
+    faqs: [
+      { q: "How do I know I need a dashboard?", a: "If you build reports by hand, wait for month-end to see numbers, or your team keeps asking you for figures — a live dashboard will save hours and sharpen decisions." },
+      { q: "What does a dashboard cost?", a: "A single-purpose Power BI/Sheets dashboard starts around ₹10,500; multi-source executive dashboards with auto-refresh land between ₹21,000–₹42,000." },
+      { q: "What if my data is messy?", a: "A dashboard is only as good as its data. If your sales live in a notebook, we help digitise the source first — then the dashboard becomes genuinely powerful." },
+    ],
+    serviceCtaSlug: "data-dashboard",
+    serviceCtaLabel: "Get a dashboard quote",
+    demoSlug: "/portfolio/sales-dashboard-concept",
+    demoLabel: "Explore a live dashboard demo",
+    relatedSlugs: ["how-ai-automation-saves-business-time", "website-development-cost-india"],
     title: "5 Signs Your Business Has Outgrown Excel (And Needs a Dashboard)",
     metaDescription:
       "Manual reports every Monday, numbers that don't match, decisions made on gut feel — when a Power BI dashboard pays for itself, and what it costs in India.",
@@ -687,6 +799,266 @@ Never buy or fake reviews. Ask real, happy customers with a direct review link, 
     sources: [
       { label: "Google — Business Profile Help (official)", url: "https://support.google.com/business" },
     ],
+  },
+  {
+    slug: "coaching-institute-website-india",
+    title: "Coaching Institute Website: Courses, Batches, Results & Cost in India",
+    metaDescription:
+      "A coaching/institute website with course catalog, batch timetable, faculty profiles, results wall and admission enquiry — features, mistakes and 2026 guide prices, with a live demo.",
+    date: "2026-07-04",
+    readMinutes: 6,
+    category: "Website Development",
+    keyTakeaways: [
+      "A coaching institute website in India typically costs ₹12,000–₹25,000.",
+      "Parents compare batches, fees and results online before visiting — so show them clearly.",
+      "A results/toppers wall plus an admission enquiry form is what converts.",
+      "Explore a live coaching website concept below.",
+    ],
+    content: `Coaching institutes still depend heavily on walk-ins and posters. But parents and students research online first — they want to compare courses, batch timings, fees, faculty and past results before stepping in. A trust-building website turns that research into admission enquiries. Here's what it costs and what to include.
+
+## A real example
+
+An institute relied on hoardings and referrals, but couldn't explain its batches and results to parents who searched online. A website with a course catalog, batch timetable, faculty profiles and a "toppers wall" gave parents everything they needed — and an admission enquiry form turned interest into counselling calls.
+
+## What a coaching website should include
+
+- Course and batch catalog with fees and duration
+- Faculty profiles with experience and qualifications
+- A results / toppers showcase (real, with permission)
+- Downloadable brochure
+- Admission enquiry / free-counselling form → WhatsApp
+- Clear location, timings and contact
+
+## Mistakes to avoid
+
+- Hiding fees and batch details — parents want clarity before visiting
+- Fake or exaggerated results (this destroys trust fast)
+- No enquiry form or WhatsApp — you lose warm leads
+- Ignoring Google Business Profile for "coaching near me"
+
+## Checklist before you start
+
+- Course list with batches, fees and durations
+- Faculty names, photos and qualifications
+- Genuine results/toppers (with student consent)
+- Brochure PDF (if you have one)
+- WhatsApp number for admissions
+
+## What it costs
+
+Guide prices below — a trust-building institute site starts around ₹12,000.`,
+    costTable: [
+      { item: "Starter — courses, batches, faculty, enquiry form", price: "₹12,000+" },
+      { item: "Standard — above + results wall, brochure, gallery, SEO", price: "₹18,000+" },
+      { item: "Premium — student login, online admissions/payments", price: "₹30,000+" },
+      { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does a coaching institute website cost in India?", a: "A coaching website with course catalog, batch timings, faculty and an admission enquiry form typically costs ₹12,000–₹25,000. Student logins or online admissions add to that." },
+      { q: "Can students enquire or enrol online?", a: "Yes — an admission enquiry form sends leads to your WhatsApp. Online admissions with payments are a premium add-on." },
+      { q: "How long does it take?", a: "Usually 5–8 working days once you share courses, faculty details and results." },
+      { q: "Can I show past results?", a: "Yes — a results/toppers wall builds strong trust. Always use genuine results with student consent; never fabricate." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get a coaching website quote",
+    demoSlug: "/demo/web-education",
+    demoLabel: "Explore a live coaching demo",
+    relatedSlugs: ["doctor-clinic-website-india", "website-development-cost-india", "how-small-businesses-get-more-leads-online"],
+  },
+  {
+    slug: "ecommerce-website-for-small-sellers-india",
+    title: "Ecommerce Website for Small Sellers in India: Cost & What You Need",
+    metaDescription:
+      "Stop losing margin to marketplaces. What an ecommerce website for small sellers costs in India — catalog, cart, payments, order tracking — with 2026 guide prices and a live demo.",
+    date: "2026-07-03",
+    readMinutes: 7,
+    category: "Website Development",
+    keyTakeaways: [
+      "An ecommerce website for a small seller in India typically costs ₹28,000–₹60,000.",
+      "Owning your store means no marketplace commission and full customer relationships.",
+      "Start lean: catalog, cart, UPI/card checkout and order tracking — add features as you grow.",
+      "Try a live storefront demo with a working cart below.",
+    ],
+    content: `Selling only on marketplaces means paying commission on every order and never owning your customer. Your own store keeps the margin and the relationship. But small sellers worry it's expensive and complex — so here's an honest look at what an ecommerce website costs in India and what you actually need to start.
+
+## A real example
+
+A small craft seller depended entirely on a marketplace, losing a cut on every sale and unable to reach repeat buyers. A clean storefront — product catalog, cart, UPI/card checkout, order tracking and a simple admin to manage stock — let them sell directly, run their own offers and build a customer list they owned.
+
+## What a small-seller store should include
+
+- Product catalog with photos, variants and prices
+- Cart and secure checkout (UPI, cards, netbanking)
+- Order tracking and confirmation
+- A simple admin to manage products and stock
+- Coupons/offers to drive repeat sales
+- Mobile-first design — most shopping is on phones
+
+## Mistakes to avoid
+
+- Over-building on day one — start lean, add features as sales grow
+- Poor product photos (they make or break conversions)
+- Complicated checkout — every extra step loses buyers
+- No abandoned-cart or WhatsApp follow-up
+- Forgetting shipping/returns clarity
+
+## Checklist before you start
+
+- Product photos, details, variants and prices
+- Pricing, stock and shipping rules
+- Payment/UPI details for the gateway
+- Logo and brand colours
+- Return/refund policy
+
+## What it costs
+
+Guide prices below. A lean, real store starts around ₹28,000; feature-rich stores with many products, roles and integrations scale higher.`,
+    costTable: [
+      { item: "Starter store — catalog, cart, checkout, order tracking, admin", price: "₹28,000+" },
+      { item: "Standard — above + coupons, variants, WhatsApp follow-up, SEO", price: "₹45,000+" },
+      { item: "Advanced — multi-vendor / large catalog / integrations", price: "₹60,000+" },
+      { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },
+    ],
+    faqs: [
+      { q: "How much does an ecommerce website cost for a small seller in India?", a: "A real online store with catalog, cart, payments, order tracking and an admin panel typically costs ₹28,000–₹60,000 depending on the number of products, features and integrations." },
+      { q: "Is it worth it versus a marketplace?", a: "Marketplaces are great for reach, but you pay commission on every order and don't own the customer. Your own store keeps the margin and lets you build repeat buyers — most sellers use both." },
+      { q: "Which payment methods can customers use?", a: "UPI, cards and netbanking via a gateway like Razorpay. You get proper order records and payouts to your account." },
+      { q: "How long does it take to launch?", a: "A starter store is usually ready in 12–20 working days once you share products, photos and details." },
+    ],
+    serviceCtaSlug: "website-development",
+    serviceCtaLabel: "Get an ecommerce store quote",
+    demoSlug: "/portfolio/ecommerce-concept",
+    demoLabel: "Try a live store demo (with cart)",
+    relatedSlugs: ["website-development-cost-india", "how-small-businesses-get-more-leads-online", "restaurant-website-cost-india"],
+  },
+  {
+    slug: "whatsapp-automation-pricing-india",
+    title: "WhatsApp Automation Pricing in India: What It Does & What It Costs",
+    metaDescription:
+      "WhatsApp automation for replies, follow-ups, order updates and lead routing — what it does, common use-cases, and 2026 pricing in India, with a live AI chat demo.",
+    date: "2026-07-02",
+    readMinutes: 6,
+    category: "AI & Automation",
+    keyTakeaways: [
+      "WhatsApp automation in India typically costs ₹10,000–₹35,000 to set up, plus WhatsApp/API and optional upkeep.",
+      "It handles instant replies, FAQs, order/booking updates, follow-ups and lead routing — 24/7.",
+      "Best fit: businesses whose customers already chat on WhatsApp and ask repetitive questions.",
+      "Chat with a live automation demo below.",
+    ],
+    content: `In India, WhatsApp is where customers actually message businesses. WhatsApp automation makes sure they get instant, useful replies — and that no lead or order update slips through — without your team glued to the phone. Here's what it does and what it costs.
+
+## A real example
+
+A business missed enquiries because staff couldn't reply during busy hours or after closing. WhatsApp automation started sending instant answers to common questions (price, availability, timing), routed genuine leads to the right person, and sent order/booking updates automatically. Response time dropped from hours to seconds.
+
+## What WhatsApp automation can do
+
+- Instant auto-replies to FAQs (price, hours, location, availability)
+- Lead capture and routing to the right team member
+- Order/booking confirmations and reminders
+- Follow-up messages (with consent) to warm leads
+- Handover to a human for complex chats
+- Optional AI answers trained on your business info
+
+## Mistakes to avoid
+
+- Spamming customers — automation must respect consent and be useful
+- No human handover — bots should escalate, not trap people
+- Ignoring the official WhatsApp Business API rules
+- Automating replies but not capturing leads
+
+## Checklist before you start
+
+- Your common questions and ideal answers
+- A WhatsApp Business number
+- Who receives escalated chats and leads
+- The flows you want (FAQs, order updates, follow-ups)
+
+## What it costs
+
+Guide prices below for setup. Note: the official WhatsApp Business API has its own per-message/conversation charges billed by the provider — separate from Skilloura's setup fee.`,
+    costTable: [
+      { item: "Basic — auto-replies + FAQ flows + lead capture", price: "₹10,000+" },
+      { item: "Business — AI answers, order/booking updates, routing", price: "₹20,000+" },
+      { item: "Advanced — CRM/website integration, analytics", price: "₹35,000+" },
+      { item: "WhatsApp Business API usage (per provider)", price: "billed separately" },
+    ],
+    faqs: [
+      { q: "How much does WhatsApp automation cost in India?", a: "Setup typically costs ₹10,000–₹35,000 depending on the flows, AI answers and integrations. The official WhatsApp Business API has its own per-conversation charges billed by the provider, separate from setup." },
+      { q: "Is this allowed by WhatsApp?", a: "Yes, when done through the official WhatsApp Business API and respecting consent and messaging rules. We set it up the compliant way — no grey-market hacks." },
+      { q: "Can it use AI to answer?", a: "Yes — an AI layer trained on your business info can answer naturally, and hand complex chats to a human. See the live demo above." },
+      { q: "Will customers feel spammed?", a: "Not if it's done right. Good automation is useful and consent-based: instant helpful replies and relevant updates, not blasts." },
+    ],
+    serviceCtaSlug: "ai-automation",
+    serviceCtaLabel: "Get a WhatsApp automation quote",
+    demoSlug: "/portfolio/ai-chatbot-concept",
+    demoLabel: "Chat with a live automation demo",
+    relatedSlugs: ["ai-chatbot-for-small-business-india", "whatsapp-automation-for-small-business", "how-ai-automation-saves-business-time"],
+  },
+  {
+    slug: "portfolio-website-for-job-seekers",
+    title: "Portfolio Website for Job Seekers: Stand Out, Get Interviews (India)",
+    metaDescription:
+      "A personal portfolio website plus an ATS-ready resume and optimised LinkedIn helps job seekers stand out. What to include, mistakes to avoid, and cost in India — with a live demo.",
+    date: "2026-07-01",
+    readMinutes: 6,
+    category: "Resume & Career",
+    keyTakeaways: [
+      "A job-seeker portfolio website in India typically costs ₹3,000–₹12,000, often bundled with resume + LinkedIn.",
+      "Recruiters skim — a clean portfolio with projects and one clear link beats a long PDF.",
+      "Pair it with an ATS-friendly resume so you pass automated screening.",
+      "See a live portfolio/resume concept below.",
+    ],
+    content: `Applications increasingly get filtered by software before a human sees them, and recruiters skim fast. A clean personal portfolio website — plus an ATS-ready resume and an optimised LinkedIn — helps you get past filters and stand out. Here's what to include and what it costs in India.
+
+## A real example
+
+A candidate kept sending a dense PDF resume and hearing nothing. Switching to an ATS-friendly resume (so software could read it) and a simple portfolio site — projects, skills, one clear "contact/hire me" link shared on LinkedIn — turned silence into interview calls.
+
+## What a job-seeker portfolio should include
+
+- A clear headline: who you are and what you do
+- 3–6 projects or work samples with short outcomes
+- Skills and tools, cleanly listed
+- Downloadable ATS-friendly resume
+- Contact / "hire me" link
+- Links to LinkedIn and relevant profiles
+
+## Mistakes to avoid
+
+- A resume that software can't parse (fancy columns, images, tables)
+- No measurable outcomes — "did X, which improved Y"
+- Cluttered design that hides the point
+- No single shareable link to put on LinkedIn and applications
+
+## Checklist before you start
+
+- Your projects/work samples with results
+- Skills and tools list
+- A recent photo (optional) and short bio
+- Your resume content and target roles
+- LinkedIn URL
+
+## What it costs
+
+Guide prices below — often bundled with resume + LinkedIn for the best value.`,
+    costTable: [
+      { item: "ATS resume", price: "₹800+" },
+      { item: "Resume + LinkedIn optimisation", price: "₹2,500+" },
+      { item: "Personal brand kit — resume + LinkedIn + portfolio site", price: "₹6,000+" },
+      { item: "Custom portfolio website (standalone)", price: "₹5,000+" },
+    ],
+    faqs: [
+      { q: "How much does a portfolio website cost for a job seeker in India?", a: "A clean personal portfolio website typically costs ₹5,000–₹12,000, and is often bundled with an ATS resume and LinkedIn optimisation for better value (from around ₹6,000)." },
+      { q: "What is an ATS-friendly resume?", a: "One structured so applicant-tracking software can read it — simple layout, standard headings, no images or complex columns. It helps you pass automated screening before a human reviews you." },
+      { q: "Do I really need a portfolio website?", a: "For most roles it's a strong edge — a single, professional link you can share on LinkedIn and in applications that shows your work better than a PDF alone." },
+      { q: "How long does it take?", a: "A resume is usually 1–3 days; a portfolio website 3–6 days once you share your projects and details." },
+    ],
+    serviceCtaSlug: "resume-career",
+    serviceCtaLabel: "Get a resume & portfolio quote",
+    demoSlug: "/demo/cv-portfolio",
+    demoLabel: "See a live portfolio/resume demo",
+    relatedSlugs: ["website-vs-instagram-page-for-business", "what-to-prepare-before-building-a-website"],
   },
 ];
 
