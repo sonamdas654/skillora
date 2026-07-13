@@ -11,6 +11,8 @@
   --accent-deep: #1d4ed8; /* Blue 700 */
   --accent-soft: #eff4ff; /* Softer, lighter blue tint */
   --mint: #10b981;      /* Emerald 500 — secondary */
+  --gold: #f59e0b;      /* Amber 500 — accent (ratings, highlights) */
+  --gold-soft: #fef3e2; /* Amber tint */
   --wash-blue: #dde8fb; /* Navy-blue section wash */
   --wash-mint: #dbf4ec; /* WhatsApp-mint section wash (15% emerald over white) */
 }
@@ -25,9 +27,12 @@
   --color-accent-deep: var(--accent-deep);
   --color-accent-soft: var(--accent-soft);
   --color-mint: var(--mint);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
   --color-wash-blue: var(--wash-blue);
   --color-wash-mint: var(--wash-mint);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-jakarta);
   --font-serif: var(--font-instrument-serif);
 }
 
@@ -38,8 +43,14 @@ html {
 body {
   background: var(--background);
   color: var(--ink);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Premium display headings — modern SaaS feel, tighter tracking */
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 ::selection {
