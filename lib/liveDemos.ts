@@ -1,16 +1,22 @@
-// Concept ids (from lib/demoConcepts.ts) that have a real, fully-explorable
-// live demo at /demo/<id>. Used by the Reference Design step to decide whether
-// "Explore Design" opens the live demo (new tab) or the fallback preview.
-export const LIVE_DEMOS: Record<string, string> = {
-  "web-saas": "SaaS Landing Page",
-  "web-ecommerce": "Modern E-Commerce Store",
-  "web-local": "Local Business Hub",
-  "web-portfolio": "Creator Portfolio & Agency",
-  "web-realestate": "Real Estate Listings",
-  "web-education": "Coaching Institute",
-  "web-clinic": "Clinic & Doctor Appointment",
+// Every reference-design concept (see lib/demoConcepts.ts) has a real,
+// fully-explorable live demo at /demo/<id>. Concept ids are prefixed by
+// service, so we resolve the service (and thus the demo) from the prefix.
+const PREFIX_SERVICE: Record<string, string> = {
+  web: "website-development",
+  app: "mobile-app-development",
+  ai: "ai-automation",
+  brand: "logo-branding",
+  vid: "video-editing",
+  mkt: "digital-marketing",
+  dash: "data-dashboard",
+  cv: "resume-career",
+  soft: "custom-software",
 };
 
+export function serviceOf(id: string): string | undefined {
+  return PREFIX_SERVICE[id.split("-")[0]];
+}
+
 export function hasLiveDemo(id: string): boolean {
-  return Object.prototype.hasOwnProperty.call(LIVE_DEMOS, id);
+  return Boolean(serviceOf(id));
 }
