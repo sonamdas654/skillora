@@ -56,4 +56,52 @@ export const allFaqs: Faq[] = [
     q: "Is my data and files safe?",
     a: "Uploaded files are stored securely, accessible only from the admin panel, and used only to understand your project. See the privacy policy for full details.",
   },
+  {
+    q: "Do you sign an NDA?",
+    a: "Yes. If your project involves sensitive ideas or data, I'm happy to sign a simple NDA before you share the details — just ask before we start.",
+  },
+  {
+    q: "Do you provide a GST invoice?",
+    a: "Yes — every payment comes with a proper invoice, and a GST invoice is provided where applicable. Share your GST number and it's added to the invoice.",
+  },
+  {
+    q: "What if I need urgent delivery?",
+    a: "Faster timelines are possible for many projects with a small rush charge, depending on the scope and current workload. Mention your deadline in the form and I'll confirm what's realistic — before you commit.",
+  },
+  {
+    q: "What if I don't have content or images?",
+    a: "No problem. I'll guide you on what's needed, use clean placeholders to start, and suggest stock or AI options. Professional copywriting or photography can be arranged as an add-on.",
+  },
+  {
+    q: "Can you buy the domain and hosting for me?",
+    a: "Yes. I can set up domain and hosting on your behalf and register them in your name — you always own them. These are third-party costs, billed separately or reimbursed, and listed clearly in the quote.",
+  },
+  {
+    q: "Do I own the source code?",
+    a: "Yes — for custom projects the source code is handed over as part of delivery when it's included in your package. Whether it's included is always stated clearly in the written scope, so there are no surprises.",
+  },
+  {
+    q: "What happens if I delay feedback?",
+    a: "The timeline simply pauses until your feedback arrives, then continues from where we left off. Nothing is lost — long delays may shift the final delivery date, that's all.",
+  },
+  {
+    q: "Can I pay milestone-wise?",
+    a: "Yes. Larger projects can be split into milestones — a payment at each stage instead of one big amount. We agree the milestones in writing before any work starts.",
+  },
+  {
+    q: "Can I cancel after receiving the quotation?",
+    a: "Yes. A quotation is free and no-obligation — you can cancel before paying the advance at no cost. Once work has started, cancellation follows the written refund policy.",
+  },
+  {
+    q: "Do you provide support after delivery?",
+    a: "Yes. Every project includes a short post-delivery support window for fixes, plus optional monthly care plans (from ₹1,999/month) for ongoing updates, backups and monitoring.",
+  },
+  {
+    q: "Do you provide a training video?",
+    a: "Yes. For websites, apps and tools you get a short walkthrough video and documentation, so you or your team can handle everyday updates confidently.",
+  },
+  {
+    q: "Can I request changes after delivery?",
+    a: "Yes. Changes within your included revisions are completed before final delivery. After delivery, new changes are quoted as a small task or covered under a maintenance plan.",
+  },
 ];

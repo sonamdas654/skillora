@@ -7,6 +7,8 @@ export const site = {
   email: "contact@skilloura.com",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "916370133101",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://skilloura.com",
+  businessHours: "Mon–Sat, 10 AM – 7 PM IST",
+  serviceArea: "India + global (fully remote)",
 };
 
 export function whatsappLink(message?: string) {
