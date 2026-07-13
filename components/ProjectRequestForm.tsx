@@ -6,6 +6,7 @@ import { track } from "@vercel/analytics";
 import { serviceCategories, getService, type FormField } from "@/lib/services";
 import { budgetRanges, projectStatusOptions, contactTimes } from "@/lib/site";
 import { DEMO_CONCEPTS } from "@/lib/demoConcepts";
+import { hasLiveDemo } from "@/lib/liveDemos";
 import { WebPreview, DashboardPreview, ResumePreview, SoftwarePreview } from "@/components/ConceptPreviews";
 import Icon from "./Icons";
 
@@ -2254,16 +2255,6 @@ export default function ProjectRequestForm({ initialService }: { initialService?
               </div>
             </div>
 
-            <a
-              href="/portfolio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
-            >
-              Or explore our full live demos in a new tab
-              <Icon name="arrow" className="size-4" />
-            </a>
-
             <div className="grid gap-6 sm:grid-cols-2">
               {(data.serviceCategory ? DEMO_CONCEPTS[data.serviceCategory] ?? [] : []).map((concept) => {
                 const active = data.selectedDemoConcept === concept.title;
@@ -2320,17 +2311,30 @@ export default function ProjectRequestForm({ initialService }: { initialService?
                     </div>
 
                     <div className="border-t border-slate-800/80 bg-slate-900/40 px-5 py-3.5 flex items-center justify-between gap-3 text-xs font-semibold">
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setPreviewConcept(concept);
-                        }}
-                        className="rounded-lg bg-slate-850 hover:bg-slate-800 px-3.5 py-2 text-[10px] font-bold text-slate-200 border border-slate-700/60 transition-colors flex items-center gap-1.5"
-                      >
-                        Explore Design
-                        <span className="text-[8px] bg-accent/25 text-accent-soft px-1.5 py-0.5 rounded font-mono uppercase tracking-wider animate-pulse">Live</span>
-                      </button>
+                      {hasLiveDemo(concept.id) ? (
+                        <a
+                          href={`/demo/${concept.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="rounded-lg bg-slate-850 hover:bg-slate-800 px-3.5 py-2 text-[10px] font-bold text-slate-200 border border-slate-700/60 transition-colors flex items-center gap-1.5"
+                        >
+                          Explore Live Demo
+                          <span className="text-[8px] bg-mint/25 text-mint px-1.5 py-0.5 rounded font-mono uppercase tracking-wider animate-pulse">Live</span>
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPreviewConcept(concept);
+                          }}
+                          className="rounded-lg bg-slate-850 hover:bg-slate-800 px-3.5 py-2 text-[10px] font-bold text-slate-200 border border-slate-700/60 transition-colors flex items-center gap-1.5"
+                        >
+                          Explore Design
+                          <span className="text-[8px] bg-accent/25 text-accent-soft px-1.5 py-0.5 rounded font-mono uppercase tracking-wider">Preview</span>
+                        </button>
+                      )}
 
                       <div className="flex items-center gap-2">
                         <span className={active ? "text-mint" : "text-slate-400 group-hover:text-slate-355"}>
