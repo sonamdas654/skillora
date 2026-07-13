@@ -47,6 +47,13 @@ export interface ServiceCategory {
   packages: ServicePackage[];
   formFields: FormField[];
   faqs: { q: string; a: string }[];
+  // Industry showcase blocks with a live "sample layout" demo (optional).
+  industries?: {
+    name: string;
+    icon: string;
+    features: string[];
+    demoHref: string;
+  }[];
 }
 
 const yesNo = ["Yes", "No"];
@@ -69,6 +76,44 @@ export const serviceCategories: ServiceCategory[] = [
     outcome:
       "Get a professional website that builds trust, collects leads and connects customers to WhatsApp.",
     exampleProject: "Restaurant site with menu, WhatsApp ordering and Google Maps.",
+    industries: [
+      {
+        name: "Restaurant Website",
+        icon: "spark",
+        features: ["Digital menu", "Photo gallery", "WhatsApp ordering", "Google Maps", "Table booking"],
+        demoHref: "/portfolio/restaurant-website-concept",
+      },
+      {
+        name: "Coaching Website",
+        icon: "file",
+        features: ["Course catalog", "Batch timings", "Faculty profiles", "Admission enquiry", "WhatsApp lead form"],
+        demoHref: "/demo/web-education",
+      },
+      {
+        name: "Clinic Website",
+        icon: "shield",
+        features: ["Doctor profiles", "Services", "Appointment form", "Google Maps", "Patient enquiry"],
+        demoHref: "/demo/web-clinic",
+      },
+      {
+        name: "Real Estate Website",
+        icon: "globe",
+        features: ["Property listings", "Enquiry form", "WhatsApp call button", "Location map", "Lead capture"],
+        demoHref: "/demo/web-realestate",
+      },
+      {
+        name: "Gym Website",
+        icon: "chart",
+        features: ["Membership plans", "Trainer profiles", "Class schedule", "Free-trial lead form", "BMI calculator"],
+        demoHref: "/portfolio/gym-website-concept",
+      },
+      {
+        name: "Salon Website",
+        icon: "palette",
+        features: ["Service menu", "Price list", "Online booking", "Instagram gallery", "WhatsApp confirm"],
+        demoHref: "/portfolio/salon-website-concept",
+      },
+    ],
     services: [
       "Business website",
       "Restaurant website",

@@ -171,6 +171,52 @@ export default async function ServiceDetailPage({
         </div>
       </Section>
 
+      {/* Industries — with live sample layout previews */}
+      {service.industries && service.industries.length > 0 && (
+        <Section>
+          <Reveal>
+            <SectionHeading
+              eyebrow="Industries we build for"
+              title={
+                <>
+                  Built for your{" "}
+                  <span className="font-accent font-normal text-accent">line of business</span>
+                </>
+              }
+              subtitle="Every industry needs different features. Explore a live sample layout for yours — real, working pages you can click through."
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {service.industries.map((ind, i) => (
+              <Reveal key={ind.name} delay={Math.min(i * 0.05, 0.2)}>
+                <div className="card-lift flex h-full flex-col rounded-2xl border border-line bg-white p-6">
+                  <div className="flex items-center gap-3">
+                    <span className="grid size-11 place-items-center rounded-xl bg-accent-soft text-accent">
+                      <Icon name={ind.icon} className="size-5" />
+                    </span>
+                    <h3 className="text-base font-bold text-ink">{ind.name}</h3>
+                  </div>
+                  <ul className="mt-4 space-y-2">
+                    {ind.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-ink-soft">
+                        <Icon name="check" className="mt-0.5 size-3.5 shrink-0 text-mint" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={ind.demoHref}
+                    target="_blank"
+                    className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
+                  >
+                    See sample layout <Icon name="arrow" className="size-4" />
+                  </Link>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </Section>
+      )}
+
       {/* Packages */}
       <Section>
         <Reveal>
