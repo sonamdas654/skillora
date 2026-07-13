@@ -119,6 +119,21 @@ export default function ContactPage() {
                 <p className="text-sm text-ink-soft">Book a free 15-min call on WhatsApp</p>
               </a>
 
+              <a
+                href={site.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-lift rounded-2xl border border-line bg-white p-5 sm:col-span-2"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-amber-50 text-amber-500 text-lg font-black">★</span>
+                  <div>
+                    <p className="font-bold text-ink">Find us on Google</p>
+                    <p className="text-sm text-ink-soft">See our Business Profile &amp; leave a review ⭐</p>
+                  </div>
+                </div>
+              </a>
+
               {/* Who handles what */}
               <div className="sm:col-span-2 rounded-2xl border border-line bg-soft-panel p-5">
                 <p className="text-xs font-bold uppercase tracking-wider text-ink">Reach the right place</p>

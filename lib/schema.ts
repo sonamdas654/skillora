@@ -22,6 +22,7 @@ export function organizationSchema() {
       email: site.email,
       availableLanguage: ["English", "Hindi"],
     },
+    sameAs: [site.googleReviewUrl],
   };
 }
 
@@ -35,8 +36,21 @@ export function professionalServiceSchema() {
     image: `${BASE}/logo-full.png`,
     description: site.positioning,
     email: site.email,
+    telephone: `+${site.whatsappNumber}`,
     priceRange: "₹₹",
-    areaServed: { "@type": "Country", name: "India" },
+    areaServed: [
+      { "@type": "Country", name: "India" },
+      { "@type": "Place", name: "Worldwide (remote)" },
+    ],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "10:00",
+        closes: "19:00",
+      },
+    ],
+    sameAs: [site.googleReviewUrl],
     parentOrganization: { "@id": `${BASE}/#organization` },
   };
 }
