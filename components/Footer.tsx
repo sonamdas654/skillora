@@ -85,6 +85,17 @@ export default function Footer() {
             >
               {site.email}
             </a>
+            <p className="mt-3 text-xs text-ink-soft">
+              Serving {site.serviceArea} · {site.businessHours}
+            </p>
+            <a
+              href={site.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-ink-soft transition-colors hover:text-accent"
+            >
+              <span className="text-amber-500">★</span> Review us on Google
+            </a>
           </div>
 
           {/* Services */}
@@ -124,7 +135,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-accent/10 pt-5 sm:flex-row">
+        {/* Honest trust note — portfolio is concept work, clearly labeled */}
+        <p className="mt-8 border-t border-accent/10 pt-5 text-center text-xs text-ink-soft sm:text-left">
+          Portfolio items are concept builds, clearly labeled — no fake clients, numbers or results.
+          Real client work is added only with permission.
+        </p>
+        <div className="mt-4 flex flex-col items-center justify-between gap-3 sm:flex-row">
           <p className="text-xs font-medium text-ink-soft">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>

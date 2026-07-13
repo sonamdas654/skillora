@@ -70,6 +70,34 @@ export const policies: Policy[] = [
           "Your lead data and files will be permanently deleted within 7 working days, unless legally required for invoicing records.",
         ],
       },
+      {
+        heading: "Cookies & analytics",
+        points: [
+          "The site uses essential cookies for basic functionality and Google Analytics to understand general, aggregated usage (pages visited, device type).",
+          "Analytics data is aggregated, never sold, and never used for third-party advertising.",
+          "You can block or clear cookies in your browser settings — the site remains usable.",
+        ],
+      },
+      {
+        heading: "Third-party tools we use",
+        points: [
+          "Hosting & deployment — to run the website and store your data securely.",
+          "Email delivery — to send confirmations, quotations and invoices.",
+          "Google Analytics — aggregated usage insights only.",
+          "Payment gateway (e.g. Razorpay) — only when you make a payment; card details are handled by the gateway and never stored by us.",
+          "WhatsApp — only if you choose to contact us there.",
+          "Each tool receives only the minimum data needed to do its job.",
+        ],
+      },
+      {
+        heading: "Data retention & file deletion timeline",
+        points: [
+          "Lead and project data is kept while your project is active and for a reasonable period afterwards for support and records.",
+          "Uploaded files are deleted within 60 days of project closure — unless you ask us to keep them for ongoing maintenance, or retention is legally required.",
+          "Invoicing and tax records may be retained as required by Indian law.",
+          "You can request earlier deletion any time at contact@skilloura.com (processed within 7 working days).",
+        ],
+      },
     ],
   },
   {
@@ -134,6 +162,53 @@ export const policies: Policy[] = [
           "Source code is included only when specified in the package or agreement.",
         ],
       },
+      {
+        heading: "Business information",
+        points: [
+          "Skilloura is a digital services studio based in Odisha, India, operated by its founder.",
+          "Contact: contact@skilloura.com.",
+          "These terms are governed by the laws of India.",
+        ],
+      },
+      {
+        heading: "Taxes (GST)",
+        points: [
+          "Quoted prices are exclusive of taxes.",
+          "GST is charged extra where applicable, at the prevailing rate, and shown separately on the invoice.",
+        ],
+      },
+      {
+        heading: "Confidentiality & NDA",
+        points: [
+          "Your ideas, files and business information are kept confidential and used only to deliver your project.",
+          "If your project needs it, a formal Non-Disclosure Agreement (NDA) can be signed before you share sensitive details — just ask before we start.",
+        ],
+      },
+      {
+        heading: "Limitation of liability",
+        points: [
+          "Work is delivered to the agreed scope with due care and skill.",
+          "Skilloura is not liable for indirect or consequential losses such as lost profits, lost data or business interruption.",
+          "Total liability for any claim is limited to the amount paid for the specific project or service in question.",
+          "Skilloura is not responsible for issues caused by third-party services (hosting, domains, payment gateways, paid APIs) or by content/access the client provides.",
+        ],
+      },
+      {
+        heading: "Force majeure & delays",
+        points: [
+          "Neither side is liable for delays caused by events beyond reasonable control — internet/power outages, natural events, third-party service failures, illness or government action.",
+          "Timelines pause during such events and resume once normal working conditions return.",
+          "Delays caused by late client feedback or content extend the timeline accordingly.",
+        ],
+      },
+      {
+        heading: "Governing law & dispute resolution",
+        points: [
+          "These terms are governed by the laws of India.",
+          "We aim to resolve any concern amicably through direct discussion first.",
+          "If a dispute cannot be resolved amicably, it is subject to the jurisdiction of the courts of Odisha, India.",
+        ],
+      },
     ],
   },
   {
@@ -174,6 +249,14 @@ export const policies: Policy[] = [
         heading: "Custom projects",
         points: [
           "Milestone-based custom projects are refunded based on milestone completion: completed milestones are billable, incomplete ones refundable.",
+        ],
+      },
+      {
+        heading: "Refund processing timeline",
+        points: [
+          "Approved refunds are processed within 7–10 working days to the original payment method.",
+          "Payment gateway or bank charges (if any) are deducted from the refundable amount.",
+          "You receive written confirmation once the refund is initiated.",
         ],
       },
     ],
@@ -265,6 +348,20 @@ export const policies: Policy[] = [
         heading: "Delivery after full payment",
         points: [
           "This rule is absolute and protects both sides: you always see working output (preview) before final payment, and delivery always follows full payment.",
+        ],
+      },
+      {
+        heading: "Taxes (GST)",
+        points: [
+          "Quoted prices are exclusive of GST.",
+          "GST is added where applicable at the prevailing rate and shown separately on the invoice.",
+        ],
+      },
+      {
+        heading: "Billing & invoice contact",
+        points: [
+          "For any invoice, billing or payment query, email contact@skilloura.com with your project or invoice number.",
+          "Every payment is documented with a proper invoice for your records.",
         ],
       },
     ],
