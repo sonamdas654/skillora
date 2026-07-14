@@ -12,9 +12,14 @@ export default async function AdminDashboardPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/admin/dashboard");
 
-  const role = (user.user_metadata?.role as string) || "client";
-  // Only admins may view the admin area — clients are sent to their dashboard.
-  if (role !== "admin") redirect("/client/dashboard");
+  const { data: profile } = await supabase
+    .from("user_profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
+  const role = profile?.role ?? "client";
+  // Defense in depth — proxy.ts already redirects non-admins to /unauthorized.
+  if (role !== "admin") redirect("/unauthorized");
 
   const name = (user.user_metadata?.full_name as string) || user.email?.split("@")[0] || "admin";
 

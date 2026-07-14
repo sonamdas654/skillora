@@ -10,5 +10,5 @@ export async function proxy(request: NextRequest) {
 // existing live portal (/client/login, /client, /admin, /admin/login, …) and
 // all public pages are intentionally NOT matched, so nothing changes for them.
 export const config = {
-  matcher: ["/client/dashboard/:path*", "/admin/dashboard/:path*"],
+  matcher: ["/client/dashboard/:path*", "/admin/dashboard/:path*", "/login"],
 };

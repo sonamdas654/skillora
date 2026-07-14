@@ -18,8 +18,10 @@ export default function LoginPage() {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("signin");
   const [name, setName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -37,12 +39,31 @@ export default function LoginPage() {
 
     try {
       if (mode === "signup") {
+        if (password !== confirmPassword) {
+          setError("Passwords do not match.");
+          setBusy(false);
+          return;
+        }
+
+        // Every public signup creates a client account — admin accounts are
+        // provisioned separately and never created through this form.
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          options: { data: { role: "client", full_name: name } },
+          options: { data: { role: "client", full_name: name, whatsapp } },
         });
         if (error) throw error;
+
+        // Supabase returns a user with an empty `identities` array (no error,
+        // to avoid leaking which emails exist) when the email is already
+        // registered and confirmed. Treat that as "please sign in".
+        if (data.user && (data.user.identities?.length ?? 0) === 0) {
+          setError("An account with this email already exists. Please sign in instead.");
+          setMode("signin");
+          setBusy(false);
+          return;
+        }
+
         // If email confirmation is required, there's no session yet.
         if (!data.session) {
           setNotice("Account created. Please check your email to confirm, then sign in.");
@@ -98,15 +119,28 @@ export default function LoginPage() {
 
           <form onSubmit={onSubmit} className="mt-5 space-y-4">
             {mode === "signup" && (
-              <div>
-                <label className="mb-1.5 block text-sm font-semibold text-ink">Full name</label>
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
-                  placeholder="Your name"
-                />
-              </div>
+              <>
+                <div>
+                  <label className="mb-1.5 block text-sm font-semibold text-ink">Full name</label>
+                  <input
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1.5 block text-sm font-semibold text-ink">WhatsApp number</label>
+                  <input
+                    required
+                    value={whatsapp}
+                    onChange={(e) => setWhatsapp(e.target.value)}
+                    className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                    placeholder="+91 98765 43210"
+                  />
+                </div>
+              </>
             )}
             <div>
               <label className="mb-1.5 block text-sm font-semibold text-ink">Email</label>
@@ -131,6 +165,27 @@ export default function LoginPage() {
                 placeholder="At least 6 characters"
               />
             </div>
+            {mode === "signup" && (
+              <div>
+                <label className="mb-1.5 block text-sm font-semibold text-ink">Confirm password</label>
+                <input
+                  type="password"
+                  required
+                  minLength={6}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20"
+                  placeholder="Re-enter your password"
+                />
+              </div>
+            )}
+            {mode === "signin" && (
+              <div className="text-right">
+                <Link href="/forgot-password" className="text-xs font-semibold text-accent hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+            )}
             <button
               type="submit"
               disabled={busy}

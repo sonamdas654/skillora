@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/portal/SignOutButton";
+import VerifyEmailBanner from "@/components/portal/VerifyEmailBanner";
 
 export const dynamic = "force-dynamic";
 
@@ -13,6 +14,7 @@ export default async function ClientDashboardPage() {
   if (!user) redirect("/login?next=/client/dashboard");
 
   const name = (user.user_metadata?.full_name as string) || user.email?.split("@")[0] || "there";
+  const isVerified = Boolean(user.email_confirmed_at);
 
   return (
     <div className="min-h-screen bg-background">
@@ -35,6 +37,8 @@ export default async function ClientDashboardPage() {
           Your new Skilloura dashboard. Signed in as {user.email}.
         </p>
 
+        {!isVerified && <VerifyEmailBanner email={user.email ?? ""} />}
+
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {[
             ["Your projects", "Track progress and milestones"],
@@ -42,10 +46,15 @@ export default async function ClientDashboardPage() {
             ["Files & delivery", "Download your delivered work"],
             ["Messages", "Talk to the Skilloura team"],
           ].map(([title, desc]) => (
-            <div key={title} className="rounded-2xl border border-line bg-white p-6">
+            <div
+              key={title}
+              className={`rounded-2xl border border-line bg-white p-6 ${!isVerified ? "opacity-60" : ""}`}
+            >
               <h2 className="font-bold text-ink">{title}</h2>
               <p className="mt-1 text-sm text-ink-soft">{desc}</p>
-              <p className="mt-3 text-xs font-semibold text-accent">Coming in the next phase</p>
+              <p className="mt-3 text-xs font-semibold text-accent">
+                {isVerified ? "Coming in the next phase" : "Verify your email to unlock"}
+              </p>
             </div>
           ))}
         </div>

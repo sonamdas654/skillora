@@ -68,22 +68,36 @@ create table if not exists public.user_profiles (
   updated_at  timestamptz not null default now()
 );
 
--- Auto-create a profile when a new auth user signs up.
+-- Auto-create a profile (and, for clients, a client_profiles row with their
+-- WhatsApp number) when a new auth user signs up. client_profiles is defined
+-- in section 2 below — safe here because plpgsql bodies aren't validated
+-- against real objects at CREATE time (unlike `language sql` functions).
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
 security definer
 set search_path = public
 as $$
+declare
+  v_role text;
 begin
+  v_role := coalesce(new.raw_user_meta_data->>'role', 'client');
+
   insert into public.user_profiles (id, email, full_name, role)
   values (
     new.id,
     new.email,
     coalesce(new.raw_user_meta_data->>'full_name', ''),
-    coalesce(new.raw_user_meta_data->>'role', 'client')
+    v_role::public.user_role
   )
   on conflict (id) do nothing;
+
+  if v_role = 'client' then
+    insert into public.client_profiles (user_id, whatsapp)
+    values (new.id, new.raw_user_meta_data->>'whatsapp')
+    on conflict (user_id) do nothing;
+  end if;
+
   return new;
 end;
 $$;

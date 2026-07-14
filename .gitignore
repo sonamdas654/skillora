@@ -54,3 +54,4 @@ PROJECT_BRAIN.md
 
 .vercel
 .env*
+.tmp_migrate/
