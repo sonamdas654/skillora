@@ -5,20 +5,6 @@
 -- Run this in Supabase → SQL Editor.
 -- =====================================================================
 
--- ---------- Helper: is the current user an admin? --------------------
--- SECURITY DEFINER so it bypasses RLS (no recursion when used in policies).
-create or replace function public.is_admin()
-returns boolean
-language sql
-security definer
-set search_path = public
-as $$
-  select exists (
-    select 1 from public.user_profiles
-    where id = auth.uid() and role = 'admin'
-  );
-$$;
-
 -- ---------- Helper: keep updated_at fresh ----------------------------
 create or replace function public.set_updated_at()
 returns trigger
@@ -269,6 +255,22 @@ begin
                     for each row execute function public.set_updated_at();', t);
   end loop;
 end $$;
+
+-- ---------- Helper: is the current user an admin? --------------------
+-- SECURITY DEFINER so it bypasses RLS (no recursion when used in policies).
+-- Defined here (after user_profiles exists) — SQL-language functions are
+-- validated against real tables at CREATE time, unlike plpgsql.
+create or replace function public.is_admin()
+returns boolean
+language sql
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.user_profiles
+    where id = auth.uid() and role = 'admin'
+  );
+$$;
 
 -- =====================================================================
 -- ROW LEVEL SECURITY
