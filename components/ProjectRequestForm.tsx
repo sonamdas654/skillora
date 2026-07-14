@@ -3,6 +3,7 @@
 import { useMemo, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { track } from "@vercel/analytics";
+import { trackEvent } from "@/lib/track";
 import { serviceCategories, getService, type FormField } from "@/lib/services";
 import { budgetRanges, projectStatusOptions, contactTimes } from "@/lib/site";
 import { DEMO_CONCEPTS } from "@/lib/demoConcepts";
@@ -1667,6 +1668,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
   const draftLoaded = useRef(false);
   const submittedRef = useRef(false);
   const partialSentRef = useRef(false);
+  const startedRef = useRef(false);
 
   // Autosave draft: files can't be persisted (File objects), terms must be
   // re-accepted, so both are excluded. Draft expires after 7 days.
@@ -1810,8 +1812,13 @@ export default function ProjectRequestForm({ initialService }: { initialService?
     [data.serviceCategory]
   );
 
-  const set = <K extends keyof CommonData>(key: K, val: CommonData[K]) =>
+  const set = <K extends keyof CommonData>(key: K, val: CommonData[K]) => {
+    if (!startedRef.current) {
+      startedRef.current = true;
+      trackEvent("project_form_start");
+    }
     setData((d) => ({ ...d, [key]: val }));
+  };
 
   function validateStep(): string {
     switch (step) {
@@ -1997,6 +2004,7 @@ export default function ProjectRequestForm({ initialService }: { initialService?
       }
 
       try { track("lead_submitted", { service: data.serviceCategory || "unknown" }); } catch {}
+      trackEvent("project_form_submit", { service: data.serviceCategory || "unknown" });
       try { localStorage.removeItem(DRAFT_KEY); } catch {}
       router.push("/thank-you");
     } catch (e) {

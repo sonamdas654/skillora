@@ -83,6 +83,7 @@ export default function ServicesTabs() {
               </Link>
               <Link
                 href={`/services/${s.slug}`}
+                data-track="service_detail_click"
                 className="mt-2 flex items-center justify-center gap-1 text-xs font-semibold text-ink-soft hover:text-accent transition-colors"
               >
                 View full details <Icon name="arrow" className="size-3.5" />

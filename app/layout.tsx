@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
+import SiteAnalytics from "@/components/SiteAnalytics";
 import { organizationSchema, websiteSchema, professionalServiceSchema } from "@/lib/schema";
 
 // Body font — clean, highly legible.
@@ -55,6 +56,15 @@ export const metadata: Metadata = {
     siteName: site.name,
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — ${site.tagline}`,
+    description:
+      "Smart digital services: websites, apps, AI automation, design, dashboards and marketing — delivered with a clear requirement-based process.",
+  },
+  ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION } }
+    : {}),
 };
 
 export default function RootLayout({
@@ -71,6 +81,7 @@ export default function RootLayout({
         <JsonLd data={[organizationSchema(), websiteSchema(), professionalServiceSchema()]} />
         {children}
         <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );

@@ -172,6 +172,7 @@ export function PackageCard({
       </div>
       <Link
         href={serviceSlug ? `/start-project?service=${serviceSlug}` : "/start-project"}
+        data-track="pricing_package_click"
         className={`mt-auto pt-5 block rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-all ${
           pkg.highlighted
             ? "bg-gradient-to-r from-accent to-indigo-600 text-white shadow-md hover:opacity-90 hover:shadow-lg"
@@ -255,12 +256,14 @@ export function PortfolioCard({ item }: { item: PortfolioItem }) {
             <>
               <Link
                 href={`/portfolio/${item.slug}`}
+                data-track="portfolio_cta_click"
                 className="flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-deep"
               >
                 <Icon name="arrow" className="size-4" /> View Live Demo
               </Link>
               <Link
                 href={`/start-project?service=${serviceSlug}`}
+                data-track="portfolio_cta_click"
                 className="mt-2 flex items-center justify-center gap-1 text-xs font-semibold text-ink-soft transition-colors hover:text-accent"
               >
                 Build Similar Project
@@ -269,6 +272,7 @@ export function PortfolioCard({ item }: { item: PortfolioItem }) {
           ) : (
             <Link
               href={`/start-project?service=${serviceSlug}`}
+              data-track="portfolio_cta_click"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
             >
               Build Similar Project
