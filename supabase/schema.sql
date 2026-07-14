@@ -17,6 +17,43 @@ end;
 $$;
 
 -- =====================================================================
+-- Phase 3: exact enum types (fixed vocabulary — no free-text statuses)
+-- =====================================================================
+do $$ begin
+  create type public.user_role as enum ('client','admin');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.user_status as enum ('active','inactive','blocked');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.project_request_status as enum
+    ('draft','submitted','under_review','quote_prepared','converted','closed');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.project_status as enum
+    ('request_received','quote_sent','advance_pending','in_progress',
+     'preview_shared','revision','final_payment_pending','delivered','closed');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.quote_status as enum
+    ('draft','sent','viewed','change_requested','approved','rejected','expired');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.payment_status as enum
+    ('pending','submitted','verified','rejected');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type public.revision_status as enum
+    ('submitted','under_review','accepted','completed','not_in_scope');
+exception when duplicate_object then null; end $$;
+
+-- =====================================================================
 -- 1. user_profiles  (one row per auth user)
 -- =====================================================================
 create table if not exists public.user_profiles (
@@ -25,7 +62,8 @@ create table if not exists public.user_profiles (
   full_name   text default '',
   phone       text,
   avatar_url  text,
-  role        text not null default 'client' check (role in ('client','admin')),
+  role        public.user_role not null default 'client',
+  status      public.user_status not null default 'active',
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
 );
@@ -81,8 +119,7 @@ create table if not exists public.project_requests (
   description      text,
   budget_range     text,
   deadline         text,
-  status           text not null default 'new'
-                     check (status in ('new','reviewed','quoted','converted','closed')),
+  status           public.project_request_status not null default 'draft',
   created_at       timestamptz not null default now(),
   updated_at       timestamptz not null default now()
 );
@@ -97,8 +134,7 @@ create table if not exists public.projects (
   title            text not null,
   description      text,
   service_category text,
-  status           text not null default 'requested'
-                     check (status in ('requested','quoted','in_progress','preview','revision','delivered','closed','cancelled')),
+  status           public.project_status not null default 'request_received',
   progress         int not null default 0 check (progress between 0 and 100),
   start_date       date,
   delivery_date    date,
@@ -121,8 +157,7 @@ create table if not exists public.quotes (
   currency     text not null default 'INR',
   revisions    int default 2,
   payment_terms text,
-  status       text not null default 'draft'
-                 check (status in ('draft','sent','accepted','rejected','expired')),
+  status       public.quote_status not null default 'draft',
   valid_until  date,
   created_at   timestamptz not null default now(),
   updated_at   timestamptz not null default now()
@@ -141,8 +176,7 @@ create table if not exists public.payments (
   currency       text not null default 'INR',
   method         text,
   reference      text,
-  status         text not null default 'pending'
-                   check (status in ('pending','partial','paid','refunded')),
+  status         public.payment_status not null default 'pending',
   due_date       date,
   paid_at        timestamptz,
   created_at     timestamptz not null default now(),
@@ -160,8 +194,7 @@ create table if not exists public.revisions (
   round_number int not null default 1,
   items        jsonb default '[]'::jsonb,
   notes        text,
-  status       text not null default 'requested'
-                 check (status in ('requested','in_progress','completed')),
+  status       public.revision_status not null default 'submitted',
   created_at   timestamptz not null default now(),
   completed_at timestamptz
 );
