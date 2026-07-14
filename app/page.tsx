@@ -522,7 +522,7 @@ export default async function HomePage() {
                 <span className="font-accent font-normal text-[#8fa8ff]">not promises</span>
               </h2>
               <p className="mt-4 text-base sm:text-lg leading-7 text-white/70">
-                No fake reviews, no inflated numbers. Just a professional working process that protects your money and your time.
+                A clear, professional process from your first message to final delivery — one that protects your money and your time.
               </p>
             </div>
           </Reveal>
@@ -553,7 +553,7 @@ export default async function HomePage() {
                     <span className="font-accent font-normal text-accent">say</span>
                   </>
                 }
-                subtitle="Real reviews from real projects — never purchased, never faked."
+                subtitle="Honest feedback from people we&apos;ve worked with."
               />
             </Reveal>
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const values = [
   {
     title: "Honesty over hype",
-    desc: "No fake testimonials, no invented client counts. Concept work is always labeled clearly. Trust is earned through process, not claimed through numbers.",
+    desc: "We let the work and the process speak. Concept builds are shown as live, working demos, and everything is put in writing before you pay.",
   },
   {
     title: "Clarity before commitment",

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/portfolio" },
   title: "Portfolio — Featured Work & Concepts",
   description:
-    "Featured concepts across websites, ecommerce, AI chatbots and dashboards. Real client projects are added with permission as they complete — never faked.",
+    "Explore live, working concept demos across websites, ecommerce, AI chatbots and dashboards — see exactly what Skilloura builds.",
 };
 
 const dbAccents = ["#2857ff", "#0fbf8f", "#f59e0b", "#a855f7", "#e11d48", "#ff6b35"];
@@ -52,7 +52,7 @@ export default async function PortfolioPage() {
             <span className="font-accent font-normal text-accent">what&apos;s possible</span>
           </>
         }
-        subtitle="Click any concept to explore a live, interactive demo — real, working pages that show exactly what we build. Concepts are labeled honestly; real client work is added with permission — never faked."
+        subtitle="Click any concept to explore a live, interactive demo — real, working pages that show exactly what we build."
       />
       <Section>
 

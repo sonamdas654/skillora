@@ -26,8 +26,8 @@ const signals = [
   },
   {
     icon: "globe",
-    title: "Honest portfolio",
-    desc: "Concepts are labeled as concepts. Real client work is added only with permission — never faked.",
+    title: "Real, working demos",
+    desc: "Every concept is a live, working sample you can explore before you commit — so you judge the quality yourself.",
   },
   {
     icon: "bot",
@@ -46,8 +46,8 @@ export default function TrustBand() {
           <span className="font-accent font-normal text-accent">empty promises</span>
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-ink-soft">
-          We&apos;re a new studio, so instead of fake reviews we put our process in writing. This is
-          exactly how every project runs.
+          We put our whole process in writing — this is exactly how every project runs, from your
+          first message to the final handover.
         </p>
       </div>
 
