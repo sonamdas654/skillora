@@ -50,7 +50,10 @@ export default function LoginPage() {
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
-          options: { data: { role: "client", full_name: name, whatsapp } },
+          options: {
+            data: { role: "client", full_name: name, whatsapp },
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+          },
         });
         if (error) throw error;
 
