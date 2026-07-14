@@ -3,6 +3,7 @@ import { site } from "@/lib/site";
 import { serviceCategories } from "@/lib/services";
 import { blogPosts } from "@/lib/blog";
 import { policies } from "@/lib/policies";
+import { portfolioItems } from "@/lib/portfolio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
@@ -41,5 +42,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
-  return [...staticPages, ...servicePages, ...blogPages, ...policyPages];
+  // Bespoke, content-rich concept pages (restaurant, gym, salon, etc.)
+  const portfolioPages = portfolioItems
+    .filter((p) => p.demoType)
+    .map((p) => ({
+      url: `${base}/portfolio/${p.slug}`,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    }));
+
+  return [...staticPages, ...servicePages, ...blogPages, ...policyPages, ...portfolioPages];
 }
