@@ -185,6 +185,34 @@ input[type="number"]::-webkit-inner-spin-button {
 .animate-service-rail {
   animation: service-rail 46s linear infinite;
 }
+@media (prefers-reduced-motion: reduce) {
+  .animate-service-rail {
+    animation: none;
+  }
+}
+
+/* Above-the-fold entrance — CSS-only so hero content is painted immediately
+   (no JS/hydration wait) and never sits blank on slow mobile. Stagger via an
+   inline --rise-delay. Reduced-motion users get the final state instantly. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.5s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
 
 /* Soft page entrance on route navigation (via app/template.tsx) */
 @keyframes page-enter {

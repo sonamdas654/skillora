@@ -15,10 +15,8 @@ import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
 import { createClient } from "@/lib/supabase/server";
-import JsonLd from "@/components/JsonLd";
 import CountUp from "@/components/CountUp";
 import EstimateTeaser from "@/components/EstimateTeaser";
-import { professionalServiceSchema } from "@/lib/schema";
 
 export const dynamic = "force-dynamic";
 
@@ -221,7 +219,8 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd data={professionalServiceSchema()} />
+      {/* Organization + WebSite + ProfessionalService JSON-LD is emitted once
+          site-wide in app/layout.tsx — not repeated here (was a duplicate). */}
       <Header />
       <main>
         {/* ── Section 1: Hero ─────────────────────────────── */}
@@ -231,72 +230,71 @@ export default async function HomePage() {
           <HeroMotion />
           <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-8 sm:pb-10">
             <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-              {/* Left — value proposition */}
+              {/* Left — value proposition. Uses CSS .rise (not JS Reveal) so it
+                  paints immediately on first load and never sits blank on mobile. */}
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                <Reveal>
-                  <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-ink-soft shadow-sm">
-                    <span className="size-2 rounded-full bg-mint animate-pulse" />
-                    Accepting new projects
-                  </p>
-                </Reveal>
-                <Reveal delay={0.08}>
-                  <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink">
-                    Build Your Website, Automation &{" "}
-                    <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
-                      Digital Growth System
-                    </span>{" "}
-                    with Skilloura
-                  </h1>
-                </Reveal>
-                <Reveal delay={0.16}>
-                  <p className="mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft">
-                    Submit your requirement once. Skilloura reviews your project, prepares a clear
-                    scope, and shares a written quote before any payment.
-                  </p>
-                </Reveal>
-                <Reveal delay={0.24}>
-                  <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-                    <Link
-                      href="/start-project"
-                      className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
-                    >
-                      Get a Free Quote
-                      <Icon name="arrow" className="size-5" />
-                    </Link>
-                    <Link
-                      href="/how-it-works"
-                      className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
-                    >
-                      See How It Works
-                    </Link>
-                  </div>
-                </Reveal>
-                <Reveal delay={0.32}>
-                  <ul className="mt-9 grid grid-cols-2 gap-x-6 gap-y-3 text-left">
-                    {["Fast Turnaround", "Transparent Pricing", "Expert Support", "Written Scope Before Payment"].map((t) => (
-                      <li key={t} className="flex items-center gap-1.5 text-sm font-semibold text-ink-soft">
-                        <Icon name="check" className="size-4 shrink-0 text-mint" />
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
-                </Reveal>
+                <p className="rise inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-ink-soft shadow-sm">
+                  <span className="size-2 rounded-full bg-mint animate-pulse" />
+                  Accepting new projects
+                </p>
+                <h1 className="rise mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink" style={{ ["--rise-delay" as string]: "80ms" }}>
+                  Build Your Website, Automation &{" "}
+                  <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
+                    Digital Growth System
+                  </span>{" "}
+                  with Skilloura
+                </h1>
+                <p className="rise mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft" style={{ ["--rise-delay" as string]: "160ms" }}>
+                  Submit your requirement once. Skilloura reviews your project, prepares a clear
+                  scope, and shares a written quote before any payment.
+                </p>
+                <div className="rise mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start" style={{ ["--rise-delay" as string]: "240ms" }}>
+                  <Link
+                    href="/start-project"
+                    className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
+                  >
+                    Get a Free Quote
+                    <Icon name="arrow" className="size-5" />
+                  </Link>
+                  <Link
+                    href="/how-it-works"
+                    className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
+                  >
+                    See How It Works
+                  </Link>
+                </div>
+                <ul className="rise mt-9 grid grid-cols-2 gap-x-6 gap-y-3 text-left" style={{ ["--rise-delay" as string]: "320ms" }}>
+                  {["Fast Turnaround", "Transparent Pricing", "Expert Support", "Written Scope Before Payment"].map((t) => (
+                    <li key={t} className="flex items-center gap-1.5 text-sm font-semibold text-ink-soft">
+                      <Icon name="check" className="size-4 shrink-0 text-mint" />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Right — premium Skilloura orb + floating service cards */}
-              <Reveal delay={0.2} className="w-full">
+              <div className="rise w-full" style={{ ["--rise-delay" as string]: "200ms" }}>
                 <HeroOrb />
-              </Reveal>
+              </div>
             </div>
           </div>
 
-          {/* Full-width gradient service rail — floats over the hero backdrop */}
+          {/* Full-width gradient service rail — floats over the hero backdrop.
+              The track is tripled for a seamless marquee loop; only the FIRST
+              copy is real to assistive tech + keyboard — the two duplicates are
+              aria-hidden and non-focusable so screen readers and Tab don't hit
+              every link three times. */}
           <div className="relative w-screen overflow-hidden py-6 sm:py-8">
             <div className="flex w-max gap-4 px-4 animate-service-rail hover:[animation-play-state:paused] sm:gap-5 sm:px-5">
-              {[...serviceRailItems, ...serviceRailItems, ...serviceRailItems].map((item, i) => (
+              {[...serviceRailItems, ...serviceRailItems, ...serviceRailItems].map((item, i) => {
+                const dup = i >= serviceRailItems.length;
+                return (
                 <Link
                   key={item.text + i}
                   href={item.href}
+                  aria-hidden={dup || undefined}
+                  tabIndex={dup ? -1 : undefined}
                   className={`flex h-[118px] w-[162px] shrink-0 flex-col items-center justify-center rounded-3xl px-3 text-center text-white ring-1 ring-white/25 transition duration-300 hover:-translate-y-1.5 hover:-rotate-1 hover:brightness-110 sm:h-[132px] sm:w-[178px] lg:w-[188px] ${item.card}`}
                 >
                   <span className="grid size-11 place-items-center rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
@@ -310,7 +308,8 @@ export default async function HomePage() {
                     {item.text}
                   </span>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

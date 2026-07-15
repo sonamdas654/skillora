@@ -66,7 +66,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "website-development",
     name: "Website Development",
     shortName: "Websites",
-    tab: "Development",
+    tab: "Website",
     icon: "globe",
     description:
       "Business, restaurant, portfolio, ecommerce, booking and custom websites — mobile responsive, SEO-ready, with WhatsApp and contact integration.",
@@ -319,7 +319,7 @@ export const serviceCategories: ServiceCategory[] = [
     slug: "mobile-app-development",
     name: "Mobile App Development",
     shortName: "Mobile Apps",
-    tab: "Development",
+    tab: "Mobile App",
     icon: "smartphone",
     description:
       "Android and iOS apps for business, booking, delivery, learning and customer management — with backend, admin panel and payment options.",
@@ -1218,7 +1218,8 @@ export function getService(slug: string) {
 }
 
 export const serviceTabs = [
-  "Development",
+  "Website",
+  "Mobile App",
   "AI and Automation",
   "Design",
   "Marketing",
