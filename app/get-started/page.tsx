@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { serviceCategories } from "@/lib/services";
 import { budgetRanges } from "@/lib/site";
@@ -48,7 +48,16 @@ function clearDraft() {
 }
 
 export default function GetStartedPage() {
+  return (
+    <Suspense fallback={null}>
+      <GetStartedForm />
+    </Suspense>
+  );
+}
+
+function GetStartedForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = useMemo(() => createClient(), []);
 
   // A stable ref for this submission. Restored from the draft if we're
@@ -64,7 +73,12 @@ export default function GetStartedPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [service, setService] = useState("");
+  // ?service=<slug> from a CTA elsewhere on the site (e.g. a service page's
+  // "Get Free Quote" button) — prefill it; a resumed draft overrides this below.
+  const [service, setService] = useState(() => {
+    const slug = searchParams.get("service");
+    return slug && serviceCategories.some((s) => s.slug === slug) ? slug : "";
+  });
   const [serviceType, setServiceType] = useState("");
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState("");
