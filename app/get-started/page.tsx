@@ -22,6 +22,7 @@ type Draft = {
   description: string;
   budget: string;
   deadline: string;
+  pkg: string;
   pendingSubmit: boolean;
 };
 
@@ -83,6 +84,9 @@ function GetStartedForm() {
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState("");
   const [deadline, setDeadline] = useState("");
+  // ?package=<name> from a pricing "Get This Package" CTA — shown as a chip and
+  // included in the request so the client never re-picks what they just chose.
+  const [pkg, setPkg] = useState(() => searchParams.get("package") || "");
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -97,14 +101,18 @@ function GetStartedForm() {
     setDescription(d.description);
     setBudget(d.budget);
     setDeadline(d.deadline);
+    setPkg(d.pkg || "");
   }
 
   function currentDraft(pendingSubmit: boolean): Draft {
-    return { ref, name, email, phone, service, serviceType, description, budget, deadline, pendingSubmit };
+    return { ref, name, email, phone, service, serviceType, description, budget, deadline, pkg, pendingSubmit };
   }
 
   async function submitDraft(d: Draft, partial: boolean) {
     const svc = serviceCategories.find((s) => s.slug === d.service);
+    // Fold the chosen package (from a pricing CTA) into the description so it
+    // reaches the admin without needing a separate DB column.
+    const description = d.pkg ? `[Package chosen: ${d.pkg}]\n${d.description}` : d.description;
     return supabase.rpc("submit_project_request", {
       p_ref: d.ref,
       p_name: d.name,
@@ -112,7 +120,7 @@ function GetStartedForm() {
       p_phone: d.phone,
       p_service: svc?.name ?? d.service,
       p_service_type: d.serviceType,
-      p_description: d.description,
+      p_description: description,
       p_budget: d.budget,
       p_deadline: d.deadline,
       p_partial: partial,
@@ -229,11 +237,35 @@ function GetStartedForm() {
           ) : (
             <>
               {/* Progress */}
-              <div className="mb-6 flex items-center gap-2">
+              <div className="mb-2 flex items-center justify-between text-xs font-semibold text-ink-soft">
+                <span>Step {step} of 2</span>
+                <span>Takes 3–5 minutes</span>
+              </div>
+              <div className="mb-3 flex items-center gap-2">
                 {[1, 2].map((n) => (
                   <div key={n} className={`h-1.5 flex-1 rounded-full ${step >= n ? "bg-accent" : "bg-line"}`} />
                 ))}
               </div>
+              <div className="mb-6 flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-medium text-ink-soft">
+                <span className="inline-flex items-center gap-1">✓ No payment required</span>
+                <span className="inline-flex items-center gap-1">✓ We won&apos;t spam you</span>
+                <span className="inline-flex items-center gap-1">✓ Free, no obligation</span>
+              </div>
+
+              {pkg && (
+                <div className="mb-4 flex items-center justify-between gap-2 rounded-xl border border-accent/25 bg-accent-soft/50 px-4 py-2.5">
+                  <span className="text-sm text-ink">
+                    Selected package: <span className="font-bold">{pkg}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setPkg("")}
+                    className="text-xs font-semibold text-ink-soft hover:text-accent hover:underline"
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
 
               {error && (
                 <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
@@ -260,6 +292,10 @@ function GetStartedForm() {
                   <div>
                     <label className={labelCls}>WhatsApp number</label>
                     <input required value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} placeholder="+91 98765 43210" />
+                    <p className="mt-1.5 text-xs text-ink-soft">
+                      We use your email + WhatsApp only to send your scope, quote and project
+                      updates — never for spam.
+                    </p>
                   </div>
                   <button type="submit" disabled={busy} className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-deep disabled:opacity-60">
                     {busy ? "Please wait…" : "Continue"}

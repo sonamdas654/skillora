@@ -171,7 +171,11 @@ export function PackageCard({
         )}
       </div>
       <Link
-        href={serviceSlug ? `/start-project?service=${serviceSlug}` : "/start-project"}
+        href={
+          serviceSlug
+            ? `/start-project?service=${serviceSlug}&package=${encodeURIComponent(pkg.name)}`
+            : `/start-project?package=${encodeURIComponent(pkg.name)}`
+        }
         data-track="pricing_package_click"
         className={`mt-auto pt-5 block rounded-full px-4 py-2.5 text-center text-sm font-semibold transition-all ${
           pkg.highlighted
