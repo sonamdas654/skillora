@@ -201,6 +201,16 @@ export default function HeroOrb() {
         aria-hidden
       />
 
+      {/* Honesty label — this composition is an illustration of the workflow,
+          not a live client dashboard. Keeps the numbers inside it from reading
+          as real, unverified stats. */}
+      <div className="mb-4 flex justify-center lg:justify-end">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white/80 px-3 py-1 text-[11px] font-semibold text-ink-soft backdrop-blur-sm">
+          <Icon name="spark" className="size-3 text-accent" />
+          Example project workflow — illustration
+        </span>
+      </div>
+
       {/* ── Desktop: full immersive composition ── */}
       <div className="relative mx-auto hidden h-[600px] w-full max-w-lg lg:block">
         {/* orb centered */}

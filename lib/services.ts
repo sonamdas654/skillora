@@ -1217,6 +1217,11 @@ export function getService(slug: string) {
   return serviceCategories.find((s) => s.slug === slug);
 }
 
+// Homepage positioning: these are real, offered services but kept SECONDARY
+// (shown under "Additional Services") so the core websites / AI / custom-systems
+// positioning stays front and centre. They still get full service pages.
+export const SECONDARY_SERVICE_SLUGS = ["video-editing", "resume-career"];
+
 export const serviceTabs = [
   "Website",
   "Mobile App",

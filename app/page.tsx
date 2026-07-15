@@ -10,7 +10,7 @@ import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section, SectionHeading } from "@/components/Section";
 import { ServiceCard, PackageCard } from "@/components/Cards";
-import { serviceCategories } from "@/lib/services";
+import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
@@ -238,22 +238,21 @@ export default async function HomePage() {
                   Accepting new projects
                 </p>
                 <h1 className="rise mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink" style={{ ["--rise-delay" as string]: "80ms" }}>
-                  Build Your Website, Automation &{" "}
+                  Websites &amp; AI systems that help growing businesses{" "}
                   <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
-                    Digital Growth System
-                  </span>{" "}
-                  with Skilloura
+                    get more leads and save manual work
+                  </span>
                 </h1>
                 <p className="rise mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft" style={{ ["--rise-delay" as string]: "160ms" }}>
-                  Submit your requirement once. Skilloura reviews your project, prepares a clear
-                  scope, and shares a written quote before any payment.
+                  Share your requirement once — get a written scope, timeline and transparent quote
+                  before any payment.
                 </p>
                 <div className="rise mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start" style={{ ["--rise-delay" as string]: "240ms" }}>
                   <Link
                     href="/start-project"
                     className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
                   >
-                    Get a Free Quote
+                    Get My Project Plan
                     <Icon name="arrow" className="size-5" />
                   </Link>
                   <Link
@@ -427,20 +426,56 @@ export default async function HomePage() {
               eyebrow="Services"
               title={
                 <>
-                  Digital Services You Can{" "}
-                  <span className="font-accent font-normal text-accent">Request</span>
+                  Websites, AI systems &amp; the{" "}
+                  <span className="font-accent font-normal text-accent">work around them</span>
                 </>
               }
-              subtitle="Nine service categories, one clear process. Every card leads to a smart form built for that project type."
+              subtitle="Our core focus is websites, AI automation and custom business systems — plus the design, marketing and content support to launch them. One clear process, one smart form per project type."
             />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {serviceCategories.map((s, i) => (
-              <Reveal key={s.slug} delay={Math.min(i * 0.06, 0.3)}>
-                <ServiceCard service={s} />
-              </Reveal>
-            ))}
+            {serviceCategories
+              .filter((s) => !SECONDARY_SERVICE_SLUGS.includes(s.slug))
+              .map((s, i) => (
+                <Reveal key={s.slug} delay={Math.min(i * 0.06, 0.3)}>
+                  <ServiceCard service={s} />
+                </Reveal>
+              ))}
           </div>
+
+          {/* Additional services — real offerings, kept secondary so the core
+              websites/AI/systems positioning stays front and centre. */}
+          <Reveal>
+            <div className="mt-14 rounded-3xl border border-line bg-white p-6 sm:p-8">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Additional services</p>
+                  <h3 className="mt-1 text-lg font-bold text-ink">Also available alongside your project</h3>
+                </div>
+                <p className="text-sm text-ink-soft">Often added on to a website or system build.</p>
+              </div>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                {serviceCategories
+                  .filter((s) => SECONDARY_SERVICE_SLUGS.includes(s.slug))
+                  .map((s) => (
+                    <Link
+                      key={s.slug}
+                      href={`/services/${s.slug}`}
+                      className="card-lift flex items-center gap-3 rounded-2xl border border-line bg-background px-4 py-3.5 hover:border-accent/40"
+                    >
+                      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+                        <Icon name={s.icon} className="size-5" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-bold text-ink">{s.name}</span>
+                        <span className="block truncate text-xs text-ink-soft">{s.outcome}</span>
+                      </span>
+                      <Icon name="arrow" className="ml-auto size-4 shrink-0 text-ink-soft" />
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          </Reveal>
         </Section>
 
         {/* ── Section 5: How It Works ─────────────────────── */}
