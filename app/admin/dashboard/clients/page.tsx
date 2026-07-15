@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import ClientRow from "./ClientRow";
 
 export const dynamic = "force-dynamic";
 
@@ -19,20 +20,7 @@ export default async function AdminClientsPage() {
         <div className="mt-6 space-y-3">
           {clients.map((c: Record<string, any>) => {  // eslint-disable-line @typescript-eslint/no-explicit-any
             const cp = Array.isArray(c.client_profiles) ? c.client_profiles[0] : c.client_profiles;
-            return (
-              <div key={c.id} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white p-5">
-                <div>
-                  <p className="font-bold text-ink">{c.full_name || c.email}</p>
-                  <p className="mt-0.5 text-sm text-ink-soft">{c.email}</p>
-                  <p className="mt-1 text-xs text-ink-soft">
-                    {cp?.business_name && `${cp.business_name} · `}
-                    {cp?.whatsapp || c.phone || "No phone"}
-                    {cp?.city_country && ` · ${cp.city_country}`}
-                  </p>
-                </div>
-                <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-bold text-accent">{c.status}</span>
-              </div>
-            );
+            return <ClientRow key={c.id} client={c} clientProfile={cp} />;
           })}
         </div>
       ) : (

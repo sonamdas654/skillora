@@ -20,8 +20,16 @@ type Row = Record<string, any>;
 async function uploadToStorage(supabase: SupabaseClient, userId: string, projectId: string, file: File, kind: string) {
   const path = `${userId}/${projectId}/${kind}-${Date.now()}-${file.name}`;
   const { error } = await supabase.storage.from("project-files").upload(path, file, { upsert: false });
-  if (error) throw error;
+  if (error) throw new Error(`Upload failed: ${error.message}`);
   return path;
+}
+
+function friendlyError(e: unknown): string {
+  const msg = e instanceof Error ? e.message : "Something went wrong. Please try again.";
+  if (/jwt|session|not authenticated|refresh_token/i.test(msg)) {
+    return "Your session has expired — please sign in again.";
+  }
+  return msg;
 }
 
 export default function ProjectWorkspace({
@@ -60,7 +68,7 @@ export default function ProjectWorkspace({
       if (res && "error" in res && res.error) throw res.error;
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong.");
+      setError(friendlyError(e));
     } finally {
       setBusy(null);
     }
@@ -90,12 +98,19 @@ export default function ProjectWorkspace({
           </span>
           {isAdmin && (
             <AdminStatusControl
-              projectId={project.id}
               current={project.status}
               progress={project.progress}
               busy={busy === "status"}
               onSave={(status, progress) =>
-                run("status", () => supabase.rpc("update_project_status", { p_project_id: project.id, p_status: status, p_progress: progress }))
+                run("status", () =>
+                  supabase.rpc("admin_edit_project", {
+                    p_project_id: project.id,
+                    p_title: null,
+                    p_description: null,
+                    p_status: status,
+                    p_progress: progress,
+                  })
+                )
               }
             />
           )}
@@ -156,6 +171,22 @@ export default function ProjectWorkspace({
                 </button>
               </div>
             )}
+            {isAdmin && (
+              <AdminOverridePanel
+                fields={[
+                  { key: "p_title", label: "Title", type: "text", value: q.title || "" },
+                  { key: "p_amount", label: "Amount", type: "number", value: q.amount },
+                  { key: "p_status", label: "Status", type: "select", value: q.status, options: ["draft", "sent", "viewed", "change_requested", "approved", "rejected", "expired"] },
+                  { key: "p_revisions", label: "Revisions", type: "number", value: q.revisions },
+                ]}
+                busy={busy === `edit-quote-${q.id}`}
+                onSave={(vals) =>
+                  run(`edit-quote-${q.id}`, () =>
+                    supabase.rpc("admin_edit_quote", { p_quote_id: q.id, p_scope: null, p_payment_terms: null, p_valid_until: null, ...vals })
+                  )
+                }
+              />
+            )}
           </div>
         ))}
       </Section>
@@ -164,17 +195,20 @@ export default function ProjectWorkspace({
       <Section title="Payment status" empty={payments.length === 0} emptyText="No payment has been requested yet.">
         {isAdmin && (
           <CreatePaymentForm
-            projectId={project.id}
             busy={busy === "payment-new"}
-            onCreate={(amount, currency, due) =>
-              run("payment-new", () => supabase.rpc("create_payment_request", { p_project_id: project.id, p_amount: amount, p_currency: currency, p_due_date: due || null }))
+            onCreate={(amount, currency, due, kind) =>
+              run("payment-new", () =>
+                supabase.rpc("create_payment_request", { p_project_id: project.id, p_amount: amount, p_currency: currency, p_due_date: due || null, p_kind: kind })
+              )
             }
           />
         )}
         {payments.map((p) => (
           <div key={p.id} className="rounded-2xl border border-line bg-white p-5">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <p className="font-bold text-ink">{p.invoice_number}</p>
+              <p className="font-bold text-ink">
+                {p.invoice_number} <span className="ml-1 text-xs font-normal text-ink-soft">({p.kind === "final" ? "Final" : "Advance"})</span>
+              </p>
               <span className={`rounded-full px-3 py-1 text-xs font-bold ${statusPillClass(p.status)}`}>
                 {PAYMENT_STATUS_LABEL[p.status] ?? p.status}
               </span>
@@ -184,6 +218,7 @@ export default function ProjectWorkspace({
             </p>
             {p.due_date && <p className="mt-1 text-xs text-ink-soft">Due {new Date(p.due_date).toLocaleDateString("en-IN")}</p>}
             {p.reference && <p className="mt-1 text-xs text-ink-soft">Reference: {p.reference}</p>}
+            {isAdmin && p.screenshot_path && <ScreenshotLink path={p.screenshot_path} supabase={supabase} />}
 
             {!isAdmin && p.status === "pending" && (
               <PaymentProofForm
@@ -196,6 +231,11 @@ export default function ProjectWorkspace({
                   })
                 }
               />
+            )}
+            {!isAdmin && p.status === "rejected" && (
+              <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-xs font-semibold text-red-600">
+                Your last payment proof was rejected — please resubmit with a clearer screenshot or correct reference.
+              </p>
             )}
             {isAdmin && p.status === "submitted" && (
               <div className="mt-4 flex gap-3">
@@ -215,6 +255,17 @@ export default function ProjectWorkspace({
                 </button>
               </div>
             )}
+            {isAdmin && (
+              <AdminOverridePanel
+                fields={[
+                  { key: "p_amount", label: "Amount", type: "number", value: p.amount },
+                  { key: "p_status", label: "Status", type: "select", value: p.status, options: ["pending", "submitted", "verified", "rejected"] },
+                  { key: "p_reference", label: "Reference", type: "text", value: p.reference || "" },
+                ]}
+                busy={busy === `edit-pay-${p.id}`}
+                onSave={(vals) => run(`edit-pay-${p.id}`, () => supabase.rpc("admin_edit_payment", { p_payment_id: p.id, p_method: null, p_due_date: null, ...vals }))}
+              />
+            )}
           </div>
         ))}
       </Section>
@@ -228,20 +279,40 @@ export default function ProjectWorkspace({
           />
         )}
         {previews.map((pv) => (
-          <a
-            key={pv.id}
-            href={pv.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between gap-3 rounded-2xl border border-line bg-white p-5 hover:border-accent"
-          >
-            <div>
-              <p className="font-bold text-ink">{pv.label || "Preview"}</p>
-              <p className="mt-0.5 truncate text-sm text-accent">{pv.url}</p>
-            </div>
-            <span className="text-accent">→</span>
-          </a>
+          <div key={pv.id} className="rounded-2xl border border-line bg-white p-5">
+            <a href={pv.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 hover:text-accent">
+              <div>
+                <p className="font-bold text-ink">{pv.label || "Preview"}</p>
+                <p className="mt-0.5 truncate text-sm text-accent">{pv.url}</p>
+              </div>
+              <span className="text-accent">→</span>
+            </a>
+            {isAdmin && (
+              <AdminOverridePanel
+                fields={[
+                  { key: "p_label", label: "Label", type: "text", value: pv.label || "" },
+                  { key: "p_url", label: "URL", type: "text", value: pv.url },
+                  { key: "p_is_active", label: "Active", type: "select", value: String(pv.is_active), options: ["true", "false"] },
+                ]}
+                busy={busy === `edit-preview-${pv.id}`}
+                onSave={(vals) =>
+                  run(`edit-preview-${pv.id}`, () =>
+                    supabase.rpc("admin_edit_preview_link", { p_id: pv.id, ...vals, p_is_active: vals.p_is_active === "true" })
+                  )
+                }
+              />
+            )}
+          </div>
         ))}
+        {!isAdmin && project.status === "preview_shared" && previews.length > 0 && (
+          <button
+            disabled={busy === "approve-preview"}
+            onClick={() => run("approve-preview", () => supabase.rpc("approve_preview", { p_project_id: project.id }))}
+            className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-deep disabled:opacity-60"
+          >
+            Approve preview — proceed to final payment
+          </button>
+        )}
       </Section>
 
       {/* Revisions */}
@@ -275,12 +346,22 @@ export default function ProjectWorkspace({
                 ))}
               </div>
             )}
+            {isAdmin && (
+              <AdminOverridePanel
+                fields={[
+                  { key: "p_status", label: "Status", type: "select", value: r.status, options: ["submitted", "under_review", "accepted", "completed", "not_in_scope"] },
+                  { key: "p_notes", label: "Notes", type: "text", value: r.notes || "" },
+                ]}
+                busy={busy === `edit-rev-${r.id}`}
+                onSave={(vals) => run(`edit-rev-${r.id}`, () => supabase.rpc("admin_edit_revision", { p_revision_id: r.id, ...vals }))}
+              />
+            )}
           </div>
         ))}
       </Section>
 
       {/* Files */}
-      <Section title="Files & handover" empty={files.length === 0} emptyText="No files yet.">
+      <Section title="Files & handover" empty={files.length === 0} emptyText="No files uploaded yet.">
         <FileUploadForm
           busy={busy === "file-new"}
           adminUpload={isAdmin}
@@ -299,7 +380,14 @@ export default function ProjectWorkspace({
           }
         />
         {files.map((f) => (
-          <FileRow key={f.id} file={f} supabase={supabase} />
+          <FileRow
+            key={f.id}
+            file={f}
+            supabase={supabase}
+            isAdmin={isAdmin}
+            busy={busy === `visible-${f.id}`}
+            onToggleVisible={() => run(`visible-${f.id}`, () => supabase.rpc("admin_edit_file_visibility", { p_file_id: f.id, p_visible: !f.visible_to_client }))}
+          />
         ))}
       </Section>
 
@@ -357,7 +445,6 @@ function AdminStatusControl({
   busy,
   onSave,
 }: {
-  projectId: string;
   current: string;
   progress: number;
   busy: boolean;
@@ -447,21 +534,103 @@ function QuoteForm({ existing, busy, onSave }: { projectId: string; existing?: R
   );
 }
 
-function CreatePaymentForm({ busy, onCreate }: { projectId: string; busy: boolean; onCreate: (amount: number, currency: string, due: string) => void }) {
+function CreatePaymentForm({ busy, onCreate }: { busy: boolean; onCreate: (amount: number, currency: string, due: string, kind: string) => void }) {
   const [amount, setAmount] = useState("");
   const [due, setDue] = useState("");
+  const [kind, setKind] = useState("advance");
   return (
     <div className="rounded-2xl border border-dashed border-line bg-white p-5">
       <p className="mb-3 text-sm font-bold text-ink">Request a payment</p>
       <div className="flex flex-wrap gap-2.5">
+        <select value={kind} onChange={(e) => setKind(e.target.value)} className="rounded-lg border border-line px-3 py-2 text-sm">
+          <option value="advance">Advance</option>
+          <option value="final">Final</option>
+        </select>
         <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount (INR)" className="flex-1 rounded-lg border border-line px-3 py-2 text-sm" />
         <input type="date" value={due} onChange={(e) => setDue(e.target.value)} className="rounded-lg border border-line px-3 py-2 text-sm" />
         <button
           disabled={busy || !amount}
-          onClick={() => onCreate(Number(amount), "INR", due)}
+          onClick={() => onCreate(Number(amount), "INR", due, kind)}
           className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
         >
           Send request
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ScreenshotLink({ path, supabase }: { path: string; supabase: SupabaseClient }) {
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState(false);
+  async function view() {
+    setBusy(true);
+    setErr(false);
+    const { data, error } = await supabase.storage.from("project-files").createSignedUrl(path, 60);
+    setBusy(false);
+    if (error || !data?.signedUrl) {
+      setErr(true);
+      return;
+    }
+    window.open(data.signedUrl, "_blank");
+  }
+  return (
+    <div className="mt-2">
+      <button disabled={busy} onClick={view} className="text-xs font-semibold text-accent hover:underline disabled:opacity-60">
+        {busy ? "Loading…" : "View payment screenshot"}
+      </button>
+      {err && <span className="ml-2 text-xs text-red-600">Could not open file — access denied or file missing.</span>}
+    </div>
+  );
+}
+
+type OverrideField = { key: string; label: string; type: "text" | "number" | "select"; value: unknown; options?: string[] };
+
+function AdminOverridePanel({ fields, busy, onSave }: { fields: OverrideField[]; busy: boolean; onSave: (vals: Record<string, unknown>) => void }) {
+  const [open, setOpen] = useState(false);
+  const [vals, setVals] = useState<Record<string, unknown>>(() => Object.fromEntries(fields.map((f) => [f.key, f.value])));
+
+  if (!open) {
+    return (
+      <button onClick={() => setOpen(true)} className="mt-3 text-xs font-semibold text-ink-soft hover:text-accent hover:underline">
+        Admin: edit manually
+      </button>
+    );
+  }
+
+  return (
+    <div className="mt-3 space-y-2 rounded-xl bg-background p-3">
+      {fields.map((f) => (
+        <div key={f.key} className="flex items-center gap-2">
+          <label className="w-24 shrink-0 text-xs font-semibold text-ink-soft">{f.label}</label>
+          {f.type === "select" ? (
+            <select
+              value={String(vals[f.key] ?? "")}
+              onChange={(e) => setVals((v) => ({ ...v, [f.key]: e.target.value }))}
+              className="flex-1 rounded-lg border border-line px-2 py-1.5 text-xs"
+            >
+              {f.options?.map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <input
+              type={f.type}
+              value={String(vals[f.key] ?? "")}
+              onChange={(e) => setVals((v) => ({ ...v, [f.key]: f.type === "number" ? Number(e.target.value) : e.target.value }))}
+              className="flex-1 rounded-lg border border-line px-2 py-1.5 text-xs"
+            />
+          )}
+        </div>
+      ))}
+      <div className="flex gap-2">
+        <button disabled={busy} onClick={() => onSave(vals)} className="rounded-lg bg-ink px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60">
+          {busy ? "Saving…" : "Save override"}
+        </button>
+        <button onClick={() => setOpen(false)} className="rounded-lg border border-line px-3 py-1.5 text-xs font-semibold text-ink-soft">
+          Cancel
         </button>
       </div>
     </div>
@@ -551,25 +720,52 @@ function FileUploadForm({ busy, adminUpload, onUpload }: { busy: boolean; adminU
   );
 }
 
-function FileRow({ file, supabase }: { file: Row; supabase: SupabaseClient }) {
+function FileRow({
+  file,
+  supabase,
+  isAdmin,
+  busy: toggleBusy,
+  onToggleVisible,
+}: {
+  file: Row;
+  supabase: SupabaseClient;
+  isAdmin: boolean;
+  busy: boolean;
+  onToggleVisible: () => void;
+}) {
   const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState(false);
   async function download() {
     setBusy(true);
-    const { data } = await supabase.storage.from("project-files").createSignedUrl(file.storage_path, 60);
+    setErr(false);
+    const { data, error } = await supabase.storage.from("project-files").createSignedUrl(file.storage_path, 60);
     setBusy(false);
-    if (data?.signedUrl) window.open(data.signedUrl, "_blank");
+    if (error || !data?.signedUrl) {
+      setErr(true);
+      return;
+    }
+    window.open(data.signedUrl, "_blank");
   }
   return (
-    <div className="flex items-center justify-between gap-3 rounded-2xl border border-line bg-white p-5">
-      <div className="min-w-0">
-        <p className="truncate font-bold text-ink">{file.name}</p>
-        <p className="mt-0.5 text-xs text-ink-soft">
-          {file.kind === "delivery" ? "Delivered by Skilloura" : "Uploaded by you"} · {new Date(file.created_at).toLocaleDateString("en-IN")}
-        </p>
+    <div className="rounded-2xl border border-line bg-white p-5">
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate font-bold text-ink">{file.name}</p>
+          <p className="mt-0.5 text-xs text-ink-soft">
+            {file.kind === "delivery" ? "Delivered by Skilloura" : "Uploaded by client"} · {new Date(file.created_at).toLocaleDateString("en-IN")}
+            {isAdmin && !file.visible_to_client && <span className="ml-1 font-semibold text-red-600">· Hidden from client</span>}
+          </p>
+        </div>
+        <button disabled={busy} onClick={download} className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-accent hover:text-accent disabled:opacity-60">
+          {busy ? "Loading…" : "Download"}
+        </button>
       </div>
-      <button disabled={busy} onClick={download} className="rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-accent hover:text-accent disabled:opacity-60">
-        Download
-      </button>
+      {err && <p className="mt-2 text-xs font-semibold text-red-600">Access denied — this file couldn&apos;t be opened.</p>}
+      {isAdmin && (
+        <button disabled={toggleBusy} onClick={onToggleVisible} className="mt-2 text-xs font-semibold text-ink-soft hover:text-accent hover:underline disabled:opacity-60">
+          {file.visible_to_client ? "Hide from client" : "Show to client"}
+        </button>
+      )}
     </div>
   );
 }
