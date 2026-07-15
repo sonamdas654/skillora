@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/db";
+import { createClient } from "@/lib/supabase/server";
 import { verifyReviewToken } from "@/lib/reviewToken";
 import { notifyNewReview } from "@/lib/notify";
 
@@ -12,7 +12,7 @@ const schema = z.object({
 });
 
 // Public endpoint: a client submits their review via a signed invite link.
-// One review per link — enforced by the unique inviteToken column.
+// One review per link — enforced by the unique invite_token column.
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   const parsed = schema.safeParse(body);
@@ -24,24 +24,36 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "This review link is invalid or has expired." }, { status: 400 });
   }
 
-  const already = await prisma.testimonial.findUnique({ where: { inviteToken: invite.jti } });
+  const supabase = await createClient();
+  const { data: already } = await supabase
+    .from("testimonials")
+    .select("id")
+    .eq("invite_token", invite.jti)
+    .maybeSingle();
   if (already) {
     return NextResponse.json({ error: "A review was already submitted with this link. Thank you!" }, { status: 409 });
   }
 
-  const testimonial = await prisma.testimonial.create({
-    data: {
-      clientName: invite.clientName,
-      clientBusiness: d.clientBusiness || invite.clientBusiness || null,
-      rating: d.rating,
-      review: d.review,
-      status: "pending",
-      inviteToken: invite.jti,
-    },
+  const clientBusiness = d.clientBusiness || invite.clientBusiness || null;
+  const { error } = await supabase.from("testimonials").insert({
+    client_name: invite.clientName,
+    client_business: clientBusiness,
+    rating: d.rating,
+    review: d.review,
+    status: "pending",
+    invite_token: invite.jti,
   });
+  if (error) {
+    return NextResponse.json({ error: "Could not save your review. Please try again." }, { status: 500 });
+  }
 
   // Serverless rule: must await, or the email silently drops on Vercel.
-  await notifyNewReview(testimonial);
+  await notifyNewReview({
+    clientName: invite.clientName,
+    clientBusiness,
+    rating: d.rating,
+    review: d.review,
+  });
 
   return NextResponse.json({ ok: true });
 }

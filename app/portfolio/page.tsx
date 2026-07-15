@@ -7,7 +7,7 @@ import { Section } from "@/components/Section";
 import { PortfolioCard } from "@/components/Cards";
 import TrustBand from "@/components/TrustBand";
 import { portfolioItems, type PortfolioItem } from "@/lib/portfolio";
-import { prisma } from "@/lib/db";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -21,21 +21,24 @@ export const metadata: Metadata = {
 const dbAccents = ["#2857ff", "#0fbf8f", "#f59e0b", "#a855f7", "#e11d48", "#ff6b35"];
 
 export default async function PortfolioPage() {
-  const dbItems = await prisma.portfolio.findMany({
-    where: { status: "active" },
-    orderBy: { createdAt: "desc" },
-  });
+  const supabase = await createClient();
+  const { data: dbItems } = await supabase
+    .from("portfolio_items")
+    .select("*")
+    .eq("status", "active")
+    .order("created_at", { ascending: false });
+
   const allItems: PortfolioItem[] = [
-    ...dbItems.map((i, idx) => ({
+    ...(dbItems ?? []).map((i, idx) => ({
       slug: i.id,
-      title: i.projectTitle,
+      title: i.project_title,
       industry: i.industry,
       category: i.category,
       problem: i.problem,
       solution: i.solution,
-      features: i.features ? (JSON.parse(i.features) as string[]) : [],
-      technology: i.technologyUsed ?? "",
-      isDemo: i.isDemo,
+      features: i.features ?? [],
+      technology: i.technology_used ?? "",
+      isDemo: i.is_demo,
       accent: dbAccents[idx % dbAccents.length],
       icon: "spark",
     })),

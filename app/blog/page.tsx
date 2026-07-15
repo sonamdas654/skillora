@@ -4,8 +4,7 @@ import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
-import { blogPosts } from "@/lib/blog";
-import { prisma } from "@/lib/db";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -17,21 +16,14 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const dbPosts = await prisma.blogPost.findMany({
-    where: { status: "published" },
-    orderBy: { createdAt: "desc" },
-  });
-  const allPosts = [
-    ...dbPosts.map((p) => ({
-      slug: p.slug,
-      title: p.title,
-      metaDescription: p.metaDescription ?? p.content.slice(0, 150),
-      date: p.createdAt.toISOString(),
-      readMinutes: Math.max(2, Math.round(p.content.split(/\s+/).length / 200)),
-      category: "Blog",
-    })),
-    ...blogPosts,
-  ];
+  const supabase = await createClient();
+  const { data: posts } = await supabase
+    .from("blog_posts")
+    .select("slug, title, meta_description, category, read_minutes")
+    .eq("status", "published")
+    .order("date", { ascending: false });
+
+  const allPosts = posts ?? [];
 
   return (
     <PageShell>
@@ -57,13 +49,13 @@ export default async function BlogPage() {
                   <span className="rounded-full bg-accent-soft px-3 py-1 text-accent">
                     {post.category}
                   </span>
-                  <span className="text-ink-soft">{post.readMinutes} min read</span>
+                  <span className="text-ink-soft">{post.read_minutes} min read</span>
                 </div>
                 <h2 className="mt-4 text-lg font-bold leading-snug text-ink group-hover:text-accent transition-colors">
                   {post.title}
                 </h2>
                 <p className="mt-2 text-sm leading-6 text-ink-soft line-clamp-3">
-                  {post.metaDescription}
+                  {post.meta_description}
                 </p>
                 <span className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
                   Read article

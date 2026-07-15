@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ReviewForm from "@/components/ReviewForm";
 import { verifyReviewToken } from "@/lib/reviewToken";
-import { prisma } from "@/lib/db";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
 export const metadata = {
@@ -18,9 +18,12 @@ export default async function ReviewPage({
 }) {
   const { token } = await params;
   const invite = await verifyReviewToken(token);
-  const alreadyUsed = invite
-    ? await prisma.testimonial.findUnique({ where: { inviteToken: invite.jti } })
-    : null;
+  let alreadyUsed = false;
+  if (invite) {
+    const supabase = await createClient();
+    const { data } = await supabase.rpc("review_token_used", { p_invite_token: invite.jti });
+    alreadyUsed = Boolean(data);
+  }
 
   return (
     <>

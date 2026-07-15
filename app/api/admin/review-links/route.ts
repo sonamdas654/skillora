@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getSession } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
 import { createReviewToken } from "@/lib/reviewToken";
 import { site } from "@/lib/site";
 
@@ -11,8 +11,13 @@ const schema = z.object({
 
 // Generate a personal review-invite link for a delivered client.
 export async function POST(req: NextRequest) {
-  const session = await getSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { data: profile } = await supabase.from("user_profiles").select("role").eq("id", user.id).maybeSingle();
+  if (profile?.role !== "admin") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json().catch(() => null);
   const parsed = schema.safeParse(body);

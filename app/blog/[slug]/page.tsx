@@ -5,31 +5,53 @@ import PageShell from "@/components/PageShell";
 import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
 import Image from "next/image";
-import { blogPosts, getBlogPost, type BlogPost } from "@/lib/blog";
-import { prisma } from "@/lib/db";
+import type { BlogPost } from "@/lib/blog";
+import { createClient } from "@/lib/supabase/server";
 import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import ShareButtons from "@/components/ShareButtons";
 import { blogPostingSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
-export function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
 async function resolvePost(slug: string): Promise<BlogPost | undefined> {
-  const staticPost = getBlogPost(slug);
-  if (staticPost) return staticPost;
-  const dbPost = await prisma.blogPost.findUnique({ where: { slug } });
-  if (!dbPost || dbPost.status !== "published") return undefined;
+  const supabase = await createClient();
+  const { data: p } = await supabase
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+  if (!p) return undefined;
   return {
-    slug: dbPost.slug,
-    title: dbPost.title,
-    metaDescription: dbPost.metaDescription ?? dbPost.content.slice(0, 150),
-    date: dbPost.createdAt.toISOString(),
-    readMinutes: Math.max(2, Math.round(dbPost.content.split(/\s+/).length / 200)),
-    category: "Blog",
-    content: dbPost.content,
+    slug: p.slug,
+    title: p.title,
+    metaDescription: p.meta_description,
+    date: p.date,
+    readMinutes: p.read_minutes,
+    category: p.category,
+    content: p.content,
+    keyTakeaways: p.key_takeaways ?? [],
+    costTable: p.cost_table ?? [],
+    faqs: p.faqs ?? [],
+    serviceCtaSlug: p.service_cta_slug ?? undefined,
+    serviceCtaLabel: p.service_cta_label ?? undefined,
+    demoSlug: p.demo_slug ?? undefined,
+    demoLabel: p.demo_label ?? undefined,
+    relatedSlugs: p.related_slugs ?? [],
+    sources: p.sources ?? [],
   };
+}
+
+async function resolveRelated(slugs: string[]): Promise<{ slug: string; title: string }[]> {
+  if (slugs.length === 0) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("blog_posts")
+    .select("slug, title")
+    .in("slug", slugs)
+    .eq("status", "published");
+  return data ?? [];
 }
 
 export async function generateMetadata({
@@ -87,10 +109,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const postUrl = `${site.url}/blog/${post.slug}`;
-  const relatedPosts = (post.relatedSlugs ?? [])
-    .map((s) => blogPosts.find((p) => p.slug === s))
-    .filter((p): p is BlogPost => Boolean(p))
-    .map((p) => ({ slug: p.slug, title: p.title }));
+  const relatedPosts = await resolveRelated(post.relatedSlugs ?? []);
 
   return (
     <PageShell>

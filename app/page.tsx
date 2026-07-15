@@ -14,7 +14,7 @@ import { serviceCategories } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
-import { prisma } from "@/lib/db";
+import { createClient } from "@/lib/supabase/server";
 import JsonLd from "@/components/JsonLd";
 import CountUp from "@/components/CountUp";
 import EstimateTeaser from "@/components/EstimateTeaser";
@@ -204,11 +204,20 @@ const featuredPackages = [
 
 
 export default async function HomePage() {
-  const testimonials = await prisma.testimonial.findMany({
-    where: { status: "active" },
-    orderBy: { createdAt: "desc" },
-    take: 6,
-  });
+  const supabase = await createClient();
+  const { data: testimonialRows } = await supabase
+    .from("testimonials")
+    .select("id, client_name, client_business, rating, review")
+    .eq("status", "active")
+    .order("created_at", { ascending: false })
+    .limit(6);
+  const testimonials = (testimonialRows ?? []).map((t) => ({
+    id: t.id,
+    clientName: t.client_name,
+    clientBusiness: t.client_business,
+    rating: t.rating,
+    review: t.review,
+  }));
 
   return (
     <>
