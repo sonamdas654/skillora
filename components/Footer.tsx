@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { WhatsAppIcon } from "./Header";
+import FooterAuthLink from "./portal/FooterAuthLink";
 import { site, whatsappLink } from "@/lib/site";
 import { serviceCategories } from "@/lib/services";
 
@@ -12,7 +13,6 @@ const company = [
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
-  { href: "/login", label: "Client Login" },
 ];
 
 const legal = [
@@ -119,6 +119,9 @@ export default function Footer() {
                   <FooterLink href={l.href} label={l.label} />
                 </li>
               ))}
+              <li>
+                <FooterAuthLink />
+              </li>
             </ul>
           </div>
 
