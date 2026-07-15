@@ -128,6 +128,9 @@ create table if not exists public.client_profiles (
 create table if not exists public.project_requests (
   id               uuid primary key default gen_random_uuid(),
   client_id        uuid references public.user_profiles(id) on delete set null,
+  guest_name       text,
+  guest_email      text,
+  guest_phone      text,
   service_category text,
   service_type     text,
   description      text,
@@ -137,6 +140,90 @@ create table if not exists public.project_requests (
   created_at       timestamptz not null default now(),
   updated_at       timestamptz not null default now()
 );
+create index if not exists idx_pr_guest_email on public.project_requests (lower(guest_email));
+
+
+-- =====================================================================
+-- Phase 6: Start Project flow helpers
+-- =====================================================================
+create or replace function public.submit_project_request(
+  p_ref          uuid,
+  p_name         text,
+  p_email        text,
+  p_phone        text,
+  p_service      text,
+  p_service_type text,
+  p_description  text,
+  p_budget       text,
+  p_deadline     text,
+  p_partial      boolean
+) returns uuid
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_uid uuid := auth.uid();
+  v_status public.project_request_status :=
+    case when p_partial then 'draft' else 'submitted' end;
+begin
+  insert into public.project_requests as pr (
+    id, client_id, guest_name, guest_email, guest_phone,
+    service_category, service_type, description, budget_range, deadline, status
+  ) values (
+    p_ref, v_uid, p_name, nullif(p_email,''), p_phone,
+    p_service, p_service_type, p_description, p_budget, p_deadline, v_status
+  )
+  on conflict (id) do update set
+    client_id        = coalesce(pr.client_id, v_uid),
+    guest_name       = excluded.guest_name,
+    guest_email      = excluded.guest_email,
+    guest_phone      = excluded.guest_phone,
+    service_category = excluded.service_category,
+    service_type     = excluded.service_type,
+    description      = excluded.description,
+    budget_range     = excluded.budget_range,
+    deadline         = excluded.deadline,
+    status           = case when p_partial then pr.status else 'submitted'::public.project_request_status end,
+    updated_at       = now();
+
+  return p_ref;
+end;
+$$;
+
+grant execute on function public.submit_project_request(
+  uuid, text, text, text, text, text, text, text, text, boolean
+) to anon, authenticated;
+
+create or replace function public.claim_my_requests()
+returns integer
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_email      text;
+  v_confirmed timestamptz;
+  v_count      int;
+begin
+  select email, email_confirmed_at into v_email, v_confirmed
+  from auth.users where id = auth.uid();
+
+  if v_email is null or v_confirmed is null then
+    return 0;
+  end if;
+
+  update public.project_requests
+    set client_id = auth.uid(), updated_at = now()
+  where client_id is null
+    and lower(guest_email) = lower(v_email);
+
+  get diagnostics v_count = row_count;
+  return v_count;
+end;
+$$;
+
+grant execute on function public.claim_my_requests() to authenticated;
 
 -- =====================================================================
 -- 4. projects
