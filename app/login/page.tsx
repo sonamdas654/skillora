@@ -8,10 +8,15 @@ import { createClient } from "@/lib/supabase/client";
 
 type Mode = "signin" | "signup";
 
+// Only allow same-site relative paths as a redirect target (blocks
+// //evil.com and absolute URLs). Admins always go to their own dashboard.
+function safeNext(next: string | null) {
+  return next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+}
+
 function destForRole(role: string | undefined, next: string | null) {
   if (role === "admin") return "/admin/dashboard";
-  if (next && next.startsWith("/client/dashboard")) return next;
-  return "/client/dashboard";
+  return safeNext(next) ?? "/client/dashboard";
 }
 
 export default function LoginPage() {
@@ -47,12 +52,19 @@ export default function LoginPage() {
 
         // Every public signup creates a client account — admin accounts are
         // provisioned separately and never created through this form.
+        // Carry `next` through the email-confirmation link so a new user who
+        // started (e.g.) the Start-Project flow lands back exactly where they
+        // were after confirming their email — not on a generic dashboard.
+        const safe = safeNext(next);
+        const emailRedirectTo = safe
+          ? `${window.location.origin}/auth/callback?next=${encodeURIComponent(safe)}`
+          : `${window.location.origin}/auth/callback`;
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
             data: { role: "client", full_name: name, whatsapp },
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
+            emailRedirectTo,
           },
         });
         if (error) throw error;
