@@ -7,6 +7,7 @@ import { serviceCategories } from "@/lib/services";
 
 const company = [
   { href: "/about", label: "About" },
+  { href: "/ai-solutions", label: "AI Systems" },
   { href: "/solutions", label: "Solutions by Industry" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/portfolio", label: "Portfolio" },

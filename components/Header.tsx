@@ -10,9 +10,10 @@ import AuthNavLink from "./portal/AuthNavLink";
 const nav = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/ai-solutions", label: "AI Systems" },
+  { href: "/solutions", label: "Solutions" },
   { href: "/pricing", label: "Pricing" },
   { href: "/portfolio", label: "Portfolio" },
-  { href: "/how-it-works", label: "How It Works" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
