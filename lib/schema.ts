@@ -28,6 +28,7 @@ export function organizationSchema() {
       name: "Sonam Das",
       jobTitle: "Founder",
       image: `${BASE}/founder.png`,
+      alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
       worksFor: { "@id": `${BASE}/#organization` },
     },
     sameAs: [site.googleReviewUrl],

@@ -613,21 +613,22 @@ export default async function HomePage() {
                   <div>
                     <p className="text-lg font-bold text-ink">Sonam Das</p>
                     <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
-                    <p className="mt-1 text-xs text-ink-soft">Personally reviews every project.</p>
+                    <p className="mt-1 text-xs text-ink-soft">M.Tech, BITS Pilani · ~5 years in enterprise IT</p>
                   </div>
                 </div>
 
                 <p className="mt-5 text-base leading-7 text-ink-soft">
-                  &ldquo;I started Skilloura because too many small businesses get burned by unclear
-                  scopes, surprise bills and work that vanishes after payment. So we run the opposite
-                  way — a written scope and honest quote before you pay a rupee, a preview before the
-                  final payment, and a clean handover where you own everything.&rdquo;
+                  Sonam holds an M.Tech from BITS Pilani and has spent close to five years in
+                  enterprise IT, working across websites, software, AI automation, dashboards and
+                  cloud-enabled applications before starting Skilloura to bring that same rigour to
+                  small and growing businesses.
                 </p>
                 <p className="mt-3 text-base leading-7 text-ink-soft">
-                  &ldquo;I keep it small and hands-on on purpose — you talk to the person doing the
-                  work, not a call centre. I use AI where it genuinely speeds things up, but every
-                  build still gets human review, security checks and testing. You&apos;re trusting me
-                  with your business, not just a website.&rdquo;
+                  &ldquo;Too many small businesses get burned by unclear scopes, surprise bills and
+                  work that vanishes after payment. So we run the opposite way — a written scope and
+                  honest quote before you pay a rupee, a preview before the final payment, and a
+                  clean handover where you own everything. I keep it small and hands-on on purpose —
+                  you talk to the person doing the work, not a call centre.&rdquo;
                 </p>
               </div>
             </Reveal>

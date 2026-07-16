@@ -152,7 +152,7 @@ export default function AboutPage() {
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
-                    Reads your requirement, writes your quote, builds your project.
+                    M.Tech, BITS Pilani · ~5 years in enterprise IT
                   </p>
                 </div>
               </div>
@@ -162,6 +162,11 @@ export default function AboutPage() {
                   requirement, asks the right questions, writes your quotation and builds your
                   project. There is no sales team promising things the delivery team can&apos;t do,
                   because they are the same person.
+                </p>
+                <p>
+                  Sonam holds an M.Tech from BITS Pilani and spent close to five years in enterprise
+                  IT — websites, software, AI automation, dashboards and cloud-enabled applications —
+                  before starting Skilloura to bring that same rigour to small and growing businesses.
                 </p>
                 <p>
                   Every process on this site — the smart requirement form, written scope before
