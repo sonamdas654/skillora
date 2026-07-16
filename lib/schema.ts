@@ -22,6 +22,14 @@ export function organizationSchema() {
       email: site.email,
       availableLanguage: ["English", "Hindi"],
     },
+    founder: {
+      "@type": "Person",
+      "@id": `${BASE}/#founder`,
+      name: "Sonam Das",
+      jobTitle: "Founder",
+      image: `${BASE}/founder.png`,
+      worksFor: { "@id": `${BASE}/#organization` },
+    },
     sameAs: [site.googleReviewUrl],
   };
 }

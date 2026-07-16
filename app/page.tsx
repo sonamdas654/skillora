@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppSticky from "@/components/WhatsAppSticky";
@@ -587,9 +588,7 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Who's behind Skilloura — honest, human-accountable ──
-            Real, truthful positioning (no invented person). The full founder
-            block with a real photo / name / LinkedIn comes from the owner. */}
+        {/* ── Who's behind Skilloura — real founder, human-accountable ── */}
         <Section className="bg-soft-panel border-y border-line">
           <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
             <Reveal>
@@ -601,16 +600,34 @@ export default async function HomePage() {
                   AI-enabled, but{" "}
                   <span className="font-accent font-normal text-accent">human-accountable</span>
                 </h2>
-                <p className="mt-4 text-base leading-7 text-ink-soft">
-                  Skilloura is a small, hands-on studio — not a faceless agency and not a form that
-                  disappears after you pay. Every project is personally reviewed before it&apos;s
-                  quoted and before it&apos;s delivered. One person is accountable for your work
-                  from the first message to the final handover.
+
+                {/* Founder card */}
+                <div className="mt-6 flex items-center gap-4">
+                  <Image
+                    src="/founder.png"
+                    alt="Sonam Das, founder of Skilloura"
+                    width={112}
+                    height={112}
+                    className="size-20 sm:size-24 shrink-0 rounded-2xl object-cover object-top ring-1 ring-line shadow-sm"
+                  />
+                  <div>
+                    <p className="text-lg font-bold text-ink">Sonam Das</p>
+                    <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
+                    <p className="mt-1 text-xs text-ink-soft">Personally reviews every project.</p>
+                  </div>
+                </div>
+
+                <p className="mt-5 text-base leading-7 text-ink-soft">
+                  &ldquo;I started Skilloura because too many small businesses get burned by unclear
+                  scopes, surprise bills and work that vanishes after payment. So we run the opposite
+                  way — a written scope and honest quote before you pay a rupee, a preview before the
+                  final payment, and a clean handover where you own everything.&rdquo;
                 </p>
                 <p className="mt-3 text-base leading-7 text-ink-soft">
-                  We use AI where it genuinely speeds things up — but every build gets human
-                  architecture review, security checks, testing and a documented handover. You own
-                  the code and the accounts. No lock-in.
+                  &ldquo;I keep it small and hands-on on purpose — you talk to the person doing the
+                  work, not a call centre. I use AI where it genuinely speeds things up, but every
+                  build still gets human review, security checks and testing. You&apos;re trusting me
+                  with your business, not just a website.&rdquo;
                 </p>
               </div>
             </Reveal>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
@@ -139,9 +140,25 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="mt-10 rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
+              <div className="mb-6 flex items-center gap-4 border-b border-line pb-6">
+                <Image
+                  src="/founder.png"
+                  alt="Sonam Das, founder of Skilloura"
+                  width={128}
+                  height={128}
+                  className="size-24 shrink-0 rounded-2xl object-cover object-top ring-1 ring-line shadow-sm"
+                />
+                <div>
+                  <p className="text-xl font-bold text-ink">Sonam Das</p>
+                  <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
+                  <p className="mt-1 text-xs text-ink-soft">
+                    Reads your requirement, writes your quote, builds your project.
+                  </p>
+                </div>
+              </div>
               <div className="space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
                 <p>
-                  Skilloura is run hands-on by its founder — the same person who reads your
+                  Skilloura is run hands-on by its founder, Sonam Das — the same person who reads your
                   requirement, asks the right questions, writes your quotation and builds your
                   project. There is no sales team promising things the delivery team can&apos;t do,
                   because they are the same person.
