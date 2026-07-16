@@ -24,15 +24,13 @@ export const metadata = {
   alternates: { canonical: "/" },
 };
 
-const steps = [
-  { title: "Select the service", desc: "Pick from 9 service categories — websites, apps, AI, design, marketing and more." },
-  { title: "Fill the smart requirement form", desc: "Answer questions designed for your exact project type. No confusion." },
-  { title: "Upload your files", desc: "Logo, images, videos or documents — everything in one secure place." },
-  { title: "Submit your request", desc: "One click. You get instant confirmation on screen and email." },
-  { title: "I review and contact you", desc: "Personal review of every request, reply within 24 hours on WhatsApp/email." },
-  { title: "Scope, price and timeline finalized", desc: "Written quotation with exactly what's included. No hidden charges." },
-  { title: "Advance payment and work start", desc: "40–50% advance and your project officially begins." },
-  { title: "Preview, revision and final delivery", desc: "You approve a preview first, revisions happen, then full delivery." },
+// Homepage shows a 4-step summary; the full 8-step process lives on
+// /how-it-works. Voice kept consistently "we" (a small, personally-run studio).
+const homeSteps = [
+  { title: "Share your requirement", desc: "Pick a service and fill a smart form built for that project type — upload any files in one place." },
+  { title: "Get a written scope & quote", desc: "We personally review every request and reply within 24 hours, with a clear written quote before any payment." },
+  { title: "Approve & we build", desc: "A 40–50% advance starts the work. You approve a preview first, then revisions happen." },
+  { title: "Delivery & handover", desc: "Final delivery with a clean, documented handover — files, access and everything you need to own it." },
 ];
 
 // Impact / trust numbers — honest, capability-based stats (no fake client counts).
@@ -75,15 +73,13 @@ const impactStats = [
   },
 ];
 
+// Trimmed to 4 to cut mobile length and avoid repeating the "who's behind
+// Skilloura" cards (ownership / scope / personal contact live there now).
 const whyChoose = [
-  { icon: "file", title: "Requirement-based development", desc: "Everything starts from your written requirement — so you get what you actually asked for." },
-  { icon: "check", title: "Clear project scope", desc: "Scope, inclusions and exclusions in writing before any payment." },
-  { icon: "shield", title: "No hidden charges", desc: "The quoted price is the price. Extras are always discussed first." },
-  { icon: "spark", title: "WhatsApp support", desc: "Direct communication — no ticket systems, no waiting days for replies." },
-  { icon: "shield", title: "Secure file handling", desc: "Your files stay private, linked only to your project." },
-  { icon: "clock", title: "Preview before final delivery", desc: "You see and approve the work before final payment." },
-  { icon: "check", title: "Professional delivery process", desc: "Documentation, credentials, training video — proper handover, every time." },
-  { icon: "spark", title: "Maintenance support available", desc: "Monthly care plans start from ₹1,999/month so your project stays healthy after launch." },
+  { icon: "shield", title: "No hidden charges", desc: "The quoted price is the price. Any extra is always discussed and agreed first." },
+  { icon: "shield", title: "Secure file handling", desc: "Your files stay private, linked only to your project — never public or shared." },
+  { icon: "clock", title: "Preview before final delivery", desc: "You see and approve the work before the final payment — no nasty surprises." },
+  { icon: "spark", title: "Maintenance support available", desc: "Monthly care plans from ₹1,999/month keep your project healthy after launch." },
 ];
 
 // Every rail card carries its own full gradient (Power BI / Custom Software
@@ -478,7 +474,7 @@ export default async function HomePage() {
           </Reveal>
         </Section>
 
-        {/* ── Section 5: How It Works ─────────────────────── */}
+        {/* ── Section 5: How It Works (4-step summary; full 8 on /how-it-works) ── */}
         <Section id="how-it-works" className="bg-wash-mint border-b border-line">
           <Reveal>
             <SectionHeading
@@ -486,14 +482,14 @@ export default async function HomePage() {
               title={
                 <>
                   From idea to delivery in{" "}
-                  <span className="font-accent font-normal text-accent">8 clear steps</span>
+                  <span className="font-accent font-normal text-accent">4 simple steps</span>
                 </>
               }
-              subtitle="No confusion, no surprises. You always know exactly where your project stands."
+              subtitle="No confusion, no surprises — you always know exactly where your project stands. Every project ends with a clean, documented handover."
             />
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, i) => (
+            {homeSteps.map((step, i) => (
               <Reveal key={step.title} delay={Math.min(i * 0.05, 0.25)}>
                 <div className="card-lift relative h-full rounded-2xl border border-line bg-white p-6">
                   <span className="text-4xl font-extrabold text-accent/15">
@@ -505,6 +501,13 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </div>
+          <Reveal delay={0.2}>
+            <p className="mt-8 text-center">
+              <Link href="/how-it-works" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-deep">
+                See the full 8-step process <Icon name="arrow" className="size-4" />
+              </Link>
+            </p>
+          </Reveal>
         </Section>
 
         {/* ── Section 6: Featured Packages ────────────────── */}
@@ -584,6 +587,54 @@ export default async function HomePage() {
           </div>
         </Section>
 
+        {/* ── Who's behind Skilloura — honest, human-accountable ──
+            Real, truthful positioning (no invented person). The full founder
+            block with a real photo / name / LinkedIn comes from the owner. */}
+        <Section className="bg-soft-panel border-y border-line">
+          <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <Reveal>
+              <div>
+                <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-ink-soft">
+                  Who&apos;s behind Skilloura
+                </p>
+                <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight leading-[1.14] text-ink">
+                  AI-enabled, but{" "}
+                  <span className="font-accent font-normal text-accent">human-accountable</span>
+                </h2>
+                <p className="mt-4 text-base leading-7 text-ink-soft">
+                  Skilloura is a small, hands-on studio — not a faceless agency and not a form that
+                  disappears after you pay. Every project is personally reviewed before it&apos;s
+                  quoted and before it&apos;s delivered. One person is accountable for your work
+                  from the first message to the final handover.
+                </p>
+                <p className="mt-3 text-base leading-7 text-ink-soft">
+                  We use AI where it genuinely speeds things up — but every build gets human
+                  architecture review, security checks, testing and a documented handover. You own
+                  the code and the accounts. No lock-in.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { icon: "file", t: "You own everything", d: "Code, content and accounts handed over to you — no vendor lock-in." },
+                  { icon: "shield", t: "Human review on every build", d: "Architecture, security and testing checked by a person, not just generated." },
+                  { icon: "check", t: "Written scope before payment", d: "You approve exactly what's included before anything is charged." },
+                  { icon: "spark", t: "Direct, personal contact", d: "You talk to the person doing the work — on WhatsApp, not a ticket queue." },
+                ].map((c) => (
+                  <div key={c.t} className="rounded-2xl border border-line bg-white p-5">
+                    <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent">
+                      <Icon name={c.icon} className="size-5" />
+                    </span>
+                    <h3 className="mt-3 text-sm font-bold text-ink">{c.t}</h3>
+                    <p className="mt-1 text-xs leading-5 text-ink-soft">{c.d}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </Section>
+
         {/* ── Real client reviews (only shown when they exist) ── */}
         {testimonials.length > 0 && (
           <Section className="bg-soft-panel border-b border-line">
@@ -618,6 +669,35 @@ export default async function HomePage() {
                 </Reveal>
               ))}
             </div>
+          </Section>
+        )}
+
+        {/* Honest early-stage note when there are no published reviews yet —
+            transparent instead of fake reviews or an empty gap. */}
+        {testimonials.length === 0 && (
+          <Section className="bg-soft-panel border-b border-line">
+            <Reveal>
+              <div className="mx-auto max-w-2xl rounded-3xl border border-line bg-white p-8 text-center sm:p-10">
+                <p className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent-soft px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+                  Early days — and honest about it
+                </p>
+                <h2 className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+                  We&apos;d rather show real reviews than fake ones
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-ink-soft">
+                  Skilloura is new, so you won&apos;t see a wall of stock testimonials here. As real
+                  clients finish their projects, their genuine reviews will appear on this page —
+                  with their name and business. Want to be one of the first? Start a project and
+                  get our full attention.
+                </p>
+                <Link
+                  href="/start-project"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep transition-colors"
+                >
+                  Start your project <Icon name="arrow" className="size-4" />
+                </Link>
+              </div>
+            </Reveal>
           </Section>
         )}
 
