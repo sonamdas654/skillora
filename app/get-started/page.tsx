@@ -366,7 +366,19 @@ function GetStartedForm() {
                     </select>
                   </div>
 
-                  {activeService && <InvestmentEstimate service={activeService} />}
+                  {activeService && (
+                    <div>
+                      <label className={labelCls}>Budget range</label>
+                      <select value={budget} onChange={(e) => setBudget(e.target.value)} className={inputCls}>
+                        <option value="">Select to see how it affects your estimate…</option>
+                        {budgetRanges.map((b) => (
+                          <option key={b} value={b}>{b}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+
+                  {activeService && <InvestmentEstimate service={activeService} budget={budget} />}
 
                   {activeService && (
                     <div>
@@ -406,20 +418,9 @@ function GetStartedForm() {
                     instead — leave anything blank and we&apos;ll ask you directly.
                   </p>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label className={labelCls}>Budget range</label>
-                      <select value={budget} onChange={(e) => setBudget(e.target.value)} className={inputCls}>
-                        <option value="">Select…</option>
-                        {budgetRanges.map((b) => (
-                          <option key={b} value={b}>{b}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <label className={labelCls}>Deadline (optional)</label>
-                      <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} className={inputCls} min={new Date().toISOString().split("T")[0]} />
-                    </div>
+                  <div>
+                    <label className={labelCls}>Deadline (optional)</label>
+                    <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} className={inputCls} min={new Date().toISOString().split("T")[0]} />
                   </div>
 
                   {!loggedIn && (
