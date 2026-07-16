@@ -167,12 +167,9 @@ export async function notifyNewLead(
         ? answers.map((a) => row(a.question, a.answer)).join("")
         : `<tr><td style="padding:6px 0;font-size:13px">${NOT_GIVEN}</td></tr>`
     )}
-    <p style="margin:18px 0 0;font-size:12px;color:#475569">
-      Files (if the client attached any) are uploaded right after submission — they appear on the lead page.
-    </p>
     <p style="margin:8px 0 0">
-      <a href="${siteUrl}/admin/leads/${lead.id}" style="color:#2857ff;font-weight:bold;font-size:13px">
-        Open lead in admin dashboard →
+      <a href="${siteUrl}/admin/dashboard/leads" style="color:#2857ff;font-weight:bold;font-size:13px">
+        Open in admin dashboard →
       </a>
     </p>`;
 
@@ -184,7 +181,7 @@ export async function notifyNewLead(
 
   // Instant heads-up on the owner's phone (WhatsApp/Telegram — whichever is configured)
   await ownerPing(
-    `🔔 New Skilloura lead!\n${lead.clientName} — ${lead.serviceCategory}${lead.serviceType ? ` (${lead.serviceType})` : ""}\nBudget: ${lead.budgetRange}\nPhone: ${lead.phone}\n${siteUrl}/admin/leads/${lead.id}`
+    `🔔 New Skilloura lead!\n${lead.clientName} — ${lead.serviceCategory}${lead.serviceType ? ` (${lead.serviceType})` : ""}\nBudget: ${lead.budgetRange}\nPhone: ${lead.phone}\n${siteUrl}/admin/dashboard/leads`
   );
 }
 

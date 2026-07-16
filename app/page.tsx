@@ -606,29 +606,31 @@ export default async function HomePage() {
                   <Image
                     src="/founder.png"
                     alt="Sonam Das, founder of Skilloura"
-                    width={112}
-                    height={112}
-                    className="size-20 sm:size-24 shrink-0 rounded-2xl object-cover object-top ring-1 ring-line shadow-sm"
+                    width={240}
+                    height={300}
+                    className="h-32 w-28 sm:h-40 sm:w-32 shrink-0 rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
                   />
                   <div>
-                    <p className="text-lg font-bold text-ink">Sonam Das</p>
+                    <p className="text-xl font-bold text-ink">Sonam Das</p>
                     <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                     <p className="mt-1 text-xs text-ink-soft">M.Tech, BITS Pilani · ~5 years in enterprise IT</p>
                   </div>
                 </div>
 
                 <p className="mt-5 text-base leading-7 text-ink-soft">
-                  Sonam holds an M.Tech from BITS Pilani and has spent close to five years in
-                  enterprise IT, working across websites, software, AI automation, dashboards and
-                  cloud-enabled applications before starting Skilloura to bring that same rigour to
-                  small and growing businesses.
+                  I&apos;m Sonam. Before Skilloura I spent close to five years in enterprise IT —
+                  websites, internal software, AI automation, dashboards, cloud deployments — after my
+                  M.Tech at BITS Pilani. I started this because I kept seeing small businesses get the
+                  short end of the stick from freelancers and agencies: vague promises, scope that
+                  quietly grows, bills that don&apos;t add up.
                 </p>
                 <p className="mt-3 text-base leading-7 text-ink-soft">
-                  &ldquo;Too many small businesses get burned by unclear scopes, surprise bills and
-                  work that vanishes after payment. So we run the opposite way — a written scope and
-                  honest quote before you pay a rupee, a preview before the final payment, and a
-                  clean handover where you own everything. I keep it small and hands-on on purpose —
-                  you talk to the person doing the work, not a call centre.&rdquo;
+                  So here&apos;s how I run it instead: you get a real written scope and a quote before
+                  you pay anything, you see a preview before the final payment, and at handover you get
+                  everything — code, accounts, credentials. I keep the team small on purpose. When you
+                  message on WhatsApp, it&apos;s me replying, not a support queue. I use AI where it
+                  actually saves time, but I review and test every build myself before it goes out — the
+                  same way I&apos;d want it done if it were my own business on the line.
                 </p>
               </div>
             </Reveal>

@@ -7,8 +7,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { serviceCategories } from "@/lib/services";
 import { budgetRanges } from "@/lib/site";
+import DynamicFormFields from "@/components/DynamicFormFields";
+import InvestmentEstimate from "@/components/InvestmentEstimate";
 
 type Step = 1 | 2;
+type Answers = Record<string, string | string[]>;
 
 // Everything needed to (a) restore the form after a login round-trip and
 // (b) submit the exact same row (same ref => upsert, never a duplicate).
@@ -23,10 +26,11 @@ type Draft = {
   budget: string;
   deadline: string;
   pkg: string;
+  answers: Answers;
   pendingSubmit: boolean;
 };
 
-const DRAFT_KEY = "skilloura_getstarted_v2";
+const DRAFT_KEY = "skilloura_getstarted_v3";
 
 function loadDraft(): Draft | null {
   if (typeof window === "undefined") return null;
@@ -87,6 +91,10 @@ function GetStartedForm() {
   // ?package=<name> from a pricing "Get This Package" CTA — shown as a chip and
   // included in the request so the client never re-picks what they just chose.
   const [pkg, setPkg] = useState(() => searchParams.get("package") || "");
+  // Per-service smart-form answers (lib/services.ts formFields) — so the
+  // client gives exactly the detail needed for THIS kind of project, and we
+  // don't have to chase them for basics afterwards.
+  const [answers, setAnswers] = useState<Answers>({});
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -102,10 +110,11 @@ function GetStartedForm() {
     setBudget(d.budget);
     setDeadline(d.deadline);
     setPkg(d.pkg || "");
+    setAnswers(d.answers || {});
   }
 
   function currentDraft(pendingSubmit: boolean): Draft {
-    return { ref, name, email, phone, service, serviceType, description, budget, deadline, pkg, pendingSubmit };
+    return { ref, name, email, phone, service, serviceType, description, budget, deadline, pkg, answers, pendingSubmit };
   }
 
   async function submitDraft(d: Draft, partial: boolean) {
@@ -113,6 +122,15 @@ function GetStartedForm() {
     // Fold the chosen package (from a pricing CTA) into the description so it
     // reaches the admin without needing a separate DB column.
     const description = d.pkg ? `[Package chosen: ${d.pkg}]\n${d.description}` : d.description;
+    // Turn { key: answer } into { "Question label": answer } so the admin
+    // email shows the actual question, not an internal field key.
+    const labelledAnswers: Record<string, string | string[]> = {};
+    for (const f of svc?.formFields ?? []) {
+      const v = d.answers[f.key];
+      if (v !== undefined && v !== "" && !(Array.isArray(v) && v.length === 0)) {
+        labelledAnswers[f.label] = v;
+      }
+    }
     return supabase.rpc("submit_project_request", {
       p_ref: d.ref,
       p_name: d.name,
@@ -124,6 +142,7 @@ function GetStartedForm() {
       p_budget: d.budget,
       p_deadline: d.deadline,
       p_partial: partial,
+      p_form_answers: labelledAnswers,
     });
   }
 
@@ -150,6 +169,11 @@ function GetStartedForm() {
               setError(error.message || "Could not submit your request. Please try again.");
               return;
             }
+            fetch("/api/notify/project-request", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ref: draft.ref }),
+            }).catch(() => {});
             clearDraft();
             router.replace("/client/dashboard?submitted=1");
             router.refresh();
@@ -209,6 +233,13 @@ function GetStartedForm() {
       setBusy(false);
       return;
     }
+    // Best-effort: confirmation email to the client + full-detail email to
+    // the admin. Never blocks the redirect if it fails.
+    fetch("/api/notify/project-request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ref }),
+    }).catch(() => {});
     clearDraft();
     router.replace("/client/dashboard?submitted=1");
     router.refresh();
@@ -318,13 +349,25 @@ function GetStartedForm() {
                   </div>
                   <div>
                     <label className={labelCls}>Service</label>
-                    <select required value={service} onChange={(e) => { setService(e.target.value); setServiceType(""); }} className={inputCls}>
+                    <select
+                      required
+                      value={service}
+                      onChange={(e) => {
+                        setService(e.target.value);
+                        setServiceType("");
+                        setAnswers({});
+                      }}
+                      className={inputCls}
+                    >
                       <option value="">Select a service…</option>
                       {serviceCategories.map((s) => (
                         <option key={s.slug} value={s.slug}>{s.name}</option>
                       ))}
                     </select>
                   </div>
+
+                  {activeService && <InvestmentEstimate service={activeService} />}
+
                   {activeService && (
                     <div>
                       <label className={labelCls}>Project type</label>
@@ -336,10 +379,33 @@ function GetStartedForm() {
                       </select>
                     </div>
                   )}
+
+                  {activeService && activeService.formFields.length > 0 && (
+                    <div className="space-y-4 rounded-2xl border border-line bg-background p-4">
+                      <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">
+                        A few {activeService.name.toLowerCase()} specifics
+                      </p>
+                      <DynamicFormFields
+                        fields={activeService.formFields}
+                        values={answers}
+                        onChange={(key, value) => setAnswers((a) => ({ ...a, [key]: value }))}
+                      />
+                    </div>
+                  )}
+
                   <div>
-                    <label className={labelCls}>Describe your project</label>
-                    <textarea required rows={4} value={description} onChange={(e) => setDescription(e.target.value)} className={inputCls} placeholder="What you need, for whom, and anything important…" />
+                    <label className={labelCls}>Anything else? (optional)</label>
+                    <textarea rows={3} value={description} onChange={(e) => setDescription(e.target.value)} className={inputCls} placeholder="Anything not covered above, or extra context…" />
                   </div>
+
+                  <p className="text-xs text-ink-soft">
+                    Not sure what to put in some of these?{" "}
+                    <Link href="/contact" className="font-semibold text-accent hover:underline">
+                      Send a general request on the Contact page
+                    </Link>{" "}
+                    instead — leave anything blank and we&apos;ll ask you directly.
+                  </p>
+
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <label className={labelCls}>Budget range</label>
