@@ -8,7 +8,9 @@ import { createClient } from "@/lib/supabase/client";
 import { serviceCategories } from "@/lib/services";
 import { budgetRanges } from "@/lib/site";
 import DynamicFormFields from "@/components/DynamicFormFields";
-import InvestmentEstimate from "@/components/InvestmentEstimate";
+import PricingSummary from "@/components/PricingSummary";
+import { usePricingConfig } from "@/lib/usePricingConfig";
+import { computeEstimate, isFieldVisible } from "@/lib/pricingEngine";
 
 type Step = 1 | 2;
 type Answers = Record<string, string | string[]>;
@@ -199,6 +201,52 @@ function GetStartedForm() {
   }, []);
 
   const activeService = serviceCategories.find((s) => s.slug === service);
+  // Real-time, database-driven questions + pricing for the selected
+  // service — this is the actual calculator now. Falls back to the static
+  // formFields (rare: DB unreachable / not yet seeded for a service) so the
+  // form never breaks.
+  const { config: pricingConfig, loading: pricingLoading } = usePricingConfig(service || null);
+
+  const visibleFields = useMemo(() => {
+    if (pricingConfig) return pricingConfig.fields.filter((f) => isFieldVisible(f, answers));
+    return (activeService?.formFields ?? []).map((f) => ({
+      id: f.key,
+      service_id: "",
+      field_key: f.key,
+      label: f.label,
+      field_type: f.type,
+      required: !!f.required,
+      placeholder: f.placeholder ?? null,
+      display_order: 0,
+      conditional_rule: null,
+    }));
+  }, [pricingConfig, activeService, answers]);
+
+  const optionsForFields = useMemo(() => {
+    if (pricingConfig) return pricingConfig.optionsByField;
+    const map: Record<string, { id: string; field_id: string; option_label: string; option_value: string; market_price: number; skilloura_price: number; pricing_type: "fixed"; quantity_unit: null; minimum_quantity: null; maximum_quantity: null; display_order: number }[]> = {};
+    for (const f of activeService?.formFields ?? []) {
+      map[f.key] = (f.options ?? []).map((o, i) => ({
+        id: `${f.key}-${i}`, field_id: f.key, option_label: o, option_value: o,
+        market_price: 0, skilloura_price: 0, pricing_type: "fixed", quantity_unit: null,
+        minimum_quantity: null, maximum_quantity: null, display_order: i,
+      }));
+    }
+    return map;
+  }, [pricingConfig, activeService]);
+
+  const estimate = useMemo(() => {
+    if (!pricingConfig) return null;
+    return computeEstimate({
+      service: pricingConfig.service,
+      fields: pricingConfig.fields,
+      optionsByField: pricingConfig.optionsByField,
+      rules: pricingConfig.rules,
+      externalCosts: pricingConfig.externalCosts,
+      answers,
+      projectType: serviceType,
+    });
+  }, [pricingConfig, answers, serviceType]);
 
   async function onContinue(e: React.FormEvent) {
     e.preventDefault();
@@ -378,7 +426,12 @@ function GetStartedForm() {
                     </div>
                   )}
 
-                  {activeService && <InvestmentEstimate service={activeService} budget={budget} />}
+                  {estimate && activeService && (
+                    <PricingSummary serviceName={activeService.name} estimate={estimate} />
+                  )}
+                  {!estimate && activeService && pricingLoading && (
+                    <p className="text-xs text-ink-soft">Loading live pricing…</p>
+                  )}
 
                   {activeService && (
                     <div>
@@ -392,13 +445,20 @@ function GetStartedForm() {
                     </div>
                   )}
 
-                  {activeService && activeService.formFields.length > 0 && (
+                  {activeService && visibleFields.length > 0 && (
                     <div className="space-y-4 rounded-2xl border border-line bg-background p-4">
                       <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">
                         A few {activeService.name.toLowerCase()} specifics
                       </p>
                       <DynamicFormFields
-                        fields={activeService.formFields}
+                        fields={visibleFields.map((f) => ({
+                          key: f.field_key,
+                          label: f.label,
+                          type: f.field_type,
+                          required: f.required,
+                          placeholder: f.placeholder ?? undefined,
+                          options: (optionsForFields[f.id] ?? []).map((o) => o.option_value),
+                        }))}
                         values={answers}
                         onChange={(key, value) => setAnswers((a) => ({ ...a, [key]: value }))}
                       />
