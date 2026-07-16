@@ -40,6 +40,16 @@ export default function Header() {
     setOpen(false);
   }
 
+  // Close the mobile drawer on Escape (WCAG keyboard access).
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
@@ -48,6 +58,9 @@ export default function Header() {
           : "bg-transparent"
       }`}
     >
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <div className="mx-auto flex h-20 sm:h-[88px] max-w-[1520px] items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
 

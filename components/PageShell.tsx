@@ -8,7 +8,7 @@ export default function PageShell({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main className="pt-20 sm:pt-[88px]">{children}</main>
+      <main id="main-content" className="pt-20 sm:pt-[88px]">{children}</main>
       <Footer />
       <WhatsAppSticky />
       <MobileCtaBar />

@@ -218,7 +218,7 @@ export default async function HomePage() {
       {/* Organization + WebSite + ProfessionalService JSON-LD is emitted once
           site-wide in app/layout.tsx — not repeated here (was a duplicate). */}
       <Header />
-      <main>
+      <main id="main-content">
         {/* ── Section 1: Hero ─────────────────────────────── */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-hero-glow" aria-hidden />

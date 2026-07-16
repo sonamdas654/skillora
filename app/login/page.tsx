@@ -122,12 +122,12 @@ export default function LoginPage() {
           </p>
 
           {notice && (
-            <div className="mt-4 rounded-xl border border-mint/25 bg-mint/10 px-4 py-3 text-sm font-medium text-ink">
+            <div role="status" className="mt-4 rounded-xl border border-mint/25 bg-mint/10 px-4 py-3 text-sm font-medium text-ink">
               {notice}
             </div>
           )}
           {error && (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+            <div role="alert" className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
               {error}
             </div>
           )}
