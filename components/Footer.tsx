@@ -17,6 +17,7 @@ const company = [
 
 const legal = [
   { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/data-security", label: "Data & File Security" },
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/refund-policy", label: "Refund Policy" },
   { href: "/revision-policy", label: "Revision Policy" },

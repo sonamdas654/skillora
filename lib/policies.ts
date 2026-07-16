@@ -366,6 +366,77 @@ export const policies: Policy[] = [
       },
     ],
   },
+  {
+    slug: "data-security",
+    title: "Data & File Security",
+    description:
+      "Where your files and information are stored, who can access them, and how they are protected — in plain language.",
+    intro:
+      "Because you share contact details, project information and sometimes sensitive files, you deserve a clear, honest explanation of how that is handled — including what we do not do. Everything below describes how the platform actually works.",
+    sections: [
+      {
+        heading: "Where your files are stored",
+        points: [
+          "Uploaded files (logos, images, PDFs, payment screenshots) go into a private cloud storage bucket — never a public folder.",
+          "Every file is tied to your account and your specific project. Access is enforced at the database level (row-level security), not just hidden in the interface.",
+          "Files are opened through short-lived signed links that expire in about a minute — so a link cannot be shared, reused or guessed by someone else.",
+        ],
+      },
+      {
+        heading: "Who can access your data",
+        points: [
+          "Only you — signed in to your own account — and Skilloura's authorised admin can see your projects, files, quotes, payments and messages.",
+          "One client can never see another client's data. This is enforced by the database itself, and we have tested it by actively attempting cross-account access.",
+          "Admin-only actions are blocked at the backend and database level, not merely hidden as buttons in the interface.",
+        ],
+      },
+      {
+        heading: "Encryption & connection security",
+        points: [
+          "The entire site runs over HTTPS/TLS, so your data is encrypted while travelling between your device and our servers.",
+          "Files and database records are encrypted at rest by our infrastructure providers.",
+        ],
+      },
+      {
+        heading: "Accounts & login",
+        points: [
+          "Passwords are never stored in readable form — sign-in is handled by a dedicated authentication provider that keeps only a secure one-way hash.",
+          "Email verification is required before an account becomes active.",
+          "Sign-in endpoints have provider-level rate limiting to slow down guessing, and password resets happen only through a secure link emailed to you.",
+        ],
+      },
+      {
+        heading: "What we do NOT do",
+        points: [
+          "We do not sell your data or share it for advertising.",
+          "We do not use your project files or content to train AI models.",
+          "Honest limit: we do not run automatic malware scanning on uploads, so please only upload files from your own trusted sources.",
+        ],
+      },
+      {
+        heading: "File types & deletion",
+        points: [
+          "The client area accepts image files and PDF documents.",
+          "You can request deletion of your uploaded files and account data at any time by emailing contact@skilloura.com — we remove them from active storage.",
+          "We keep data only as long as needed to deliver and support your project, plus what is legally required for invoices and records.",
+        ],
+      },
+      {
+        heading: "Providers we rely on",
+        points: [
+          "Hosting: Vercel. Database, authentication and file storage: Supabase. Transactional email: Resend. Contact-form messages: Neon. Website analytics: Google Analytics (usage only).",
+          "Each is a reputable provider that runs its own security programme.",
+        ],
+      },
+      {
+        heading: "NDA & questions",
+        points: [
+          "Need an NDA before sharing sensitive material? Just ask before you upload and we will sort it out.",
+          "Any security question at all — email contact@skilloura.com.",
+        ],
+      },
+    ],
+  },
 ];
 
 export function getPolicy(slug: string) {

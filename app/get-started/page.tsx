@@ -294,7 +294,10 @@ function GetStartedForm() {
                     <input required value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} placeholder="+91 98765 43210" />
                     <p className="mt-1.5 text-xs text-ink-soft">
                       We use your email + WhatsApp only to send your scope, quote and project
-                      updates — never for spam.
+                      updates — never for spam.{" "}
+                      <Link href="/data-security" className="font-semibold text-accent hover:underline">
+                        How we protect your data
+                      </Link>
                     </p>
                   </div>
                   <button type="submit" disabled={busy} className="w-full rounded-full bg-accent py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-deep disabled:opacity-60">
