@@ -152,7 +152,7 @@ export default function AboutPage() {
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
-                    M.Tech, BITS Pilani · ~10 years hands-on experience
+                    M.Tech, BITS Pilani · Decade-long hands-on digital systems experience
                   </p>
                   <div className="mt-4 space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
                     <p>Hi, I&apos;m Sonam, founder of Skilloura.</p>
@@ -170,11 +170,11 @@ export default function AboutPage() {
                       promised at the beginning is what actually gets built.
                     </p>
                     <p>
-                      Skilloura is backed by nearly a decade of hands-on experience across websites,
+                      Skilloura is backed by 5+ years of enterprise IT experience across websites,
                       software systems, AI automation, dashboards, cloud-based solutions and digital
-                      operations, along with 5+ years of enterprise IT experience and an M.Tech from
-                      BITS Pilani. This mix of technical depth, enterprise discipline and practical
-                      execution shapes how every project is handled here.
+                      operations, along with an M.Tech from BITS Pilani. This mix of technical depth,
+                      enterprise discipline and practical execution shapes how every project is
+                      handled here.
                     </p>
                     <p>
                       The reason Skilloura exists is simple:{" "}

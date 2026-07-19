@@ -614,11 +614,11 @@ export default async function HomePage() {
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
-                    M.Tech, BITS Pilani · 10 years in enterprise IT
+                    M.Tech, BITS Pilani · Decade-long hands-on digital systems experience
                   </p>
 
                   <p className="mt-4 text-base leading-7 text-ink-soft">
-                    Before founding Skilloura, Sonam spent 10 years in enterprise IT: websites,
+                    Before founding Skilloura, Sonam spent 5+ years in enterprise IT: websites,
                     internal software, AI automation, dashboards and cloud deployments, after an
                     M.Tech at BITS Pilani. He started Skilloura after seeing the same pattern too
                     often. Small businesses hiring freelancers or agencies and getting vague promises,
