@@ -126,7 +126,7 @@ export default function AboutPage() {
 
       {/* Founder / person behind the work — real accountability, no stock faces */}
       <Section className="bg-soft-panel border-b border-line">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <Reveal>
             <SectionHeading
               eyebrow="The person behind it"
@@ -139,73 +139,76 @@ export default function AboutPage() {
             />
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="mt-10 rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
-              <div className="grid gap-7 sm:grid-cols-[260px_1fr]">
+            <div className="mt-10 grid gap-6 sm:gap-8 md:grid-cols-[minmax(0,420px)_1fr] md:gap-10 lg:gap-14 items-start">
+              {/* Founder photo card */}
+              <div className="mx-auto w-full max-w-[420px] rounded-3xl border border-line bg-white p-3 shadow-[0_20px_50px_-24px_rgba(11,19,48,0.18)]">
                 <Image
                   src="/founder.png"
                   alt="Sonam Das, founder of Skilloura"
-                  width={520}
-                  height={650}
-                  className="w-full sm:w-[260px] h-64 sm:h-full rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
+                  width={420}
+                  height={525}
+                  className="aspect-[4/5] w-full rounded-2xl object-cover object-top"
                 />
-                <div>
-                  <p className="text-xl font-bold text-ink">Sonam Das</p>
-                  <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
-                  <p className="mt-1 text-xs text-ink-soft">
-                    M.Tech, BITS Pilani · Decade-long hands-on digital systems experience
+              </div>
+
+              {/* Founder bio card */}
+              <div className="rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
+                <p className="text-xl font-bold text-ink">Sonam Das</p>
+                <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
+                <p className="mt-1 text-xs text-ink-soft">
+                  M.Tech, BITS Pilani · ~10 years hands-on experience · 5+ years enterprise IT
+                </p>
+                <div className="mt-5 space-y-4 text-sm sm:text-base leading-8 text-ink-soft">
+                  <p>Hi, I&apos;m Sonam, founder of Skilloura.</p>
+                  <p>
+                    I built Skilloura to deliver digital projects with enterprise-level clarity,
+                    founder-led accountability and professional execution. Every project here follows
+                    a defined process: requirements are reviewed properly, scope is written before
+                    payment, quotes are clear, previews are shared before final delivery, and handover
+                    is managed professionally.
                   </p>
-                  <div className="mt-4 space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
-                    <p>Hi, I&apos;m Sonam, founder of Skilloura.</p>
-                    <p>
-                      I built Skilloura to deliver digital projects with enterprise-level clarity,
-                      founder-led accountability and professional execution. Every project here
-                      follows a defined process: requirements are reviewed properly, scope is written
-                      before payment, quotes are clear, previews are shared before final delivery, and
-                      handover is managed professionally.
-                    </p>
-                    <p>
-                      My role is to set the standard for how work gets delivered. I stay involved
-                      across the full project lifecycle, from requirement understanding and scope
-                      review to quote validation, progress checks and final delivery, so what is
-                      promised at the beginning is what actually gets built.
-                    </p>
-                    <p>
-                      Skilloura is backed by 5+ years of enterprise IT experience across websites,
-                      software systems, AI automation, dashboards, cloud-based solutions and digital
-                      operations, along with an M.Tech from BITS Pilani. This mix of technical depth,
-                      enterprise discipline and practical execution shapes how every project is
-                      handled here.
-                    </p>
-                    <p>
-                      The reason Skilloura exists is simple:{" "}
-                      <strong className="text-ink">
-                        digital projects deserve better than vague promises, unclear scope and
-                        uncertain delivery.
-                      </strong>{" "}
-                      Clients should know exactly what they are getting, how the work will move
-                      forward, what it will cost, and when they can review it.
-                    </p>
-                    <p>That is the standard Skilloura is built on.</p>
-                    <p>
-                      Questions before starting? Message directly on{" "}
-                      <a
-                        href={whatsappLink("Hi! I read the About page and have a question.")}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold text-mint hover:underline"
-                      >
-                        WhatsApp
-                      </a>{" "}
-                      or email{" "}
-                      <a
-                        href={`mailto:${site.email}`}
-                        className="font-semibold text-accent hover:underline"
-                      >
-                        {site.email}
-                      </a>
-                      . You&apos;ll get a real, direct reply, not an autoresponder.
-                    </p>
-                  </div>
+                  <p>
+                    My role is to set the standard for how work gets delivered. I stay involved across
+                    the full project lifecycle, from requirement understanding and scope review to
+                    quote validation, progress checks and final delivery, so what is promised at the
+                    beginning is what actually gets built.
+                  </p>
+                  <p>
+                    Skilloura is backed by 5+ years of enterprise IT experience across websites,
+                    software systems, AI automation, dashboards, cloud-based solutions and digital
+                    operations, along with an M.Tech from BITS Pilani. This mix of technical depth,
+                    enterprise discipline and practical execution shapes how every project is handled
+                    here.
+                  </p>
+                  <p>
+                    The reason Skilloura exists is simple:{" "}
+                    <strong className="text-ink">
+                      digital projects deserve better than vague promises, unclear scope and uncertain
+                      delivery.
+                    </strong>{" "}
+                    Clients should know exactly what they are getting, how the work will move forward,
+                    what it will cost, and when they can review it.
+                  </p>
+                  <p>That is the standard Skilloura is built on.</p>
+                  <p>
+                    Questions before starting? Message directly on{" "}
+                    <a
+                      href={whatsappLink("Hi! I read the About page and have a question.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-mint hover:underline"
+                    >
+                      WhatsApp
+                    </a>{" "}
+                    or email{" "}
+                    <a
+                      href={`mailto:${site.email}`}
+                      className="font-semibold text-accent hover:underline"
+                    >
+                      {site.email}
+                    </a>
+                    . You&apos;ll get a real, direct reply, not an autoresponder.
+                  </p>
                 </div>
               </div>
             </div>
