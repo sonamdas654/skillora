@@ -140,13 +140,13 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="mt-10 rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
-              <div className="grid gap-7 sm:grid-cols-[260px_1fr] items-start">
+              <div className="grid gap-7 sm:grid-cols-[260px_1fr]">
                 <Image
                   src="/founder.png"
                   alt="Sonam Das, founder of Skilloura"
                   width={520}
                   height={650}
-                  className="w-full sm:w-[260px] h-auto rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
+                  className="w-full sm:w-[260px] h-64 sm:h-full rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
                 />
                 <div>
                   <p className="text-xl font-bold text-ink">Sonam Das</p>

@@ -602,13 +602,13 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal delay={0.05}>
-              <div className="mt-8 grid gap-7 sm:grid-cols-[220px_1fr] items-start">
+              <div className="mt-8 grid gap-7 sm:grid-cols-[220px_1fr]">
                 <Image
                   src="/founder.png"
                   alt="Sonam Das, founder of Skilloura"
                   width={440}
                   height={550}
-                  className="w-full sm:w-[220px] h-auto rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
+                  className="w-full sm:w-[220px] h-64 sm:h-full rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
                 />
                 <div>
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
