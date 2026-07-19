@@ -18,6 +18,7 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
       className="inline-flex flex-col items-center group"
       aria-label="Skilloura — Smart Digital Services"
     >
+      <span className="sr-only">Skilloura</span>
       <Image
         src="/logo-core.png"
         alt="Skilloura logo"
