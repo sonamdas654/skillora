@@ -602,15 +602,20 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal delay={0.05}>
-              <div className="mt-8 grid gap-7 sm:grid-cols-[220px_1fr]">
-                <Image
-                  src="/founder.png"
-                  alt="Sonam Das, founder of Skilloura"
-                  width={440}
-                  height={550}
-                  className="w-full sm:w-[220px] h-64 sm:h-full rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
-                />
-                <div>
+              <div className="mt-8 grid gap-6 sm:gap-8 md:grid-cols-[minmax(0,360px)_1fr] md:gap-10 lg:gap-14 items-start">
+                {/* Founder photo card */}
+                <div className="mx-auto w-full max-w-[360px] rounded-3xl border border-line bg-white p-3 shadow-[0_20px_50px_-24px_rgba(11,19,48,0.18)]">
+                  <Image
+                    src="/founder.png"
+                    alt="Sonam Das, founder of Skilloura"
+                    width={360}
+                    height={450}
+                    className="aspect-[4/5] w-full rounded-2xl object-cover object-top"
+                  />
+                </div>
+
+                {/* Founder bio card */}
+                <div className="rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
