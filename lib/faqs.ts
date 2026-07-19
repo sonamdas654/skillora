@@ -6,7 +6,7 @@ export interface Faq {
 export const homeFaqs: Faq[] = [
   {
     q: "How do I submit a project?",
-    a: "Click “Submit Project Requirement”, select your service, answer a few smart questions about your project, upload any files (logo, images, documents) and submit. You get a confirmation immediately and I review every request personally.",
+    a: "Click “Submit Project Requirement”, select your service, answer a few smart questions about your project, upload any files (logo, images, documents) and submit. You get a confirmation immediately and we review every request carefully.",
   },
   {
     q: "Do I need to pay advance?",
@@ -14,7 +14,7 @@ export const homeFaqs: Faq[] = [
   },
   {
     q: "How many revisions are included?",
-    a: "Basic packages include 1 revision, standard 2 and premium 3. Revision means improvement within the agreed scope — new features or a complete redesign are quoted separately, and I always tell you before any extra cost.",
+    a: "Basic packages include 1 revision, standard 2 and premium 3. Revision means improvement within the agreed scope — new features or a complete redesign are quoted separately, and we always tell you before any extra cost.",
   },
   {
     q: "Can I upload files with my requirement?",
@@ -30,7 +30,7 @@ export const allFaqs: Faq[] = [
   ...homeFaqs,
   {
     q: "What happens after I submit my requirement?",
-    a: "I review your details and files, then contact you on WhatsApp or email (your choice) within 24 hours with questions or a clear proposal — scope, price and timeline. No obligation until you approve the quotation.",
+    a: "We review your details and files, then get in touch on WhatsApp or email (your choice) within 24 hours with questions or a clear proposal — scope, price and timeline. No obligation until you approve the quotation.",
   },
   {
     q: "How is the price decided?",
@@ -50,7 +50,7 @@ export const allFaqs: Faq[] = [
   },
   {
     q: "What if I'm not sure which service I need?",
-    a: "Just use the contact form or WhatsApp and describe your problem in plain words. I'll suggest the right solution and honest options — including cheaper ones if they fit better.",
+    a: "Just use the contact form or WhatsApp and describe your problem in plain words. We'll suggest the right solution and honest options — including cheaper ones if they fit better.",
   },
   {
     q: "Is my data and files safe?",
@@ -58,7 +58,7 @@ export const allFaqs: Faq[] = [
   },
   {
     q: "Do you sign an NDA?",
-    a: "Yes. If your project involves sensitive ideas or data, I'm happy to sign a simple NDA before you share the details — just ask before we start.",
+    a: "Yes. If your project involves sensitive ideas or data, we're happy to sign a simple NDA before you share the details — just ask before we start.",
   },
   {
     q: "Do you provide a GST invoice?",
@@ -66,15 +66,15 @@ export const allFaqs: Faq[] = [
   },
   {
     q: "What if I need urgent delivery?",
-    a: "Faster timelines are possible for many projects with a small rush charge, depending on the scope and current workload. Mention your deadline in the form and I'll confirm what's realistic — before you commit.",
+    a: "Faster timelines are possible for many projects with a small rush charge, depending on the scope and current workload. Mention your deadline in the form and we'll confirm what's realistic — before you commit.",
   },
   {
     q: "What if I don't have content or images?",
-    a: "No problem. I'll guide you on what's needed, use clean placeholders to start, and suggest stock or AI options. Professional copywriting or photography can be arranged as an add-on.",
+    a: "No problem. We'll guide you on what's needed, use clean placeholders to start, and suggest stock or AI options. Professional copywriting or photography can be arranged as an add-on.",
   },
   {
     q: "Can you buy the domain and hosting for me?",
-    a: "Yes. I can set up domain and hosting on your behalf and register them in your name — you always own them. These are third-party costs, billed separately or reimbursed, and listed clearly in the quote.",
+    a: "Yes. We can set up domain and hosting on your behalf and register them in your name — you always own them. These are third-party costs, billed separately or reimbursed, and listed clearly in the quote.",
   },
   {
     q: "Do I own the source code?",

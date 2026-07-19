@@ -24,8 +24,8 @@ const values = [
     desc: "Written scope, transparent pricing and a preview before final payment. You always know what you're paying for.",
   },
   {
-    title: "One accountable person",
-    desc: "You talk directly to the person doing the work. No account managers, no telephone game, no blame-shifting.",
+    title: "Clear accountability",
+    desc: "Direct, straightforward communication — no runaround between departments, no passing the blame.",
   },
   {
     title: "Long-term thinking",
@@ -132,8 +132,8 @@ export default function AboutPage() {
               eyebrow="The person behind it"
               title={
                 <>
-                  One builder,{" "}
-                  <span className="font-accent font-normal text-accent">full accountability</span>
+                  Founder-led,{" "}
+                  <span className="font-accent font-normal text-accent">fully accountable</span>
                 </>
               }
             />
@@ -158,10 +158,9 @@ export default function AboutPage() {
               </div>
               <div className="space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
                 <p>
-                  Hi, I&apos;m Sonam — I run Skilloura myself. I&apos;m the person who reads your
-                  requirement, asks the follow-up questions, writes your quotation and actually builds
-                  the project. There&apos;s no sales team promising something a delivery team then has
-                  to walk back, because it&apos;s the same person end to end.
+                  Hi, I&apos;m Sonam, founder of Skilloura. I set the standard every project runs on
+                  and stay closely involved through the process — reviewing requirements, quotes and
+                  final delivery — so what gets promised at the start is what actually gets built.
                 </p>
                 <p>
                   Before this, I spent close to five years in enterprise IT — websites, internal
@@ -194,7 +193,7 @@ export default function AboutPage() {
                   <a href={`mailto:${site.email}`} className="font-semibold text-accent hover:underline">
                     {site.email}
                   </a>
-                  . You&apos;ll get a reply from the person who&apos;ll actually do the work.
+                  . You&apos;ll get a real, direct reply — not an autoresponder.
                 </p>
               </div>
             </div>

@@ -26,7 +26,7 @@ export default function ContactPage() {
             <span className="font-accent font-normal text-accent">talk</span>
           </>
         }
-        subtitle="Not sure where to start? Send a message in plain words — I'll suggest the right direction, honestly."
+        subtitle="Not sure where to start? Send a message in plain words — we'll suggest the right direction, honestly."
       />
       <Section>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">

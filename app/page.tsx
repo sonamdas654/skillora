@@ -618,19 +618,19 @@ export default async function HomePage() {
                 </div>
 
                 <p className="mt-5 text-base leading-7 text-ink-soft">
-                  I&apos;m Sonam. Before Skilloura I spent close to five years in enterprise IT —
-                  websites, internal software, AI automation, dashboards, cloud deployments — after my
-                  M.Tech at BITS Pilani. I started this because I kept seeing small businesses get the
-                  short end of the stick from freelancers and agencies: vague promises, scope that
-                  quietly grows, bills that don&apos;t add up.
+                  Before founding Skilloura, Sonam spent close to five years in enterprise IT —
+                  websites, internal software, AI automation, dashboards, cloud deployments — after
+                  an M.Tech at BITS Pilani. He started Skilloura after seeing the same pattern too
+                  often: small businesses hiring freelancers or agencies and getting vague promises,
+                  scope that quietly grows, and bills that don&apos;t add up.
                 </p>
                 <p className="mt-3 text-base leading-7 text-ink-soft">
-                  So here&apos;s how I run it instead: you get a real written scope and a quote before
-                  you pay anything, you see a preview before the final payment, and at handover you get
-                  everything — code, accounts, credentials. I keep the team small on purpose. When you
-                  message on WhatsApp, it&apos;s me replying, not a support queue. I use AI where it
-                  actually saves time, but I review and test every build myself before it goes out — the
-                  same way I&apos;d want it done if it were my own business on the line.
+                  So Skilloura runs on a different standard: a real written scope and quote before
+                  you pay anything, a preview before the final payment, and a clean handover — code,
+                  accounts, credentials, all yours. Communication stays direct — message on WhatsApp
+                  and get a real answer, not a ticket bouncing between departments. We use AI where
+                  it genuinely speeds things up, but every build goes through human review and
+                  testing before it&apos;s delivered — accountable from the first message to launch.
                 </p>
               </div>
             </Reveal>
@@ -640,7 +640,7 @@ export default async function HomePage() {
                   { icon: "file", t: "You own everything", d: "Code, content and accounts handed over to you — no vendor lock-in." },
                   { icon: "shield", t: "Human review on every build", d: "Architecture, security and testing checked by a person, not just generated." },
                   { icon: "check", t: "Written scope before payment", d: "You approve exactly what's included before anything is charged." },
-                  { icon: "spark", t: "Direct, personal contact", d: "You talk to the person doing the work — on WhatsApp, not a ticket queue." },
+                  { icon: "spark", t: "Direct, real contact", d: "You get a real reply on WhatsApp — not a ticket queue or an autoresponder." },
                 ].map((c) => (
                   <div key={c.t} className="rounded-2xl border border-line bg-white p-5">
                     <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent">
@@ -767,7 +767,7 @@ export default async function HomePage() {
                   <span className="font-accent font-normal">digital project?</span>
                 </h2>
                 <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-white/85">
-                  Submit your requirement now and I will review it properly before sharing the
+                  Submit your requirement now and we will review it properly before sharing the
                   best solution, pricing and timeline.
                 </p>
                 <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

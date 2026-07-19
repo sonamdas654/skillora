@@ -41,8 +41,8 @@ const detailedSteps = [
     forYou: "One click",
   },
   {
-    title: "I review and contact you",
-    desc: "Every request is personally reviewed — your answers, files and references. I reply within 24 hours on your preferred channel with questions or a proposal.",
+    title: "We review and contact you",
+    desc: "Every request is properly reviewed — your answers, files and references. We reply within 24 hours on your preferred channel with questions or a proposal.",
     forYou: "Reply within 24 hours",
   },
   {

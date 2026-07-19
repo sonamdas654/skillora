@@ -25,13 +25,13 @@ export default function ThankYouPage() {
             <span className="font-accent font-normal text-accent">received.</span>
           </h1>
           <p className="mt-4 text-base leading-7 text-ink-soft">
-            Your project request has been received. I will review your details and contact you
+            Your project request has been received. We will review your details and contact you
             soon on WhatsApp or email — usually within 24 hours.
           </p>
           <div className="mt-8 rounded-2xl border border-line bg-white p-6 text-left">
             <p className="text-sm font-bold text-ink">What happens next?</p>
             <ol className="mt-3 space-y-2 text-sm text-ink-soft">
-              <li className="flex gap-2.5"><span className="font-bold text-accent">1.</span> I personally review your requirement and files</li>
+              <li className="flex gap-2.5"><span className="font-bold text-accent">1.</span> We review your requirement and files</li>
               <li className="flex gap-2.5"><span className="font-bold text-accent">2.</span> You get a reply with questions or a clear proposal</li>
               <li className="flex gap-2.5"><span className="font-bold text-accent">3.</span> Scope, price and timeline finalized in writing</li>
             </ol>

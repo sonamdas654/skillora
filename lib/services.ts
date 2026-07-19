@@ -307,7 +307,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         q: "Do I need to buy domain and hosting?",
-        a: "If you already have them, I will use yours. If not, I will guide you to buy the right domain and hosting at the best price — you always keep ownership.",
+        a: "If you already have them, we will use yours. If not, we will guide you to buy the right domain and hosting at the best price — you always keep ownership.",
       },
       {
         q: "Will my website work on mobile?",
@@ -572,7 +572,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         q: "Are there monthly costs?",
-        a: "Some automations need paid API/tool subscriptions. I always tell you the exact monthly running cost before starting, so there are no surprises.",
+        a: "Some automations need paid API/tool subscriptions. We always tell you the exact monthly running cost before starting, so there are no surprises.",
       },
     ],
   },
@@ -802,7 +802,7 @@ export const serviceCategories: ServiceCategory[] = [
     faqs: [
       {
         q: "Do you offer monthly packages for creators?",
-        a: "Yes — if you need regular videos (e.g. 10 reels/month), I create a custom monthly package at a better per-video rate.",
+        a: "Yes — if you need regular videos (e.g. 10 reels/month), we create a custom monthly package at a better per-video rate.",
       },
     ],
   },
@@ -1015,7 +1015,7 @@ export const serviceCategories: ServiceCategory[] = [
     faqs: [
       {
         q: "My data is messy — can you still build a dashboard?",
-        a: "Yes. Data cleaning is part of the process. Share your files as they are and I will structure them properly before building.",
+        a: "Yes. Data cleaning is part of the process. Share your files as they are and we will structure them properly before building.",
       },
     ],
   },
