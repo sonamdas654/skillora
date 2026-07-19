@@ -152,32 +152,40 @@ export default function AboutPage() {
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
-                    M.Tech, BITS Pilani · 10 years in enterprise IT
+                    M.Tech, BITS Pilani · ~10 years hands-on experience
                   </p>
                   <div className="mt-4 space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
+                    <p>Hi, I&apos;m Sonam, founder of Skilloura.</p>
                     <p>
-                      Hi, I&apos;m Sonam, founder of Skilloura. I set the standard every project runs
-                      on and stay closely involved through the process, reviewing requirements, quotes
-                      and final delivery, so what gets promised at the start is what actually gets
-                      built.
+                      I built Skilloura to deliver digital projects with enterprise-level clarity,
+                      founder-led accountability and professional execution. Every project here
+                      follows a defined process: requirements are reviewed properly, scope is written
+                      before payment, quotes are clear, previews are shared before final delivery, and
+                      handover is managed professionally.
                     </p>
                     <p>
-                      Before this, I spent 10 years in enterprise IT (websites, internal software, AI
-                      automation, dashboards, cloud deployments) after finishing my M.Tech at BITS
-                      Pilani. What pushed me to start Skilloura was seeing the same pattern over and
-                      over with small businesses: they&apos;d hire a freelancer or an agency, get a
-                      vague verbal promise, and then get burned. Scope quietly growing, a developer
-                      going quiet mid-project, a bill that didn&apos;t match what was discussed.
+                      My role is to set the standard for how work gets delivered. I stay involved
+                      across the full project lifecycle, from requirement understanding and scope
+                      review to quote validation, progress checks and final delivery, so what is
+                      promised at the beginning is what actually gets built.
                     </p>
                     <p>
-                      Every process on this site (the requirement form, the written scope before
-                      payment, the preview before delivery) exists because of one belief:{" "}
+                      Skilloura is backed by nearly a decade of hands-on experience across websites,
+                      software systems, AI automation, dashboards, cloud-based solutions and digital
+                      operations, along with 5+ years of enterprise IT experience and an M.Tech from
+                      BITS Pilani. This mix of technical depth, enterprise discipline and practical
+                      execution shapes how every project is handled here.
+                    </p>
+                    <p>
+                      The reason Skilloura exists is simple:{" "}
                       <strong className="text-ink">
-                        clients don&apos;t get burned by bad developers as often as they get burned by
-                        unclear agreements.
+                        digital projects deserve better than vague promises, unclear scope and
+                        uncertain delivery.
                       </strong>{" "}
-                      Fix the clarity, and the work mostly takes care of itself.
+                      Clients should know exactly what they are getting, how the work will move
+                      forward, what it will cost, and when they can review it.
                     </p>
+                    <p>That is the standard Skilloura is built on.</p>
                     <p>
                       Questions before starting? Message directly on{" "}
                       <a
