@@ -48,11 +48,12 @@ const impactStats = [
   {
     num: 50,
     suffix: "+",
-    label: "Project Concepts",
-    desc: "Ready reference designs to lock your vision before work starts.",
+    label: "Reference Layouts & Project Ideas",
+    desc: "Browse real reference layouts, automations and dashboards before work starts.",
     icon: "palette",
     tile: "from-violet-500 to-purple-600",
     glow: "rgba(139,92,246,0.35)",
+    href: "/references",
   },
   {
     num: 24,
@@ -386,12 +387,12 @@ export default async function HomePage() {
               />
             </Reveal>
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {impactStats.map((stat, i) => (
-                <Reveal key={stat.label} delay={Math.min(i * 0.07, 0.28)}>
-                  <div
-                    className="group relative h-full overflow-hidden rounded-3xl border border-white/80 bg-white/60 p-7 text-center shadow-[0_24px_55px_-30px_rgba(15,23,42,0.3)] ring-1 ring-line/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5"
-                    style={{ ["--stat-glow" as string]: stat.glow }}
-                  >
+              {impactStats.map((stat, i) => {
+                const cardCls =
+                  "group relative block h-full overflow-hidden rounded-3xl border border-white/80 bg-white/60 p-7 text-center shadow-[0_24px_55px_-30px_rgba(15,23,42,0.3)] ring-1 ring-line/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5";
+                const cardStyle = { ["--stat-glow" as string]: stat.glow };
+                const cardInner = (
+                  <>
                     <div
                       className="pointer-events-none absolute inset-x-0 -top-16 h-32 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
                       style={{ background: "radial-gradient(60% 100% at 50% 0%, var(--stat-glow), transparent 70%)" }}
@@ -409,9 +410,22 @@ export default async function HomePage() {
                       {stat.label}
                     </p>
                     <p className="relative mt-2 text-sm leading-6 text-ink-soft">{stat.desc}</p>
-                  </div>
-                </Reveal>
-              ))}
+                  </>
+                );
+                return (
+                  <Reveal key={stat.label} delay={Math.min(i * 0.07, 0.28)}>
+                    {stat.href ? (
+                      <Link href={stat.href} className={cardCls} style={cardStyle}>
+                        {cardInner}
+                      </Link>
+                    ) : (
+                      <div className={cardCls} style={cardStyle}>
+                        {cardInner}
+                      </div>
+                    )}
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </Section>

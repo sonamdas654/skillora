@@ -13,8 +13,8 @@ const services: { label: string; icon: string; pos: string; delay: string }[] = 
   { label: "App Development", icon: "smartphone", pos: "right-2 top-40", delay: "0.6s" },
   { label: "AI Automation", icon: "bot", pos: "-left-2 top-1/2 -translate-y-1/2", delay: "1.2s" },
   { label: "Branding", icon: "palette", pos: "-right-1 top-1/2 -translate-y-1/2", delay: "0.9s" },
-  { label: "SEO & Marketing", icon: "megaphone", pos: "left-6 bottom-44", delay: "0.3s" },
-  { label: "Maintenance", icon: "clock", pos: "right-8 bottom-52", delay: "1.5s" },
+  { label: "SEO & Marketing", icon: "megaphone", pos: "left-6 bottom-52", delay: "0.3s" },
+  { label: "Maintenance", icon: "clock", pos: "right-8 bottom-56", delay: "1.5s" },
 ];
 
 function ServiceCard({ label, icon }: { label: string; icon: string }) {
@@ -57,16 +57,28 @@ function Orb() {
       <span className="absolute inset-3 rounded-full ring-1 ring-white/50" aria-hidden />
       {/* glossy sphere */}
       <div
-        className="relative grid size-40 place-items-center rounded-full ring-1 ring-white/60 shadow-[0_36px_70px_-26px_rgba(37,99,235,0.75),inset_0_3px_18px_rgba(255,255,255,0.7)]"
+        className="relative grid size-40 place-items-center overflow-hidden rounded-full ring-1 ring-white/70 shadow-[0_40px_80px_-24px_rgba(37,99,235,0.8),inset_0_4px_22px_rgba(255,255,255,0.8),inset_0_-16px_28px_-6px_rgba(50,40,140,0.35)]"
         style={{
           background:
             "radial-gradient(circle at 34% 26%, #ffffff 0%, #e8efff 20%, #bcd0ff 44%, #8ea6ff 66%, #6d7bf0 100%)",
         }}
       >
-        {/* top gloss highlight */}
+        {/* broad soft sheen across the upper sphere */}
         <span
-          className="pointer-events-none absolute left-1/2 top-3 h-10 w-24 -translate-x-1/2 rounded-full blur-md"
-          style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.85), transparent)" }}
+          className="pointer-events-none absolute -left-6 -top-10 h-32 w-52 rounded-full blur-2xl"
+          style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.55), transparent)" }}
+          aria-hidden
+        />
+        {/* crisp top gloss highlight */}
+        <span
+          className="pointer-events-none absolute left-1/2 top-3 h-9 w-20 -translate-x-1/2 rounded-full blur-sm"
+          style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.95), transparent)" }}
+          aria-hidden
+        />
+        {/* thin rim-light along the lower edge for glass thickness */}
+        <span
+          className="pointer-events-none absolute inset-0 rounded-full"
+          style={{ boxShadow: "inset 0 -6px 14px rgba(30,20,110,0.25), inset 0 1px 0 rgba(255,255,255,0.5)" }}
           aria-hidden
         />
         <Image
@@ -90,24 +102,24 @@ function Orb() {
 // Smart project-form preview — signals the one-form, quote-first flow.
 function SmartFormPreview() {
   return (
-    <div className="w-44 rounded-[18px] border border-white/80 bg-white/90 p-3.5 shadow-[0_20px_44px_-22px_rgba(37,99,235,0.55)] ring-1 ring-line/50 backdrop-blur-md">
-      <div className="flex items-center gap-1.5">
-        <span className="grid size-5 place-items-center rounded-md bg-accent-soft text-accent">
-          <Icon name="spark" className="size-3" />
+    <div className="w-48 rounded-[18px] border border-white/80 bg-white/95 p-4 shadow-[0_20px_44px_-22px_rgba(37,99,235,0.55)] ring-1 ring-line/50 backdrop-blur-md">
+      <div className="flex items-center gap-2">
+        <span className="grid size-6 place-items-center rounded-md bg-accent-soft text-accent">
+          <Icon name="spark" className="size-3.5" />
         </span>
-        <p className="text-[11px] font-bold text-ink">New project request</p>
+        <p className="text-xs font-bold text-ink">New project request</p>
       </div>
-      <div className="mt-2.5 space-y-1.5">
-        <div className="flex items-center justify-between rounded-lg bg-background px-2.5 py-1.5">
-          <span className="text-[9px] font-semibold text-ink-soft">Service</span>
-          <span className="text-[9px] font-bold text-ink">Website + App</span>
+      <div className="mt-3 space-y-2">
+        <div className="flex items-center justify-between rounded-lg bg-background px-2.5 py-2">
+          <span className="text-[10px] font-semibold text-ink-soft">Service</span>
+          <span className="text-[10px] font-bold text-ink">Website + App</span>
         </div>
-        <div className="flex items-center justify-between rounded-lg bg-background px-2.5 py-1.5">
-          <span className="text-[9px] font-semibold text-ink-soft">Budget</span>
-          <span className="text-[9px] font-bold text-ink">₹50k–1L</span>
+        <div className="flex items-center justify-between rounded-lg bg-background px-2.5 py-2">
+          <span className="text-[10px] font-semibold text-ink-soft">Budget</span>
+          <span className="text-[10px] font-bold text-ink">₹50k–1L</span>
         </div>
       </div>
-      <div className="mt-2.5 grid place-items-center rounded-lg bg-accent py-2 text-[10px] font-bold text-white shadow-[0_8px_18px_-8px_rgba(37,99,235,0.9)]">
+      <div className="mt-3 grid place-items-center rounded-lg bg-accent py-2.5 text-[11px] font-bold text-white shadow-[0_8px_18px_-8px_rgba(37,99,235,0.9)]">
         Get free quote →
       </div>
     </div>
@@ -118,26 +130,26 @@ function SmartFormPreview() {
 function ScopePreview() {
   const items = ["6-page business website", "WhatsApp automation", "Payment gateway"];
   return (
-    <div className="w-56 rounded-[20px] border border-white/80 bg-white/92 p-4 shadow-[0_26px_54px_-26px_rgba(37,99,235,0.6)] ring-1 ring-accent/15 backdrop-blur-md">
-      <div className="flex items-center justify-between">
-        <span className="text-[11px] font-bold text-ink">Written Scope Preview</span>
-        <span className="rounded-full bg-mint/10 px-2 py-0.5 text-[9px] font-bold text-mint">
+    <div className="w-60 rounded-[20px] border border-white/80 bg-white/95 p-5 shadow-[0_26px_54px_-26px_rgba(37,99,235,0.6)] ring-1 ring-accent/15 backdrop-blur-md">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-xs font-bold text-ink">Written Scope Preview</span>
+        <span className="shrink-0 rounded-full bg-mint/10 px-2 py-0.5 text-[10px] font-bold text-mint">
           Before payment
         </span>
       </div>
-      <ul className="mt-2.5 space-y-1.5">
+      <ul className="mt-3 space-y-2">
         {items.map((it) => (
-          <li key={it} className="flex items-center gap-1.5 text-[10px] font-semibold text-ink-soft">
-            <Icon name="check" className="size-3 shrink-0 text-mint" />
+          <li key={it} className="flex items-center gap-2 text-[11px] font-semibold text-ink-soft">
+            <Icon name="check" className="size-3.5 shrink-0 text-mint" />
             {it}
           </li>
         ))}
       </ul>
-      <div className="mt-3 flex items-end justify-between border-t border-line pt-2.5">
-        <p className="text-lg font-extrabold tracking-tight text-ink">
-          ₹12,600<span className="text-xs font-bold text-accent">+</span>
+      <div className="mt-3.5 flex items-end justify-between border-t border-line pt-3">
+        <p className="text-xl font-extrabold tracking-tight text-ink">
+          ₹12,600<span className="text-sm font-bold text-accent">+</span>
         </p>
-        <span className="text-[10px] font-semibold text-ink-soft">5–10 days</span>
+        <span className="text-[11px] font-semibold text-ink-soft">5–10 days</span>
       </div>
     </div>
   );

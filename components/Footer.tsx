@@ -10,6 +10,7 @@ const company = [
   { href: "/solutions", label: "Solutions by Industry" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/references", label: "Reference Layouts" },
   { href: "/pricing", label: "Pricing" },
   { href: "/blog", label: "Blog" },
   { href: "/faq", label: "FAQ" },
