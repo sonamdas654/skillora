@@ -242,15 +242,17 @@ input[type="number"]::-webkit-inner-spin-button {
   transform: translateY(0);
 }
 
-/* Soft page entrance on route navigation (via app/template.tsx) */
+/* Soft page entrance on route navigation (via app/template.tsx). Opacity-only:
+   any transform here (even translateY(0) at rest) creates a new containing
+   block for descendant position:fixed elements (Header, WhatsAppSticky,
+   MobileCtaBar), anchoring them to this wrapper's page-height box instead of
+   the viewport — that broke fixed positioning sitewide. */
 @keyframes page-enter {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 .page-enter {
