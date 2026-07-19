@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { WhatsAppIcon } from "./Header";
-import FooterAuthLink from "./portal/FooterAuthLink";
 import { site, whatsappLink } from "@/lib/site";
 import { serviceCategories } from "@/lib/services";
 
@@ -122,9 +121,6 @@ export default function Footer() {
                   <FooterLink href={l.href} label={l.label} />
                 </li>
               ))}
-              <li>
-                <FooterAuthLink />
-              </li>
             </ul>
           </div>
 

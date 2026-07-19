@@ -368,11 +368,11 @@ export function SoftwarePreview({ id, accent }: { id: string; accent: string }) 
             </div>
             <span className="rounded bg-emerald-100 text-emerald-700 px-1.5 py-0.5 text-[7px] font-black">PAID</span>
           </div>
-          {[["Business website — 6 pages", "₹12,600"], ["Maintenance (1 mo)", "₹5,600"], ["CGST+SGST @18%", "₹3,276"]].map(([a, b]) => (
+          {[["Business website — 6 pages", "₹12,600"], ["Maintenance (1 mo)", "₹1,999"], ["CGST+SGST @18%", "₹2,628"]].map(([a, b]) => (
             <div key={a} className="flex justify-between text-[8px] text-slate-700 border-t border-slate-100 pt-1"><span>{a}</span><b>{b}</b></div>
           ))}
           <div className="flex justify-between text-[9px] font-black text-slate-900 border-t-2 pt-1" style={{ borderColor: accent }}>
-            <span>Total</span><span>₹21,476</span>
+            <span>Total</span><span>₹17,227</span>
           </div>
         </div>
       ),

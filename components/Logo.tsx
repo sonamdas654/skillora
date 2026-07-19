@@ -16,7 +16,7 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
     <Link
       href="/"
       className="inline-flex flex-col items-center group"
-      aria-label="Skilloura home"
+      aria-label="Skilloura — Smart Digital Services, home"
     >
       <Image
         src="/logo-core.png"
