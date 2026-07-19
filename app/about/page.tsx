@@ -140,61 +140,65 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <div className="mt-10 rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
-              <div className="mb-6 flex items-center gap-5 border-b border-line pb-6">
+              <div className="grid gap-7 sm:grid-cols-[260px_1fr] items-start">
                 <Image
                   src="/founder.png"
                   alt="Sonam Das, founder of Skilloura"
-                  width={280}
-                  height={350}
-                  className="h-40 w-32 sm:h-48 sm:w-40 shrink-0 rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
+                  width={520}
+                  height={650}
+                  className="w-full sm:w-[260px] h-auto rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
                 />
                 <div>
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
-                    M.Tech, BITS Pilani · ~5 years in enterprise IT
+                    M.Tech, BITS Pilani · 10 years in enterprise IT
                   </p>
+                  <div className="mt-4 space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
+                    <p>
+                      Hi, I&apos;m Sonam, founder of Skilloura. I set the standard every project runs
+                      on and stay closely involved through the process, reviewing requirements, quotes
+                      and final delivery, so what gets promised at the start is what actually gets
+                      built.
+                    </p>
+                    <p>
+                      Before this, I spent 10 years in enterprise IT (websites, internal software, AI
+                      automation, dashboards, cloud deployments) after finishing my M.Tech at BITS
+                      Pilani. What pushed me to start Skilloura was seeing the same pattern over and
+                      over with small businesses: they&apos;d hire a freelancer or an agency, get a
+                      vague verbal promise, and then get burned. Scope quietly growing, a developer
+                      going quiet mid-project, a bill that didn&apos;t match what was discussed.
+                    </p>
+                    <p>
+                      Every process on this site (the requirement form, the written scope before
+                      payment, the preview before delivery) exists because of one belief:{" "}
+                      <strong className="text-ink">
+                        clients don&apos;t get burned by bad developers as often as they get burned by
+                        unclear agreements.
+                      </strong>{" "}
+                      Fix the clarity, and the work mostly takes care of itself.
+                    </p>
+                    <p>
+                      Questions before starting? Message directly on{" "}
+                      <a
+                        href={whatsappLink("Hi! I read the About page and have a question.")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-mint hover:underline"
+                      >
+                        WhatsApp
+                      </a>{" "}
+                      or email{" "}
+                      <a
+                        href={`mailto:${site.email}`}
+                        className="font-semibold text-accent hover:underline"
+                      >
+                        {site.email}
+                      </a>
+                      . You&apos;ll get a real, direct reply, not an autoresponder.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-4 text-sm sm:text-base leading-7 text-ink-soft">
-                <p>
-                  Hi, I&apos;m Sonam, founder of Skilloura. I set the standard every project runs on
-                  and stay closely involved through the process — reviewing requirements, quotes and
-                  final delivery — so what gets promised at the start is what actually gets built.
-                </p>
-                <p>
-                  Before this, I spent close to five years in enterprise IT — websites, internal
-                  software, AI automation, dashboards, cloud deployments — after finishing my M.Tech at
-                  BITS Pilani. What pushed me to start Skilloura was seeing the same pattern over and
-                  over with small businesses: they&apos;d hire a freelancer or an agency, get a vague
-                  verbal promise, and then get burned — scope quietly growing, a developer going quiet
-                  mid-project, a bill that didn&apos;t match what was discussed.
-                </p>
-                <p>
-                  Every process on this site — the requirement form, the written scope before payment,
-                  the preview before delivery — exists because of one belief:{" "}
-                  <strong className="text-ink">
-                    clients don&apos;t get burned by bad developers as often as they get burned by
-                    unclear agreements.
-                  </strong>{" "}
-                  Fix the clarity, and the work mostly takes care of itself.
-                </p>
-                <p>
-                  Questions before starting? Message directly on{" "}
-                  <a
-                    href={whatsappLink("Hi! I read the About page and have a question.")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-semibold text-mint hover:underline"
-                  >
-                    WhatsApp
-                  </a>{" "}
-                  or email{" "}
-                  <a href={`mailto:${site.email}`} className="font-semibold text-accent hover:underline">
-                    {site.email}
-                  </a>
-                  . You&apos;ll get a real, direct reply — not an autoresponder.
-                </p>
               </div>
             </div>
           </Reveal>

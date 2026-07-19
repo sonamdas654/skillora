@@ -588,59 +588,62 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Who's behind Skilloura — real founder, human-accountable ── */}
+        {/* Who's behind Skilloura: real founder, human-accountable */}
         <Section className="bg-soft-panel border-y border-line">
-          <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="mx-auto max-w-5xl">
             <Reveal>
-              <div>
-                <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-ink-soft">
-                  Who&apos;s behind Skilloura
-                </p>
-                <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight leading-[1.14] text-ink">
-                  AI-enabled, but{" "}
-                  <span className="font-accent font-normal text-accent">human-accountable</span>
-                </h2>
+              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-ink-soft">
+                Who&apos;s behind Skilloura
+              </p>
+              <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight leading-[1.14] text-ink">
+                AI-enabled, but{" "}
+                <span className="font-accent font-normal text-accent">human-accountable</span>
+              </h2>
+            </Reveal>
 
-                {/* Founder card */}
-                <div className="mt-6 flex items-center gap-4">
-                  <Image
-                    src="/founder.png"
-                    alt="Sonam Das, founder of Skilloura"
-                    width={240}
-                    height={300}
-                    className="h-32 w-28 sm:h-40 sm:w-32 shrink-0 rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
-                  />
-                  <div>
-                    <p className="text-xl font-bold text-ink">Sonam Das</p>
-                    <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
-                    <p className="mt-1 text-xs text-ink-soft">M.Tech, BITS Pilani · ~5 years in enterprise IT</p>
-                  </div>
+            <Reveal delay={0.05}>
+              <div className="mt-8 grid gap-7 sm:grid-cols-[220px_1fr] items-start">
+                <Image
+                  src="/founder.png"
+                  alt="Sonam Das, founder of Skilloura"
+                  width={440}
+                  height={550}
+                  className="w-full sm:w-[220px] h-auto rounded-2xl object-cover object-top ring-1 ring-line shadow-md"
+                />
+                <div>
+                  <p className="text-xl font-bold text-ink">Sonam Das</p>
+                  <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
+                  <p className="mt-1 text-xs text-ink-soft">
+                    M.Tech, BITS Pilani · 10 years in enterprise IT
+                  </p>
+
+                  <p className="mt-4 text-base leading-7 text-ink-soft">
+                    Before founding Skilloura, Sonam spent 10 years in enterprise IT: websites,
+                    internal software, AI automation, dashboards and cloud deployments, after an
+                    M.Tech at BITS Pilani. He started Skilloura after seeing the same pattern too
+                    often. Small businesses hiring freelancers or agencies and getting vague promises,
+                    scope that quietly grows, and bills that don&apos;t add up.
+                  </p>
+                  <p className="mt-3 text-base leading-7 text-ink-soft">
+                    So Skilloura runs on a different standard: a real written scope and quote before
+                    you pay anything, a preview before the final payment, and a clean handover of
+                    code, accounts and credentials, all yours. Communication stays direct: message on
+                    WhatsApp and get a real answer, not a ticket bouncing between departments. We use
+                    AI where it genuinely speeds things up, but every build goes through human review
+                    and testing before it&apos;s delivered, accountable from the first message to
+                    launch.
+                  </p>
                 </div>
-
-                <p className="mt-5 text-base leading-7 text-ink-soft">
-                  Before founding Skilloura, Sonam spent close to five years in enterprise IT —
-                  websites, internal software, AI automation, dashboards, cloud deployments — after
-                  an M.Tech at BITS Pilani. He started Skilloura after seeing the same pattern too
-                  often: small businesses hiring freelancers or agencies and getting vague promises,
-                  scope that quietly grows, and bills that don&apos;t add up.
-                </p>
-                <p className="mt-3 text-base leading-7 text-ink-soft">
-                  So Skilloura runs on a different standard: a real written scope and quote before
-                  you pay anything, a preview before the final payment, and a clean handover — code,
-                  accounts, credentials, all yours. Communication stays direct — message on WhatsApp
-                  and get a real answer, not a ticket bouncing between departments. We use AI where
-                  it genuinely speeds things up, but every build goes through human review and
-                  testing before it&apos;s delivered — accountable from the first message to launch.
-                </p>
               </div>
             </Reveal>
+
             <Reveal delay={0.1}>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {[
-                  { icon: "file", t: "You own everything", d: "Code, content and accounts handed over to you — no vendor lock-in." },
+                  { icon: "file", t: "You own everything", d: "Code, content and accounts handed over to you, no vendor lock-in." },
                   { icon: "shield", t: "Human review on every build", d: "Architecture, security and testing checked by a person, not just generated." },
                   { icon: "check", t: "Written scope before payment", d: "You approve exactly what's included before anything is charged." },
-                  { icon: "spark", t: "Direct, real contact", d: "You get a real reply on WhatsApp — not a ticket queue or an autoresponder." },
+                  { icon: "spark", t: "Direct, real contact", d: "You get a real reply on WhatsApp, not a ticket queue or an autoresponder." },
                 ].map((c) => (
                   <div key={c.t} className="rounded-2xl border border-line bg-white p-5">
                     <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent">

@@ -26,7 +26,7 @@ export function PageHero({
   subtitle?: string;
 }) {
   return (
-    <div className="relative overflow-hidden border-b border-line">
+    <div className="relative overflow-hidden border-b border-line bg-accent-soft">
       <div className="absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div className="aurora aurora-1" />
