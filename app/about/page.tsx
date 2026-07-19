@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   title: "About — The Story Behind Skilloura",
   description:
-    "Skilloura means Skill + Aura: digital services delivered with professional impact. A personal digital agency with a clear requirement-based process.",
+    "Skilloura means Skill + Aura: digital services delivered with professional impact. A founder-led digital services company with a clear requirement-based process.",
 };
 
 const values = [
@@ -69,10 +69,11 @@ export default function AboutPage() {
                   business.
                 </p>
                 <p>
-                  This is not a marketplace like Fiverr or Upwork. Skilloura is a personal digital
-                  agency: you submit your requirement directly, and the same person who reviews
-                  it builds it. That means faster communication, full accountability and work
-                  that actually matches what you asked for.
+                  This is not a marketplace like Fiverr or Upwork. Skilloura is a founder-led
+                  digital services company: you submit your requirement directly, and it moves
+                  through a structured, accountable process from review to delivery. That means
+                  faster communication, full accountability and work that actually matches what
+                  you asked for.
                 </p>
                 <p>
                   The tagline says it all:{" "}

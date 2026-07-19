@@ -614,20 +614,29 @@ export default async function HomePage() {
                   <p className="text-xl font-bold text-ink">Sonam Das</p>
                   <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-xs text-ink-soft">
-                    M.Tech, BITS Pilani · Decade-long hands-on digital systems experience
+                    M.Tech, BITS Pilani · ~10 years hands-on experience · 5+ years enterprise IT
                   </p>
 
                   <p className="mt-4 text-base leading-7 text-ink-soft">
-                    Before founding Skilloura, Sonam spent 5+ years in enterprise IT: websites,
-                    internal software, AI automation, dashboards and cloud deployments, after an
-                    M.Tech at BITS Pilani. He started Skilloura after seeing the same pattern too
-                    often. Small businesses hiring freelancers or agencies and getting vague promises,
-                    scope that quietly grows, and bills that don&apos;t add up.
+                    Hi, I&apos;m Sonam, founder of Skilloura.
                   </p>
                   <p className="mt-3 text-base leading-7 text-ink-soft">
-                    So Skilloura runs on a different standard: a real written scope and quote before
-                    you pay anything, a preview before the final payment, and a clean handover of
-                    code, accounts and credentials, all yours. Communication stays direct: message on
+                    I built Skilloura to deliver digital projects with enterprise-level clarity,
+                    founder-led accountability and professional execution. Every project here follows
+                    a defined process: requirements are reviewed properly, scope is written before
+                    payment, quotes are clear, previews are shared before final delivery, and handover
+                    is managed professionally.
+                  </p>
+                  <p className="mt-3 text-base leading-7 text-ink-soft">
+                    Skilloura is backed by nearly a decade of hands-on experience across websites,
+                    software systems, AI automation, dashboards, cloud-based solutions and digital
+                    operations, along with 5+ years of enterprise IT experience and an M.Tech from
+                    BITS Pilani.
+                  </p>
+                  <p className="mt-3 text-base leading-7 text-ink-soft">
+                    Skilloura runs on a different standard: a real written scope and quote before you
+                    pay anything, a preview before the final payment, and a clean handover of code,
+                    accounts and credentials, all yours. Communication stays direct: message on
                     WhatsApp and get a real answer, not a ticket bouncing between departments. We use
                     AI where it genuinely speeds things up, but every build goes through human review
                     and testing before it&apos;s delivered, accountable from the first message to
@@ -701,17 +710,14 @@ export default async function HomePage() {
           <Section className="bg-soft-panel border-b border-line">
             <Reveal>
               <div className="mx-auto max-w-2xl rounded-3xl border border-line bg-white p-8 text-center sm:p-10">
-                <p className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent-soft px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-                  Early days — and honest about it
-                </p>
-                <h2 className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                  We&apos;d rather show real reviews than fake ones
+                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+                  Real proof, shared transparently
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-ink-soft">
-                  Skilloura is new, so you won&apos;t see a wall of stock testimonials here. As real
-                  clients finish their projects, their genuine reviews will appear on this page —
-                  with their name and business. Want to be one of the first? Start a project and
-                  get our full attention.
+                  Skilloura focuses on clear project proof instead of inflated claims. As client work
+                  is completed, verified reviews and project outcomes will be added with proper
+                  context. Until then, you can review the process, pricing clarity and delivery
+                  standards before starting.
                 </p>
                 <Link
                   href="/start-project"
