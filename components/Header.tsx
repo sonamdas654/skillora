@@ -82,10 +82,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-transparent border-b border-transparent"
-          : "bg-accent-soft border-b border-line"
+      className={`fixed inset-x-0 top-0 z-50 border-b border-line bg-wash-mint transition-all duration-300 ${
+        scrolled ? "backdrop-blur-md shadow-[0_4px_24px_-12px_rgba(11,19,48,0.12)]" : ""
       }`}
     >
       <a href="#main-content" className="skip-link">
