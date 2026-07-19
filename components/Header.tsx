@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
@@ -22,6 +22,8 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -41,14 +43,41 @@ export default function Header() {
     setOpen(false);
   }
 
-  // Close the mobile drawer on Escape (WCAG keyboard access).
+  // Close the mobile drawer on Escape, and trap Tab focus inside it while
+  // open (WCAG 2.1.2 no keyboard trap out / 2.4.3 focus order) — Tab/
+  // Shift+Tab cycle within the drawer's links instead of escaping into the
+  // page content stacked underneath. Focus moves into the drawer on open
+  // and returns to the toggle button on close.
   useEffect(() => {
     if (!open) return;
+    const drawer = drawerRef.current;
+    const menuButton = menuButtonRef.current;
+    const focusables = drawer
+      ? Array.from(drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+      : [];
+    focusables[0]?.focus();
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      menuButton?.focus();
+    };
   }, [open]);
 
   return (
@@ -101,6 +130,7 @@ export default function Header() {
         </div>
 
         <button
+          ref={menuButtonRef}
           className="lg:hidden grid size-10 place-items-center rounded-lg border border-line bg-white"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
@@ -118,7 +148,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="lg:hidden border-t border-line bg-white/95 backdrop-blur-md">
+        <div ref={drawerRef} className="lg:hidden border-t border-line bg-white/95 backdrop-blur-md">
           <nav className="mx-auto max-w-[1520px] px-4 py-4 flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => (
               <Link

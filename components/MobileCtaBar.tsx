@@ -23,7 +23,9 @@ export default function MobileCtaBar() {
 
   if (
     pathname.startsWith("/start-project") ||
+    pathname.startsWith("/get-started") ||
     pathname.startsWith("/admin") ||
+    pathname.startsWith("/client") ||
     pathname.startsWith("/review")
   ) {
     return null;
