@@ -282,8 +282,16 @@ export default async function HomePage() {
               copy is real to assistive tech + keyboard — the two duplicates are
               aria-hidden and non-focusable so screen readers and Tab don't hit
               every link three times. */}
-          <div className="relative w-screen overflow-hidden py-6 sm:py-8">
-            <div className="flex w-max gap-4 px-4 animate-service-rail hover:[animation-play-state:paused] sm:gap-5 sm:px-5">
+          <div className="relative w-screen overflow-hidden py-5 sm:py-6">
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent, rgba(40,87,255,0.05) 30%, rgba(139,92,246,0.05) 60%, rgba(16,185,129,0.05))",
+              }}
+              aria-hidden
+            />
+            <div className="relative flex w-max gap-3 px-4 animate-service-rail hover:[animation-play-state:paused] sm:gap-4 sm:px-5">
               {[...serviceRailItems, ...serviceRailItems, ...serviceRailItems].map((item, i) => {
                 const dup = i >= serviceRailItems.length;
                 return (
@@ -292,16 +300,16 @@ export default async function HomePage() {
                   href={item.href}
                   aria-hidden={dup || undefined}
                   tabIndex={dup ? -1 : undefined}
-                  className={`flex h-[118px] w-[162px] shrink-0 flex-col items-center justify-center rounded-3xl px-3 text-center text-white ring-1 ring-white/25 transition duration-300 hover:-translate-y-1.5 hover:-rotate-1 hover:brightness-110 sm:h-[132px] sm:w-[178px] lg:w-[188px] ${item.card}`}
+                  className={`flex h-[94px] w-[132px] shrink-0 flex-col items-center justify-center rounded-2xl px-2.5 text-center text-white ring-1 ring-white/25 transition duration-300 hover:-translate-y-1.5 hover:-rotate-1 hover:brightness-110 sm:h-[104px] sm:w-[144px] lg:w-[152px] ${item.card}`}
                 >
-                  <span className="grid size-11 place-items-center rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
+                  <span className="grid size-9 place-items-center rounded-lg bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
                     {item.icon === "whatsapp" ? (
-                      <WhatsAppIcon className="size-7 text-white" />
+                      <WhatsAppIcon className="size-5 text-white" />
                     ) : (
-                      <Icon name={item.icon} className="size-7 text-white" />
+                      <Icon name={item.icon} className="size-5 text-white" />
                     )}
                   </span>
-                  <span className="mt-3 text-[15px] font-extrabold leading-[1.12] tracking-normal drop-shadow-sm sm:text-base">
+                  <span className="mt-2 text-[13px] font-extrabold leading-[1.12] tracking-normal drop-shadow-sm sm:text-sm">
                     {item.text}
                   </span>
                 </Link>
