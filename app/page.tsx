@@ -282,7 +282,7 @@ export default async function HomePage() {
               copy is real to assistive tech + keyboard — the two duplicates are
               aria-hidden and non-focusable so screen readers and Tab don't hit
               every link three times. */}
-          <div className="relative w-screen overflow-hidden py-5 sm:py-6">
+          <div className="relative w-full overflow-hidden py-5 sm:py-6">
             <div
               className="pointer-events-none absolute inset-0"
               style={{

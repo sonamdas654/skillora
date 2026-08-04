@@ -7,9 +7,10 @@ import { whatsappLink } from "@/lib/site";
 import { getService } from "@/lib/services";
 import { WhatsAppIcon } from "./Header";
 
-// Slim conversion bar pinned to the bottom on phones/tablets. Slides in
-// after the visitor scrolls past the hero; never shown on the form itself
-// (it would cover the submit button) or on admin/review pages.
+// Floating conversion CTAs pinned to the right edge on phones/tablets
+// (mirrors the desktop WhatsApp float). Slides in after the visitor scrolls
+// past the hero; never shown on the form itself (it would cover the submit
+// button) or on admin/review pages.
 export default function MobileCtaBar() {
   const [show, setShow] = useState(false);
   const pathname = usePathname();
@@ -41,29 +42,26 @@ export default function MobileCtaBar() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 lg:hidden transition-transform duration-300 ${
-        show ? "translate-y-0" : "translate-y-full"
+      className={`fixed right-3 bottom-6 z-40 flex flex-col items-end gap-2.5 lg:hidden transition-all duration-300 ${
+        show ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-6 opacity-0"
       }`}
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="border-t border-line bg-white/95 px-3 pt-2.5 backdrop-blur-md pb-[calc(0.625rem+env(safe-area-inset-bottom))] shadow-[0_-8px_30px_-12px_rgba(11,19,48,0.18)]">
-        <div className="mx-auto flex max-w-md items-center gap-2.5">
-          <a
-            href={whatsappLink(waMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-mint/40 bg-mint/10 px-4 py-3 text-sm font-bold text-mint"
-          >
-            <WhatsAppIcon className="size-4" />
-            WhatsApp
-          </a>
-          <Link
-            href={quoteHref}
-            className="inline-flex flex-[1.4] items-center justify-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(40,87,255,0.8)]"
-          >
-            Get Free Quote
-          </Link>
-        </div>
-      </div>
+      <Link
+        href={quoteHref}
+        className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(40,87,255,0.8)]"
+      >
+        Get Free Quote
+      </Link>
+      <a
+        href={whatsappLink(waMessage)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center justify-center gap-2 rounded-full border border-mint/40 bg-white px-4 py-3 text-sm font-bold text-mint shadow-[0_10px_24px_-10px_rgba(16,185,129,0.8)]"
+      >
+        <WhatsAppIcon className="size-4" />
+        WhatsApp
+      </a>
     </div>
   );
 }
