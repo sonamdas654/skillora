@@ -480,7 +480,7 @@ export default async function HomePage() {
                     <Link
                       key={s.slug}
                       href={`/services/${s.slug}`}
-                      className="card-lift flex items-center gap-3 rounded-2xl border border-line bg-background px-4 py-3.5 hover:border-accent/40"
+                      className="card-lift flex min-w-0 items-center gap-3 rounded-2xl border border-line bg-background px-4 py-3.5 hover:border-accent/40"
                     >
                       <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
                         <Icon name={s.icon} className="size-5" />
