@@ -28,8 +28,7 @@ function ServiceCard({ label, icon }: { label: string; icon: string }) {
   );
 }
 
-// Central 3D brand orb — layered glow, glossy sphere, halo and a slowly
-// rotating conic orbit ring for depth and motion.
+// Central 3D brand orb — layered glow, glossy sphere and a soft halo ring.
 function Orb() {
   return (
     <div className="relative grid size-52 place-items-center">
@@ -39,17 +38,6 @@ function Orb() {
         style={{
           background:
             "radial-gradient(circle at 50% 42%, rgba(37,99,235,0.6), rgba(139,92,246,0.4) 52%, rgba(16,185,129,0.18) 78%, transparent)",
-        }}
-        aria-hidden
-      />
-      {/* orbit ring accent */}
-      <span
-        className="absolute inset-1 rounded-full opacity-70"
-        style={{
-          background:
-            "conic-gradient(from 0deg, transparent 0deg, rgba(37,99,235,0.55) 60deg, transparent 130deg, transparent 230deg, rgba(16,185,129,0.5) 300deg, transparent 360deg)",
-          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
-          mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
         }}
         aria-hidden
       />
