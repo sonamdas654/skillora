@@ -624,7 +624,7 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal delay={0.05}>
-              <div className="mt-8 grid gap-6 sm:gap-8 md:grid-cols-[minmax(0,360px)_1fr] md:gap-10 lg:gap-14 items-start">
+              <div className="mt-8 grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-10 xl:gap-14 items-start">
                 {/* Founder photo card */}
                 <div className="mx-auto w-full max-w-[360px] rounded-3xl border border-line bg-white p-3 shadow-[0_20px_50px_-24px_rgba(11,19,48,0.18)]">
                   <Image
