@@ -19,9 +19,12 @@ jobs:
         run: |
           set -e
           fail=0
+          # -L follows redirects: /start-project -> /get-started and
+          # /client/login -> /login are intentional, so the health of the
+          # FINAL page is what we actually want to assert.
           check() {
             url="$1"; want="$2"; needle="$3"
-            code=$(curl -s -o /tmp/body -w "%{http_code}" --max-time 30 "$url" || echo 000)
+            code=$(curl -sL -o /tmp/body -w "%{http_code}" --max-time 30 "$url" || echo 000)
             if [ "$code" != "$want" ]; then echo "❌ $url -> $code (expected $want)"; fail=1; return; fi
             if [ -n "$needle" ] && ! grep -q "$needle" /tmp/body; then echo "❌ $url missing content: $needle"; fail=1; return; fi
             echo "✅ $url -> $code"
@@ -32,7 +35,7 @@ jobs:
           check "https://www.skilloura.com/blog" 200 ""
           check "https://www.skilloura.com/start-project" 200 ""
           check "https://www.skilloura.com/contact" 200 ""
-          check "https://www.skilloura.com/client/login" 200 "Client portal"
+          check "https://www.skilloura.com/client/login" 200 "Welcome back"
           check "https://www.skilloura.com/sitemap.xml" 200 "<urlset"
           check "https://www.skilloura.com/robots.txt" 200 "Sitemap:"
           check "https://www.skilloura.com/nonexistent-page-xyz-12345" 404 ""
