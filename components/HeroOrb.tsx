@@ -28,8 +28,7 @@ function ServiceCard({ label, icon }: { label: string; icon: string }) {
   );
 }
 
-// Central 3D brand orb — layered glow, glossy sphere, halo and a slowly
-// rotating conic orbit ring for depth and motion.
+// Central 3D brand orb — layered glow, glossy sphere and a soft halo ring.
 function Orb() {
   return (
     <div className="relative grid size-52 place-items-center">
@@ -39,17 +38,6 @@ function Orb() {
         style={{
           background:
             "radial-gradient(circle at 50% 42%, rgba(37,99,235,0.6), rgba(139,92,246,0.4) 52%, rgba(16,185,129,0.18) 78%, transparent)",
-        }}
-        aria-hidden
-      />
-      {/* rotating orbit ring */}
-      <span
-        className="animate-spin-slow absolute inset-1 rounded-full opacity-70"
-        style={{
-          background:
-            "conic-gradient(from 0deg, transparent 0deg, rgba(37,99,235,0.55) 60deg, transparent 130deg, transparent 230deg, rgba(16,185,129,0.5) 300deg, transparent 360deg)",
-          WebkitMask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
-          mask: "radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px))",
         }}
         aria-hidden
       />
@@ -227,39 +215,33 @@ export default function HeroOrb() {
       <div className="relative mx-auto hidden h-[600px] w-full max-w-lg lg:block">
         {/* orb centered */}
         <div className="absolute inset-0 grid place-items-center">
-          <div className="animate-float">
-            <Orb />
-          </div>
+          <Orb />
         </div>
 
-        {/* service chips floating around */}
+        {/* service chips positioned around the orb */}
         {services.map((s) => (
-          <div
-            key={s.label}
-            className={`absolute animate-float ${s.pos}`}
-            style={{ animationDelay: s.delay }}
-          >
+          <div key={s.label} className={`absolute ${s.pos}`}>
             <ServiceCard label={s.label} icon={s.icon} />
           </div>
         ))}
 
         {/* WhatsApp reply — top left */}
-        <div className="absolute left-0 top-1 animate-float" style={{ animationDelay: "0.4s" }}>
+        <div className="absolute left-0 top-1">
           <WhatsAppBubble />
         </div>
 
         {/* Live dashboard — top right */}
-        <div className="absolute -right-3 top-3 animate-float" style={{ animationDelay: "1.3s" }}>
+        <div className="absolute -right-3 top-3">
           <DashboardPreview />
         </div>
 
         {/* Smart form preview — bottom left */}
-        <div className="absolute -left-4 bottom-3 animate-float" style={{ animationDelay: "0.8s" }}>
+        <div className="absolute -left-4 bottom-3">
           <SmartFormPreview />
         </div>
 
         {/* Written scope preview — bottom right */}
-        <div className="absolute -right-3 bottom-1 animate-float" style={{ animationDelay: "1.1s" }}>
+        <div className="absolute -right-3 bottom-1">
           <ScopePreview />
         </div>
       </div>
@@ -267,9 +249,7 @@ export default function HeroOrb() {
       {/* ── Mobile / tablet: clean simplified version ── */}
       <div className="lg:hidden">
         <div className="flex justify-center">
-          <div className="animate-float">
-            <Orb />
-          </div>
+          <Orb />
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-2">
           {services.map((s) => (
