@@ -61,7 +61,7 @@ jobs:
           ls -la backup.json.enc
       - name: Upload encrypted artifact (kept 90 days)
         if: steps.gate.outputs.ready == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: skillora-db-backup-${{ github.run_id }}
           path: backup.json.enc
