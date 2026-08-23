@@ -15,13 +15,19 @@ import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
 import { createClient } from "@/lib/supabase/server";
-import CountUp from "@/components/CountUp";
 import EstimateTeaser from "@/components/EstimateTeaser";
 
 export const dynamic = "force-dynamic";
 
+// Homepage-specific title/description. The site-wide default is brand-first
+// ("Skilloura — Smart Digital Services…"), which only wins searches by people
+// who already know the name. This targets what prospects actually type, and
+// puts the real starting price in the snippet.
 export const metadata = {
   alternates: { canonical: "/" },
+  title: "Website Development & AI Automation Company in India | Skilloura",
+  description:
+    "Websites, apps and AI automation for growing businesses in India. Get a written scope, timeline and transparent quote before you pay anything. From ₹7,000.",
 };
 
 // Homepage shows a 4-step summary; the full 8-step process lives on
@@ -403,8 +409,13 @@ export default async function HomePage() {
                     >
                       <Icon name={stat.icon} className="size-6" />
                     </span>
+                    {/* Rendered as plain text, not an animated count-up: the
+                        count started from 0, and Google's renderer captured
+                        that frame — the live search result for the homepage
+                        literally read "0+ Digital Services". */}
                     <p className="relative mt-5 text-4xl font-extrabold tracking-tight text-ink tabular-nums">
-                      <CountUp value={stat.num} suffix={stat.suffix} />
+                      {stat.num}
+                      {stat.suffix}
                     </p>
                     <p className="relative mt-1.5 text-sm font-bold uppercase tracking-wide text-ink">
                       {stat.label}
