@@ -22,6 +22,15 @@ export function organizationSchema() {
       email: site.email,
       availableLanguage: ["English", "Hindi"],
     },
+    // Region only — no street or postal code, because there is no public
+    // address to state. "Odisha, India" is the location the Terms page
+    // already declares, so this adds no new claim; it just makes a fact
+    // Google previously had no way to read machine-readable.
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: "Odisha",
+      addressCountry: "IN",
+    },
     founder: {
       "@type": "Person",
       "@id": `${BASE}/#founder`,
@@ -47,7 +56,16 @@ export function professionalServiceSchema() {
     email: site.email,
     telephone: `+${site.whatsappNumber}`,
     priceRange: "₹₹",
+    address: {
+      "@type": "PostalAddress",
+      addressRegion: "Odisha",
+      addressCountry: "IN",
+    },
+    // Odisha listed first: it is where the business actually operates from,
+    // and a local signal is the one a new site can realistically compete on.
+    // India and remote stay, because the work genuinely is delivered remotely.
     areaServed: [
+      { "@type": "State", name: "Odisha" },
       { "@type": "Country", name: "India" },
       { "@type": "Place", name: "Worldwide (remote)" },
     ],
