@@ -8,7 +8,11 @@ export const site = {
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "916370133101",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://skilloura.com",
   businessHours: "Mon–Sat, 10 AM – 7 PM IST",
-  serviceArea: "India + global (fully remote)",
+  // Names the home region as well as the reach. Google reads local intent
+  // from visible copy, not just schema, and "India + global" alone gave it
+  // nothing to place the business against. Renders in two spots: the footer
+  // ("Serving …") and the contact page's Service area card.
+  serviceArea: "Odisha, India · remote across India and worldwide",
   googleReviewUrl: "https://g.page/r/CVYteEbTuWymEAI/review",
 };
 
