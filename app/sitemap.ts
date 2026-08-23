@@ -7,17 +7,22 @@ import { portfolioItems } from "@/lib/portfolio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
+  // Only canonical, directly-servable URLs belong here — /start-project is a
+  // 307 to /get-started, so the redirect target is listed instead.
   const staticPages = [
     "",
     "/services",
+    "/ai-solutions",
+    "/solutions",
     "/pricing",
     "/portfolio",
+    "/references",
     "/how-it-works",
     "/about",
     "/contact",
     "/faq",
     "/blog",
-    "/start-project",
+    "/get-started",
   ].map((p) => ({
     url: `${base}${p}`,
     changeFrequency: "weekly" as const,

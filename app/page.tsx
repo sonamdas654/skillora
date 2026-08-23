@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import WhatsAppSticky from "@/components/WhatsAppSticky";
 import MobileCtaBar from "@/components/MobileCtaBar";
 import HeroMotion from "@/components/HeroMotion";
-import HeroOrb from "@/components/HeroOrb";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -16,13 +15,19 @@ import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import { WhatsAppIcon } from "@/components/Header";
 import { createClient } from "@/lib/supabase/server";
-import CountUp from "@/components/CountUp";
 import EstimateTeaser from "@/components/EstimateTeaser";
 
 export const dynamic = "force-dynamic";
 
+// Homepage-specific title/description. The site-wide default is brand-first
+// ("Skilloura — Smart Digital Services…"), which only wins searches by people
+// who already know the name. This targets what prospects actually type, and
+// puts the real starting price in the snippet.
 export const metadata = {
   alternates: { canonical: "/" },
+  title: "Website Development & AI Automation Company in India | Skilloura",
+  description:
+    "Websites, apps and AI automation for growing businesses in India. Get a written scope, timeline and transparent quote before you pay anything. From ₹7,000.",
 };
 
 // Homepage shows a 4-step summary; the full 8-step process lives on
@@ -226,54 +231,47 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-hero-glow" aria-hidden />
           {/* Interactive motion backdrop — aurora ribbons + particle constellation */}
           <HeroMotion />
-          <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-8 sm:pb-10">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-              {/* Left — value proposition. Uses CSS .rise (not JS Reveal) so it
-                  paints immediately on first load and never sits blank on mobile. */}
-              <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                <p className="rise inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-ink-soft shadow-sm">
-                  <span className="size-2 rounded-full bg-mint animate-pulse" />
-                  Accepting new projects
-                </p>
-                <h1 className="rise mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink" style={{ ["--rise-delay" as string]: "80ms" }}>
-                  Websites &amp; AI systems that help growing businesses{" "}
-                  <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
-                    get more leads and save manual work
-                  </span>
-                </h1>
-                <p className="rise mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft" style={{ ["--rise-delay" as string]: "160ms" }}>
-                  Share your requirement once — get a written scope, timeline and transparent quote
-                  before any payment.
-                </p>
-                <div className="rise mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start" style={{ ["--rise-delay" as string]: "240ms" }}>
-                  <Link
-                    href="/start-project"
-                    className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
-                  >
-                    Get My Project Plan
-                    <Icon name="arrow" className="size-5" />
-                  </Link>
-                  <Link
-                    href="/how-it-works"
-                    className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
-                  >
-                    See How It Works
-                  </Link>
-                </div>
-                <ul className="rise mt-9 grid grid-cols-2 gap-x-6 gap-y-3 text-left" style={{ ["--rise-delay" as string]: "320ms" }}>
-                  {["Fast Turnaround", "Transparent Pricing", "Expert Support", "Written Scope Before Payment"].map((t) => (
-                    <li key={t} className="flex items-center gap-1.5 text-sm font-semibold text-ink-soft">
-                      <Icon name="check" className="size-4 shrink-0 text-mint" />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+          <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-12 sm:pb-16">
+            {/* Single centred value proposition. Uses CSS .rise (not JS Reveal)
+                so it paints immediately on first load and never sits blank. */}
+            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+              <p className="rise inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-ink-soft shadow-sm">
+                <span className="size-2 rounded-full bg-mint animate-pulse" />
+                Accepting new projects
+              </p>
+              <h1 className="rise mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink" style={{ ["--rise-delay" as string]: "80ms" }}>
+                Websites &amp; AI systems that help growing businesses{" "}
+                <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
+                  get more leads and save manual work
+                </span>
+              </h1>
+              <p className="rise mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft" style={{ ["--rise-delay" as string]: "160ms" }}>
+                Share your requirement once — get a written scope, timeline and transparent quote
+                before any payment.
+              </p>
+              <div className="rise mt-8 flex flex-wrap items-center justify-center gap-3" style={{ ["--rise-delay" as string]: "240ms" }}>
+                <Link
+                  href="/start-project"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
+                >
+                  Get My Project Plan
+                  <Icon name="arrow" className="size-5" />
+                </Link>
+                <Link
+                  href="/how-it-works"
+                  className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
+                >
+                  See How It Works
+                </Link>
               </div>
-
-              {/* Right — premium Skilloura orb + floating service cards */}
-              <div className="rise w-full" style={{ ["--rise-delay" as string]: "200ms" }}>
-                <HeroOrb />
-              </div>
+              <ul className="rise mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3" style={{ ["--rise-delay" as string]: "320ms" }}>
+                {["Fast Turnaround", "Transparent Pricing", "Expert Support", "Written Scope Before Payment"].map((t) => (
+                  <li key={t} className="flex items-center gap-1.5 text-sm font-semibold text-ink-soft">
+                    <Icon name="check" className="size-4 shrink-0 text-mint" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
@@ -282,7 +280,7 @@ export default async function HomePage() {
               copy is real to assistive tech + keyboard — the two duplicates are
               aria-hidden and non-focusable so screen readers and Tab don't hit
               every link three times. */}
-          <div className="relative w-screen overflow-hidden py-5 sm:py-6">
+          <div className="relative w-full overflow-hidden py-5 sm:py-6">
             <div
               className="pointer-events-none absolute inset-0"
               style={{
@@ -411,8 +409,13 @@ export default async function HomePage() {
                     >
                       <Icon name={stat.icon} className="size-6" />
                     </span>
+                    {/* Rendered as plain text, not an animated count-up: the
+                        count started from 0, and Google's renderer captured
+                        that frame — the live search result for the homepage
+                        literally read "0+ Digital Services". */}
                     <p className="relative mt-5 text-4xl font-extrabold tracking-tight text-ink tabular-nums">
-                      <CountUp value={stat.num} suffix={stat.suffix} />
+                      {stat.num}
+                      {stat.suffix}
                     </p>
                     <p className="relative mt-1.5 text-sm font-bold uppercase tracking-wide text-ink">
                       {stat.label}
@@ -480,7 +483,7 @@ export default async function HomePage() {
                     <Link
                       key={s.slug}
                       href={`/services/${s.slug}`}
-                      className="card-lift flex items-center gap-3 rounded-2xl border border-line bg-background px-4 py-3.5 hover:border-accent/40"
+                      className="card-lift flex min-w-0 items-center gap-3 rounded-2xl border border-line bg-background px-4 py-3.5 hover:border-accent/40"
                     >
                       <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
                         <Icon name={s.icon} className="size-5" />
@@ -624,7 +627,7 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal delay={0.05}>
-              <div className="mt-8 grid gap-6 sm:gap-8 md:grid-cols-[minmax(0,360px)_1fr] md:gap-10 lg:gap-14 items-start">
+              <div className="mt-8 grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-10 xl:gap-14 items-start">
                 {/* Founder photo card */}
                 <div className="mx-auto w-full max-w-[360px] rounded-3xl border border-line bg-white p-3 shadow-[0_20px_50px_-24px_rgba(11,19,48,0.18)]">
                   <Image

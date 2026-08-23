@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -65,6 +65,17 @@ export const metadata: Metadata = {
   ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
     ? { verification: { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION } }
     : {}),
+};
+
+// Pinch-zoom locked to prevent an accidental pinch mid-scroll from making
+// the site look "broken" to a visitor. Note: iOS Safari has ignored
+// user-scalable=no since iOS 10 (accessibility override) — this only
+// takes effect on Android/desktop Chrome.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

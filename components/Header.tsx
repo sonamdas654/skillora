@@ -92,7 +92,7 @@ export default function Header() {
       <div className="mx-auto flex h-20 sm:h-[88px] max-w-[1520px] items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
 
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
+        <nav className="hidden xl:flex items-center gap-1" aria-label="Main">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -108,7 +108,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-2.5">
+        <div className="hidden xl:flex items-center gap-2.5">
           <AuthNavLink variant="desktop" />
           <a
             href={whatsappLink("Hi! I want to discuss a project.")}
@@ -129,7 +129,7 @@ export default function Header() {
 
         <button
           ref={menuButtonRef}
-          className="lg:hidden grid size-10 place-items-center rounded-lg border border-line bg-white"
+          className="xl:hidden grid size-10 place-items-center rounded-lg border border-line bg-white"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -146,7 +146,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       {open && (
-        <div ref={drawerRef} className="lg:hidden border-t border-line bg-white/95 backdrop-blur-md">
+        <div ref={drawerRef} className="xl:hidden border-t border-line bg-white/95 backdrop-blur-md">
           <nav className="mx-auto max-w-[1520px] px-4 py-4 flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => (
               <Link
