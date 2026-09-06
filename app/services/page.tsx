@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import ServicesTabs from "@/components/ServicesTabs";
 import Reveal from "@/components/Reveal";
-import { Section } from "@/components/Section";
-import Link from "next/link";
 import Icon from "@/components/Icons";
+import SpecLedger from "@/components/ui/SpecLedger";
+import { Section } from "@/components/Section";
+import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
@@ -13,39 +15,57 @@ export const metadata: Metadata = {
     "Choose from 9 digital service categories: website development, mobile apps, AI automation, branding, video editing, marketing, dashboards, career services and custom software.",
 };
 
+/**
+ * Service index.
+ *
+ * The page file itself used to be a hero, a delegated component and a generic
+ * centred CTA card — the CTA being one of nine near-identical closing cards
+ * across the site, a job the footer now does. The index below is an editorial
+ * list rather than a grid of icon cards; see components/ServicesTabs.tsx.
+ */
 export default function ServicesPage() {
+  const core = serviceCategories.filter((s) => !SECONDARY_SERVICE_SLUGS.includes(s.slug));
+
   return (
     <PageShell>
       <PageHero
         eyebrow="Services"
         title={
           <>
-            Choose the Service{" "}
-            <span className="font-accent font-normal text-accent">You Need</span>
+            Nine ways we{" "}
+            <span className="font-accent italic text-brand">build</span>
           </>
         }
-        subtitle="Select a service below and fill a smart requirement form designed for that project type."
+        subtitle="Pick the one that matches your problem. Each has its own requirement form, so the questions are the right ones for that kind of project."
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ]}
+        actions={
+          <Link
+            href="/start-project"
+            className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep"
+          >
+            Not sure which? Describe it instead
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
+        aside={
+          <SpecLedger
+            caption="How it works everywhere"
+            rows={[
+              { label: "Core categories", value: `${core.length}` },
+              { label: "Also available", value: `${SECONDARY_SERVICE_SLUGS.length}` },
+              { label: "Written scope", value: "Before payment" },
+              { label: "Reply window", value: "24h" },
+            ]}
+          />
+        }
       />
+
       <Section>
-        <ServicesTabs />
-      </Section>
-      <Section className="pt-0">
         <Reveal>
-          <div className="rounded-3xl border border-line bg-white p-8 sm:p-12 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-ink">
-              Not sure which service fits your problem?
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-ink-soft">
-              Describe your requirement in plain words and I&apos;ll suggest the right solution —
-              honestly, including cheaper options if they fit better.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep transition-colors"
-            >
-              Ask for free guidance <Icon name="arrow" className="size-4" />
-            </Link>
-          </div>
+          <ServicesTabs />
         </Reveal>
       </Section>
     </PageShell>

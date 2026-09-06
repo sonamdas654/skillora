@@ -84,7 +84,10 @@ export default function Footer() {
   return (
     <footer className="mt-auto">
       {/* ── Closing moment ───────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-surface-ink text-on-ink">
+      <section
+        data-footer-cta
+        className="relative overflow-hidden bg-surface-ink text-on-ink"
+      >
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-32 size-[32rem] rounded-pill opacity-60 blur-[90px]"

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
-import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
 import { PortfolioCard } from "@/components/Cards";
 import TrustBand from "@/components/TrustBand";
 import { portfolioItems, type PortfolioItem } from "@/lib/portfolio";
 import { createPublicClient } from "@/lib/supabase/public";
+import JsonLd from "@/components/JsonLd";
+import { site } from "@/lib/site";
 
 // Public content only, so this is statically generated and refreshed on a
 // timer instead of server-rendered per request. See lib/supabase/public.ts
@@ -48,50 +48,85 @@ export default async function PortfolioPage() {
     ...portfolioItems,
   ];
 
+  // Concept builds and real client work were merged into one grid with no
+  // way to tell them apart — which is both a design problem and an honesty
+  // problem. They are now separate, labelled groups.
+  const concepts = allItems.filter((i) => i.isDemo);
+  const clientWork = allItems.filter((i) => !i.isDemo);
+
+  const groups = [
+    {
+      key: "client",
+      label: "Client work",
+      blurb: "Projects built for real businesses.",
+      items: clientWork,
+    },
+    {
+      key: "concept",
+      label: "Concept builds",
+      blurb:
+        "Made by Skilloura to show quality, not for live businesses. Every one opens as a working page you can click through.",
+      items: concepts,
+    },
+  ].filter((g) => g.items.length > 0);
+
   return (
     <PageShell>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Skilloura portfolio",
+          url: `${site.url}/portfolio`,
+          numberOfItems: allItems.length,
+          itemListElement: allItems.map((item, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: item.title,
+            url: `${site.url}/portfolio/${item.slug}`,
+          })),
+        }}
+      />
+
       <PageHero
         eyebrow="Portfolio"
         title={
           <>
             Work that shows{" "}
-            <span className="font-accent font-normal text-accent">what&apos;s possible</span>
+            <span className="font-accent italic text-brand">what&apos;s possible</span>
           </>
         }
-        subtitle="Click any concept to explore a live, interactive demo — real, working pages that show exactly what we build."
+        subtitle="Click any build to explore a live, interactive page — not screenshots, and no sign-up."
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Portfolio", path: "/portfolio" },
+        ]}
       />
+
       <Section>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {allItems.map((item, i) => (
-            <Reveal key={item.slug} delay={Math.min(i * 0.06, 0.3)}>
-              <PortfolioCard item={item} />
+        {groups.map((group, gi) => (
+          <div key={group.key} className={gi > 0 ? "mt-16" : ""}>
+            <Reveal>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-line-strong pb-3">
+                <h2 className="font-display text-title-1 text-ink">{group.label}</h2>
+                <p className="max-w-xl text-body-sm text-ink-soft">{group.blurb}</p>
+              </div>
             </Reveal>
-          ))}
-        </div>
-
-        <Reveal delay={0.15}>
-          <div className="mt-14">
-            <TrustBand />
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {group.items.map((item, i) => (
+                <Reveal key={item.slug} delay={Math.min(i * 0.06, 0.3)}>
+                  <PortfolioCard item={item} />
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </Reveal>
+        ))}
 
-        <Reveal delay={0.2}>
-          <div className="mt-8 rounded-3xl border border-line bg-white p-8 sm:p-12 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-ink">
-              Want a project like these —{" "}
-              <span className="font-accent font-normal text-accent">built for you?</span>
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-ink-soft">
-              Tell me your industry and requirement. I&apos;ll show you a relevant sample and a clear
-              plan before you commit to anything.
-            </p>
-            <Link
-              href="/start-project"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep transition-colors"
-            >
-              Submit Project Requirement <Icon name="arrow" className="size-4" />
-            </Link>
+        {/* The closing offer lives in the footer now, so this page ends on
+            proof rather than on a ninth near-identical CTA card. */}
+        <Reveal delay={0.15}>
+          <div className="mt-16">
+            <TrustBand />
           </div>
         </Reveal>
       </Section>

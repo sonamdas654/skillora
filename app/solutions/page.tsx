@@ -13,6 +13,18 @@ export const metadata: Metadata = {
     "Ready-made, honest solutions for restaurants, gyms, salons and local businesses — websites, booking and WhatsApp automation with transparent pricing and live demos.",
 };
 
+/**
+ * Industry solutions index.
+ *
+ * This was the weakest page on the site: a hero and a single two-column card
+ * grid, and nothing else — no structure, no proof, no schema, on a page
+ * selling four productised offerings.
+ *
+ * Four items is too few for a grid to do anything useful; a grid just makes
+ * each one small. As full-width rows they get the room to actually sell: the
+ * audience, the promise, the guide price and timeline side by side, and a
+ * direct route into the live build for that industry.
+ */
 export default function SolutionsPage() {
   return (
     <PageShell>
@@ -21,32 +33,72 @@ export default function SolutionsPage() {
         title={
           <>
             Built for{" "}
-            <span className="font-accent font-normal text-accent">your kind of business</span>
+            <span className="font-accent italic text-brand">your kind of business</span>
           </>
         }
-        subtitle="Focused solutions with honest guide prices, a live demo you can click, and a written scope before any payment."
+        subtitle="Focused solutions with honest guide prices, a live build you can click through, and a written scope before any payment."
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Solutions", path: "/solutions" },
+        ]}
       />
+
       <Section>
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="border-t border-line-strong">
           {solutions.map((s, i) => (
             <Reveal key={s.slug} delay={Math.min(i * 0.06, 0.24)}>
-              <Link
-                href={`/solutions/${s.slug}`}
-                className="card-lift group flex h-full flex-col rounded-3xl border border-line bg-white p-6 hover:border-accent/40"
-              >
-                <p className="text-xs font-bold uppercase tracking-wider text-accent">{s.audience}</p>
-                <h2 className="mt-2 text-lg font-bold leading-snug text-ink group-hover:text-accent transition-colors">
-                  {s.h1}
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-ink-soft line-clamp-3">{s.intro}</p>
-                <div className="mt-4 flex items-center gap-3 text-xs font-semibold text-ink-soft">
-                  <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">From {s.priceFrom}</span>
-                  <span>{s.timeline}</span>
-                </div>
-                <span className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
-                  See details <Icon name="arrow" className="size-4 transition-transform group-hover:translate-x-1" />
+              <article className="grid gap-x-10 gap-y-5 border-b border-line py-9 lg:grid-cols-[auto_1fr_auto]">
+                <span className="hidden pt-2 font-mono text-micro text-ink-muted lg:block">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-              </Link>
+
+                <div className="min-w-0">
+                  <p className="text-micro font-mono uppercase text-ink-muted">{s.audience}</p>
+                  <h2 className="mt-2 max-w-2xl font-display text-display-3 text-ink">
+                    <Link
+                      href={`/solutions/${s.slug}`}
+                      className="transition-colors hover:text-brand"
+                    >
+                      {s.h1}
+                    </Link>
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-body-lg text-ink-soft">{s.intro}</p>
+
+                  <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
+                    <Link
+                      href={`/solutions/${s.slug}`}
+                      className="group inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
+                    >
+                      See what&apos;s included
+                      <Icon
+                        name="arrow"
+                        className="size-4 transition-transform group-hover:translate-x-0.5"
+                      />
+                    </Link>
+                    {s.demoPath && (
+                      <Link
+                        href={s.demoPath}
+                        className="text-body-sm font-semibold text-ink-soft transition-colors hover:text-ink"
+                      >
+                        {s.demoLabel ?? "Open the live build"}
+                      </Link>
+                    )}
+                  </div>
+                </div>
+
+                <dl className="shrink-0 lg:w-52 lg:border-l lg:border-line lg:pl-10">
+                  <div className="flex items-baseline justify-between gap-4 py-1.5">
+                    <dt className="text-body-sm text-ink-soft">From</dt>
+                    <dd className="font-mono text-body-base font-medium text-ink">
+                      {s.priceFrom}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4 py-1.5">
+                    <dt className="text-body-sm text-ink-soft">Timeline</dt>
+                    <dd className="font-mono text-body-sm text-ink">{s.timeline}</dd>
+                  </div>
+                </dl>
+              </article>
             </Reveal>
           ))}
         </div>

@@ -18,6 +18,7 @@ import WhatsAppIcon from "./icons/WhatsAppIcon";
  */
 export default function WhatsAppSticky() {
   const [showTop, setShowTop] = useState(false);
+  const [atFooter, setAtFooter] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 500);
@@ -26,8 +27,25 @@ export default function WhatsAppSticky() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Stand down once the footer's closing band is on screen. It carries the
+  // same offer and its own "Chat on WhatsApp" button, so leaving the float up
+  // put two identical buttons on top of each other in the corner.
+  useEffect(() => {
+    const target = document.querySelector("[data-footer-cta]");
+    if (!target) return;
+    const io = new IntersectionObserver(([entry]) => setAtFooter(entry.isIntersecting), {
+      threshold: 0,
+    });
+    io.observe(target);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <div className="fixed bottom-6 right-6 z-50 hidden flex-col items-end gap-2.5 lg:flex">
+    <div
+      className={`fixed bottom-6 right-6 z-50 hidden flex-col items-end gap-2.5 transition-all duration-300 lg:flex ${
+        atFooter ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"
+      }`}
+    >
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

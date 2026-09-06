@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
+import SpecLedger from "@/components/ui/SpecLedger";
 import Icon from "@/components/Icons";
-import { Section, SectionHeading } from "@/components/Section";
+import { Section } from "@/components/Section";
 import { DEMO_CONCEPTS, type DemoConcept } from "@/lib/demoConcepts";
 
 export const metadata: Metadata = {
@@ -52,6 +53,8 @@ function findConcept(category: keyof typeof DEMO_CONCEPTS, id: string): DemoConc
 }
 
 export default function ReferencesPage() {
+  const total = groups.reduce((n, g) => n + g.ids.length, 0);
+
   return (
     <PageShell>
       <PageHero
@@ -59,71 +62,82 @@ export default function ReferencesPage() {
         title={
           <>
             Reference layouts &{" "}
-            <span className="font-accent font-normal text-accent">project ideas</span>
+            <span className="font-accent italic text-brand">project ideas</span>
           </>
         }
-        subtitle="A starting library of layouts, automations, dashboards and systems across common business types. Pick one closest to what you need, or use it as a jumping-off point — every build is customized to your actual content, brand and workflow."
+        subtitle="A starting library of layouts, automations, dashboards and systems across common business types. Pick the one closest to what you need — every build is customised to your actual content, brand and workflow."
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "References", path: "/references" },
+        ]}
+        aside={
+          <SpecLedger
+            caption="This library"
+            rows={[
+              { label: "References shown", value: `${total}` },
+              { label: "Categories", value: `${groups.length}` },
+              { label: "All openable", value: "Live" },
+            ]}
+          />
+        }
       />
 
-      {groups.map((group, gi) => (
-        <Section key={group.category} className={gi % 2 === 1 ? "bg-soft-panel border-b border-line" : "border-b border-line"}>
-          <Reveal>
-            <SectionHeading eyebrow={`0${gi + 1}`} title={group.title} subtitle={group.desc} center={false} />
-          </Reveal>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {group.ids.map((id, i) => {
-              const concept = findConcept(group.category, id);
-              if (!concept) return null;
-              return (
-                <Reveal key={id} delay={Math.min(i * 0.05, 0.2)}>
-                  <Link
-                    href={`/demo/${id}`}
-                    className="card-lift group flex h-full flex-col rounded-2xl border border-line bg-white p-5"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <span
-                        className="grid size-10 shrink-0 place-items-center rounded-xl text-white"
-                        style={{ background: concept.accent }}
-                      >
-                        <Icon name={concept.icon} className="size-5" />
-                      </span>
-                      <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-accent">
-                        Reference
-                      </span>
-                    </div>
-                    <h3 className="mt-4 text-sm font-bold text-ink">{concept.title}</h3>
-                    <p className="mt-1 text-xs font-semibold text-ink-soft">{concept.tag}</p>
-                    <p className="mt-2 text-xs leading-5 text-ink-soft line-clamp-3">{concept.description}</p>
-                    <span className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-accent">
-                      View reference{" "}
-                      <Icon name="arrow" className="size-3 transition-transform group-hover:translate-x-0.5" />
-                    </span>
-                  </Link>
-                </Reveal>
-              );
-            })}
-          </div>
-        </Section>
-      ))}
-
+      {/* One continuous index. This used to be the same three-column card grid
+          rendered four times with an `idx % 2` alternating background — twenty
+          near-identical cards and no sense of a library. */}
       <Section>
-        <Reveal>
-          <div className="mx-auto max-w-2xl rounded-3xl border border-line bg-white p-8 text-center sm:p-10">
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-ink">
-              More references are available during requirement discussion
-            </h2>
-            <p className="mt-3 text-sm leading-7 text-ink-soft">
-              This is a starting selection, not the full list. Share your industry and requirement
-              and we&apos;ll show you the closest-fit reference, plus a clear plan and price before
-              you commit to anything.
-            </p>
-            <Link
-              href="/start-project"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep transition-colors"
-            >
-              Submit Project Requirement <Icon name="arrow" className="size-4" />
-            </Link>
+        {groups.map((group, gi) => (
+          <div key={group.category} className={gi > 0 ? "mt-16" : ""}>
+            <Reveal>
+              <div className="border-b border-line-strong pb-4">
+                <p className="text-micro font-mono uppercase text-ink-muted">
+                  {String(gi + 1).padStart(2, "0")} — {group.ids.length} references
+                </p>
+                <h2 className="mt-2 font-display text-display-3 text-ink">{group.title}</h2>
+                <p className="mt-2 max-w-2xl text-body-base text-ink-soft">{group.desc}</p>
+              </div>
+            </Reveal>
+
+            <div>
+              {group.ids.map((id, i) => {
+                const concept = findConcept(group.category, id);
+                if (!concept) return null;
+                return (
+                  <Reveal key={id} delay={Math.min(i * 0.05, 0.2)}>
+                    <Link
+                      href={`/demo/${id}`}
+                      className="group grid gap-x-8 gap-y-2 border-b border-line py-5 md:grid-cols-[minmax(0,18rem)_1fr_auto] md:items-baseline"
+                    >
+                      <h3 className="font-display text-title-2 text-ink transition-colors group-hover:text-brand">
+                        {concept.title}
+                      </h3>
+                      <p className="max-w-2xl text-body-sm text-ink-soft">
+                        <span className="font-mono text-micro uppercase text-ink-muted">
+                          {concept.tag}
+                        </span>{" "}
+                        — {concept.description}
+                      </p>
+                      <span className="inline-flex shrink-0 items-center gap-1.5 text-body-sm font-semibold text-brand">
+                        Open
+                        <Icon
+                          name="arrow"
+                          className="size-4 transition-transform group-hover:translate-x-0.5"
+                        />
+                      </span>
+                    </Link>
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
+        ))}
+
+        <Reveal>
+          <p className="mt-12 max-w-2xl text-body-base text-ink-soft">
+            This is a starting selection, not the full list. Share your industry and
+            requirement and we&apos;ll show you the closest-fit reference, plus a clear plan
+            and price before you commit to anything.
+          </p>
         </Reveal>
       </Section>
     </PageShell>
