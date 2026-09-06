@@ -112,6 +112,25 @@
   background-repeat: no-repeat;
 }
 
+/* Navigation tick — the scope line reduced to a single mark. The active
+   nav item is underlined by a measured rule with one signal tick at its
+   centre, so the header carries the same motif as the hero rather than a
+   filled pill that could belong to any site. */
+.nav-tick::after {
+  content: "";
+  position: absolute;
+  left: 0.875rem;
+  right: 0.875rem;
+  bottom: 0.25rem;
+  height: 5px;
+  background-image:
+    linear-gradient(var(--color-brand), var(--color-brand)),
+    linear-gradient(var(--color-signal), var(--color-signal));
+  background-size: 100% 1px, 1px 5px;
+  background-position: 0 100%, 50% 0;
+  background-repeat: no-repeat;
+}
+
 /* ── Interaction ─────────────────────────────────────────────
    Hover lift. Transform and shadow only, so it stays on the
    compositor. */

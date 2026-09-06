@@ -7,10 +7,21 @@ import { whatsappLink } from "@/lib/site";
 import { getService } from "@/lib/services";
 import WhatsAppIcon from "./icons/WhatsAppIcon";
 
-// Floating conversion CTAs pinned to the right edge on phones/tablets
-// (mirrors the desktop WhatsApp float). Slides in after the visitor scrolls
-// past the hero; never shown on the form itself (it would cover the submit
-// button) or on admin/review pages.
+/**
+ * Floating conversion CTA for phones and tablets.
+ *
+ * This used to be two stacked floating buttons — a filled quote button and a
+ * filled WhatsApp button — competing with each other on every page, which is
+ * the button spam the brief rules out. It is now one object: a primary action
+ * with the WhatsApp channel attached to it, so there is a single obvious next
+ * step and a second way to reach a person, not two rival CTAs.
+ *
+ * Both remain real anchors/links. Site-wide click tracking finds WhatsApp by
+ * its wa.me href, so this must never become a button with an onClick.
+ *
+ * Slides in after the hero. Never shown on the requirement form (it would sit
+ * over the submit button) or on the private portal.
+ */
 export default function MobileCtaBar() {
   const [show, setShow] = useState(false);
   const pathname = usePathname();
@@ -32,7 +43,7 @@ export default function MobileCtaBar() {
     return null;
   }
 
-  // On a service page, carry that service into both CTAs.
+  // On a service page, carry that service into both actions.
   const serviceSlug = pathname.startsWith("/services/") ? pathname.split("/")[2] : undefined;
   const service = serviceSlug ? getService(serviceSlug) : undefined;
   const waMessage = service
@@ -42,26 +53,29 @@ export default function MobileCtaBar() {
 
   return (
     <div
-      className={`fixed right-3 bottom-6 z-40 flex flex-col items-end gap-2.5 lg:hidden transition-all duration-300 ${
-        show ? "translate-x-0 opacity-100" : "pointer-events-none translate-x-6 opacity-0"
+      className={`fixed bottom-5 right-4 z-40 transition-all duration-300 lg:hidden ${
+        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       }`}
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
-      <Link
-        href={quoteHref}
-        className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-bold text-white shadow-[0_10px_24px_-10px_rgba(40,87,255,0.8)]"
-      >
-        Get Free Quote
-      </Link>
-      <a
-        href={whatsappLink(waMessage)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center justify-center gap-2 rounded-full border border-mint/40 bg-white px-4 py-3 text-sm font-bold text-mint shadow-[0_10px_24px_-10px_rgba(16,185,129,0.8)]"
-      >
-        <WhatsAppIcon className="size-4" />
-        WhatsApp
-      </a>
+      <div className="flex items-stretch overflow-hidden rounded-pill bg-brand shadow-e3">
+        <Link
+          href={quoteHref}
+          className="px-5 py-3.5 text-body-sm font-semibold text-on-brand"
+        >
+          Get a written scope
+        </Link>
+        <span aria-hidden className="my-2 w-px bg-on-brand/25" />
+        <a
+          href={whatsappLink(waMessage)}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Message us on WhatsApp"
+          className="grid w-12 place-items-center text-on-brand"
+        >
+          <WhatsAppIcon className="size-5" />
+        </a>
+      </div>
     </div>
   );
 }
