@@ -44,12 +44,20 @@ await page.evaluate(async () => {
 
 // Fail loudly rather than silently shipping a screenshot full of invisible
 // sections: anything still at opacity 0 after a full scroll is a real bug.
-const stillHidden = await page.evaluate(() =>
-  [...document.querySelectorAll("main *")].filter((el) => {
-    const cs = getComputedStyle(el);
-    return cs.opacity === "0" && el.getBoundingClientRect().height > 40;
-  }).length
-);
+const stillHidden = await page.evaluate(() => {
+  // Decorative layers (aria-hidden, or pointer-events:none glows that fade in
+  // on hover) are meant to be transparent — only readable content counts.
+  const isDecorative = (el) =>
+    el.getAttribute("aria-hidden") === "true" ||
+    el.closest("[aria-hidden='true']") !== null ||
+    getComputedStyle(el).pointerEvents === "none";
+  return [...document.querySelectorAll("main *")].filter((el) => {
+    if (getComputedStyle(el).opacity !== "0") return false;
+    if (el.getBoundingClientRect().height <= 40) return false;
+    if (isDecorative(el)) return false;
+    return (el.textContent || "").trim().length > 0;
+  }).length;
+});
 if (stillHidden > 0) {
   console.warn(`warning: ${stillHidden} element(s) still at opacity 0 after scrolling`);
 }

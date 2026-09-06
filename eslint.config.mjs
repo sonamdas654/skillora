@@ -11,10 +11,8 @@ import nextTs from "eslint-config-next/typescript";
 //
 // Starts as `warn` so the migration can land page by page, and is raised
 // to `error` once the page migration is complete.
-const designTokenRules = {
-  "no-restricted-syntax": [
-    "warn",
-    {
+const designTokenSelectors = [
+  {
       // bg-[#0e5257], shadow-[0_20px_40px_...], text-[13px], w-[420px]
       selector:
         "JSXAttribute[name.name='className'] > Literal[value=/\\[(#[0-9a-fA-F]{3,8}|[0-9.]+(px|rem)|[0-9]+_)/]",
@@ -32,10 +30,20 @@ const designTokenRules = {
       // text-3xl, text-sm … the type scale is display-1…micro
       selector:
         "JSXAttribute[name.name='className'] > Literal[value=/\\btext-(xs|sm|base|lg|xl|[2-9]xl)\\b/]",
-      message:
-        "Raw Tailwind type size. Use the type scale: text-display-1..3, text-title-1..3, text-body-lg/base/sm, text-label, text-micro.",
-    },
-  ],
+    message:
+      "Raw Tailwind type size. Use the type scale: text-display-1..3, text-title-1..3, text-body-lg/base/sm, text-label, text-micro.",
+  },
+];
+
+// ── Motion budget guard ──────────────────────────────────────────────
+// The previous build shipped a 50ms setInterval driving React state (20
+// re-renders a second, forever, off-screen, with no reduced-motion check).
+// A fast timer is almost always a per-frame value that belongs on a ref or
+// a CSS custom property — see components/motion/CONTRACT.md and useRafLoop.
+const motionSelector = {
+  selector: "CallExpression[callee.name='setInterval'] > Literal[value<250]",
+  message:
+    "setInterval under 250ms. Per-frame work belongs in useRafLoop (IntersectionObserver-gated, tier-aware, writes to refs). See components/motion/CONTRACT.md.",
 };
 
 const eslintConfig = defineConfig([
@@ -63,7 +71,12 @@ const eslintConfig = defineConfig([
       "app/admin/**",
       "app/client/**",
     ],
-    rules: designTokenRules,
+    // ESLint merges by rule name, so a later block configuring
+    // no-restricted-syntax REPLACES an earlier one. Both selector sets are
+    // therefore listed together here rather than in two blocks.
+    rules: {
+      "no-restricted-syntax": ["warn", motionSelector, ...designTokenSelectors],
+    },
   },
 ]);
 

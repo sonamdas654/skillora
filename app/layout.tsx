@@ -5,6 +5,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import SiteAnalytics from "@/components/SiteAnalytics";
+import MotionProvider, { MotionBootScript } from "@/components/motion/MotionProvider";
 import { organizationSchema, websiteSchema, professionalServiceSchema } from "@/lib/schema";
 
 // Body font — clean, highly legible.
@@ -99,9 +100,13 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <MotionBootScript />
+      </head>
       <body className="min-h-full flex flex-col">
         <JsonLd data={[organizationSchema(), websiteSchema(), professionalServiceSchema()]} />
         {children}
+        <MotionProvider />
         <Analytics />
         <SiteAnalytics />
       </body>

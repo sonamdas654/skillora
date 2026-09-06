@@ -1,0 +1,522 @@
+{
+  "/": {
+    "status": 200,
+    "title": "Website Development & AI Automation Company in India | Skilloura",
+    "canonical": "https://www.skilloura.com",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 40,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/about": {
+    "status": 200,
+    "title": "About — The Story Behind Skilloura | Skilloura",
+    "canonical": "https://www.skilloura.com/about",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 8,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/ai-solutions": {
+    "status": 200,
+    "title": "AI Systems for Business — WhatsApp Bots, Automation & Reporting | Skilloura",
+    "canonical": "https://www.skilloura.com/ai-solutions",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 6,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/blog": {
+    "status": 200,
+    "title": "Blog — Practical Guides for Business Websites, AI & Marketing | Skilloura",
+    "canonical": "https://www.skilloura.com/blog",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/contact": {
+    "status": 200,
+    "title": "Contact — Ask Anything, Get a Reply Within 24 Hours | Skilloura",
+    "canonical": "https://www.skilloura.com/contact",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [
+      "email",
+      "message",
+      "name",
+      "phone"
+    ],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/faq": {
+    "status": 200,
+    "title": "FAQ — Pricing, Process, Revisions & Delivery Questions | Skilloura",
+    "canonical": "https://www.skilloura.com/faq",
+    "h1": 1,
+    "jsonLd": 4,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 1,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/get-started": {
+    "status": 200,
+    "title": "Skilloura — Smart Digital Services, Delivered with Skill.",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/how-it-works": {
+    "status": 200,
+    "title": "How It Works — Clear 8-Step Project Process | Skilloura",
+    "canonical": "https://www.skilloura.com/how-it-works",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 20,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/portfolio": {
+    "status": 200,
+    "title": "Portfolio — Featured Work & Concepts | Skilloura",
+    "canonical": "https://www.skilloura.com/portfolio",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A",
+      "portfolio_cta_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 5,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/pricing": {
+    "status": 200,
+    "title": "Pricing — Transparent Packages for Every Digital Service | Skilloura",
+    "canonical": "https://www.skilloura.com/pricing",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 38,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/references": {
+    "status": 200,
+    "title": "Reference Layouts & Project Ideas | Skilloura",
+    "canonical": "https://www.skilloura.com/references",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 24,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/services": {
+    "status": 200,
+    "title": "Services — Websites, Apps, AI Automation, Design & More | Skilloura",
+    "canonical": "https://www.skilloura.com/services",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A",
+      "service_detail_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 1,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/solutions": {
+    "status": 200,
+    "title": "Solutions by Industry — Websites & AI Systems Built for Your Business | Skilloura",
+    "canonical": "https://www.skilloura.com/solutions",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 2,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/thank-you": {
+    "status": 200,
+    "title": "Thank You — Request Received | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/services/website-development": {
+    "status": 200,
+    "title": "Website Development — Get a Custom Quote | Skilloura",
+    "canonical": "https://www.skilloura.com/services/website-development",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 15,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/services/ai-automation": {
+    "status": 200,
+    "title": "AI & Automation — Get a Custom Quote | Skilloura",
+    "canonical": "https://www.skilloura.com/services/ai-automation",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 7,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/solutions/restaurant-website": {
+    "status": 200,
+    "title": "Restaurant Website Development in India — Menu, Booking & WhatsApp Orders | Skilloura",
+    "canonical": "https://www.skilloura.com/solutions/restaurant-website",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 4,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/portfolio/restaurant-website-concept": {
+    "status": 200,
+    "title": "Spice Route — Restaurant Website — Live Concept Demo | Skilloura",
+    "canonical": "https://www.skilloura.com/portfolio/restaurant-website-concept",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/demo/web-saas": {
+    "status": 200,
+    "title": "SaaS Landing Page (Sleek Dark Mode) — Live Concept Demo | Skilloura",
+    "canonical": "https://www.skilloura.com/demo/web-saas",
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/privacy-policy": {
+    "status": 200,
+    "title": "Privacy Policy | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/terms": {
+    "status": 200,
+    "title": "Terms & Conditions | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/refund-policy": {
+    "status": 200,
+    "title": "Refund Policy | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/revision-policy": {
+    "status": 200,
+    "title": "Revision Policy | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/payment-policy": {
+    "status": 200,
+    "title": "Payment Policy | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/data-security": {
+    "status": 200,
+    "title": "Data & File Security | Skilloura",
+    "canonical": null,
+    "h1": 1,
+    "jsonLd": 3,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  }
+}

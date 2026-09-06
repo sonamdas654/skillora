@@ -25,6 +25,24 @@
   animation-delay: var(--rise-delay, 0ms);
 }
 
+/* ── Scroll reveals ──────────────────────────────────────────
+   Content is visible by DEFAULT. It is only hidden while
+   data-motion="on" is present, which the boot script sets before
+   paint and only for visitors who have not asked for less motion.
+
+   Read that as: if JavaScript never runs, if hydration fails, if the
+   observer never fires, or if this is print or reader mode, the page
+   is fully readable. The animation is the enhancement, not the
+   precondition. */
+[data-motion="on"] [data-reveal]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: translateY(var(--distance-rise));
+}
+[data-reveal][data-reveal-done] {
+  animation: rise var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
 /* Route transition, applied by app/template.tsx.
    Opacity only — deliberately. Any transform here, even translateY(0)
    at rest, creates a containing block for descendant position: fixed
@@ -74,7 +92,13 @@
   .page-enter,
   .animate-service-rail,
   .animate-signal-pulse,
-  .aura {
+  .aura,
+  [data-reveal] {
     animation: none !important;
+  }
+  /* Never leave a reveal mid-hide for someone who asked for no motion. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
