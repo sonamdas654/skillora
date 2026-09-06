@@ -12,7 +12,6 @@ import { Section, SectionHeading } from "@/components/Section";
 import { ServiceCard, PackageCard } from "@/components/Cards";
 import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
-import { whatsappLink } from "@/lib/site";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { createPublicClient } from "@/lib/supabase/public";
 import EstimateTeaser from "@/components/EstimateTeaser";
@@ -43,43 +42,34 @@ const homeSteps = [
 ];
 
 // Impact / trust numbers — honest, capability-based stats (no fake client counts).
+// Four facts about how this business runs. These used to carry a gradient
+// tile and a coloured glow each — four more colour stories on a page that
+// already had twelve in the rail.
 const impactStats = [
   {
     num: 20,
     suffix: "+",
-    label: "Digital Services",
+    label: "Digital services",
     desc: "Websites, apps, AI, design, video and more under one roof.",
-    icon: "spark",
-    tile: "from-blue-500 to-indigo-600",
-    glow: "rgba(40,87,255,0.35)",
   },
   {
     num: 50,
     suffix: "+",
-    label: "Reference Layouts & Project Ideas",
+    label: "Reference layouts & project ideas",
     desc: "Browse real reference layouts, automations and dashboards before work starts.",
-    icon: "palette",
-    tile: "from-violet-500 to-purple-600",
-    glow: "rgba(139,92,246,0.35)",
     href: "/references",
   },
   {
     num: 24,
     suffix: "h",
-    label: "Reply Window",
+    label: "Reply window",
     desc: "We reply within 24 hours — direct WhatsApp and email, no ticket queues.",
-    icon: "clock",
-    tile: "from-emerald-400 to-teal-600",
-    glow: "rgba(16,185,129,0.35)",
   },
   {
     num: 100,
     suffix: "%",
-    label: "Clear Requirement Process",
+    label: "Clear requirement process",
     desc: "Written scope and quote before any payment, every time.",
-    icon: "check",
-    tile: "from-sky-400 to-cyan-600",
-    glow: "rgba(14,165,233,0.35)",
   },
 ];
 
@@ -235,29 +225,29 @@ export default async function HomePage() {
               />
               <Link
                 href="/how-it-works"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-deep"
+                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep"
               >
                 See how the process works <Icon name="arrow" className="size-4" />
               </Link>
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="rounded-3xl border border-line bg-white p-6 sm:p-8 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.25)]">
+              <div className="rounded-panel border border-line bg-surface p-6 sm:p-8 shadow-e3">
                 <div className="space-y-4">
                   {[
                     { text: "“I need a website... something nice... you decide”" },
                     { text: "20 WhatsApp voice notes, zero clear requirements" },
                     { text: "Wrong quotation → arguments → project stuck" },
                   ].map((row) => (
-                    <div key={row.text} className="flex items-start gap-3 rounded-xl bg-red-50 px-4 py-3">
-                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-red-100 text-red-500 text-xs font-bold">✕</span>
-                      <p className="text-sm text-ink-soft">{row.text}</p>
+                    <div key={row.text} className="flex items-start gap-3 rounded-field bg-danger-soft px-4 py-3">
+                      <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-pill text-danger text-body-sm font-bold">✕</span>
+                      <p className="text-body-sm text-ink-soft">{row.text}</p>
                     </div>
                   ))}
-                  <div className="flex items-start gap-3 rounded-xl bg-mint/10 px-4 py-3.5 border border-mint/20">
-                    <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-mint text-white">
+                  <div className="flex items-start gap-3 rounded-field border border-success/25 bg-success-soft px-4 py-3.5">
+                    <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-pill bg-success text-on-brand">
                       <Icon name="check" className="size-3" />
                     </span>
-                    <p className="text-sm font-medium text-ink">
+                    <p className="text-body-sm font-medium text-ink">
                       Smart form → clear requirement → correct quote → smooth delivery. That&apos;s the Skilloura way.
                     </p>
                   </div>
@@ -267,79 +257,60 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Section 3: Impact / Trust Numbers ───────────── */}
-        <Section
-          padding="py-16 sm:py-20"
-          className="relative overflow-hidden border-b border-line bg-gradient-to-b from-[#f4f8ff] via-[#f9fbff] to-[#f1f9f5]"
-        >
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(50% 65% at 10% 5%, rgba(40,87,255,0.09), transparent 60%), radial-gradient(45% 60% at 90% 95%, rgba(16,185,129,0.09), transparent 60%)",
-            }}
-            aria-hidden
-          />
-          <div className="relative">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Impact"
-                title={
+        {/* ── Section 3: Impact ───────────────────────────── */}
+        {/* Was four glassmorphic cards with per-stat gradient tiles and hover
+            glow blobs — the exact combination the brief rules out. The numbers
+            are the content, so they sit on the scope line and nothing else
+            competes with them. */}
+        <Section className="border-b border-line">
+          <Reveal>
+            <div className="max-w-2xl">
+              <p className="text-micro font-mono uppercase text-ink-muted">Impact</p>
+              <h2 className="mt-3 text-display-3 text-ink">
+                How this actually{" "}
+                <span className="font-accent italic text-brand">runs</span>
+              </h2>
+              <p className="mt-3 text-body-lg text-ink-soft">
+                Every project starts with a written requirement and ends with a clean,
+                documented handover.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <dl className="scope-line mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+              {impactStats.map((stat) => {
+                const body = (
                   <>
-                    Skilloura Impact in{" "}
-                    <span className="font-accent font-normal text-accent">Numbers</span>
-                  </>
-                }
-                subtitle="Measurable digital delivery — every project starts with a written requirement and ends with a clean, documented handover."
-              />
-            </Reveal>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {impactStats.map((stat, i) => {
-                const cardCls =
-                  "group relative block h-full overflow-hidden rounded-3xl border border-white/80 bg-white/60 p-7 text-center shadow-[0_24px_55px_-30px_rgba(15,23,42,0.3)] ring-1 ring-line/60 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5";
-                const cardStyle = { ["--stat-glow" as string]: stat.glow };
-                const cardInner = (
-                  <>
-                    <div
-                      className="pointer-events-none absolute inset-x-0 -top-16 h-32 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ background: "radial-gradient(60% 100% at 50% 0%, var(--stat-glow), transparent 70%)" }}
-                      aria-hidden
-                    />
-                    <span
-                      className={`relative mx-auto grid size-14 place-items-center rounded-2xl bg-gradient-to-br text-white shadow-[0_14px_28px_-12px_var(--stat-glow)] ring-1 ring-white/40 ${stat.tile}`}
-                    >
-                      <Icon name={stat.icon} className="size-6" />
-                    </span>
-                    {/* Rendered as plain text, not an animated count-up: the
-                        count started from 0, and Google's renderer captured
-                        that frame — the live search result for the homepage
-                        literally read "0+ Digital Services". */}
-                    <p className="relative mt-5 text-4xl font-extrabold tracking-tight text-ink tabular-nums">
+                    <dt className="font-mono text-display-3 tabular-nums text-ink">
                       {stat.num}
-                      {stat.suffix}
-                    </p>
-                    <p className="relative mt-1.5 text-sm font-bold uppercase tracking-wide text-ink">
-                      {stat.label}
-                    </p>
-                    <p className="relative mt-2 text-sm leading-6 text-ink-soft">{stat.desc}</p>
+                      <span className="text-brand">{stat.suffix}</span>
+                    </dt>
+                    <dd className="mt-2 text-body-base font-semibold text-ink">{stat.label}</dd>
+                    <dd className="mt-1 text-body-sm text-ink-soft">{stat.desc}</dd>
                   </>
                 );
-                return (
-                  <Reveal key={stat.label} delay={Math.min(i * 0.07, 0.28)}>
-                    {stat.href ? (
-                      <Link href={stat.href} className={cardCls} style={cardStyle}>
-                        {cardInner}
-                      </Link>
-                    ) : (
-                      <div className={cardCls} style={cardStyle}>
-                        {cardInner}
-                      </div>
-                    )}
-                  </Reveal>
+                return stat.href ? (
+                  <Link
+                    key={stat.label}
+                    href={stat.href}
+                    className="group block transition-colors hover:text-brand"
+                  >
+                    {body}
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand">
+                      See them
+                      <Icon
+                        name="arrow"
+                        className="size-4 transition-transform group-hover:translate-x-0.5"
+                      />
+                    </span>
+                  </Link>
+                ) : (
+                  <div key={stat.label}>{body}</div>
                 );
               })}
-            </div>
-          </div>
+            </dl>
+          </Reveal>
         </Section>
 
         {/* ── Section 4: Services Overview ────────────────── */}
@@ -369,13 +340,13 @@ export default async function HomePage() {
           {/* Additional services — real offerings, kept secondary so the core
               websites/AI/systems positioning stays front and centre. */}
           <Reveal>
-            <div className="mt-14 rounded-3xl border border-line bg-white p-6 sm:p-8">
+            <div className="mt-14 rounded-panel border border-line bg-surface p-6 sm:p-8">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Additional services</p>
-                  <h3 className="mt-1 text-lg font-bold text-ink">Also available alongside your project</h3>
+                  <p className="text-micro font-mono uppercase text-ink-soft">Additional services</p>
+                  <h3 className="mt-1 text-title-2 text-ink">Also available alongside your project</h3>
                 </div>
-                <p className="text-sm text-ink-soft">Often added on to a website or system build.</p>
+                <p className="text-body-sm text-ink-soft">Often added on to a website or system build.</p>
               </div>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
                 {serviceCategories
@@ -384,14 +355,14 @@ export default async function HomePage() {
                     <Link
                       key={s.slug}
                       href={`/services/${s.slug}`}
-                      className="card-lift flex min-w-0 items-center gap-3 rounded-2xl border border-line bg-background px-4 py-3.5 hover:border-accent/40"
+                      className="card-lift flex min-w-0 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3.5 hover:border-accent/40"
                     >
                       <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
                         <Icon name={s.icon} className="size-5" />
                       </span>
                       <span className="min-w-0">
-                        <span className="block text-sm font-bold text-ink">{s.name}</span>
-                        <span className="block truncate text-xs text-ink-soft">{s.outcome}</span>
+                        <span className="block text-body-sm font-semibold text-ink">{s.name}</span>
+                        <span className="block truncate text-body-sm text-ink-soft">{s.outcome}</span>
                       </span>
                       <Icon name="arrow" className="ml-auto size-4 shrink-0 text-ink-soft" />
                     </Link>
@@ -418,19 +389,19 @@ export default async function HomePage() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {homeSteps.map((step, i) => (
               <Reveal key={step.title} delay={Math.min(i * 0.05, 0.25)}>
-                <div className="card-lift relative h-full rounded-2xl border border-line bg-white p-6">
-                  <span className="text-4xl font-extrabold text-accent/15">
+                <div className="card-lift relative h-full rounded-card border border-line bg-surface p-6">
+                  <span className="font-mono text-display-3 text-line-strong">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-2 text-base font-bold text-ink">{step.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-ink-soft">{step.desc}</p>
+                  <h3 className="mt-2 text-title-3 text-ink">{step.title}</h3>
+                  <p className="mt-2 text-body-sm text-ink-soft">{step.desc}</p>
                 </div>
               </Reveal>
             ))}
           </div>
           <Reveal delay={0.2}>
             <p className="mt-8 text-center">
-              <Link href="/how-it-works" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-deep">
+              <Link href="/how-it-works" className="inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep">
                 See the full 8-step process <Icon name="arrow" className="size-4" />
               </Link>
             </p>
@@ -460,7 +431,7 @@ export default async function HomePage() {
           </div>
           <Reveal delay={0.2}>
             <p className="mt-8 text-center">
-              <Link href="/pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-deep">
+              <Link href="/pricing" className="inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep">
                 View full pricing details <Icon name="arrow" className="size-4" />
               </Link>
             </p>
@@ -470,11 +441,11 @@ export default async function HomePage() {
           <Reveal delay={0.25}>
             <div className="mx-auto mt-12 max-w-4xl">
               <div className="mb-6 text-center">
-                <h3 className="text-xl sm:text-2xl font-bold text-ink">
+                <h3 className="text-title-1 text-ink">
                   Curious what <span className="font-accent font-normal text-accent">your project</span>{" "}
                   costs?
                 </h3>
-                <p className="mt-1.5 text-sm text-ink-soft">
+                <p className="mt-1.5 text-body-sm text-ink-soft">
                   Two taps for a guide price — exact quote comes from the smart form.
                 </p>
               </div>
@@ -484,17 +455,17 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 7: Why Choose Me ────────────────────── */}
-        <Section className="bg-ink text-white">
+        <Section className="bg-surface-ink text-on-ink">
           <Reveal>
             <div className="max-w-3xl mx-auto text-center">
-              <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-white/80">
+              <p className="mb-4 flex items-center justify-center gap-2.5 text-micro font-mono uppercase text-on-ink-soft">
                 Why Skilloura
               </p>
-              <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.12]">
+              <h2 className="text-display-2">
                 Built on process,{" "}
-                <span className="font-accent font-normal text-[#8fa8ff]">not promises</span>
+                <span className="font-accent italic text-signal">not promises</span>
               </h2>
-              <p className="mt-4 text-base sm:text-lg leading-7 text-white/70">
+              <p className="mt-4 text-body-lg text-on-ink-soft">
                 A clear, professional process from your first message to final delivery — one that protects your money and your time.
               </p>
             </div>
@@ -502,12 +473,12 @@ export default async function HomePage() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {whyChoose.map((item, i) => (
               <Reveal key={item.title} delay={Math.min(i * 0.05, 0.25)}>
-                <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur transition-colors hover:bg-white/10">
-                  <span className="grid size-11 place-items-center rounded-xl bg-accent/20 text-[#8fa8ff]">
+                <div className="h-full rounded-card border border-line-on-ink bg-surface-ink-raised p-6 transition-colors hover:border-signal/40">
+                  <span className="grid size-10 place-items-center rounded-chip bg-on-ink/10 text-signal">
                     <Icon name={item.icon} className="size-5" />
                   </span>
-                  <h3 className="mt-4 text-base font-bold">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/60">{item.desc}</p>
+                  <h3 className="mt-4 text-title-3">{item.title}</h3>
+                  <p className="mt-2 text-body-sm text-on-ink-soft">{item.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -518,10 +489,10 @@ export default async function HomePage() {
         <Section className="bg-soft-panel border-y border-line">
           <div className="mx-auto max-w-5xl">
             <Reveal>
-              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-ink-soft">
+              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1 text-micro font-mono uppercase text-ink-soft">
                 Who&apos;s behind Skilloura
               </p>
-              <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight leading-[1.14] text-ink">
+              <h2 className="mt-4 text-display-2 tracking-tight leading-[1.14] text-ink">
                 AI-enabled, but{" "}
                 <span className="font-accent font-normal text-accent">human-accountable</span>
               </h2>
@@ -530,7 +501,7 @@ export default async function HomePage() {
             <Reveal delay={0.05}>
               <div className="mt-8 grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-10 xl:gap-14 items-start">
                 {/* Founder photo card */}
-                <div className="mx-auto w-full max-w-[360px] rounded-3xl border border-line bg-white p-3 shadow-[0_20px_50px_-24px_rgba(11,19,48,0.18)]">
+                <div className="mx-auto w-full max-w-sm rounded-panel border border-line bg-surface p-3 shadow-e2">
                   <Image
                     src="/founder.png"
                     alt="Sonam Das, founder of Skilloura"
@@ -541,30 +512,30 @@ export default async function HomePage() {
                 </div>
 
                 {/* Founder bio card */}
-                <div className="rounded-3xl border border-line bg-white p-7 sm:p-9 shadow-[0_24px_60px_-30px_rgba(11,19,48,0.2)]">
-                  <p className="text-xl font-bold text-ink">Sonam Das</p>
-                  <p className="text-sm font-semibold text-accent">Founder, Skilloura</p>
-                  <p className="mt-1 text-xs text-ink-soft">
+                <div className="rounded-panel border border-line bg-surface p-7 sm:p-9 shadow-e3">
+                  <p className="text-title-1 text-ink">Sonam Das</p>
+                  <p className="text-body-sm font-semibold text-accent">Founder, Skilloura</p>
+                  <p className="mt-1 text-body-sm text-ink-soft">
                     M.Tech, BITS Pilani · ~10 years hands-on experience · 5+ years enterprise IT
                   </p>
 
-                  <p className="mt-4 text-base leading-7 text-ink-soft">
+                  <p className="mt-4 text-body-base text-ink-soft">
                     Hi, I&apos;m Sonam, founder of Skilloura.
                   </p>
-                  <p className="mt-3 text-base leading-7 text-ink-soft">
+                  <p className="mt-3 text-body-base text-ink-soft">
                     I built Skilloura to deliver digital projects with enterprise-level clarity,
                     founder-led accountability and professional execution. Every project here follows
                     a defined process: requirements are reviewed properly, scope is written before
                     payment, quotes are clear, previews are shared before final delivery, and handover
                     is managed professionally.
                   </p>
-                  <p className="mt-3 text-base leading-7 text-ink-soft">
+                  <p className="mt-3 text-body-base text-ink-soft">
                     Skilloura is backed by nearly a decade of hands-on experience across websites,
                     software systems, AI automation, dashboards, cloud-based solutions and digital
                     operations, along with 5+ years of enterprise IT experience and an M.Tech from
                     BITS Pilani.
                   </p>
-                  <p className="mt-3 text-base leading-7 text-ink-soft">
+                  <p className="mt-3 text-body-base text-ink-soft">
                     Skilloura runs on a different standard: a real written scope and quote before you
                     pay anything, a preview before the final payment, and a clean handover of code,
                     accounts and credentials, all yours. Communication stays direct: message on
@@ -585,12 +556,12 @@ export default async function HomePage() {
                   { icon: "check", t: "Written scope before payment", d: "You approve exactly what's included before anything is charged." },
                   { icon: "spark", t: "Direct, real contact", d: "You get a real reply on WhatsApp, not a ticket queue or an autoresponder." },
                 ].map((c) => (
-                  <div key={c.t} className="rounded-2xl border border-line bg-white p-5">
+                  <div key={c.t} className="rounded-card border border-line bg-surface p-5">
                     <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent">
                       <Icon name={c.icon} className="size-5" />
                     </span>
-                    <h3 className="mt-3 text-sm font-bold text-ink">{c.t}</h3>
-                    <p className="mt-1 text-xs leading-5 text-ink-soft">{c.d}</p>
+                    <h3 className="mt-3 text-body-sm font-semibold text-ink">{c.t}</h3>
+                    <p className="mt-1 text-body-sm text-ink-soft">{c.d}</p>
                   </div>
                 ))}
               </div>
@@ -616,13 +587,13 @@ export default async function HomePage() {
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {testimonials.map((t, i) => (
                 <Reveal key={t.id} delay={Math.min(i * 0.06, 0.3)}>
-                  <div className="card-lift h-full rounded-2xl border border-line bg-background p-6">
-                    <p className="text-amber-500 text-lg" aria-label={`${t.rating} out of 5 stars`}>
+                  <div className="card-lift h-full rounded-card border border-line bg-canvas p-6">
+                    <p className="text-warning text-title-2" aria-label={`${t.rating} out of 5 stars`}>
                       {"★".repeat(t.rating)}
                       <span className="text-line">{"★".repeat(5 - t.rating)}</span>
                     </p>
-                    <p className="mt-3 text-sm leading-6 text-ink-soft">&quot;{t.review}&quot;</p>
-                    <p className="mt-4 text-sm font-bold text-ink">
+                    <p className="mt-3 text-body-sm text-ink-soft">&quot;{t.review}&quot;</p>
+                    <p className="mt-4 text-body-sm font-semibold text-ink">
                       {t.clientName}
                       {t.clientBusiness && (
                         <span className="font-normal text-ink-soft"> · {t.clientBusiness}</span>
@@ -640,11 +611,11 @@ export default async function HomePage() {
         {testimonials.length === 0 && (
           <Section className="bg-soft-panel border-b border-line">
             <Reveal>
-              <div className="mx-auto max-w-2xl rounded-3xl border border-line bg-white p-8 text-center sm:p-10">
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
+              <div className="mx-auto max-w-2xl rounded-panel border border-line bg-surface p-8 text-center sm:p-10">
+                <h2 className="text-display-3 tracking-tight text-ink">
                   Real proof, shared transparently
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-ink-soft">
+                <p className="mt-3 text-body-sm text-ink-soft">
                   Skilloura focuses on clear project proof instead of inflated claims. As client work
                   is completed, verified reviews and project outcomes will be added with proper
                   context. Until then, you can review the process, pricing clarity and delivery
@@ -652,7 +623,7 @@ export default async function HomePage() {
                 </p>
                 <Link
                   href="/start-project"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep transition-colors"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-body-sm font-semibold text-white hover:bg-accent-deep transition-colors"
                 >
                   Start your project <Icon name="arrow" className="size-4" />
                 </Link>
@@ -678,7 +649,7 @@ export default async function HomePage() {
               />
               <Link
                 href="/faq"
-                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-deep"
+                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep"
               >
                 View all FAQs <Icon name="arrow" className="size-4" />
               </Link>
@@ -689,49 +660,9 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Section 9: Final CTA ────────────────────────── */}
-        <Section className="pb-24">
-          <Reveal>
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent to-accent-deep px-6 py-14 sm:px-12 sm:py-20 text-center text-white shadow-[0_30px_80px_-30px_rgba(40,87,255,0.6)]">
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "radial-gradient(60% 80% at 20% 10%, rgba(255,255,255,0.16), transparent 60%), radial-gradient(50% 70% at 85% 90%, rgba(255,255,255,0.12), transparent 60%)",
-                }}
-                aria-hidden
-              />
-              <div className="relative">
-                <h2 className="mx-auto max-w-2xl text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1]">
-                  Ready to start your{" "}
-                  <span className="font-accent font-normal">digital project?</span>
-                </h2>
-                <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg text-white/85">
-                  Submit your requirement now and we will review it properly before sharing the
-                  best solution, pricing and timeline.
-                </p>
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-                  <Link
-                    href="/start-project"
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-base font-bold text-accent hover:scale-[1.03] transition-transform"
-                  >
-                    Submit Project Requirement
-                    <Icon name="arrow" className="size-5" />
-                  </Link>
-                  <a
-                    href={whatsappLink("Hi! I'm ready to start my project.")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-base font-semibold text-white hover:bg-white/10 transition-colors"
-                  >
-                    <WhatsAppIcon className="size-5" />
-                    Chat on WhatsApp
-                  </a>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </Section>
+        {/* The closing offer lives in the footer now — it appears on every
+            page, so repeating it here made this the ninth near-identical
+            gradient CTA panel on the site. */}
       </main>
       <Footer />
       <WhatsAppSticky />

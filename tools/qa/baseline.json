@@ -17,11 +17,10 @@
       "A",
       "A",
       "A",
-      "A",
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 40,
+    "hiddenBeforeScroll": 36,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -67,7 +66,7 @@
     "title": "Blog — Practical Guides for Business Websites, AI & Marketing | Skilloura",
     "canonical": "https://www.skilloura.com/blog",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -160,7 +159,7 @@
     "title": "Portfolio — Featured Work & Concepts | Skilloura",
     "canonical": "https://www.skilloura.com/portfolio",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 5,
     "track": [
       "portfolio_cta_click@A",
       "portfolio_cta_click@A",
@@ -182,7 +181,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 5,
+    "hiddenBeforeScroll": 4,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -191,7 +190,7 @@
     "title": "Pricing — Transparent Packages for Every Digital Service | Skilloura",
     "canonical": "https://www.skilloura.com/pricing",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 13,
     "track": [
       "pricing_package_click@A",
       "pricing_package_click@A",
@@ -232,7 +231,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 38,
+    "hiddenBeforeScroll": 43,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -241,7 +240,7 @@
     "title": "Reference Layouts & Project Ideas | Skilloura",
     "canonical": "https://www.skilloura.com/references",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -250,7 +249,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 21,
+    "hiddenBeforeScroll": 23,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -259,7 +258,7 @@
     "title": "Services — Websites, Apps, AI Automation, Design & More | Skilloura",
     "canonical": "https://www.skilloura.com/services",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [
       "service_detail_click@A",
       "service_detail_click@A",
@@ -278,7 +277,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 1,
+    "hiddenBeforeScroll": 0,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -287,7 +286,7 @@
     "title": "Solutions by Industry — Websites & AI Systems Built for Your Business | Skilloura",
     "canonical": "https://www.skilloura.com/solutions",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -296,7 +295,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 2,
+    "hiddenBeforeScroll": 3,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -413,9 +412,9 @@
   "/privacy-policy": {
     "status": 200,
     "title": "Privacy Policy | Skilloura",
-    "canonical": null,
+    "canonical": "https://www.skilloura.com/privacy-policy",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -431,9 +430,9 @@
   "/terms": {
     "status": 200,
     "title": "Terms & Conditions | Skilloura",
-    "canonical": null,
+    "canonical": "https://www.skilloura.com/terms",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -449,9 +448,9 @@
   "/refund-policy": {
     "status": 200,
     "title": "Refund Policy | Skilloura",
-    "canonical": null,
+    "canonical": "https://www.skilloura.com/refund-policy",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -467,9 +466,9 @@
   "/revision-policy": {
     "status": 200,
     "title": "Revision Policy | Skilloura",
-    "canonical": null,
+    "canonical": "https://www.skilloura.com/revision-policy",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -485,9 +484,9 @@
   "/payment-policy": {
     "status": 200,
     "title": "Payment Policy | Skilloura",
-    "canonical": null,
+    "canonical": "https://www.skilloura.com/payment-policy",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -503,9 +502,9 @@
   "/data-security": {
     "status": 200,
     "title": "Data & File Security | Skilloura",
-    "canonical": null,
+    "canonical": "https://www.skilloura.com/data-security",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
