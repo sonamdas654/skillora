@@ -151,3 +151,30 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+/**
+ * Service schema for an industry solution page.
+ *
+ * This used to be written inline in app/solutions/[slug]/page.tsx, complete
+ * with its own `const BASE = "https://www.skilloura.com"`. A second copy of
+ * the canonical origin is exactly how the hostname split-brain in this repo
+ * happened, so the literal lives in one file only.
+ */
+export function solutionServiceSchema(sol: {
+  slug: string;
+  metaTitle: string;
+  metaDescription: string;
+  audience: string;
+}, serviceName: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: sol.metaTitle,
+    url: `${BASE}/solutions/${sol.slug}`,
+    description: sol.metaDescription,
+    serviceType: serviceName,
+    areaServed: { "@type": "Country", name: "India" },
+    audience: { "@type": "Audience", audienceType: sol.audience },
+    provider: { "@id": `${BASE}/#organization` },
+  };
+}

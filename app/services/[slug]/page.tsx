@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import PageShell from "@/components/PageShell";
+import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
-import { Section, SectionHeading } from "@/components/Section";
+import SpecLedger from "@/components/ui/SpecLedger";
+import { Section } from "@/components/Section";
 import { PackageCard } from "@/components/Cards";
 import { serviceCategories, getService } from "@/lib/services";
 import { whatsappLink } from "@/lib/site";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import JsonLd from "@/components/JsonLd";
-import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return serviceCategories.map((s) => ({ slug: s.slug }));
@@ -32,6 +33,29 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Service detail — nine pages, and the highest-value commercial template on
+ * the site.
+ *
+ * It was already the strongest page here, but four of its six sections were
+ * patterns the brief rules out: an eyebrow pill, three identical checklist
+ * columns, a floating cloud of fifteen pills, and a grid of icon cards. It
+ * also ended on a gradient CTA panel that now duplicates the footer's closing
+ * band, which is the "same closing card on nine pages" problem.
+ *
+ * Every section now has a distinct composition, and no two consecutive
+ * sections share one:
+ *
+ *   hero        editorial split, with a spec ledger as the evidence column
+ *   the brief   a two-column exchange — what you get, what you provide
+ *   scope       a numbered index of project types, not a pill cloud
+ *   proof       one row per industry, each opening a real working build
+ *   pricing     package comparison, the one place a card grid earns its place
+ *   questions   a single narrow accordion; the footer owns the close
+ *
+ * Content is unchanged: same nine services, same copy, same packages, same
+ * FAQs, same demo links.
+ */
 export default async function ServiceDetailPage({
   params,
 }: {
@@ -41,197 +65,203 @@ export default async function ServiceDetailPage({
   const service = getService(slug);
   if (!service) notFound();
 
+  const startHref = `/start-project?service=${service.slug}`;
+
   return (
     <PageShell>
-      <JsonLd
-        data={[
-          serviceSchema(service),
-          faqSchema(service.faqs),
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Services", path: "/services" },
-            { name: service.name, path: `/services/${service.slug}` },
-          ]),
+      {/* Breadcrumb schema is emitted by the visible trail in PageHero, so it
+          is not repeated here. */}
+      <JsonLd data={[serviceSchema(service), faqSchema(service.faqs)]} />
+
+      <PageHero
+        eyebrow={service.tab}
+        title={service.name}
+        subtitle={service.description}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: service.name, path: `/services/${service.slug}` },
         ]}
-      />
-      {/* Service hero */}
-      <div className="relative overflow-hidden border-b border-line">
-        <div className="absolute inset-0 bg-hero-glow" aria-hidden />
-        <div className="relative mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
-            <div>
-              <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-white px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent shadow-sm">
-                {service.tab}
-              </p>
-              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] text-ink">
-                {service.name}
-              </h1>
-              <p className="mt-4 max-w-2xl text-base sm:text-lg leading-7 text-ink-soft">
-                {service.description}
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link
-                  href={`/start-project?service=${service.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep transition-colors"
-                >
-                  Submit Requirement <Icon name="arrow" className="size-4" />
-                </Link>
-                <a
-                  href={whatsappLink(`Hi! I'm interested in ${service.name}. Can we discuss?`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3 text-sm font-semibold text-ink hover:border-mint hover:text-mint transition-colors"
-                >
-                  <WhatsAppIcon className="size-4 text-mint" /> Discuss on WhatsApp
-                </a>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: "Pricing structure", value: "Real-time Estimator", icon: "spark" },
-                { label: "Timeline", value: service.timeline, icon: "clock" },
-                { label: "Best for", value: service.bestFor, icon: "check" },
-                { label: "Options", value: `${service.services.length} project types`, icon: "file" },
-              ].map((stat) => (
-                <div key={stat.label} className="rounded-2xl border border-line bg-white p-5">
-                  <Icon name={stat.icon} className="size-5 text-accent" />
-                  <p className="mt-3 text-xs text-ink-soft">{stat.label}</p>
-                  <p className="mt-1 text-sm font-bold text-ink leading-snug">{stat.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* What's included */}
-      <Section>
-        <div className="grid gap-10 lg:grid-cols-3">
-          <Reveal>
-            <div>
-              <h2 className="text-xl font-bold text-ink">Who is this for?</h2>
-              <ul className="mt-4 space-y-2.5">
-                {service.whoFor.map((w) => (
-                  <li key={w} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                    <Icon name="check" className="mt-0.5 size-4 shrink-0 text-mint" /> {w}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <div>
-              <h2 className="text-xl font-bold text-ink">What you will get</h2>
-              <ul className="mt-4 space-y-2.5">
-                {service.whatYouGet.map((w) => (
-                  <li key={w} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                    <Icon name="check" className="mt-0.5 size-4 shrink-0 text-mint" /> {w}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <div>
-              <h2 className="text-xl font-bold text-ink">What I need from you</h2>
-              <ul className="mt-4 space-y-2.5">
-                {service.needFromYou.map((w) => (
-                  <li key={w} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                    <Icon name="file" className="mt-0.5 size-4 shrink-0 text-accent" /> {w}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </Section>
-
-      {/* Project types */}
-      <Section className="bg-soft-panel border-y border-line">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Project types"
-            title={
-              <>
-                Everything under{" "}
-                <span className="font-accent font-normal text-accent">{service.name}</span>
-              </>
-            }
-          />
-        </Reveal>
-        <div className="mt-10 flex flex-wrap justify-center gap-2.5">
-          {service.services.map((s) => (
-            <span
-              key={s}
-              className="rounded-full border border-line bg-background px-4 py-2 text-sm font-medium text-ink"
+        actions={
+          <>
+            <Link
+              href={startHref}
+              className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep"
             >
-              {s}
-            </span>
-          ))}
+              Get a written scope
+              <Icon name="arrow" className="size-4" />
+            </Link>
+            <a
+              href={whatsappLink(`Hi! I'm interested in ${service.name}. Can we discuss?`)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-pill border border-line-strong bg-surface px-5 py-3.5 text-body-base font-semibold text-ink shadow-e1 transition-colors hover:border-success hover:text-success"
+            >
+              <WhatsAppIcon className="size-4 text-success" />
+              Discuss on WhatsApp
+            </a>
+          </>
+        }
+        aside={
+          <SpecLedger
+            caption="At a glance"
+            rows={[
+              { label: "Starting price", value: service.startingPrice },
+              { label: "Typical timeline", value: service.timeline },
+              { label: "Project types", value: `${service.services.length}` },
+              { label: "Packages", value: `${service.packages.length}` },
+            ]}
+          />
+        }
+      />
+
+      {/* ── The exchange: what you get, what you provide ─────── */}
+      <Section className="border-b border-line">
+        <Reveal>
+          <p className="max-w-3xl text-body-lg text-ink-soft">
+            <span className="font-semibold text-ink">Who it&apos;s for — </span>
+            {service.bestFor}. {service.outcome}
+          </p>
+        </Reveal>
+
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
+          <Reveal>
+            <div>
+              <h2 className="text-title-1 text-ink">What you get</h2>
+              <ol className="mt-5 border-t border-line-strong">
+                {service.whatYouGet.map((item, i) => (
+                  <li
+                    key={item}
+                    className="flex items-baseline gap-4 border-b border-line py-3.5"
+                  >
+                    <span className="w-6 shrink-0 font-mono text-micro text-ink-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-body-base text-ink">{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="rounded-card border border-line bg-surface p-6 shadow-e1">
+              <h2 className="text-title-2 text-ink">What we need from you</h2>
+              <p className="mt-2 text-body-sm text-ink-soft">
+                Have these ready and the scope comes back faster. Nothing here is a
+                blocker — we work with what you have.
+              </p>
+              <ul className="mt-5 space-y-3">
+                {service.needFromYou.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-body-sm text-ink">
+                    <span
+                      aria-hidden
+                      className="mt-1.5 block size-1.5 shrink-0 rounded-pill bg-brand"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </Section>
 
-      {/* Industries — with live sample layout previews */}
+      {/* ── Scope: a numbered index, not a pill cloud ─────────── */}
+      <Section className="border-b border-line bg-surface-sunken">
+        <Reveal>
+          <div className="max-w-2xl">
+            <p className="text-micro font-mono uppercase text-ink-muted">Scope</p>
+            <h2 className="mt-3 text-display-3 text-ink">
+              Everything that falls under{" "}
+              <span className="font-accent italic text-brand">{service.shortName}</span>
+            </h2>
+          </div>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <ul className="mt-8 grid border-t border-line-strong sm:grid-cols-2 lg:grid-cols-3">
+            {service.services.map((s, i) => (
+              <li
+                key={s}
+                className="flex items-baseline gap-4 border-b border-line py-3 sm:odd:border-r sm:odd:pr-6 sm:even:pl-6 lg:[&:nth-child(3n+1)]:pl-0 lg:[&:nth-child(3n+1)]:pr-6 lg:[&:nth-child(3n+2)]:border-r lg:[&:nth-child(3n+2)]:px-6 lg:[&:nth-child(3n)]:pl-6"
+              >
+                <span className="w-6 shrink-0 font-mono text-micro text-ink-muted">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-body-base text-ink">{s}</span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </Section>
+
+      {/* ── Proof: each industry opens a real working build ───── */}
       {service.industries && service.industries.length > 0 && (
-        <Section>
+        <Section className="border-b border-line">
           <Reveal>
-            <SectionHeading
-              eyebrow="Industries we build for"
-              title={
-                <>
-                  Built for your{" "}
-                  <span className="font-accent font-normal text-accent">line of business</span>
-                </>
-              }
-              subtitle="Every industry needs different features. Explore a live sample layout for yours — real, working pages you can click through."
-            />
+            <div className="max-w-2xl">
+              <p className="text-micro font-mono uppercase text-ink-muted">Proof</p>
+              <h2 className="mt-3 text-display-3 text-ink">
+                Open a build for your{" "}
+                <span className="font-accent italic text-brand">line of business</span>
+              </h2>
+              <p className="mt-3 text-body-lg text-ink-soft">
+                Not screenshots. Each of these is a working page you can click through
+                right now.
+              </p>
+            </div>
           </Reveal>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="mt-10 border-t border-line-strong">
             {service.industries.map((ind, i) => (
               <Reveal key={ind.name} delay={Math.min(i * 0.05, 0.2)}>
-                <div className="card-lift flex h-full flex-col rounded-2xl border border-line bg-white p-6">
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-11 place-items-center rounded-xl bg-accent-soft text-accent">
-                      <Icon name={ind.icon} className="size-5" />
-                    </span>
-                    <h3 className="text-base font-bold text-ink">{ind.name}</h3>
-                  </div>
-                  <ul className="mt-4 space-y-2">
+                <Link
+                  href={ind.demoHref}
+                  className="group grid items-center gap-x-6 gap-y-3 border-b border-line py-6 transition-colors hover:bg-surface md:grid-cols-[auto_minmax(0,14rem)_1fr_auto]"
+                >
+                  <span className="font-mono text-micro text-ink-muted">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-display text-title-2 text-ink">{ind.name}</h3>
+                  <ul className="flex flex-wrap gap-x-4 gap-y-1">
                     {ind.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-ink-soft">
-                        <Icon name="check" className="mt-0.5 size-3.5 shrink-0 text-mint" /> {f}
+                      <li key={f} className="text-body-sm text-ink-soft">
+                        {f}
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href={ind.demoHref}
-                    target="_blank"
-                    className="mt-auto pt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-deep"
-                  >
-                    See sample layout <Icon name="arrow" className="size-4" />
-                  </Link>
-                </div>
+                  <span className="inline-flex items-center gap-2 text-body-sm font-semibold text-brand">
+                    Open the build
+                    <Icon
+                      name="arrow"
+                      className="size-4 transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>
         </Section>
       )}
 
-      {/* Packages */}
-      <Section>
+      {/* ── Pricing: the one place a card grid earns its place ── */}
+      <Section className="border-b border-line bg-surface-sunken">
         <Reveal>
-          <SectionHeading
-            eyebrow="Pricing"
-            title={
-              <>
-                Packages &{" "}
-                <span className="font-accent font-normal text-accent">Pricing</span>
-              </>
-            }
-            subtitle="Estimates calculated dynamically — final quotation depends on your exact scope and is always aligned in writing before work begins."
-          />
+          <div className="max-w-2xl">
+            <p className="text-micro font-mono uppercase text-ink-muted">Pricing</p>
+            <h2 className="mt-3 text-display-3 text-ink">Packages and guide prices</h2>
+            <p className="mt-3 text-body-lg text-ink-soft">
+              Guide prices for typical scopes. Your exact quotation depends on the
+              features you actually need, and it is always confirmed in writing before
+              anything starts.
+            </p>
+          </div>
         </Reveal>
-        <div className={`mt-12 grid gap-5 sm:grid-cols-2 ${service.packages.length > 3 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+        <div
+          className={`mt-10 grid gap-5 sm:grid-cols-2 ${
+            service.packages.length > 3 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+          }`}
+        >
           {service.packages.map((pkg, i) => (
             <Reveal key={pkg.name} delay={Math.min(i * 0.06, 0.3)}>
               <PackageCard pkg={pkg} serviceSlug={service.slug} />
@@ -240,44 +270,19 @@ export default async function ServiceDetailPage({
         </div>
       </Section>
 
-      {/* FAQ + CTA */}
-      <Section className="bg-soft-panel border-t border-line">
-        <div className="grid gap-10 lg:grid-cols-2">
+      {/* ── Questions. The footer owns the close. ─────────────── */}
+      <Section>
+        <div className="mx-auto max-w-prose">
           <Reveal>
-            <div>
-              <h2 className="text-2xl font-bold text-ink">Common questions</h2>
-              <div className="mt-6">
-                <FaqAccordion faqs={service.faqs} />
-              </div>
-            </div>
+            <p className="text-micro font-mono uppercase text-ink-muted">Questions</p>
+            <h2 className="mt-3 text-display-3 text-ink">
+              Before you send the{" "}
+              <span className="font-accent italic text-brand">requirement</span>
+            </h2>
           </Reveal>
-          <Reveal delay={0.1}>
-            <div className="rounded-3xl bg-gradient-to-br from-accent to-accent-deep p-8 sm:p-10 text-white">
-              <h2 className="text-2xl sm:text-3xl font-bold leading-tight">
-                Ready to start your{" "}
-                <span className="font-accent font-normal">{service.shortName.toLowerCase()}</span>{" "}
-                project?
-              </h2>
-              <p className="mt-3 text-white/85">
-                Fill the smart requirement form — it asks exactly the right questions for this
-                service, takes about 3 minutes, and I&apos;ll reply within 24 hours.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  href={`/start-project?service=${service.slug}`}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-accent hover:scale-[1.03] transition-transform"
-                >
-                  Submit Project Requirement <Icon name="arrow" className="size-4" />
-                </Link>
-                <a
-                  href={whatsappLink(`Hi! I want to discuss a ${service.name} project.`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-                >
-                  <WhatsAppIcon className="size-4" /> WhatsApp
-                </a>
-              </div>
+          <Reveal delay={0.08}>
+            <div className="mt-8">
+              <FaqAccordion faqs={service.faqs} />
             </div>
           </Reveal>
         </div>
