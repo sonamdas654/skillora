@@ -1,0 +1,133 @@
+/* ─────────────────────────────────────────────────────────────
+   Composed classes that are too structural to express as a stack of
+   utilities. Every value here comes from a token — no literal hex.
+
+   These are plain classes rather than @utility because none of them
+   needs variant support (hover:, md:, dark:); they are applied once
+   per element. Anything that does need variants belongs in theme.css
+   as a token so Tailwind generates the real utility.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── Aura: light, never fill ──────────────────────────────────
+   Soft drifting light bands. Positioned by the section that owns
+   them; this only describes the light itself. */
+.aura {
+  position: absolute;
+  border-radius: var(--radius-pill);
+  filter: blur(90px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.aura-1 {
+  width: 55vw;
+  height: 34vh;
+  left: -8vw;
+  top: -8vh;
+  background: linear-gradient(
+    104deg,
+    rgb(224 145 63 / 0.34),
+    rgb(220 106 82 / 0.24),
+    rgb(14 82 87 / 0.18)
+  );
+  animation: aura-drift 22s ease-in-out infinite alternate;
+}
+.aura-2 {
+  width: 48vw;
+  height: 30vh;
+  right: -10vw;
+  bottom: -10vh;
+  background: linear-gradient(
+    76deg,
+    rgb(14 82 87 / 0.20),
+    rgb(224 145 63 / 0.18)
+  );
+  animation: aura-drift 27s ease-in-out infinite alternate-reverse;
+}
+
+/* Gradient accent word. One per section, on a display heading only. */
+.aura-text {
+  background: linear-gradient(
+    96deg,
+    var(--color-aura-1),
+    var(--color-aura-2) 55%,
+    var(--color-aura-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Backdrops ───────────────────────────────────────────────
+   Ambient warm light behind a hero. Used by PageShell's PageHero and
+   the standalone auth/form pages. */
+.bg-hero-glow {
+  background:
+    radial-gradient(58% 52% at 22% 8%, rgb(224 145 63 / 0.16), transparent 72%),
+    radial-gradient(52% 48% at 82% 26%, rgb(14 82 87 / 0.10), transparent 70%),
+    radial-gradient(44% 42% at 60% 96%, rgb(220 106 82 / 0.07), transparent 70%);
+}
+
+/* Raised panel with warm light pooling in two corners. */
+.bg-soft-panel {
+  background:
+    radial-gradient(44% 48% at 10% 0%, rgb(224 145 63 / 0.10), transparent 66%),
+    radial-gradient(40% 44% at 92% 100%, rgb(14 82 87 / 0.07), transparent 66%),
+    var(--color-surface);
+}
+
+/* Measured drafting grid. Deliberately faint — it reads as paper, not
+   as a tech backdrop. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(21 25 27 / 0.032) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(21 25 27 / 0.032) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ── The scope line ──────────────────────────────────────────
+   The site's signature motif: a measured rule with tick marks, the
+   way a dimension line is drawn on a technical drawing. It carries
+   the brand's actual promise — the written scope — and is reused as
+   a section divider, a stat rule, a step marker and a nav underline.
+
+   Exactly one tick is signal green; the rest are brand. That single
+   green tick is the whole point of the restraint. */
+.scope-line {
+  position: relative;
+  padding-top: 1rem;
+}
+.scope-line::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 10px;
+  background-image:
+    linear-gradient(var(--color-line-strong), var(--color-line-strong)),
+    linear-gradient(var(--color-brand), var(--color-brand)),
+    linear-gradient(var(--color-signal), var(--color-signal)),
+    linear-gradient(var(--color-brand), var(--color-brand)),
+    linear-gradient(var(--color-brand), var(--color-brand));
+  background-size: 100% 1px, 1px 10px, 1px 10px, 1px 6px, 1px 6px;
+  background-position: 0 0, 0 0, 33.333% 0, 66.666% 0, 100% 0;
+  background-repeat: no-repeat;
+}
+
+/* ── Interaction ─────────────────────────────────────────────
+   Hover lift. Transform and shadow only, so it stays on the
+   compositor. */
+.card-lift {
+  transition:
+    transform var(--duration-base) var(--ease-out-expo),
+    box-shadow var(--duration-base) var(--ease-out-expo),
+    border-color var(--duration-fast) var(--ease-entrance);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-e3);
+  border-color: rgb(14 82 87 / 0.26);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-lift:hover {
+    transform: none;
+  }
+}

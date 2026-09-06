@@ -20,7 +20,41 @@ const page = await browser.newPage({
 });
 await page.goto(target, { waitUntil: "networkidle" });
 await page.evaluate(() => document.fonts.ready);
-await page.waitForTimeout(1200);
+
+// Scroll the whole page first. Scroll-triggered reveals start at opacity 0,
+// so without this a full-page screenshot shows every below-the-fold section
+// as blank and lies about what a real visitor sees.
+await page.evaluate(async () => {
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const step = Math.round(window.innerHeight * 0.5);
+  let y = 0;
+  // Re-read the height each pass: lazy content and reveals can grow the page.
+  for (let guard = 0; guard < 200; guard++) {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if (y > max) break;
+    window.scrollTo(0, y);
+    await sleep(220);
+    y += step;
+  }
+  window.scrollTo(0, document.documentElement.scrollHeight);
+  await sleep(500);
+  window.scrollTo(0, 0);
+  await sleep(400);
+});
+
+// Fail loudly rather than silently shipping a screenshot full of invisible
+// sections: anything still at opacity 0 after a full scroll is a real bug.
+const stillHidden = await page.evaluate(() =>
+  [...document.querySelectorAll("main *")].filter((el) => {
+    const cs = getComputedStyle(el);
+    return cs.opacity === "0" && el.getBoundingClientRect().height > 40;
+  }).length
+);
+if (stillHidden > 0) {
+  console.warn(`warning: ${stillHidden} element(s) still at opacity 0 after scrolling`);
+}
+
+await page.waitForTimeout(900);
 await page.screenshot({ path: out, fullPage: true });
 await browser.close();
 console.log("wrote " + out);

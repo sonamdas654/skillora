@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans, Instrument_Serif } from "next/font/google";
+import { Inter, Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { site } from "@/lib/site";
@@ -14,11 +14,12 @@ const inter = Inter({
   display: "swap",
 });
 
-// Display / heading font — modern, premium SaaS feel.
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+// Display / heading font. Same superfamily as Instrument Serif below, so
+// the display face and the italic accent are designed to sit together.
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -28,6 +29,17 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Spec voice: prices, timelines, step numbers, document rows. This is the
+// "written scope" register, and the thing that stops the site reading as
+// another all-sans SaaS template.
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -67,15 +79,14 @@ export const metadata: Metadata = {
     : {}),
 };
 
-// Pinch-zoom locked to prevent an accidental pinch mid-scroll from making
-// the site look "broken" to a visitor. Note: iOS Safari has ignored
-// user-scalable=no since iOS 10 (accessibility override) — this only
-// takes effect on Android/desktop Chrome.
+// Pinch-zoom stays available. Locking it (maximumScale: 1 / user-scalable=no)
+// is a WCAG 1.4.4 failure and a Lighthouse accessibility flag, and it only
+// ever applied on Android/desktop Chrome anyway — iOS has overridden it since
+// iOS 10. The redesign fixes the layout so an accidental pinch no longer makes
+// the page look broken, which is the real fix.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export default function RootLayout({
@@ -86,7 +97,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jakarta.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${inter.variable} ${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <JsonLd data={[organizationSchema(), websiteSchema(), professionalServiceSchema()]} />

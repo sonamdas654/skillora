@@ -1,0 +1,153 @@
+/* ─────────────────────────────────────────────────────────────
+   The single @theme block. Maps palette primitives onto semantic
+   names, which is what generates the Tailwind utilities pages use.
+
+   This is the ONLY place @theme appears. If a value is needed in JSX
+   and is not in here, the answer is to add it here — not to write an
+   arbitrary value like bg-[#0e5257] or shadow-[0_20px_40px_...].
+   ───────────────────────────────────────────────────────────── */
+
+@theme inline {
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --color-canvas: var(--warm-150);
+  --color-surface: var(--warm-50);
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: var(--warm-200);
+  --color-surface-ink: var(--ink-surface);
+  --color-surface-ink-raised: var(--ink-surface-2);
+
+  /* ── Content ────────────────────────────────────────────── */
+  --color-ink: var(--ink-900);
+  --color-ink-strong: var(--ink-900);
+  --color-ink-soft: var(--ink-600);
+  --color-ink-muted: var(--ink-400);
+  --color-on-ink: var(--on-ink);
+  --color-on-ink-soft: rgb(242 240 233 / 0.66);
+  --color-on-ink-muted: rgb(242 240 233 / 0.42);
+
+  /* ── Lines ─────────────────────────────────────────────── */
+  --color-line: rgb(21 25 27 / 0.10);
+  --color-line-strong: rgb(21 25 27 / 0.17);
+  --color-line-on-ink: rgb(242 240 233 / 0.14);
+
+  /* ── Brand ─────────────────────────────────────────────── */
+  --color-brand: var(--petrol-700);
+  --color-brand-deep: var(--petrol-800);
+  --color-brand-darkest: var(--petrol-900);
+  --color-brand-soft: var(--petrol-100);
+  --color-on-brand: var(--warm-50);
+
+  /* ── Signal — see the usage rule in palette.css ─────────── */
+  --color-signal: var(--signal-500);
+  --color-signal-deep: var(--signal-700);
+
+  /* ── Aura stops, for gradient text and glows only ───────── */
+  --color-aura-1: var(--aura-1);
+  --color-aura-2: var(--aura-2);
+  --color-aura-3: var(--aura-3);
+
+  /* ── Semantic states ───────────────────────────────────── */
+  --color-success: var(--green-600);
+  --color-success-soft: var(--green-50);
+  --color-warning: var(--amber-500);
+  --color-warning-soft: var(--amber-50);
+  --color-danger: var(--red-600);
+  --color-danger-soft: var(--red-50);
+
+  /* ── Legacy aliases ──────────────────────────────────────
+     ~20 existing pages already use bg-background / text-ink-soft /
+     border-line / bg-accent / bg-wash-blue and friends. Keeping the
+     NAMES and changing only the VALUES re-skins the entire site to the
+     new art direction without editing a single page file. These are
+     retired page by page during the migration phases. ── */
+  --color-background: var(--warm-150);
+  --color-accent: var(--petrol-700);
+  --color-accent-deep: var(--petrol-800);
+  --color-accent-soft: var(--petrol-100);
+  --color-mint: var(--green-600);
+  --color-gold: var(--amber-500);
+  --color-gold-soft: var(--amber-50);
+  --color-wash-blue: var(--warm-200);
+  --color-wash-mint: var(--green-50);
+
+  /* ── Type families ─────────────────────────────────────── */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-instrument-sans), var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* ── Type scale. Every step is clamp()-based, which is what removes
+        the text-3xl sm:text-4xl lg:text-[2.75rem] triads scattered
+        through the pages. ── */
+  --text-display-1: clamp(2.5rem, 1.55rem + 3.6vw, 4.25rem);
+  --text-display-1--line-height: 1.04;
+  --text-display-1--letter-spacing: -0.032em;
+  --text-display-1--font-weight: 600;
+
+  --text-display-2: clamp(2rem, 1.35rem + 2.6vw, 3.25rem);
+  --text-display-2--line-height: 1.08;
+  --text-display-2--letter-spacing: -0.03em;
+  --text-display-2--font-weight: 600;
+
+  --text-display-3: clamp(1.625rem, 1.2rem + 1.7vw, 2.5rem);
+  --text-display-3--line-height: 1.12;
+  --text-display-3--letter-spacing: -0.028em;
+  --text-display-3--font-weight: 600;
+
+  --text-title-1: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem);
+  --text-title-1--line-height: 1.18;
+  --text-title-1--letter-spacing: -0.022em;
+  --text-title-1--font-weight: 600;
+
+  --text-title-2: clamp(1.15rem, 1rem + 0.6vw, 1.4rem);
+  --text-title-2--line-height: 1.26;
+  --text-title-2--letter-spacing: -0.018em;
+  --text-title-2--font-weight: 600;
+
+  --text-title-3: 1.0625rem;
+  --text-title-3--line-height: 1.35;
+  --text-title-3--letter-spacing: -0.014em;
+  --text-title-3--font-weight: 600;
+
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.68;
+  --text-body-base: 0.9375rem;
+  --text-body-base--line-height: 1.66;
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.6;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.02em;
+  --text-label--font-weight: 600;
+
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.45;
+  --text-micro--letter-spacing: 0.13em;
+
+  /* ── Containers. Replaces max-w-[1520px] in six files. ──── */
+  --container-prose: 68ch;
+  --container-content: 1140px;
+  --container-page: 1520px;
+
+  /* ── Radius. Five values, and that is the whole vocabulary.
+        Nothing else is legal. ── */
+  --radius-chip: 6px;
+  --radius-field: 9px;
+  --radius-card: 14px;
+  --radius-panel: 20px;
+  --radius-pill: 9999px;
+
+  /* ── Elevation. One warm light source, one direction, four steps. ── */
+  --shadow-e1: 0 1px 2px rgb(var(--shadow-color) / 0.06);
+  --shadow-e2: 0 6px 16px -8px rgb(var(--shadow-color) / 0.16), 0 1px 2px rgb(var(--shadow-color) / 0.05);
+  --shadow-e3: 0 22px 44px -22px rgb(var(--shadow-color) / 0.24), 0 2px 6px rgb(var(--shadow-color) / 0.05);
+  --shadow-e4: 0 44px 76px -36px rgb(var(--shadow-color) / 0.34), 0 3px 10px -3px rgb(var(--shadow-color) / 0.10);
+  --shadow-brand: 0 12px 26px -12px rgb(14 82 87 / 0.62);
+  --shadow-signal: 0 0 0 3px rgb(168 220 30 / 0.28);
+
+  /* ── Easing ────────────────────────────────────────────── */
+  --ease-entrance: cubic-bezier(0.2, 0.65, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}

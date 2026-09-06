@@ -40,7 +40,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
 
 export default function Footer() {
   return (
-    <footer className="relative mt-auto overflow-hidden border-t border-accent/10 bg-gradient-to-b from-[#f6f9ff] via-[#f3f7fe] to-[#ecf3fc]">
+    <footer className="relative mt-auto overflow-hidden border-t border-line bg-gradient-to-b from-surface via-canvas to-surface-sunken">
       {/* Hairline glow along the top edge */}
       <div
         className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
@@ -51,7 +51,7 @@ export default function Footer() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(38% 55% at 6% 0%, rgba(40,87,255,0.08), transparent 60%), radial-gradient(34% 50% at 94% 100%, rgba(16,185,129,0.08), transparent 60%)",
+            "radial-gradient(38% 55% at 6% 0%, rgb(224 145 63 / 0.10), transparent 60%), radial-gradient(34% 50% at 94% 100%, rgb(14 82 87 / 0.07), transparent 60%)",
         }}
         aria-hidden
       />
@@ -70,7 +70,7 @@ export default function Footer() {
                 href={whatsappLink("Hi! I found you through skilloura.com.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-mint px-5 py-2.5 text-sm font-semibold text-white shadow-[0_12px_26px_-12px_rgba(16,185,129,0.8)] transition-all hover:scale-[1.03] hover:brightness-105"
+                className="inline-flex items-center gap-2 rounded-full bg-mint px-5 py-2.5 text-sm font-semibold text-white shadow-e2 transition-all hover:scale-[1.03] hover:brightness-105"
               >
                 <WhatsAppIcon className="size-4" />
                 Chat on WhatsApp

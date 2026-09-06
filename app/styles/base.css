@@ -1,0 +1,75 @@
+/* Element-level defaults. No component styling lives here. */
+
+html {
+  /* Only for people who have not asked for less motion. Smooth scroll
+     is a comfort feature, not something to force on anyone. */
+  scroll-behavior: auto;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Deliberately NOT overflow-x: hidden — that silently breaks
+     position: sticky for every descendant. Sections that need to bleed
+     clip themselves. */
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.028em;
+}
+
+/* The editorial accent: Instrument Serif italic, paired with Instrument
+   Sans from the same superfamily. One accent per section, not per line. */
+.font-accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  letter-spacing: -0.008em;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: var(--color-on-brand);
+}
+
+/* Keyboard focus ring — visible for keyboard users only (WCAG 2.4.7). */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip-to-content: the first stop for keyboard and screen-reader users,
+   visually hidden until focused. */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-150%);
+  transition: transform var(--duration-instant) var(--ease-entrance);
+  background: var(--color-brand);
+  color: var(--color-on-brand);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-field);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Number inputs: drop the spinners, they fight the field styling. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

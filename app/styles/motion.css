@@ -1,0 +1,80 @@
+/* ─────────────────────────────────────────────────────────────
+   Keyframes and motion utilities.
+
+   Every animated component must also satisfy the runtime contract in
+   components/motion/CONTRACT.md: IntersectionObserver-gated, motion
+   tier honoured, per-frame values on refs or CSS custom properties
+   (never React state), paused off-screen, cleaned up on unmount.
+   ───────────────────────────────────────────────────────────── */
+
+/* Above-the-fold entrance. CSS-only on purpose, so hero content paints
+   immediately without waiting for JS or hydration and never sits blank
+   on a slow phone. Stagger with an inline --rise-delay. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--distance-rise));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* Route transition, applied by app/template.tsx.
+   Opacity only — deliberately. Any transform here, even translateY(0)
+   at rest, creates a containing block for descendant position: fixed
+   elements (Header, WhatsAppSticky, MobileCtaBar) and anchors them to
+   this wrapper's page-height box instead of the viewport, which broke
+   fixed positioning sitewide. */
+@keyframes page-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-enter {
+  animation: page-enter var(--duration-base) var(--ease-entrance) both;
+}
+
+/* Ambient drift for the aura light layers. */
+@keyframes aura-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(-4deg) scale(1); }
+  100% { transform: translate3d(4vw, 3vh, 0) rotate(4deg) scale(1.09); }
+}
+
+/* Continuous horizontal rail. */
+@keyframes rail-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333333%); }
+}
+.animate-service-rail {
+  animation: rail-drift 46s linear infinite;
+}
+.animate-service-rail:hover {
+  animation-play-state: paused;
+}
+
+/* Signal pulse — the "live" indicator. The single most-used place the
+   signal green is allowed on a light surface, and only ever as a dot. */
+@keyframes signal-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(168 220 30 / 0.45); }
+  70% { box-shadow: 0 0 0 5px rgb(168 220 30 / 0); }
+}
+.animate-signal-pulse {
+  animation: signal-pulse 2.4s var(--ease-out-quint) infinite;
+}
+
+/* One switch for all of it. Every animation above degrades to its final
+   state rather than simply stopping mid-way. */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .page-enter,
+  .animate-service-rail,
+  .animate-signal-pulse,
+  .aura {
+    animation: none !important;
+  }
+}
