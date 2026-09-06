@@ -55,3 +55,6 @@ PROJECT_BRAIN.md
 .vercel
 .env*
 .tmp_migrate/
+
+# video pipeline scratch
+tools/video/.raw/
