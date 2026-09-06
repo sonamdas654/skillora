@@ -3,38 +3,38 @@
     {
       "id": "local",
       "label": "Local business website",
-      "caption": "Local business site \u00e2\u20ac\u201d menu, ordering and enquiries in one place.",
+      "caption": "Local business site — menu, ordering and enquiries in one place.",
       "route": "/demo/web-local",
       "serviceSlug": "website-development",
       "sources": {
         "hd": {
           "mp4": {
-            "src": "/hero/local-hd.mp4?v=f5b62e00",
-            "bytes": 784822
+            "src": "/hero/local-hd.ab8a6413.mp4",
+            "bytes": 593272
           },
           "webm": {
-            "src": "/hero/local-hd.webm?v=d172e389",
-            "bytes": 486744
+            "src": "/hero/local-hd.8a79eb47.webm",
+            "bytes": 300555
           }
         },
         "md": {
           "mp4": {
-            "src": "/hero/local-md.mp4?v=826fb2b8",
-            "bytes": 490851
+            "src": "/hero/local-md.d0927310.mp4",
+            "bytes": 384757
           },
           "webm": {
-            "src": "/hero/local-md.webm?v=46bfa7da",
-            "bytes": 333820
+            "src": "/hero/local-md.063fb158.webm",
+            "bytes": 194474
           }
         }
       },
       "poster": {
         "webp": {
-          "src": "/hero/local-poster.webp?v=3507e59e",
+          "src": "/hero/local-poster.3507e59e.webp",
           "bytes": 26374
         },
         "jpg": {
-          "src": "/hero/local-poster.jpg?v=3be6b335",
+          "src": "/hero/local-poster.3be6b335.jpg",
           "bytes": 74440
         }
       },
@@ -45,38 +45,38 @@
     {
       "id": "commerce",
       "label": "Ecommerce store",
-      "caption": "Ecommerce \u00e2\u20ac\u201d catalogue, cart and checkout, commission-free.",
+      "caption": "Ecommerce — catalogue, cart and checkout, commission-free.",
       "route": "/demo/web-ecommerce",
       "serviceSlug": "website-development",
       "sources": {
         "hd": {
           "mp4": {
-            "src": "/hero/commerce-hd.mp4?v=e916c323",
-            "bytes": 611219
+            "src": "/hero/commerce-hd.c67116c1.mp4",
+            "bytes": 474139
           },
           "webm": {
-            "src": "/hero/commerce-hd.webm?v=92ec36b1",
-            "bytes": 331241
+            "src": "/hero/commerce-hd.be0e658a.webm",
+            "bytes": 196132
           }
         },
         "md": {
           "mp4": {
-            "src": "/hero/commerce-md.mp4?v=920ac027",
-            "bytes": 409124
+            "src": "/hero/commerce-md.00c8260d.mp4",
+            "bytes": 291717
           },
           "webm": {
-            "src": "/hero/commerce-md.webm?v=5b3b0e30",
-            "bytes": 227834
+            "src": "/hero/commerce-md.6d54e8e4.webm",
+            "bytes": 143357
           }
         }
       },
       "poster": {
         "webp": {
-          "src": "/hero/commerce-poster.webp?v=3a2c8ade",
+          "src": "/hero/commerce-poster.3a2c8ade.webp",
           "bytes": 19836
         },
         "jpg": {
-          "src": "/hero/commerce-poster.jpg?v=44bb1ccc",
+          "src": "/hero/commerce-poster.44bb1ccc.jpg",
           "bytes": 55967
         }
       },
@@ -93,32 +93,32 @@
       "sources": {
         "hd": {
           "mp4": {
-            "src": "/hero/ai-hd.mp4?v=056a2656",
-            "bytes": 964741
+            "src": "/hero/ai-hd.ca956fc4.mp4",
+            "bytes": 348991
           },
           "webm": {
-            "src": "/hero/ai-hd.webm?v=4e07ed6d",
-            "bytes": 646197
+            "src": "/hero/ai-hd.8b47bede.webm",
+            "bytes": 188020
           }
         },
         "md": {
           "mp4": {
-            "src": "/hero/ai-md.mp4?v=3a4206c7",
-            "bytes": 615981
+            "src": "/hero/ai-md.27e84f59.mp4",
+            "bytes": 233455
           },
           "webm": {
-            "src": "/hero/ai-md.webm?v=70d25e73",
-            "bytes": 408923
+            "src": "/hero/ai-md.1c06c2bb.webm",
+            "bytes": 124786
           }
         }
       },
       "poster": {
         "webp": {
-          "src": "/hero/ai-poster.webp?v=2a8a0bd2",
+          "src": "/hero/ai-poster.2a8a0bd2.webp",
           "bytes": 37738
         },
         "jpg": {
-          "src": "/hero/ai-poster.jpg?v=f00475ee",
+          "src": "/hero/ai-poster.f00475ee.jpg",
           "bytes": 106676
         }
       },
@@ -135,32 +135,32 @@
       "sources": {
         "hd": {
           "mp4": {
-            "src": "/hero/dashboard-hd.mp4?v=dc4bb824",
-            "bytes": 626716
+            "src": "/hero/dashboard-hd.1b7db291.mp4",
+            "bytes": 281475
           },
           "webm": {
-            "src": "/hero/dashboard-hd.webm?v=c87de052",
-            "bytes": 365849
+            "src": "/hero/dashboard-hd.8d09df95.webm",
+            "bytes": 157081
           }
         },
         "md": {
           "mp4": {
-            "src": "/hero/dashboard-md.mp4?v=aa6aae14",
-            "bytes": 428779
+            "src": "/hero/dashboard-md.45261b6a.mp4",
+            "bytes": 187050
           },
           "webm": {
-            "src": "/hero/dashboard-md.webm?v=ba83218e",
-            "bytes": 250583
+            "src": "/hero/dashboard-md.e805cf64.webm",
+            "bytes": 116570
           }
         }
       },
       "poster": {
         "webp": {
-          "src": "/hero/dashboard-poster.webp?v=2534c6e0",
+          "src": "/hero/dashboard-poster.2534c6e0.webp",
           "bytes": 28952
         },
         "jpg": {
-          "src": "/hero/dashboard-poster.jpg?v=6fbb0359",
+          "src": "/hero/dashboard-poster.6fbb0359.jpg",
           "bytes": 113257
         }
       },
@@ -171,38 +171,38 @@
     {
       "id": "app",
       "label": "Booking app",
-      "caption": "Booking app \u00e2\u20ac\u201d slots, reminders and repeat customers.",
+      "caption": "Booking app — slots, reminders and repeat customers.",
       "route": "/demo/app-booking",
       "serviceSlug": "mobile-app-development",
       "sources": {
         "hd": {
           "mp4": {
-            "src": "/hero/app-hd.mp4?v=141fc0fd",
-            "bytes": 756206
+            "src": "/hero/app-hd.eaa4d726.mp4",
+            "bytes": 358029
           },
           "webm": {
-            "src": "/hero/app-hd.webm?v=432e9597",
-            "bytes": 500018
+            "src": "/hero/app-hd.3ee58994.webm",
+            "bytes": 163702
           }
         },
         "md": {
           "mp4": {
-            "src": "/hero/app-md.mp4?v=d4baeea7",
-            "bytes": 470270
+            "src": "/hero/app-md.0bf287ad.mp4",
+            "bytes": 232816
           },
           "webm": {
-            "src": "/hero/app-md.webm?v=cf864059",
-            "bytes": 326476
+            "src": "/hero/app-md.25820c98.webm",
+            "bytes": 105241
           }
         }
       },
       "poster": {
         "webp": {
-          "src": "/hero/app-poster.webp?v=254ffe4a",
+          "src": "/hero/app-poster.254ffe4a.webp",
           "bytes": 34774
         },
         "jpg": {
-          "src": "/hero/app-poster.jpg?v=295080ed",
+          "src": "/hero/app-poster.295080ed.jpg",
           "bytes": 102653
         }
       },
@@ -211,11 +211,11 @@
       "height": 810
     }
   ],
-  "generatedAt": "2026-09-06T14:44:51.221Z",
+  "generatedAt": "2026-09-06T16:22:41.829Z",
+  "bytesOnDisk": 5676286,
   "budget": {
     "postersBytes": 147674,
-    "firstSceneBytes": 486744,
-    "carouselBytes": 2330049
-  },
-  "bytesOnDisk": 10637061
+    "firstSceneBytes": 300555,
+    "carouselBytes": 1005490
+  }
 }

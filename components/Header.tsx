@@ -83,8 +83,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b border-line bg-wash-mint transition-all duration-300 ${
-        scrolled ? "backdrop-blur-md shadow-[0_4px_24px_-12px_rgba(11,19,48,0.12)]" : ""
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+        scrolled
+          ? "border-line bg-surface/85 shadow-e2 backdrop-blur-xl"
+          : "border-transparent bg-canvas/70 backdrop-blur-sm"
       }`}
     >
       <a href="#main-content" className="skip-link">
@@ -147,7 +149,7 @@ export default function Header() {
 
       {/* Mobile drawer */}
       {open && (
-        <div ref={drawerRef} className="xl:hidden border-t border-line bg-white/95 backdrop-blur-md">
+        <div ref={drawerRef} className="xl:hidden border-t border-line bg-surface/95 backdrop-blur-xl">
           <nav className="mx-auto max-w-[1520px] px-4 py-4 flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => (
               <Link

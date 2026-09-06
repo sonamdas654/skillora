@@ -18,7 +18,10 @@ const page = await browser.newPage({
   viewport: { width, height: 1000 },
   deviceScaleFactor: 2,
 });
-await page.goto(target, { waitUntil: "networkidle" });
+// "load", not "networkidle": once the hero video starts streaming the network
+// never goes idle, and networkidle would hang forever.
+await page.goto(target, { waitUntil: "load" });
+await page.waitForTimeout(1200);
 await page.evaluate(() => document.fonts.ready);
 
 // Scroll the whole page first. Scroll-triggered reveals start at opacity 0,

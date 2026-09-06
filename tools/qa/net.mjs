@@ -10,6 +10,7 @@ page.on("response", (r) => {
 });
 page.on("requestfailed", (r) => bad.push(`FAILED ${r.resourceType()} ${r.url()}`));
 
-await page.goto(process.argv[2], { waitUntil: "networkidle" });
+await page.goto(process.argv[2], { waitUntil: "load" });
+await page.waitForTimeout(2000);
 console.log(bad.length ? bad.join("\n") : "no failing requests");
 await browser.close();

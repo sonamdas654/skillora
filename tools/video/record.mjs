@@ -7,7 +7,7 @@
 // Output: tools/video/.raw/<id>.webm (gitignored) plus a poster PNG per scene.
 // tools/video/encode.mjs turns those into the shipped assets.
 import { chromium } from "playwright";
-import { mkdirSync, rmSync, renameSync, existsSync } from "node:fs";
+import { mkdirSync, rmSync, renameSync, existsSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SCENES, HIDE_CHROME_CSS, RECORD_SIZE } from "./scenes.mjs";
@@ -26,6 +26,7 @@ const only = argOf("only", null);
 rmSync(RAW, { recursive: true, force: true });
 mkdirSync(RAW, { recursive: true });
 
+const takes = {};
 const scenes = only ? SCENES.filter((s) => s.id === only) : SCENES;
 if (!scenes.length) {
   console.error(`no scene matches --only ${only}`);
@@ -39,6 +40,12 @@ for (const scene of scenes) {
 
   // One context per scene: Playwright records a whole context session, so
   // separate contexts are what give separate clips.
+  // Playwright starts recording the moment the context exists — before the
+  // page has even navigated. Left untrimmed that means ~10 seconds of blank
+  // white, page load, and the un-styled chrome at the head of every clip,
+  // which is exactly what the first cut of the hero was playing. Time the
+  // choreography window and hand it to the encoder to cut on.
+  const recordingStart = Date.now();
   const context = await browser.newContext({
     viewport: RECORD_SIZE,
     recordVideo: { dir: RAW, size: RECORD_SIZE },
@@ -71,7 +78,15 @@ for (const scene of scenes) {
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(400);
 
+  const choreoStart = Date.now();
   await scene.choreograph(page);
+  const choreoEnd = Date.now();
+
+  takes[scene.id] = {
+    // A small lead-in so the cut never lands mid-frame, clamped at zero.
+    startMs: Math.max(0, choreoStart - recordingStart - 150),
+    durationMs: choreoEnd - choreoStart + 150,
+  };
 
   const videoHandle = page.video();
   await context.close(); // flushes the video file
@@ -80,8 +95,13 @@ for (const scene of scenes) {
     renameSync(produced, join(RAW, `${scene.id}.webm`));
   }
 
-  console.log(`  filmed ${scene.id} (${((Date.now() - started) / 1000).toFixed(1)}s)`);
+  const take = takes[scene.id];
+  console.log(
+    `  filmed ${scene.id} — ${((Date.now() - started) / 1000).toFixed(1)}s recorded, ` +
+      `keeping ${(take.durationMs / 1000).toFixed(1)}s from ${(take.startMs / 1000).toFixed(1)}s`
+  );
 }
 
 await browser.close();
+writeFileSync(join(RAW, "takes.json"), JSON.stringify(takes, null, 2), "utf8");
 console.log(`\nraw footage in ${RAW}`);

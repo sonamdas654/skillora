@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppSticky from "@/components/WhatsAppSticky";
 import MobileCtaBar from "@/components/MobileCtaBar";
-import HeroMotion from "@/components/HeroMotion";
+import HomeHero from "@/components/heroes/HomeHero";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -14,10 +14,13 @@ import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import EstimateTeaser from "@/components/EstimateTeaser";
 
-export const dynamic = "force-dynamic";
+// Public content only, so this is statically generated and refreshed on a
+// timer instead of server-rendered per request. See lib/supabase/public.ts
+// for why the cookie-bound client cannot be used here.
+export const revalidate = 900;
 
 // Homepage-specific title/description. The site-wide default is brand-first
 // ("Skilloura — Smart Digital Services…"), which only wins searches by people
@@ -89,81 +92,24 @@ const whyChoose = [
   { icon: "spark", title: "Maintenance support available", desc: "Monthly care plans from ₹1,999/month keep your project healthy after launch." },
 ];
 
-// Every rail card carries its own full gradient (Power BI / Custom Software
-// style) — icon sits in a frosted white tile, text stays white.
+// The twelve capabilities, as an index rather than a toy carousel. These used
+// to be full-saturation rainbow gradient tiles — twelve different colour
+// stories in one strip, which is the loudest thing the old homepage did and
+// the first thing that read as template. Same twelve links, same hrefs; the
+// colour now comes from one brand family and the hierarchy from typography.
 const serviceRailItems = [
-  {
-    text: "WhatsApp Automation",
-    icon: "whatsapp",
-    href: "/start-project?service=ai-automation",
-    card: "bg-gradient-to-br from-green-400 via-emerald-500 to-teal-600 shadow-[0_22px_42px_-24px_rgba(16,185,129,0.9)]",
-  },
-  {
-    text: "Logo & Branding",
-    icon: "palette",
-    href: "/start-project?service=logo-branding",
-    card: "bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 shadow-[0_22px_42px_-24px_rgba(249,115,22,0.9)]",
-  },
-  {
-    text: "Video Editing",
-    icon: "video",
-    href: "/start-project?service=video-editing",
-    card: "bg-gradient-to-br from-fuchsia-500 via-pink-500 to-rose-500 shadow-[0_22px_42px_-24px_rgba(236,72,153,0.9)]",
-  },
-  {
-    text: "SEO & Marketing",
-    icon: "megaphone",
-    href: "/start-project?service=digital-marketing",
-    card: "bg-gradient-to-br from-teal-400 via-cyan-500 to-sky-600 shadow-[0_22px_42px_-24px_rgba(6,182,212,0.9)]",
-  },
-  {
-    text: "Power BI Dashboards",
-    icon: "chart",
-    href: "/start-project?service=data-dashboard",
-    card: "bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 shadow-[0_22px_42px_-24px_rgba(40,87,255,0.9)]",
-  },
-  {
-    text: "ATS Resumes",
-    icon: "file",
-    href: "/start-project?service=resume-career",
-    card: "bg-gradient-to-br from-cyan-400 via-sky-500 to-blue-600 shadow-[0_22px_42px_-24px_rgba(14,165,233,0.9)]",
-  },
-  {
-    text: "Custom Software",
-    icon: "code",
-    href: "/start-project?service=custom-software",
-    card: "bg-gradient-to-br from-violet-500 via-indigo-600 to-purple-700 shadow-[0_22px_42px_-24px_rgba(109,40,217,0.88)]",
-  },
-  {
-    text: "Booking Systems",
-    icon: "clock",
-    href: "/start-project?service=website-development",
-    card: "bg-gradient-to-br from-pink-500 via-rose-500 to-red-500 shadow-[0_22px_42px_-24px_rgba(244,63,94,0.9)]",
-  },
-  {
-    text: "Business Websites",
-    icon: "globe",
-    href: "/start-project?service=website-development",
-    card: "bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-600 shadow-[0_22px_42px_-24px_rgba(59,130,246,0.9)]",
-  },
-  {
-    text: "Mobile Apps",
-    icon: "smartphone",
-    href: "/start-project?service=mobile-app-development",
-    card: "bg-gradient-to-br from-rose-400 via-pink-500 to-fuchsia-600 shadow-[0_22px_42px_-24px_rgba(236,72,153,0.9)]",
-  },
-  {
-    text: "AI Chatbots",
-    icon: "bot",
-    href: "/start-project?service=ai-automation",
-    card: "bg-gradient-to-br from-purple-500 via-violet-500 to-indigo-600 shadow-[0_22px_42px_-24px_rgba(139,92,246,0.9)]",
-  },
-  {
-    text: "Ecommerce Stores",
-    icon: "briefcase",
-    href: "/start-project?service=website-development",
-    card: "bg-gradient-to-br from-orange-500 via-red-500 to-rose-600 shadow-[0_22px_42px_-24px_rgba(249,115,22,0.9)]",
-  },
+  { text: "WhatsApp Automation", icon: "whatsapp", href: "/start-project?service=ai-automation" },
+  { text: "Logo & Branding", icon: "palette", href: "/start-project?service=logo-branding" },
+  { text: "Video Editing", icon: "video", href: "/start-project?service=video-editing" },
+  { text: "SEO & Marketing", icon: "megaphone", href: "/start-project?service=digital-marketing" },
+  { text: "Power BI Dashboards", icon: "chart", href: "/start-project?service=data-dashboard" },
+  { text: "ATS Resumes", icon: "file", href: "/start-project?service=resume-career" },
+  { text: "Custom Software", icon: "code", href: "/start-project?service=custom-software" },
+  { text: "Booking Systems", icon: "clock", href: "/start-project?service=website-development" },
+  { text: "Business Websites", icon: "globe", href: "/start-project?service=website-development" },
+  { text: "Mobile Apps", icon: "smartphone", href: "/start-project?service=mobile-app-development" },
+  { text: "AI Chatbots", icon: "bot", href: "/start-project?service=ai-automation" },
+  { text: "Ecommerce Stores", icon: "briefcase", href: "/start-project?service=website-development" },
 ];
 
 const featuredPackages = [
@@ -205,7 +151,7 @@ const featuredPackages = [
 
 
 export default async function HomePage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: testimonialRows } = await supabase
     .from("testimonials")
     .select("id, client_name, client_business, rating, review")
@@ -227,65 +173,20 @@ export default async function HomePage() {
       <Header />
       <main id="main-content">
         {/* ── Section 1: Hero ─────────────────────────────── */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-hero-glow" aria-hidden />
-          {/* Interactive motion backdrop — aurora ribbons + particle constellation */}
-          <HeroMotion />
-          <div className="relative mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-12 sm:pb-16">
-            {/* Single centred value proposition. Uses CSS .rise (not JS Reveal)
-                so it paints immediately on first load and never sits blank. */}
-            <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-              <p className="rise inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold text-ink-soft shadow-sm">
-                <span className="size-2 rounded-full bg-mint animate-pulse" />
-                Accepting new projects
-              </p>
-              <h1 className="rise mt-6 text-4xl sm:text-5xl lg:text-[3.3rem] font-extrabold tracking-tight leading-[1.08] text-ink" style={{ ["--rise-delay" as string]: "80ms" }}>
-                Websites &amp; AI systems that help growing businesses{" "}
-                <span className="bg-gradient-to-r from-accent via-indigo-600 to-mint bg-clip-text text-transparent">
-                  get more leads and save manual work
-                </span>
-              </h1>
-              <p className="rise mt-6 max-w-xl text-base sm:text-lg leading-7 text-ink-soft" style={{ ["--rise-delay" as string]: "160ms" }}>
-                Share your requirement once — get a written scope, timeline and transparent quote
-                before any payment.
-              </p>
-              <div className="rise mt-8 flex flex-wrap items-center justify-center gap-3" style={{ ["--rise-delay" as string]: "240ms" }}>
-                <Link
-                  href="/start-project"
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white shadow-[0_12px_28px_-10px_rgba(40,87,255,0.7)] hover:bg-accent-deep hover:scale-[1.02] transition-all"
-                >
-                  Get My Project Plan
-                  <Icon name="arrow" className="size-5" />
-                </Link>
-                <Link
-                  href="/how-it-works"
-                  className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-6 py-3.5 text-base font-semibold text-ink hover:border-accent hover:text-accent transition-colors"
-                >
-                  See How It Works
-                </Link>
-              </div>
-              <ul className="rise mt-9 flex flex-wrap items-center justify-center gap-x-6 gap-y-3" style={{ ["--rise-delay" as string]: "320ms" }}>
-                {["Fast Turnaround", "Transparent Pricing", "Expert Support", "Written Scope Before Payment"].map((t) => (
-                  <li key={t} className="flex items-center gap-1.5 text-sm font-semibold text-ink-soft">
-                    <Icon name="check" className="size-4 shrink-0 text-mint" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        <HomeHero />
 
-          {/* Full-width gradient service rail — floats over the hero backdrop.
-              The track is tripled for a seamless marquee loop; only the FIRST
-              copy is real to assistive tech + keyboard — the two duplicates are
-              aria-hidden and non-focusable so screen readers and Tab don't hit
-              every link three times. */}
+        {/* Service rail — nine real categories, drifting under the hero. */}
+        <section className="relative overflow-hidden border-y border-line bg-surface-sunken">
+          {/* The track is tripled for a seamless loop; only the FIRST copy is
+              real to assistive tech and the keyboard — the two duplicates are
+              aria-hidden and non-focusable, so screen readers and Tab don't
+              hit every link three times. */}
           <div className="relative w-full overflow-hidden py-5 sm:py-6">
             <div
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "linear-gradient(180deg, transparent, rgba(40,87,255,0.05) 30%, rgba(139,92,246,0.05) 60%, rgba(16,185,129,0.05))",
+                  "linear-gradient(180deg, transparent, rgb(224 145 63 / 0.07) 30%, rgb(14 82 87 / 0.06) 70%, transparent)",
               }}
               aria-hidden
             />
@@ -298,16 +199,16 @@ export default async function HomePage() {
                   href={item.href}
                   aria-hidden={dup || undefined}
                   tabIndex={dup ? -1 : undefined}
-                  className={`flex h-[94px] w-[132px] shrink-0 flex-col items-center justify-center rounded-2xl px-2.5 text-center text-white ring-1 ring-white/25 transition duration-300 hover:-translate-y-1.5 hover:-rotate-1 hover:brightness-110 sm:h-[104px] sm:w-[144px] lg:w-[152px] ${item.card}`}
+                  className="card-lift group flex h-24 w-40 shrink-0 flex-col justify-between rounded-card border border-line bg-surface px-3.5 py-3 shadow-e1 sm:w-44"
                 >
-                  <span className="grid size-9 place-items-center rounded-lg bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
+                  <span className="grid size-8 place-items-center rounded-chip bg-brand-soft text-brand">
                     {item.icon === "whatsapp" ? (
-                      <WhatsAppIcon className="size-5 text-white" />
+                      <WhatsAppIcon className="size-4" />
                     ) : (
-                      <Icon name={item.icon} className="size-5 text-white" />
+                      <Icon name={item.icon} className="size-4" />
                     )}
                   </span>
-                  <span className="mt-2 text-[13px] font-extrabold leading-[1.12] tracking-normal drop-shadow-sm sm:text-sm">
+                  <span className="font-display text-body-sm font-semibold leading-snug text-ink">
                     {item.text}
                   </span>
                 </Link>

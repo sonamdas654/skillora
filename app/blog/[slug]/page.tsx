@@ -6,16 +6,37 @@ import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
 import Image from "next/image";
 import type { BlogPost } from "@/lib/blog";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import ShareButtons from "@/components/ShareButtons";
 import { blogPostingSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 
-export const dynamic = "force-dynamic";
+// Public content only, so this is statically generated and refreshed on a
+// timer instead of server-rendered per request. See lib/supabase/public.ts
+// for why the cookie-bound client cannot be used here.
+export const revalidate = 600;
+
+/**
+ * Prerender every published post at build time. Without this the route had no
+ * generateStaticParams at all, so each post was rendered on demand — and with
+ * the cookie-bound client that meant a Supabase round-trip on every visit.
+ *
+ * dynamicParams stays at its default (true) on purpose: a post published after
+ * the build still renders on first request and is then cached, so publishing
+ * does not require a redeploy.
+ */
+export async function generateStaticParams() {
+  const supabase = createPublicClient();
+  const { data } = await supabase
+    .from("blog_posts")
+    .select("slug")
+    .eq("status", "published");
+  return (data ?? []).map((row: { slug: string }) => ({ slug: row.slug }));
+}
 
 async function resolvePost(slug: string): Promise<BlogPost | undefined> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: p } = await supabase
     .from("blog_posts")
     .select("*")
@@ -45,7 +66,7 @@ async function resolvePost(slug: string): Promise<BlogPost | undefined> {
 
 async function resolveRelated(slugs: string[]): Promise<{ slug: string; title: string }[]> {
   if (slugs.length === 0) return [];
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data } = await supabase
     .from("blog_posts")
     .select("slug, title")

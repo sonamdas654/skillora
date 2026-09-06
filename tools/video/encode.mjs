@@ -10,7 +10,7 @@
 // 1440px the saving does not pay for the encode time, and every byte here is
 // already behind a desktop-only gate.
 import { execFileSync } from "node:child_process";
-import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, statSync, renameSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
@@ -47,6 +47,12 @@ const kb = (n) => `${Math.round(n / 1024)}KB`;
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
+// Written by record.mjs: where the real choreography starts and ends inside
+// each raw recording. Everything before it is context startup, page load and
+// the poster screenshot — dead footage that must not reach the hero.
+const takesPath = join(RAW, "takes.json");
+const takes = existsSync(takesPath) ? JSON.parse(readFileSync(takesPath, "utf8")) : {};
+
 const manifest = { scenes: [] };
 let total = 0;
 const oversized = [];
@@ -69,41 +75,50 @@ for (const scene of SCENES) {
     poster: {},
   };
 
+  const take = takes[scene.id];
+  if (!take) console.error(`  ${scene.id}: no take window — encoding the whole recording`);
+  // -ss before -i seeks quickly and is accurate enough for an 8s clip.
+  const trim = take
+    ? ["-ss", (take.startMs / 1000).toFixed(2), "-t", (take.durationMs / 1000).toFixed(2)]
+    : [];
+
   for (const rung of LADDER) {
     const scale = `scale=${rung.width}:${rung.height}:flags=lanczos`;
 
     // -an on every output: no audio track at all. That is what makes autoplay
     // work without a user gesture in every browser, and it halves the size.
-    const mp4 = join(OUT, `${scene.id}-${rung.key}.mp4`);
+    const mp4Tmp = join(OUT, `${scene.id}-${rung.key}.tmp.mp4`);
     run([
+      ...trim,
       "-i", source,
       "-vf", scale,
       "-an",
       "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p",
       "-crf", String(rung.crfH264), "-preset", "slow",
       "-g", "48", "-movflags", "+faststart",
-      mp4,
+      mp4Tmp,
     ]);
 
-    const webm = join(OUT, `${scene.id}-${rung.key}.webm`);
+    const webmTmp = join(OUT, `${scene.id}-${rung.key}.tmp.webm`);
     run([
+      ...trim,
       "-i", source,
       "-vf", scale,
       "-an",
       "-c:v", "libvpx-vp9", "-crf", String(rung.crfVp9), "-b:v", "0",
       "-row-mt", "1", "-deadline", "good", "-cpu-used", "2",
-      webm,
+      webmTmp,
     ]);
 
-    for (const [fmt, file] of [["mp4", mp4], ["webm", webm]]) {
+    for (const [fmt, tmp] of [["mp4", mp4Tmp], ["webm", webmTmp]]) {
+      const name = `${scene.id}-${rung.key}.${shortHash(tmp)}.${fmt}`;
+      const file = join(OUT, name);
+      renameSync(tmp, file);
       const size = statSync(file).size;
       total += size;
-      if (size > MAX_FILE_BYTES) oversized.push(`${scene.id}-${rung.key}.${fmt} ${kb(size)}`);
+      if (size > MAX_FILE_BYTES) oversized.push(`${name} ${kb(size)}`);
       entry.sources[rung.key] ??= {};
-      entry.sources[rung.key][fmt] = {
-        src: `/hero/${scene.id}-${rung.key}.${fmt}?v=${shortHash(file)}`,
-        bytes: size,
-      };
+      entry.sources[rung.key][fmt] = { src: `/hero/${name}`, bytes: size };
     }
   }
 
@@ -113,11 +128,14 @@ for (const scene of SCENES) {
     ["webp", ["-c:v", "libwebp", "-quality", "78", "-compression_level", "6"]],
     ["jpg", ["-c:v", "mjpeg", "-q:v", "5"]],
   ]) {
-    const file = join(OUT, `${scene.id}-poster.${fmt}`);
-    run(["-i", posterSource, "-vf", "scale=1440:810:flags=lanczos", ...args, file]);
+    const tmp = join(OUT, `${scene.id}-poster.tmp.${fmt}`);
+    run(["-i", posterSource, "-vf", "scale=1440:810:flags=lanczos", ...args, tmp]);
+    const name = `${scene.id}-poster.${shortHash(tmp)}.${fmt}`;
+    const file = join(OUT, name);
+    renameSync(tmp, file);
     const size = statSync(file).size;
     total += size;
-    entry.poster[fmt] = { src: `/hero/${scene.id}-poster.${fmt}?v=${shortHash(file)}`, bytes: size };
+    entry.poster[fmt] = { src: `/hero/${name}`, bytes: size };
   }
 
   // Tiny blurred placeholder, inlined as a data URI so it costs no request.

@@ -4,9 +4,12 @@ import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
-export const dynamic = "force-dynamic";
+// Public content only, so this is statically generated and refreshed on a
+// timer instead of server-rendered per request. See lib/supabase/public.ts
+// for why the cookie-bound client cannot be used here.
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
@@ -16,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: posts } = await supabase
     .from("blog_posts")
     .select("slug, title, meta_description, category, read_minutes")

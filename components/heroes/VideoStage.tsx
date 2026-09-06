@@ -181,9 +181,12 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
     <div className="w-full">
       <div
         ref={stageRef}
-        className="relative isolate overflow-hidden rounded-card border border-line-strong bg-surface shadow-e4"
-        style={{ aspectRatio: `${scene.width} / ${scene.height}` }}
+        className="overflow-hidden rounded-card border border-line-strong bg-surface shadow-e4"
       >
+        <div
+          className="relative isolate"
+          style={{ aspectRatio: `${scene.width} / ${scene.height}` }}
+        >
         {/* LCP element. Server-rendered, priority, present without JS. */}
         {scenes.map((s, i) => (
           <Image
@@ -242,15 +245,14 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
             </video>
           ))}
 
-        {/* Reading layer: a warm scrim only where the label sits, so footage
-            stays bright. Not a full-frame darkener. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-surface-ink/70 to-transparent"
-        />
+        </div>
 
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3 sm:p-4">
-          <p className="text-micro font-mono uppercase text-on-ink-soft">{scene.label}</p>
+        {/* Label and progress sit BELOW the footage, not over it. Overlaid on
+            the video they collided with whatever the demo happened to be
+            showing — and no scrim fixes that when the footage itself varies
+            from a dark restaurant site to a white dashboard. */}
+        <div className="flex items-center justify-between gap-3 border-t border-line bg-surface-sunken px-3 py-2.5 sm:px-4">
+          <p className="text-micro font-mono uppercase text-ink-soft">{scene.label}</p>
           <StageProgress count={count} index={index} animate={videoOn} />
         </div>
       </div>
@@ -284,7 +286,7 @@ function StageProgress({
       {Array.from({ length: count }, (_, i) => (
         <span
           key={i}
-          className="relative block h-0.5 w-6 overflow-hidden rounded-pill bg-on-ink-muted"
+          className="relative block h-0.5 w-6 overflow-hidden rounded-pill bg-line-strong"
         >
           {i === index && (
             <span

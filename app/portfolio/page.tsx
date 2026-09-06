@@ -7,9 +7,12 @@ import { Section } from "@/components/Section";
 import { PortfolioCard } from "@/components/Cards";
 import TrustBand from "@/components/TrustBand";
 import { portfolioItems, type PortfolioItem } from "@/lib/portfolio";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
-export const dynamic = "force-dynamic";
+// Public content only, so this is statically generated and refreshed on a
+// timer instead of server-rendered per request. See lib/supabase/public.ts
+// for why the cookie-bound client cannot be used here.
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/portfolio" },
@@ -21,7 +24,7 @@ export const metadata: Metadata = {
 const dbAccents = ["#2857ff", "#0fbf8f", "#f59e0b", "#a855f7", "#e11d48", "#ff6b35"];
 
 export default async function PortfolioPage() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data: dbItems } = await supabase
     .from("portfolio_items")
     .select("*")
