@@ -130,8 +130,11 @@ export const SCENES = [
  * a visible "concept build" caption of its own.
  */
 export const HIDE_CHROME_CSS = `
-  .sticky.top-0.z-50 { display: none !important; }
-  .border-t.border-slate-200.bg-slate-50 { display: none !important; }
+  /* Targeted by intent, not by class. The first version matched utility
+     classes on DemoChrome and silently stopped working the moment that
+     component was restyled — which would have put Skilloura's own banner
+     back into the product footage with no error anywhere. */
+  [data-demo-chrome] { display: none !important; }
   * { scrollbar-width: none !important; }
   *::-webkit-scrollbar { display: none !important; }
   /* Stop caret blink and focus rings appearing mid-take. */

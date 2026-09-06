@@ -1,9 +1,23 @@
 import Link from "next/link";
 import Icon from "../Icons";
 
-// Wraps every live concept demo with an honest "Concept Project" banner and a
-// persistent "Build Similar Project" call-to-action. The demo content itself
-// renders with its own look (as a client site would) inside `children`.
+/**
+ * Wraps every live concept demo.
+ *
+ * Only the chrome belongs to Skilloura — the banner at the top and the closing
+ * strip at the bottom. Everything in `children` deliberately keeps its own
+ * look, because each demo is meant to read as a different client's site; that
+ * is the whole point of showing them. components/demos/** is exempt from the
+ * design-token lint rule for exactly this reason.
+ *
+ * The chrome itself used to be slate-900 and slate-50 with its own type sizes,
+ * so it read as a third design sitting between the site and the demo. It now
+ * uses the deep ink surface and the type scale, which makes the boundary
+ * between "our frame" and "their site" legible rather than accidental.
+ *
+ * The honesty banner is unchanged in substance: every visitor is told, before
+ * anything else, that this is a concept build and not a live business.
+ */
 export default function DemoChrome({
   title,
   serviceSlug,
@@ -14,71 +28,72 @@ export default function DemoChrome({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Honest concept banner */}
-      <div className="sticky top-0 z-50 border-b border-white/15 bg-slate-900 text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-2.5">
-          <p className="flex items-center gap-2 text-xs font-medium sm:text-sm">
-            <span className="grid size-5 place-items-center rounded-full bg-amber-400 text-slate-900">
-              <Icon name="spark" className="size-3" />
-            </span>
+    <div className="min-h-screen bg-surface">
+      {/* Honest concept banner. */}
+      <div
+        data-demo-chrome="banner"
+        className="sticky top-0 z-50 border-b border-line-on-ink bg-surface-ink text-on-ink"
+      >
+        <div className="mx-auto flex max-w-page flex-wrap items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+          <p className="flex items-center gap-2.5 text-body-sm">
+            <span aria-hidden className="block size-1.5 shrink-0 rounded-pill bg-signal" />
             <span>
-              <span className="font-bold">Concept Project</span> — a sample built by Skilloura. A
-              demonstration of quality, not a live business.
+              <span className="font-semibold">Concept build</span> — made by Skilloura to show
+              quality. Not a live business.
             </span>
           </p>
           <div className="flex items-center gap-2">
             <Link
               href="/portfolio"
-              className="rounded-full border border-white/25 px-3 py-1.5 text-xs font-semibold text-white/90 transition-colors hover:bg-white/10"
+              className="rounded-pill border border-line-on-ink px-3.5 py-1.5 text-body-sm font-medium text-on-ink-soft transition-colors hover:text-on-ink"
             >
-              ← All work
+              All work
             </Link>
             <Link
               href={`/start-project?service=${serviceSlug}`}
-              className="rounded-full bg-white px-3 py-1.5 text-xs font-bold text-slate-900 transition-transform hover:scale-105"
+              className="rounded-pill bg-signal px-3.5 py-1.5 text-body-sm font-semibold text-surface-ink"
             >
-              Build Similar Project
+              Build something like this
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Demo content */}
+      {/* The demo itself, in its own visual world. */}
       <div>{children}</div>
 
-      {/* Closing CTA — back to the real Skilloura flow */}
-      <div className="border-t border-slate-200 bg-slate-50">
-        <div className="mx-auto max-w-3xl px-4 py-14 text-center">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Concept by Skilloura
-          </p>
-          <h2 className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-            Want a site like this — {title.split("—")[0].trim()} style — for your business?
+      {/* Back into the real flow. */}
+      <div data-demo-chrome="footer" className="border-t border-line bg-canvas">
+        <div className="mx-auto max-w-content px-4 py-14 sm:px-6">
+          <p className="text-micro font-mono uppercase text-ink-muted">Concept by Skilloura</p>
+          <h2 className="mt-3 max-w-2xl text-display-3 text-ink">
+            Want one built around{" "}
+            <span className="font-accent italic text-brand">your</span> business?
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-slate-600">
-            This is a concept build. We&apos;ll design yours around your real content, brand and
-            budget — with a written scope and quote before any payment.
+          <p className="mt-3 max-w-xl text-body-lg text-ink-soft">
+            This is a concept build. Yours would be designed around your real content, brand
+            and budget — with a written scope and a fixed quote before any payment.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-7 flex flex-wrap gap-3">
             <Link
               href={`/start-project?service=${serviceSlug}`}
-              className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-slate-700"
+              className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep"
             >
-              Build Similar Project <Icon name="arrow" className="size-4" />
+              Get a written scope
+              <Icon name="arrow" className="size-4" />
             </Link>
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-900"
+              className="inline-flex items-center gap-2 rounded-pill border border-line-strong bg-surface px-5 py-3.5 text-body-base font-semibold text-ink shadow-e1 transition-colors hover:border-brand hover:text-brand"
             >
-              See other concepts
+              See other builds
             </Link>
           </div>
+          <p className="mt-6 text-body-sm text-ink-soft">
+            Viewing the {title.split("—")[0].trim()} concept.
+          </p>
         </div>
       </div>
     </div>
   );
 }
-
-// Small shared device-frame helper used at the top of some demos to make the
-// "desktop + mobile responsive" story visible.
