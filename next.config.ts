@@ -13,7 +13,16 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      {
+        // Hero footage filenames carry a content hash (see
+        // tools/video/encode.mjs), so they can be cached forever. A re-shoot
+        // changes the hash and therefore the URL.
+        source: "/hero/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
   },
 };
 

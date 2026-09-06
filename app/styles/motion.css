@@ -75,6 +75,14 @@
   animation-play-state: paused;
 }
 
+/* Hero stage progress tick. Pure CSS so the carousel's progress costs zero
+   React renders — the old build drove this with a 50ms setInterval calling
+   setState twenty times a second. */
+@keyframes stage-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 /* Signal pulse — the "live" indicator. The single most-used place the
    signal green is allowed on a light surface, and only ever as a dot. */
 @keyframes signal-pulse {
