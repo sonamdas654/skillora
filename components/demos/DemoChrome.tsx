@@ -82,10 +82,3 @@ export default function DemoChrome({
 
 // Small shared device-frame helper used at the top of some demos to make the
 // "desktop + mobile responsive" story visible.
-export function ResponsiveNote() {
-  return (
-    <div className="inline-flex items-center gap-2 rounded-full bg-black/5 px-3 py-1 text-xs font-medium text-slate-600">
-      <Icon name="smartphone" className="size-3.5" /> Fully responsive — desktop &amp; mobile
-    </div>
-  );
-}

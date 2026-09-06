@@ -9,7 +9,7 @@ import { Section, SectionHeading } from "@/components/Section";
 import { PackageCard } from "@/components/Cards";
 import { serviceCategories, getService } from "@/lib/services";
 import { whatsappLink } from "@/lib/site";
-import { WhatsAppIcon } from "@/components/Header";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import JsonLd from "@/components/JsonLd";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
 

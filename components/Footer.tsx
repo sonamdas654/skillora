@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import { WhatsAppIcon } from "./Header";
+import WhatsAppIcon from "./icons/WhatsAppIcon";
 import { site, whatsappLink } from "@/lib/site";
 import { serviceCategories } from "@/lib/services";
 

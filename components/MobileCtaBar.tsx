@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { whatsappLink } from "@/lib/site";
 import { getService } from "@/lib/services";
-import { WhatsAppIcon } from "./Header";
+import WhatsAppIcon from "./icons/WhatsAppIcon";
 
 // Floating conversion CTAs pinned to the right edge on phones/tablets
 // (mirrors the desktop WhatsApp float). Slides in after the visitor scrolls

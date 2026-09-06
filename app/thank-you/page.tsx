@@ -4,7 +4,7 @@ import PageShell from "@/components/PageShell";
 import Icon from "@/components/Icons";
 import { Section } from "@/components/Section";
 import { whatsappLink } from "@/lib/site";
-import { WhatsAppIcon } from "@/components/Header";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 export const metadata: Metadata = {
   title: "Thank You — Request Received",

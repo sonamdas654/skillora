@@ -6,7 +6,7 @@ import Icon from "@/components/Icons";
 import ContactForm from "@/components/ContactForm";
 import { Section } from "@/components/Section";
 import { site, whatsappLink } from "@/lib/site";
-import { WhatsAppIcon } from "@/components/Header";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },

@@ -13,7 +13,7 @@ import { ServiceCard, PackageCard } from "@/components/Cards";
 import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
 import { whatsappLink } from "@/lib/site";
-import { WhatsAppIcon } from "@/components/Header";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { createClient } from "@/lib/supabase/server";
 import EstimateTeaser from "@/components/EstimateTeaser";
 

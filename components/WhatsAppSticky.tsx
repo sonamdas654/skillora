@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { whatsappLink } from "@/lib/site";
-import { WhatsAppIcon } from "./Header";
+import WhatsAppIcon from "./icons/WhatsAppIcon";
 
 export default function WhatsAppSticky() {
   const [showTop, setShowTop] = useState(false);

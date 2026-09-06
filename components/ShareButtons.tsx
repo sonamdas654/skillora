@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { WhatsAppIcon } from "./Header";
+import WhatsAppIcon from "./icons/WhatsAppIcon";
 
 // Lightweight share row for blog posts — no tracking scripts, just intent URLs.
 export default function ShareButtons({ url, title }: { url: string; title: string }) {
