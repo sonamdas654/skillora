@@ -38,70 +38,49 @@ an optimisation job, not a setup job", on the strength of `googleReviewUrl`
 being present in `lib/site.ts`. That was inference from code again. Here is what
 looking actually found.
 
-**First, the account problem — this is the real blocker.**
+**Who owns what — established 2026-09-07 by checking each account.**
 
-Checked on 2026-09-07 across the two Google accounts signed in on this machine:
+| Account | Business Profile | Search Console | Analytics |
+|---|---|---|---|
+| **`sonamdasdj@gmail.com`** | **Skilloura** — claimed, verified, "You manage this profile" | — | none at all |
+| `sonamdasdj00@gmail.com` | none | none | one, `shopwithdas.store` |
+| `erfgfffehfif37ajaabj@gmail.com` | **sdquick** — unverified, not publicly visible | none | *Nigam Hotel Web* |
 
-| | `sonamdasdj00@gmail.com` | `erfgfffehfif37ajaabj@gmail.com` |
-|---|---|---|
-| Business Profile | **none** — Google offers "Create your profile" | one, called **sdquick** |
-| Search Console | **no properties** | no properties |
-| Analytics | one account, `shopwithdas.store` | one property, *Nigam Hotel Web* |
+**Correction to an earlier version of this document.** It said the Skilloura
+listing was "probably unclaimed" because Maps was offering "Suggest an edit".
+That was wrong, and the reason is worth remembering: Maps shows the public view
+when you are signed in as an account that does not manage the listing. Checked
+from `sonamdasdj@gmail.com`, Google says plainly *"You manage this profile"*.
+It also corrects the map-pin note — the registered address is
+**8RRX+HJJ Rokat, Bhubaneswar, Odisha 751031**, and the coordinates read
+earlier were the map viewport, not the place.
 
-So **neither account manages anything belonging to Skilloura.** The live site
-reports analytics into `G-MG1D7H2P6R`, which is in neither of them, and the
-Skilloura Maps listing is not managed from either.
-
-Before any of the advice below can be acted on, somebody has to establish which
-Google account — if any — owns these. The candidates are the other accounts on
-this machine (`sonamdas65db@gmail.com` is the one the Vercel project is under,
-which makes it the most likely). If no account owns the Maps listing, it is
-unclaimed and should be claimed today.
-
-**There are two profiles, and only one of them is Skilloura.**
-
-**1. The Skilloura listing — real, public, and neglected.**
-
-The review link in `lib/site.ts` does resolve, and it resolves to the right
-business. On Google Maps it shows:
+**What is still genuinely wrong with the listing**, as it appears publicly:
 
 | Field | What Google shows | Should be |
 |---|---|---|
-| Name | Skilloura | correct |
-| Website | skilloura.com | correct |
-| Category | **Marketing agency** | Website Designer — see below |
-| Phone | **missing** — Maps offers "Add place's phone number" | +91 63701 33101 |
-| Photos | **none** — Maps offers "Add a photo" | see the photo plan below |
+| Category | **Marketing agency** | Website Designer, with Marketing agency secondary |
+| Phone | **missing** | +91 63701 33101 |
+| Photos | **none** | see the photo plan below |
 | Hours | **"Closed · Opens 7 am Tue"** | Mon–Sat 10:00–19:00 per `lib/site.ts` |
-| Reviews | none shown | — |
-| Map pin | 21.068 N, 82.753 E | that is roughly 300 km from Bhubaneswar |
+| Reviews | none | — |
 
-Maps is offering "Suggest an edit" and "Add missing information", which is the
-**public** view of a listing rather than an owner's view. Combined with the
-signed-in Google account not managing it, that suggests the listing is either
-unclaimed or claimed under a different Google account. Worth establishing
-which, urgently — an unclaimed listing can be claimed by someone else, and
-until it is claimed nobody can reply to a review or post an update.
+The hours are the item to fix first: the profile currently tells every person
+who looks it up that the business is closed.
 
-The wrong hours are the most immediately damaging item: the profile currently
-tells anyone who looks that the business is closed.
+**Separately: the two things nobody owns.**
 
-**2. "sdquick" — a different, unverified profile in the signed-in account.**
-
-The Google account currently signed in manages a profile called **sdquick**,
-categorised *Educational consultant*, pointing at `http://sdquick.com/` (which
-does not respond), at an address in Bhubaneswar, with the phone number
-**063701 33101** — which is Skilloura's number.
-
-Google reports it as **"Your business is not visible to customers — get
-verified"**. So it is doing nothing for anybody, while holding the phone number
-that should identify Skilloura. If Google associates that number with an
-educational consultant at a dead domain, that is a weak signal working against
-the real listing.
-
-Decide what this is: a genuine separate venture that needs its own details, or
-a leftover that should be removed. It should not sit half-configured with
-Skilloura's phone number on it.
+- **Search Console** — no property in any of the three accounts, even though the
+  verification meta tag is live on the site. The site is verifiable in minutes;
+  nobody is reading its search data.
+- **Google Analytics** — the live site reports into `G-MG1D7H2P6R`, and that
+  property is in none of the three. The owner states they have never opened
+  Analytics. Somebody put that ID into Vercel on 14 July; whoever did owns the
+  property, and Skilloura's visitor data has been going there ever since.
+  Worth resolving deliberately: either recover access, or create a property in
+  an account the business controls and repoint `NEXT_PUBLIC_GA_ID`. Repointing
+  starts the history over, which is a real cost but a smaller one than data
+  going somewhere unaccounted for.
 
 ### Fix these first, in this order
 

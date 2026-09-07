@@ -44,10 +44,17 @@ machine were checked on 2026-09-07:
   Console property, one unverified Business Profile called *sdquick*
 
 Neither holds `G-MG1D7H2P6R`, and neither holds a Search Console property.
-`sonamdas65db@gmail.com` is the account the Vercel project sits under and is the
-most likely candidate; it was not checked. Until this is settled, nobody can
-read the analytics the site has been sending for months, or the search data it
-is already verified for.
+- `sonamdasdj@gmail.com` — owns the **Skilloura Business Profile**, but has no
+  Analytics account at all (Google offers the "start measuring" setup screen)
+
+The owner confirms he has never opened Google Analytics. So `G-MG1D7H2P6R` was
+created by somebody else and entered into Vercel on 14 July, and the site's
+visitor data has been going to a property the business does not control.
+
+That is the thing to settle, and it is a decision rather than a task: recover
+access to that property, or create one in an account the business owns and
+repoint `NEXT_PUBLIC_GA_ID`. Repointing loses the history to date — a real cost,
+but smaller than leaving the data somewhere unaccounted for.
 
 **So the remaining work here is smaller than it looked:**
 
