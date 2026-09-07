@@ -29,7 +29,7 @@ export default function RoiCalculator() {
   const label = "block text-sm font-semibold text-ink";
 
   return (
-    <div className="rounded-3xl border border-line bg-white p-6 sm:p-8 shadow-[0_24px_55px_-30px_rgba(15,23,42,0.28)]">
+    <div className="rounded-panel border border-line bg-surface p-6 sm:p-8 shadow-[0_24px_55px_-30px_rgba(15,23,42,0.28)]">
       <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
         {/* Inputs */}
         <div className="space-y-4">
@@ -53,7 +53,7 @@ export default function RoiCalculator() {
           </div>
           <div>
             <label className={label} htmlFor="roi-auto">
-              How much of it a system can take over: <span className="text-accent">{automatable}%</span>
+              How much of it a system can take over: <span className="text-brand">{automatable}%</span>
             </label>
             <input id="roi-auto" type="range" min={10} max={90} step={5} value={automatable} onChange={(e) => setAutomatable(+e.target.value)} className="mt-2 w-full accent-[var(--accent)]" />
           </div>
@@ -66,30 +66,30 @@ export default function RoiCalculator() {
         </div>
 
         {/* Results */}
-        <div className="flex flex-col justify-center rounded-2xl bg-background p-6">
+        <div className="flex flex-col justify-center rounded-card bg-canvas p-6">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Time saved / month</p>
-              <p className="mt-1 text-2xl font-extrabold text-ink">{Math.round(monthlyHoursSaved)} hrs</p>
+              <p className="text-body-sm font-semibold uppercase tracking-wide text-ink-soft">Time saved / month</p>
+              <p className="mt-1 text-title-1 font-extrabold text-ink">{Math.round(monthlyHoursSaved)} hrs</p>
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Value saved / month</p>
-              <p className="mt-1 text-2xl font-extrabold text-ink">{inr(monthlySaving)}</p>
+              <p className="text-body-sm font-semibold uppercase tracking-wide text-ink-soft">Value saved / month</p>
+              <p className="mt-1 text-title-1 font-extrabold text-ink">{inr(monthlySaving)}</p>
             </div>
           </div>
-          <div className="mt-5 rounded-xl bg-accent-soft p-4 text-center">
-            <p className="text-xs font-semibold uppercase tracking-wide text-accent">Estimated payback</p>
-            <p className="mt-1 text-3xl font-black text-ink">
+          <div className="mt-5 rounded-field bg-brand-soft p-4 text-center">
+            <p className="text-body-sm font-semibold uppercase tracking-wide text-brand">Estimated payback</p>
+            <p className="mt-1 text-display-3 font-black text-ink">
               {Number.isFinite(paybackMonths) ? `${paybackMonths < 1 ? "< 1" : Math.ceil(paybackMonths)} month${Math.ceil(paybackMonths) === 1 ? "" : "s"}` : "—"}
             </p>
           </div>
-          <p className="mt-4 text-[11px] leading-4 text-ink-soft">
+          <p className="mt-4 text-micro leading-4 text-ink-soft">
             This is a rough estimate to help you think it through — not a guarantee. Your real numbers
             depend on the exact workflow, which we confirm in writing before any payment.
           </p>
           <Link
             href="/start-project?service=ai-automation"
-            className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-white hover:bg-accent-deep transition-colors"
+            className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-brand px-5 py-2.5 text-body-sm font-bold text-white hover:bg-brand-deep transition-colors"
           >
             Get a real quote <Icon name="arrow" className="size-4" />
           </Link>

@@ -32,29 +32,29 @@ export default async function ReviewPage({
         <div className="absolute inset-0 bg-hero-glow" aria-hidden />
         <div className="relative mx-auto max-w-2xl px-4 sm:px-6 pt-32 sm:pt-40 pb-24">
           {!invite ? (
-            <div className="rounded-3xl border border-line bg-white p-8 sm:p-10 text-center shadow-[0_24px_60px_-30px_rgba(11,19,48,0.25)]">
-              <h1 className="text-2xl font-bold text-ink">This review link is invalid or expired</h1>
-              <p className="mt-3 text-sm leading-6 text-ink-soft">
+            <div className="rounded-panel border border-line bg-surface p-8 sm:p-10 text-center shadow-e3">
+              <h1 className="text-title-1 font-bold text-ink">This review link is invalid or expired</h1>
+              <p className="mt-3 text-body-sm leading-6 text-ink-soft">
                 Review links are personal and valid for 30 days. Please ask for a fresh link,
                 or just send your feedback on WhatsApp — it means a lot either way.
               </p>
               <Link
                 href="/"
-                className="mt-6 inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep"
+                className="mt-6 inline-flex items-center rounded-full bg-brand px-6 py-3 text-body-sm font-semibold text-white hover:bg-brand-deep"
               >
                 Go to homepage
               </Link>
             </div>
           ) : alreadyUsed ? (
-            <div className="rounded-3xl border border-line bg-white p-8 sm:p-10 text-center shadow-[0_24px_60px_-30px_rgba(11,19,48,0.25)]">
-              <h1 className="text-2xl font-bold text-ink">Thank you, {invite.clientName}!</h1>
-              <p className="mt-3 text-sm leading-6 text-ink-soft">
+            <div className="rounded-panel border border-line bg-surface p-8 sm:p-10 text-center shadow-e3">
+              <h1 className="text-title-1 font-bold text-ink">Thank you, {invite.clientName}!</h1>
+              <p className="mt-3 text-body-sm leading-6 text-ink-soft">
                 Your review was already received with this link. It will appear on the site
                 once approved.
               </p>
               <Link
                 href="/"
-                className="mt-6 inline-flex items-center rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent-deep"
+                className="mt-6 inline-flex items-center rounded-full bg-brand px-6 py-3 text-body-sm font-semibold text-white hover:bg-brand-deep"
               >
                 Go to homepage
               </Link>
@@ -62,14 +62,14 @@ export default async function ReviewPage({
           ) : (
             <>
               <div className="text-center">
-                <p className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent-soft px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+                <p className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3.5 py-1 text-body-sm font-semibold uppercase tracking-wider text-brand">
                   Client Review
                 </p>
-                <h1 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-ink">
+                <h1 className="mt-4 text-display-3 sm:text-display-2 font-bold tracking-tight text-ink">
                   How was your experience,{" "}
-                  <span className="font-accent font-normal text-accent">{invite.clientName}?</span>
+                  <span className="font-accent font-normal text-brand">{invite.clientName}?</span>
                 </h1>
-                <p className="mt-3 text-sm sm:text-base leading-6 text-ink-soft">
+                <p className="mt-3 text-body-sm sm:text-body-base leading-6 text-ink-soft">
                   Your honest words take 2 minutes and help other businesses trust the work.
                 </p>
               </div>

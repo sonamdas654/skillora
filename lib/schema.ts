@@ -178,3 +178,69 @@ export function solutionServiceSchema(sol: {
     provider: { "@id": `${BASE}/#organization` },
   };
 }
+
+/**
+ * ProfilePage + Person for the About page.
+ *
+ * /about carried no page-level structured data at all, even though it states
+ * real, checkable credentials — an M.Tech from BITS Pilani, a decade of
+ * hands-on work, five years of enterprise IT. Organization schema nests a
+ * founder node, but nothing told search engines that /about is *the* page
+ * about that person. This does, and it repeats only facts the page shows.
+ */
+export function founderProfileSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${BASE}/about#profile`,
+    url: `${BASE}/about`,
+    mainEntity: {
+      "@type": "Person",
+      "@id": `${BASE}/#founder`,
+      name: "Sonam Das",
+      jobTitle: "Founder",
+      image: `${BASE}/founder.png`,
+      url: `${BASE}/about`,
+      email: site.email,
+      alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
+      worksFor: { "@id": `${BASE}/#organization` },
+      knowsAbout: [
+        "Web development",
+        "Mobile app development",
+        "AI automation",
+        "Business dashboards",
+        "Custom software",
+      ],
+    },
+  };
+}
+
+/**
+ * ContactPage for /contact.
+ *
+ * The page has always displayed business hours, a service area, an email and
+ * a WhatsApp number, and none of it was machine-readable. The contactPoint
+ * here repeats only what the page shows.
+ */
+export function contactPageSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": `${BASE}/contact#contactpage`,
+    url: `${BASE}/contact`,
+    about: { "@id": `${BASE}/#organization` },
+    mainEntity: {
+      "@id": `${BASE}/#organization`,
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          email: site.email,
+          telephone: `+${site.whatsappNumber}`,
+          availableLanguage: ["English", "Hindi"],
+          areaServed: "IN",
+        },
+      ],
+    },
+  };
+}

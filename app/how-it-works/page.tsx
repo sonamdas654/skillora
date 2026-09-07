@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/how-it-works" },
   title: "How It Works — Clear 8-Step Project Process",
   description:
-    "From requirement submission to final delivery: how projects work at Skilloura. Smart forms, written quotations, preview before delivery and professional handover.",
+   "From requirement submission to final delivery: how projects work at Skilloura. Smart forms, written quotations, preview before delivery and professional handover.",
 };
 
 const detailedSteps = [
@@ -77,7 +77,7 @@ export default function HowItWorksPage() {
         title={
           <>
             A process built for{" "}
-            <span className="font-accent font-normal text-accent">clarity</span>
+            <span className="font-accent font-normal text-brand">clarity</span>
           </>
         }
         subtitle="Most freelance projects fail because of unclear requirements and verbal promises. This process fixes both — from the first click to final delivery."
@@ -91,17 +91,17 @@ export default function HowItWorksPage() {
                 {i < detailedSteps.length - 1 && (
                   <span className="absolute left-[22px] top-12 bottom-0 w-px bg-line" aria-hidden />
                 )}
-                <span className="relative z-10 grid size-11 shrink-0 place-items-center rounded-full bg-accent text-sm font-bold text-white shadow-[0_8px_20px_-8px_rgba(40,87,255,0.7)]">
+                <span className="relative z-10 grid size-11 shrink-0 place-items-center rounded-full bg-brand text-body-sm font-bold text-white shadow-brand">
                   {i + 1}
                 </span>
-                <div className="rounded-2xl border border-line bg-white p-6 flex-1">
+                <div className="rounded-card border border-line bg-surface p-6 flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h2 className="text-lg font-bold text-ink">{step.title}</h2>
-                    <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent">
+                    <h2 className="text-title-2 font-bold text-ink">{step.title}</h2>
+                    <span className="rounded-full bg-brand-soft px-3 py-1 text-body-sm font-semibold text-brand">
                       {step.forYou}
                     </span>
                   </div>
-                  <p className="mt-2 text-sm leading-6 text-ink-soft">{step.desc}</p>
+                  <p className="mt-2 text-body-sm leading-6 text-ink-soft">{step.desc}</p>
                 </div>
               </div>
             </Reveal>
@@ -117,7 +117,7 @@ export default function HowItWorksPage() {
             title={
               <>
                 What you receive{" "}
-                <span className="font-accent font-normal text-accent">before payment</span>
+                <span className="font-accent font-normal text-brand">before payment</span>
               </>
             }
             subtitle="You approve a written quotation first. It spells out exactly what you get, what you pay and what's excluded — so there are no surprises. Here's a real sample."
@@ -130,17 +130,17 @@ export default function HowItWorksPage() {
           <Reveal delay={0.1}>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               {[
-                "Requirement summary",
-                "Scope (included)",
-                "Timeline",
-                "Final quote",
-                "Revision count",
-                "Payment terms",
-                "Exclusions",
+               "Requirement summary",
+               "Scope (included)",
+               "Timeline",
+               "Final quote",
+               "Revision count",
+               "Payment terms",
+               "Exclusions",
               ].map((t) => (
-                <div key={t} className="flex items-center gap-2 rounded-xl border border-line bg-white px-3.5 py-2.5">
-                  <Icon name="check" className="size-4 shrink-0 text-mint" />
-                  <span className="text-xs font-semibold text-ink">{t}</span>
+                <div key={t} className="flex items-center gap-2 rounded-field border border-line bg-surface px-3.5 py-2.5">
+                  <Icon name="check" className="size-4 shrink-0 text-success" />
+                  <span className="text-body-sm font-semibold text-ink">{t}</span>
                 </div>
               ))}
             </div>
@@ -156,7 +156,7 @@ export default function HowItWorksPage() {
             title={
               <>
                 Sample documents you&apos;ll{" "}
-                <span className="font-accent font-normal text-accent">actually get</span>
+                <span className="font-accent font-normal text-brand">actually get</span>
               </>
             }
             subtitle="Illustrative samples of the timeline, checklists and invoice format used on every project — so you know exactly how things run."
@@ -177,7 +177,7 @@ export default function HowItWorksPage() {
             title={
               <>
                 What protects{" "}
-                <span className="font-accent font-normal text-accent">your money</span>
+                <span className="font-accent font-normal text-brand">your money</span>
               </>
             }
           />
@@ -185,10 +185,10 @@ export default function HowItWorksPage() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {protections.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.05}>
-              <div className="card-lift h-full rounded-2xl border border-line bg-background p-6">
-                <Icon name="shield" className="size-6 text-mint" />
-                <h3 className="mt-3 text-base font-bold text-ink">{p.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-ink-soft">{p.desc}</p>
+              <div className="card-lift h-full rounded-card border border-line bg-canvas p-6">
+                <Icon name="shield" className="size-6 text-success" />
+                <h3 className="mt-3 text-body-base font-bold text-ink">{p.title}</h3>
+                <p className="mt-2 text-body-sm leading-6 text-ink-soft">{p.desc}</p>
               </div>
             </Reveal>
           ))}
@@ -197,8 +197,8 @@ export default function HowItWorksPage() {
 
       <Section>
         <Reveal>
-          <div className="rounded-3xl bg-gradient-to-br from-accent to-accent-deep p-8 sm:p-14 text-center text-white">
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+          <div className="rounded-panel bg-gradient-to-br from-accent to-accent-deep p-8 sm:p-14 text-center text-white">
+            <h2 className="text-display-3 sm:text-display-2 font-extrabold tracking-tight">
               Experience the process{" "}
               <span className="font-accent font-normal">yourself</span>
             </h2>
@@ -208,7 +208,7 @@ export default function HowItWorksPage() {
             </p>
             <Link
               href="/start-project"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-base font-bold text-accent hover:scale-[1.03] transition-transform"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 text-body-base font-bold text-brand hover:scale-105 transition-transform"
             >
               Submit Project Requirement <Icon name="arrow" className="size-5" />
             </Link>

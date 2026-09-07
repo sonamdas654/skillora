@@ -125,6 +125,12 @@
   --text-micro--line-height: 1.45;
   --text-micro--letter-spacing: 0.13em;
 
+  /* Document scale. Only for the miniature quotations, invoices and
+     checklists in components/SampleDocs.tsx, which are deliberately rendered
+     at document size rather than UI size. */
+  --text-nano: 0.625rem;
+  --text-nano--line-height: 1.4;
+
   /* ── Containers. Replaces max-w-[1520px] in six files. ──── */
   --container-prose: 68ch;
   --container-content: 1140px;

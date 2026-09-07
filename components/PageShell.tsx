@@ -9,7 +9,7 @@ export default function PageShell({ children }: { children: ReactNode }) {
   return (
     <>
       <Header />
-      <main id="main-content" className="pt-20 sm:pt-[88px]">
+      <main id="main-content" className="pt-20 sm:pt-22">
         {children}
       </main>
       <Footer />

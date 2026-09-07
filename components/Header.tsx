@@ -140,7 +140,7 @@ export default function Header() {
         Skip to content
       </a>
 
-      <div className="mx-auto flex h-20 max-w-page items-center justify-between gap-6 px-4 sm:h-[88px] sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-page items-center justify-between gap-6 px-4 sm:h-22 sm:px-6 lg:px-8">
         <Logo />
 
         <nav className="hidden items-center lg:flex" aria-label="Main">
@@ -213,7 +213,7 @@ export default function Header() {
       {open && (
         <div
           ref={drawerRef}
-          className="fixed inset-x-0 bottom-0 top-20 flex flex-col overflow-y-auto border-t border-line bg-canvas sm:top-[88px] lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-20 flex flex-col overflow-y-auto border-t border-line bg-canvas sm:top-22 lg:hidden"
         >
           <nav className="flex-1 px-4 py-6" aria-label="Mobile">
             {NAV_GROUPS.map((group) => (

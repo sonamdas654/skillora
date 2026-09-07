@@ -7,7 +7,7 @@ export default function FaqAccordion({ faqs }: { faqs: Faq[] }) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <div className="divide-y divide-line rounded-2xl border border-line bg-white">
+    <div className="divide-y divide-line rounded-card border border-line bg-surface">
       {faqs.map((faq, i) => {
         const open = openIdx === i;
         return (
@@ -17,7 +17,7 @@ export default function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               onClick={() => setOpenIdx(open ? null : i)}
               aria-expanded={open}
             >
-              <span className="text-base font-semibold text-ink">{faq.q}</span>
+              <span className="text-body-base font-semibold text-ink">{faq.q}</span>
               <span
                 className={`grid size-7 shrink-0 place-items-center rounded-full border border-line text-ink-soft transition-transform duration-300 ${
                   open ? "rotate-45 border-accent text-accent" : ""
@@ -34,7 +34,7 @@ export default function FaqAccordion({ faqs }: { faqs: Faq[] }) {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="px-5 sm:px-6 pb-5 text-sm leading-6 text-ink-soft">{faq.a}</p>
+                <p className="px-5 sm:px-6 pb-5 text-body-sm leading-6 text-ink-soft">{faq.a}</p>
               </div>
             </div>
           </div>

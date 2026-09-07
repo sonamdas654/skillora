@@ -13,7 +13,7 @@ export function Section({
 }) {
   return (
     <section id={id} className={`${padding} ${className}`}>
-      <div className="mx-auto max-w-[1520px] px-5 sm:px-8 lg:px-12">{children}</div>
+      <div className="mx-auto max-w-page px-5 sm:px-8 lg:px-12">{children}</div>
     </section>
   );
 }
@@ -32,15 +32,15 @@ export function SectionHeading({
   return (
     <div className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
       {eyebrow && (
-        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent-soft px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3.5 py-1 text-body-sm font-semibold uppercase tracking-wider text-brand">
           {eyebrow}
         </p>
       )}
-      <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.12] text-ink">
+      <h2 className="text-display-3 sm:text-display-2  font-bold tracking-tight leading-tight text-ink">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-base sm:text-lg leading-7 text-ink-soft">{subtitle}</p>
+        <p className="mt-4 text-body-base sm:text-title-2 leading-7 text-ink-soft">{subtitle}</p>
       )}
     </div>
   );
