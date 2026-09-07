@@ -1,3 +1,5 @@
+-- APPLIED to production on 2026-09-07. The delete/insert pair is idempotent;
+-- re-running replaces the seed and never touches a client-submitted review.
 -- =====================================================================
 -- Skilloura — testimonial seed.
 --

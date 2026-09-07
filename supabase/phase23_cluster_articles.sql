@@ -1,3 +1,4 @@
+-- APPLIED to production on 2026-09-07. The leading delete makes it idempotent.
 -- =====================================================================
 -- Skilloura — cluster articles for the focused service pages.
 --

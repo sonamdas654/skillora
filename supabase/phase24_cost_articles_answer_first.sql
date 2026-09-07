@@ -1,3 +1,5 @@
+-- APPLIED to production on 2026-09-07. NOT idempotent — see the note at the
+-- bottom of this file. Do not run it a second time.
 -- =====================================================================
 -- Skilloura — make the cost articles answer their own question first.
 --

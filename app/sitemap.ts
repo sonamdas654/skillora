@@ -8,6 +8,22 @@ import { policies } from "@/lib/policies";
 import { portfolioItems } from "@/lib/portfolio";
 import { caseStudies } from "@/lib/caseStudies";
 
+/**
+ * Refresh on the same cadence as the content it lists.
+ *
+ * Without this the sitemap is fully static: generated once at build time, with
+ * its Supabase read served from .next/cache/fetch-cache on every later build.
+ * Four articles were published and the sitemap kept listing 22 blog URLs while
+ * /blog itself showed 26 — the same class of defect as the original bug here
+ * (sitemap and pages disagreeing), just arriving through the cache instead of
+ * through a different data source.
+ *
+ * 600 matches app/blog/page.tsx and app/blog/[slug]/page.tsx, so a published
+ * post appears in the listing, on its own page and in the sitemap within the
+ * same window.
+ */
+export const revalidate = 600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
   // Only canonical, directly-servable URLs belong here — /start-project is a
