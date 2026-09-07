@@ -77,11 +77,14 @@ const impactStats = [
 
 // Trimmed to 4 to cut mobile length and avoid repeating the "who's behind
 // Skilloura" cards (ownership / scope / personal contact live there now).
+// Four items, four different icons. Two of these were both "shield", side by
+// side in the same row of four — which reads as a rendering bug rather than as
+// a set.
 const whyChoose = [
-  { icon: "shield", title: "No hidden charges", desc: "The quoted price is the price. Any extra is always discussed and agreed first." },
+  { icon: "file", title: "No hidden charges", desc: "The quoted price is the price. Any extra is always discussed and agreed first." },
   { icon: "shield", title: "Secure file handling", desc: "Your files stay private, linked only to your project — never public or shared." },
-  { icon: "clock", title: "Preview before final delivery", desc: "You see and approve the work before the final payment — no nasty surprises." },
-  { icon: "spark", title: "Maintenance support available", desc: "Monthly care plans from ₹1,999/month keep your project healthy after launch." },
+  { icon: "check", title: "Preview before final delivery", desc: "You see and approve the work before the final payment — no nasty surprises." },
+  { icon: "clock", title: "Maintenance support available", desc: "Monthly care plans from ₹1,999/month keep your project healthy after launch." },
 ];
 
 // The twelve capabilities, as an index rather than a toy carousel. These used
@@ -560,48 +563,71 @@ export default async function HomePage() {
                   <p className="mt-4 text-body-base text-ink-soft">
                     Hi, I&apos;m Sonam, founder of Skilloura.
                   </p>
+                  {/* Three paragraphs, and none of them is the process list.
+                      There were four, and two of them said the same thing:
+                      "scope is written before payment, quotes are clear,
+                      previews are shared before final delivery, handover is
+                      managed" and then "a real written scope and quote before
+                      you pay anything, a preview before the final payment, a
+                      clean handover". The ledger below said it a third time.
+                      Prose is for the reason; the ledger is for the terms. */}
                   <p className="mt-3 text-body-base text-ink-soft">
-                    I built Skilloura to deliver digital projects with enterprise-level clarity,
-                    founder-led accountability and professional execution. Every project here follows
-                    a defined process: requirements are reviewed properly, scope is written before
-                    payment, quotes are clear, previews are shared before final delivery, and handover
-                    is managed professionally.
+                    I started Skilloura after watching too many small businesses pay for work
+                    they could not check, could not update and did not own at the end of it.
+                    Not because anyone set out to cheat them — because nothing was ever
+                    written down.
                   </p>
                   <p className="mt-3 text-body-base text-ink-soft">
-                    Skilloura is backed by nearly a decade of hands-on experience across websites,
-                    software systems, AI automation, dashboards, cloud-based solutions and digital
-                    operations, along with 5+ years of enterprise IT experience and an M.Tech from
-                    BITS Pilani.
+                    So this runs the way enterprise projects run, at a size a local business
+                    can afford. I do the work myself and I am the person you talk to. We use
+                    AI where it genuinely speeds things up, and every build still goes through
+                    human review and testing before it is delivered.
                   </p>
                   <p className="mt-3 text-body-base text-ink-soft">
-                    Skilloura runs on a different standard: a real written scope and quote before you
-                    pay anything, a preview before the final payment, and a clean handover of code,
-                    accounts and credentials, all yours. Communication stays direct: message on
-                    WhatsApp and get a real answer, not a ticket bouncing between departments. We use
-                    AI where it genuinely speeds things up, but every build goes through human review
-                    and testing before it&apos;s delivered, accountable from the first message to
-                    launch.
+                    Behind that: nearly a decade of hands-on work across websites, software
+                    systems, AI automation, dashboards and cloud operations, five years of
+                    enterprise IT, and an M.Tech from BITS Pilani.
                   </p>
                 </div>
               </div>
             </Reveal>
 
-            <Reveal variant="fade" delay={0.1}>
-              <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {[
-                  { icon: "file", t: "You own everything", d: "Code, content and accounts handed over to you, no vendor lock-in." },
-                  { icon: "shield", t: "Human review on every build", d: "Architecture, security and testing checked by a person, not just generated." },
-                  { icon: "check", t: "Written scope before payment", d: "You approve exactly what's included before anything is charged." },
-                  { icon: "spark", t: "Direct, real contact", d: "You get a real reply on WhatsApp, not a ticket queue or an autoresponder." },
-                ].map((c) => (
-                  <div key={c.t} className="rounded-card border border-line bg-surface p-5">
-                    <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent">
-                      <Icon name={c.icon} className="size-5" />
-                    </span>
-                    <h3 className="mt-3 text-body-sm font-semibold text-ink">{c.t}</h3>
-                    <p className="mt-1 text-body-sm text-ink-soft">{c.d}</p>
-                  </div>
-                ))}
+            {/* ── The founder's commitments ─────────────────────
+                Not a fourth grid of icon cards.
+
+                This page already carried two of them making the same kind of
+                claim: the dark band above promises no hidden charges, secure
+                files, preview before delivery and maintenance; this promised
+                ownership, human review, written scope and direct contact. Two
+                sections, one page, the same trust argument in the same shape —
+                and "written scope" appeared in both.
+
+                These are one person's undertakings, so they read as a signed
+                list rather than as product features. It is also the shape this
+                brand actually owns: the whole differentiator is that you get
+                things in writing before you pay, and a document is what that
+                looks like. */}
+            <Reveal variant="unfurl" delay={0.1}>
+              <div className="mt-10">
+                <p className="text-micro font-mono uppercase text-ink-muted">
+                  What you get from me, in writing
+                </p>
+                <dl className="mt-4 border-t border-line-strong">
+                  {[
+                    { t: "You own everything", d: "Code, content and accounts handed over to you. No vendor lock-in, no hostage files." },
+                    { t: "A person reviews every build", d: "Architecture, security and testing checked by me, not only generated." },
+                    { t: "Nothing is charged before it is agreed", d: "The scope, the price and the dates are documented and approved first." },
+                    { t: "You talk to me, not a queue", d: "A real reply on WhatsApp, from the person doing the work." },
+                  ].map((c) => (
+                    <div
+                      key={c.t}
+                      className="grid gap-x-8 gap-y-1 border-b border-line py-4 sm:grid-cols-[minmax(0,15rem)_1fr]"
+                    >
+                      <dt className="text-body-base font-semibold text-ink">{c.t}</dt>
+                      <dd className="text-body-sm leading-relaxed text-ink-soft">{c.d}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             </Reveal>
           </div>
