@@ -9,13 +9,21 @@ import SpecLedger from "@/components/ui/SpecLedger";
 import { Section } from "@/components/Section";
 import { PackageCard } from "@/components/Cards";
 import { serviceCategories, getService } from "@/lib/services";
+import { focusServices, getFocusService } from "@/lib/focusServices";
 import { whatsappLink } from "@/lib/site";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import JsonLd from "@/components/JsonLd";
 import { serviceSchema, faqSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
-  return serviceCategories.map((s) => ({ slug: s.slug }));
+  // Both the nine categories and the focused pages live under /services/.
+  // See lib/focusServices.ts for why the focus pages are a separate list.
+  return [...serviceCategories, ...focusServices].map((s) => ({ slug: s.slug }));
+}
+
+/** A slug is either one of the nine categories or one of the focus pages. */
+function resolveService(slug: string) {
+  return getService(slug) ?? getFocusService(slug);
 }
 
 export async function generateMetadata({
@@ -24,7 +32,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = resolveService(slug);
   if (!service) return {};
   return {
     title: `${service.name} — Get a Custom Quote`,
@@ -62,10 +70,20 @@ export default async function ServiceDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const service = getService(slug);
+  const service = resolveService(slug);
   if (!service) notFound();
 
   const startHref = `/start-project?service=${service.slug}`;
+
+  // A focus page links up to its parent category; a category links down to
+  // the focused pages beneath it. Without this the eight focus pages would be
+  // reachable only from the sitemap.
+  const related =
+    "parentSlug" in service
+      ? [getService((service as { parentSlug: string }).parentSlug)].filter(
+          (x): x is NonNullable<typeof x> => Boolean(x)
+        )
+      : focusServices.filter((f) => f.parentSlug === service.slug);
 
   return (
     <PageShell>
@@ -269,6 +287,43 @@ export default async function ServiceDetailPage({
           ))}
         </div>
       </Section>
+
+      {/* ── Related focused pages / parent category ───────────── */}
+      {related.length > 0 && (
+        <Section className="border-b border-line">
+          <Reveal>
+            <p className="text-micro font-mono uppercase text-ink-muted">
+              {"parentSlug" in service ? "Part of" : "More specific than this"}
+            </p>
+            <h2 className="mt-3 max-w-2xl text-display-3 text-ink">
+              {"parentSlug" in service
+                ? "The wider service this sits under"
+                : "Looking for something more specific?"}
+            </h2>
+          </Reveal>
+          <div className="mt-8 border-t border-line-strong">
+            {related.map((r) => (
+              <Link
+                key={r.slug}
+                href={`/services/${r.slug}`}
+                className="group grid gap-x-8 gap-y-1 border-b border-line py-5 md:grid-cols-[minmax(0,16rem)_1fr_auto] md:items-baseline"
+              >
+                <h3 className="font-display text-title-2 text-ink transition-colors group-hover:text-brand">
+                  {r.name}
+                </h3>
+                <p className="max-w-2xl text-body-sm text-ink-soft">{r.description}</p>
+                <span className="inline-flex shrink-0 items-center gap-1.5 font-mono text-body-sm text-ink">
+                  {r.startingPrice}
+                  <Icon
+                    name="arrow"
+                    className="size-4 text-brand transition-transform group-hover:translate-x-0.5"
+                  />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Section>
+      )}
 
       {/* ── Questions. The footer owns the close. ─────────────── */}
       <Section>

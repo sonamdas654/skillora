@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { serviceCategories } from "@/lib/services";
+import { focusServices } from "@/lib/focusServices";
 import { blogPosts } from "@/lib/blog";
 import { policies } from "@/lib/policies";
 import { portfolioItems } from "@/lib/portfolio";
@@ -35,6 +36,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  // Focused service pages — same template, same importance, separate list so
+  // they do not clutter the nine-category navigation.
+  const focusServicePages = focusServices.map((s) => ({
+    url: `${base}/services/${s.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }));
+
   const blogPages = blogPosts.map((p) => ({
     url: `${base}/blog/${p.slug}`,
     changeFrequency: "monthly" as const,
@@ -56,5 +65,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     }));
 
-  return [...staticPages, ...servicePages, ...blogPages, ...policyPages, ...portfolioPages];
+  return [
+    ...staticPages,
+    ...servicePages,
+    ...focusServicePages,
+    ...blogPages,
+    ...policyPages,
+    ...portfolioPages,
+  ];
 }
