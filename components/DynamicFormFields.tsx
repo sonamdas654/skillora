@@ -16,7 +16,7 @@ export default function DynamicFormFields({
 }) {
   const inputCls =
     "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20";
-  const labelCls = "mb-1.5 block text-sm font-semibold text-ink";
+  const labelCls = "mb-1.5 block text-body-sm font-semibold text-ink";
 
   return (
     <div className="space-y-4">
@@ -26,8 +26,9 @@ export default function DynamicFormFields({
           case "textarea":
             return (
               <div key={f.key}>
-                <label className={labelCls}>{f.label}</label>
+                <label htmlFor={`field-${f.key}`} className={labelCls}>{f.label}</label>
                 <textarea
+                  id={`field-${f.key}`}
                   rows={3}
                   required={f.required}
                   placeholder={f.placeholder}
@@ -40,8 +41,9 @@ export default function DynamicFormFields({
           case "select":
             return (
               <div key={f.key}>
-                <label className={labelCls}>{f.label}</label>
+                <label htmlFor={`field-${f.key}`} className={labelCls}>{f.label}</label>
                 <select
+                  id={`field-${f.key}`}
                   required={f.required}
                   value={(val as string) || ""}
                   onChange={(e) => onChange(f.key, e.target.value)}
@@ -110,8 +112,9 @@ export default function DynamicFormFields({
           case "number":
             return (
               <div key={f.key}>
-                <label className={labelCls}>{f.label}</label>
+                <label htmlFor={`field-${f.key}`} className={labelCls}>{f.label}</label>
                 <input
+                  id={`field-${f.key}`}
                   type="number"
                   required={f.required}
                   placeholder={f.placeholder}
@@ -124,8 +127,9 @@ export default function DynamicFormFields({
           case "date":
             return (
               <div key={f.key}>
-                <label className={labelCls}>{f.label}</label>
+                <label htmlFor={`field-${f.key}`} className={labelCls}>{f.label}</label>
                 <input
+                  id={`field-${f.key}`}
                   type="date"
                   required={f.required}
                   value={(val as string) || ""}
@@ -149,8 +153,9 @@ export default function DynamicFormFields({
           default:
             return (
               <div key={f.key}>
-                <label className={labelCls}>{f.label}</label>
+                <label htmlFor={`field-${f.key}`} className={labelCls}>{f.label}</label>
                 <input
+                  id={`field-${f.key}`}
                   type="text"
                   required={f.required}
                   placeholder={f.placeholder}
