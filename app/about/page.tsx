@@ -159,7 +159,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="lg:sticky lg:top-28 lg:self-start">
               <Image
-                src="/founder.png"
+                src="/sonam-das-founder-skilloura.webp"
                 alt="Sonam Das, founder of Skilloura"
                 width={420}
                 height={525}

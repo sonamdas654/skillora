@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { track } from "@vercel/analytics";
+import { trackEvent } from "@/lib/track";
 import Icon from "./Icons";
 import { serviceCategories } from "@/lib/services";
 
@@ -37,7 +37,13 @@ export default function EstimateTeaser() {
   function interact() {
     if (!touched) {
       setTouched(true);
-      try { track("estimate_teaser_used"); } catch {}
+      // trackEvent, not @vercel/analytics track() directly.
+      //
+      // This was the only one of the five conversion events calling the Vercel
+      // SDK straight, which meant it reached Vercel Analytics and never reached
+      // Google Analytics — so a GA4 funnel showed four events and implied
+      // nobody used the estimator. trackEvent fires to both.
+      trackEvent("estimate_teaser_used");
     }
   }
 

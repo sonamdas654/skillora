@@ -541,7 +541,7 @@ export default async function HomePage() {
                 {/* Founder photo card */}
                 <div className="mx-auto w-full max-w-sm rounded-panel border border-line bg-surface p-3 shadow-e2">
                   <Image
-                    src="/founder.png"
+                    src="/sonam-das-founder-skilloura.webp"
                     alt="Sonam Das, founder of Skilloura"
                     width={360}
                     height={450}

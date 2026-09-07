@@ -17,7 +17,7 @@ export function organizationSchema() {
     name: site.name,
     url: BASE,
     logo: `${BASE}/logo-mark.png`,
-    image: `${BASE}/logo-full.png`,
+    image: `${BASE}/logo-full.webp`,
     slogan: site.tagline,
     email: site.email,
     contactPoint: {
@@ -40,7 +40,7 @@ export function organizationSchema() {
       "@id": `${BASE}/#founder`,
       name: "Sonam Das",
       jobTitle: "Founder",
-      image: `${BASE}/founder.png`,
+      image: `${BASE}/sonam-das-founder-skilloura.webp`,
       alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
       worksFor: { "@id": `${BASE}/#organization` },
     },
@@ -55,7 +55,7 @@ export function professionalServiceSchema() {
     "@id": `${BASE}/#business`,
     name: site.name,
     url: BASE,
-    image: `${BASE}/logo-full.png`,
+    image: `${BASE}/logo-full.webp`,
     description: site.positioning,
     email: site.email,
     telephone: `+${site.whatsappNumber}`,
@@ -192,6 +192,16 @@ export function solutionServiceSchema(sol: {
  * founder node, but nothing told search engines that /about is *the* page
  * about that person. This does, and it repeats only facts the page shows.
  */
+/**
+ * The founder image is named for its subject, not for its slot.
+ *
+ * It was /founder.png — a 2 MB PNG of a photograph, which is the wrong
+ * container for one: re-encoded as WebP at the same dimensions it is 104 kB,
+ * a 95% reduction with no visible difference at the size it renders. The
+ * filename is now descriptive because an image file name is one of the few
+ * signals Google Images has about what an image shows, and "founder.png"
+ * tells it nothing.
+ */
 export function founderProfileSchema() {
   return {
     "@context": "https://schema.org",
@@ -203,7 +213,7 @@ export function founderProfileSchema() {
       "@id": `${BASE}/#founder`,
       name: "Sonam Das",
       jobTitle: "Founder",
-      image: `${BASE}/founder.png`,
+      image: `${BASE}/sonam-das-founder-skilloura.webp`,
       url: `${BASE}/about`,
       email: site.email,
       alumniOf: { "@type": "CollegeOrUniversity", name: "BITS Pilani" },
