@@ -43,6 +43,112 @@
   animation-delay: var(--rise-delay, 0ms);
 }
 
+/* ── Reveal variants ─────────────────────────────────────────
+   One motion repeated on every section is on this project's own banned
+   list — "repeated fade-up as the only reveal" — and for most of the
+   build that is exactly what shipped: a single translateY on all ~83
+   call sites. These are the alternatives. Four, not twelve: a system
+   with a dozen entrances has no vocabulary, it has noise.
+
+   Each one is a single compositor-friendly property (transform,
+   opacity, clip-path), no JavaScript, and each inherits the same
+   visible-by-default contract as the base reveal — the hide state is
+   opt-in under data-motion="on" and cleared by the same failsafe.
+
+     depth   the plan's "3D feel with no WebGL". A short rotateX under
+             perspective, so the block tilts up into place instead of
+             sliding. This is deliberately where the three-dimensional
+             quality comes from: the homepage already ships 237 kB of
+             JS, above the 180 kB ceiling this project set for
+             admitting WebGL at all, so that ceiling decides it.
+     lift    a small scale with the rise. For panels and cards, which
+             read as objects rather than as text.
+     unfurl  a clip-path wipe along the writing direction. The scope
+             line drawing itself — the site's own motif, moving.
+     fade    opacity only. For anything already carrying its own
+             transform, where a second one would fight it.
+   ─────────────────────────────────────────────────────────── */
+
+@keyframes depth-in {
+  from {
+    opacity: 0;
+    transform: perspective(900px) rotateX(7deg)
+      translate3d(0, var(--distance-rise), -40px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) rotateX(0) translate3d(0, 0, 0);
+  }
+}
+[data-motion="on"] [data-reveal="depth"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: perspective(900px) rotateX(7deg)
+    translate3d(0, var(--distance-rise), -40px);
+}
+[data-reveal="depth"][data-reveal-done] {
+  animation: depth-in var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes lift-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, calc(var(--distance-rise) * 0.65), 0) scale(0.972);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+[data-motion="on"] [data-reveal="lift"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: translate3d(0, calc(var(--distance-rise) * 0.65), 0) scale(0.972);
+}
+[data-reveal="lift"][data-reveal-done] {
+  animation: lift-in var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes unfurl-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* The hide state is opacity ONLY — deliberately no clip-path here.
+   A reveal target that is clipped to zero width is a target the
+   IntersectionObserver may never report as intersecting, and that observer is
+   the thing responsible for un-hiding it: a deadlock where the hide state
+   prevents its own removal. It was caught by tools/qa/reveal-check.mjs, which
+   found one ledger on a case study still hidden after a full scroll.
+   The wipe still plays — the keyframe starts from the clipped state — but the
+   element the observer watches is never clipped. */
+[data-motion="on"] [data-reveal="unfurl"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: none;
+}
+[data-reveal="unfurl"][data-reveal-done] {
+  animation: unfurl-in var(--duration-slow) var(--ease-out-quint) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+[data-motion="on"] [data-reveal="fade"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: none;
+}
+[data-reveal="fade"][data-reveal-done] {
+  animation: fade-in var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
 /* Route transition, applied by app/template.tsx.
    Opacity only — deliberately. Any transform here, even translateY(0)
    at rest, creates a containing block for descendant position: fixed
@@ -104,9 +210,14 @@
   [data-reveal] {
     animation: none !important;
   }
-  /* Never leave a reveal mid-hide for someone who asked for no motion. */
+  /* Never leave a reveal mid-hide for someone who asked for no motion.
+     clip-path is listed explicitly: an unfurl frozen at inset(0 100% 0 0)
+     would not merely skip its animation, it would clip the content out of
+     existence. */
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
   }
 }

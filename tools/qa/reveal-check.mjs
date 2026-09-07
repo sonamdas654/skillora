@@ -9,10 +9,17 @@
 import { chromium } from "playwright";
 
 const url = process.argv[2] ?? "http://localhost:3100/how-it-works";
+// Opacity is not the only way a reveal can leave content invisible. The
+// "unfurl" variant hides with clip-path: inset(0 100% 0 0), which clips the
+// element to nothing while opacity stays 1 — an opacity-only check would call
+// that page perfectly fine.
 const countHidden = () =>
-  [...document.querySelectorAll("[data-reveal]")].filter(
-    (el) => getComputedStyle(el).opacity === "0"
-  ).length;
+  [...document.querySelectorAll("[data-reveal]")].filter((el) => {
+    const s = getComputedStyle(el);
+    if (s.opacity === "0") return true;
+    const clip = s.clipPath;
+    return !!clip && clip !== "none" && /inset\(\s*0(px)?\s+100%/.test(clip);
+  }).length;
 
 const browser = await chromium.launch();
 let failures = 0;

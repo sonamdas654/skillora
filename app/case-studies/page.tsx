@@ -85,7 +85,7 @@ export default function CaseStudiesPage() {
 
       {/* ── The disclosure, first rather than last ───────────── */}
       <Section className="border-b border-line bg-surface-sunken">
-        <Reveal>
+        <Reveal variant="fade">
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
             <div>
               <p className="text-micro font-mono uppercase text-ink-muted">Read this first</p>
@@ -175,7 +175,7 @@ export default function CaseStudiesPage() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} variant="unfurl">
             {/* One <div> between <dl> and each dt/dd group — that is all the
                 spec permits, and the note is a second <dd> rather than a <p>
                 so the whole row stays a single term/definition pairing. */}

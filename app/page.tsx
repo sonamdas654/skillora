@@ -285,7 +285,7 @@ export default async function HomePage() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} variant="depth">
             <dl className="scope-line mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
               {impactStats.map((stat) => {
                 const body = (
@@ -358,7 +358,7 @@ export default async function HomePage() {
             {serviceCategories
               .filter((s) => !SECONDARY_SERVICE_SLUGS.includes(s.slug))
               .map((s, i) => (
-                <Reveal key={s.slug} delay={Math.min(i * 0.06, 0.3)}>
+                <Reveal variant="lift" key={s.slug} delay={Math.min(i * 0.06, 0.3)}>
                   <ServiceCard service={s} />
                 </Reveal>
               ))}
@@ -424,7 +424,7 @@ export default async function HomePage() {
           <ol className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {homeSteps.map((step, i) => (
               <li key={step.title}>
-                <Reveal delay={Math.min(i * 0.05, 0.25)}>
+                <Reveal delay={Math.min(i * 0.05, 0.25)} variant="unfurl">
                   <div className="relative border-t border-line-strong pt-5">
                     <span aria-hidden className="absolute -top-px left-0 h-0.5 w-10 bg-brand" />
                     <span className="font-mono text-micro text-ink-muted">
@@ -462,7 +462,7 @@ export default async function HomePage() {
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
             {featuredPackages.map((pkg, i) => (
-              <Reveal key={pkg.name} delay={Math.min(i * 0.06, 0.3)}>
+              <Reveal variant="lift" key={pkg.name} delay={Math.min(i * 0.06, 0.3)}>
                 <PackageCard pkg={pkg} />
               </Reveal>
             ))}
@@ -510,7 +510,7 @@ export default async function HomePage() {
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {whyChoose.map((item, i) => (
-              <Reveal key={item.title} delay={Math.min(i * 0.05, 0.25)}>
+              <Reveal variant="depth" key={item.title} delay={Math.min(i * 0.05, 0.25)}>
                 <div className="h-full rounded-card border border-line-on-ink bg-surface-ink-raised p-6 transition-colors hover:border-signal/40">
                   <span className="grid size-10 place-items-center rounded-chip bg-on-ink/10 text-signal">
                     <Icon name={item.icon} className="size-5" />
@@ -536,7 +536,7 @@ export default async function HomePage() {
               </h2>
             </Reveal>
 
-            <Reveal delay={0.05}>
+            <Reveal variant="fade" delay={0.05}>
               <div className="mt-8 grid gap-6 sm:gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:gap-10 xl:gap-14 items-start">
                 {/* Founder photo card */}
                 <div className="mx-auto w-full max-w-sm rounded-panel border border-line bg-surface p-3 shadow-e2">
@@ -586,7 +586,7 @@ export default async function HomePage() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.1}>
+            <Reveal variant="fade" delay={0.1}>
               <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {[
                   { icon: "file", t: "You own everything", d: "Code, content and accounts handed over to you, no vendor lock-in." },
@@ -618,7 +618,7 @@ export default async function HomePage() {
           <Section className="border-b border-line bg-soft-panel">
             {ratingSchema && <JsonLd data={ratingSchema} />}
             <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-              <Reveal>
+              <Reveal variant="fade">
                 <div>
                   <p className="text-micro font-mono uppercase text-ink-muted">
                     Client reviews

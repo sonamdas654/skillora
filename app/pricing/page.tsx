@@ -105,7 +105,7 @@ export default function PricingPage() {
 
       {/* ── Price index. Compare first, scroll second. ────────── */}
       <Section className="border-b border-line">
-        <Reveal>
+        <Reveal variant="unfurl">
           <h2 className="text-micro font-mono uppercase text-ink-muted">
             Everything, at a glance
           </h2>
@@ -212,7 +212,7 @@ export default function PricingPage() {
                   }`}
                 >
                   {service.packages.map((pkg, i) => (
-                    <Reveal key={pkg.name} delay={Math.min(i * 0.05, 0.2)}>
+                    <Reveal key={pkg.name} delay={Math.min(i * 0.05, 0.2)} variant="lift">
                       <PackageCard pkg={pkg} serviceSlug={service.slug} />
                     </Reveal>
                   ))}
@@ -234,7 +234,7 @@ export default function PricingPage() {
               </Reveal>
               <div className="mt-7 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
                 {maintenancePlans.map((pkg, i) => (
-                  <Reveal key={pkg.name} delay={i * 0.06}>
+                  <Reveal key={pkg.name} delay={i * 0.06} variant="lift">
                     <PackageCard pkg={pkg} />
                   </Reveal>
                 ))}

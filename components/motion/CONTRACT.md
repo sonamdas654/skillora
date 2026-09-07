@@ -84,3 +84,52 @@ scroll *is* the conversion path.
 
 If a future signature moment genuinely cannot be built without a library, add
 it then, for that one thing, lazily.
+
+---
+
+## Reveal variants
+
+`Reveal` takes a `variant`. Four exist, and four is the number on purpose — a
+system with a dozen entrances has no vocabulary, it has noise.
+
+| Variant | Motion | Use for |
+|---|---|---|
+| `rise` | translateY, the default | Text blocks, headings, general content |
+| `depth` | short `rotateX` under `perspective` | Where the page should feel three-dimensional |
+| `lift` | scale with the rise | Cards and panels — things that read as objects |
+| `unfurl` | `clip-path` wipe | Rules and ledgers; the scope line drawing itself |
+| `fade` | opacity only | Content already carrying its own transform |
+
+**Why this exists.** For most of the rebuild there was exactly one reveal — a
+translateY fade — used on all ~83 call sites. "Repeated fade-up as the only
+reveal" is on this project's own banned list, and shipping it anyway is what the
+banned list was written to prevent.
+
+**`depth` is where the 3D comes from, and it is deliberately not WebGL.** The
+plan set a ceiling: if the homepage's first-load JS exceeded 180 kB gzipped,
+`three` and `@react-three/fiber` come out and the CSS approach ships as the real
+thing. The homepage measures 237 kB without any of it, so the ceiling decided —
+and `three` is now uninstalled. A `rotateX` under `perspective` is one
+compositor-friendly transform, costs no JavaScript, and works on every device
+including the ones that would never have run a shader.
+
+### The rule when applying one
+
+**No two consecutive sections on a page use the same variant.** That is the same
+rule the layout primitives follow, for the same reason: repetition is what made
+the old site read as a template.
+
+### One hard-won constraint
+
+**Never put the hide state's clipping on the element the observer watches.**
+
+`unfurl` originally hid with `clip-path: inset(0 100% 0 0)`. A target clipped to
+zero width is a target the IntersectionObserver may never report as
+intersecting — and that observer is the only thing that removes the hide state.
+The hide state prevented its own removal. `tools/qa/reveal-check.mjs` caught it:
+one ledger on a case study stayed hidden after a full scroll.
+
+The hide state is now opacity alone; the wipe lives in the keyframe, which runs
+only after the element has been marked done. `reveal-check.mjs` was also
+extended to look for clip-path, because an opacity-only check calls a
+clipped-to-nothing element perfectly visible.

@@ -155,7 +155,7 @@ export default async function CaseStudyPage({
               </h2>
             </div>
           </Reveal>
-          <Reveal delay={0.06}>
+          <Reveal delay={0.06} variant="fade">
             <div className="space-y-5 text-body-lg leading-relaxed text-ink-soft">
               {study.situation.map((p) => (
                 <p key={p.slice(0, 40)}>{p}</p>
@@ -183,7 +183,7 @@ export default async function CaseStudyPage({
         <ol className="mt-10 border-t border-line-strong">
           {study.decisions.map((d, i) => (
             <li key={d.title} className="border-b border-line py-8">
-              <Reveal delay={Math.min(i * 0.05, 0.2)}>
+              <Reveal delay={Math.min(i * 0.05, 0.2)} variant="depth">
                 <div className="grid gap-x-10 gap-y-4 lg:grid-cols-[auto_1fr_0.8fr]">
                   <span className="font-mono text-micro text-ink-muted lg:pt-1.5">
                     {String(i + 1).padStart(2, "0")}
@@ -274,7 +274,7 @@ export default async function CaseStudyPage({
               </p>
             </div>
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.08} variant="unfurl">
             {/* One <div> between <dl> and each dt/dd group — that is all the
                 spec permits, and the note is a second <dd> rather than a <p>
                 so the whole row stays a single term/definition pairing. */}
