@@ -31,15 +31,73 @@ common reasons a local business underperforms in map results.
 
 ## Part 1 — Google Business Profile
 
-**A profile already exists.** `lib/site.ts` carries a working review link
-(`googleReviewUrl`), which is only issued for a live profile. So this is an
-optimisation job, not a setup job — and that is good, because the profile is
-almost certainly the highest-return asset available and it costs nothing.
+### What is actually there — audited 2026-09-07, not assumed
 
-For a business with no public street address, this is a **service-area
-business**: the address stays hidden and the service area is declared instead.
-Do not publish a home address to get a pin.
+An earlier version of this document said "a profile already exists, so this is
+an optimisation job, not a setup job", on the strength of `googleReviewUrl`
+being present in `lib/site.ts`. That was inference from code again. Here is what
+looking actually found.
 
+**There are two profiles, and only one of them is Skilloura.**
+
+**1. The Skilloura listing — real, public, and neglected.**
+
+The review link in `lib/site.ts` does resolve, and it resolves to the right
+business. On Google Maps it shows:
+
+| Field | What Google shows | Should be |
+|---|---|---|
+| Name | Skilloura | correct |
+| Website | skilloura.com | correct |
+| Category | **Marketing agency** | Website Designer — see below |
+| Phone | **missing** — Maps offers "Add place's phone number" | +91 63701 33101 |
+| Photos | **none** — Maps offers "Add a photo" | see the photo plan below |
+| Hours | **"Closed · Opens 7 am Tue"** | Mon–Sat 10:00–19:00 per `lib/site.ts` |
+| Reviews | none shown | — |
+| Map pin | 21.068 N, 82.753 E | that is roughly 300 km from Bhubaneswar |
+
+Maps is offering "Suggest an edit" and "Add missing information", which is the
+**public** view of a listing rather than an owner's view. Combined with the
+signed-in Google account not managing it, that suggests the listing is either
+unclaimed or claimed under a different Google account. Worth establishing
+which, urgently — an unclaimed listing can be claimed by someone else, and
+until it is claimed nobody can reply to a review or post an update.
+
+The wrong hours are the most immediately damaging item: the profile currently
+tells anyone who looks that the business is closed.
+
+**2. "sdquick" — a different, unverified profile in the signed-in account.**
+
+The Google account currently signed in manages a profile called **sdquick**,
+categorised *Educational consultant*, pointing at `http://sdquick.com/` (which
+does not respond), at an address in Bhubaneswar, with the phone number
+**063701 33101** — which is Skilloura's number.
+
+Google reports it as **"Your business is not visible to customers — get
+verified"**. So it is doing nothing for anybody, while holding the phone number
+that should identify Skilloura. If Google associates that number with an
+educational consultant at a dead domain, that is a weak signal working against
+the real listing.
+
+Decide what this is: a genuine separate venture that needs its own details, or
+a leftover that should be removed. It should not sit half-configured with
+Skilloura's phone number on it.
+
+### Fix these first, in this order
+
+1. **Establish who owns the Skilloura listing** and claim it if it is unclaimed.
+   Nothing else on this page is possible until someone can edit it.
+2. **Correct the hours.** It currently says closed.
+3. **Add the phone number.**
+4. **Check the map pin.** 21.07 N, 82.75 E is not Bhubaneswar. If this is a
+   service-area business with a hidden address, set the service area properly
+   instead of leaving a pin in the wrong district.
+5. **Change the primary category** from Marketing agency to Website Designer,
+   and keep Marketing agency as a secondary.
+6. **Add photos.** There are none at all.
+7. **Resolve the sdquick profile** one way or the other.
+
+### The audit, in order
 ### The audit, in order
 
 **1. Categories.** The single most influential field on the whole profile.

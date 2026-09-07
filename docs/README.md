@@ -40,8 +40,12 @@ is theoretical.
    production; an earlier version of this list said otherwise and was wrong.
    And find which Google account holds the Search Console property, because the
    signed-in one holds none.
-3. **Audit the Google Business Profile.** It already exists. It is the highest
-   return per hour available anywhere in this list, and it costs nothing.
+3. **The Google Business Profile needs real work, not just optimisation.** The
+   listing exists but shows no phone number, no photos, the wrong category and
+   hours that say the business is closed — and it appears to be unclaimed. A
+   second, unverified profile ("sdquick", Educational consultant, dead domain)
+   is holding Skilloura's phone number. Audited 2026-09-07; see
+   [local presence](04-local-presence.md).
 4. **Send three review links** to real clients through `/review/<token>`. Three
    genuine reviews turn on the `AggregateRating` structured data automatically;
    the seeded testimonials deliberately never will.
