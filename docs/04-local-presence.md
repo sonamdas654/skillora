@@ -38,6 +38,26 @@ an optimisation job, not a setup job", on the strength of `googleReviewUrl`
 being present in `lib/site.ts`. That was inference from code again. Here is what
 looking actually found.
 
+**First, the account problem — this is the real blocker.**
+
+Checked on 2026-09-07 across the two Google accounts signed in on this machine:
+
+| | `sonamdasdj00@gmail.com` | `erfgfffehfif37ajaabj@gmail.com` |
+|---|---|---|
+| Business Profile | **none** — Google offers "Create your profile" | one, called **sdquick** |
+| Search Console | **no properties** | no properties |
+| Analytics | one account, `shopwithdas.store` | one property, *Nigam Hotel Web* |
+
+So **neither account manages anything belonging to Skilloura.** The live site
+reports analytics into `G-MG1D7H2P6R`, which is in neither of them, and the
+Skilloura Maps listing is not managed from either.
+
+Before any of the advice below can be acted on, somebody has to establish which
+Google account — if any — owns these. The candidates are the other accounts on
+this machine (`sonamdas65db@gmail.com` is the one the Vercel project is under,
+which makes it the most likely). If no account owns the Maps listing, it is
+unclaimed and should be claimed today.
+
 **There are two profiles, and only one of them is Skilloura.**
 
 **1. The Skilloura listing — real, public, and neglected.**
@@ -97,8 +117,7 @@ Skilloura's phone number on it.
 6. **Add photos.** There are none at all.
 7. **Resolve the sdquick profile** one way or the other.
 
-### The audit, in order
-### The audit, in order
+### The rest of the audit
 
 **1. Categories.** The single most influential field on the whole profile.
 

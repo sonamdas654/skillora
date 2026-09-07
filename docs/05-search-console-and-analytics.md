@@ -35,8 +35,19 @@ data received from your website yet". Skilloura's data goes to
 at an empty property and cut the history, and the empty property's own warning
 message makes that an easy mistake to make.
 
-The Skilloura GA4 property is not visible in the currently signed-in Google
-account, so it is presumably under a different one.
+**Which account owns it is now the open question.** Two Google accounts on this
+machine were checked on 2026-09-07:
+
+- `sonamdasdj00@gmail.com` — one Analytics account (`shopwithdas.store`), no
+  Search Console property, no Business Profile
+- `erfgfffehfif37ajaabj@gmail.com` — the *Nigam Hotel Web* property, no Search
+  Console property, one unverified Business Profile called *sdquick*
+
+Neither holds `G-MG1D7H2P6R`, and neither holds a Search Console property.
+`sonamdas65db@gmail.com` is the account the Vercel project sits under and is the
+most likely candidate; it was not checked. Until this is settled, nobody can
+read the analytics the site has been sending for months, or the search data it
+is already verified for.
 
 **So the remaining work here is smaller than it looked:**
 
