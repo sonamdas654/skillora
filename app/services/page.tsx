@@ -7,6 +7,10 @@ import Icon from "@/components/Icons";
 import SpecLedger from "@/components/ui/SpecLedger";
 import { Section } from "@/components/Section";
 import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
+import { focusServices } from "@/lib/focusServices";
+import JsonLd from "@/components/JsonLd";
+import { serviceListSchema } from "@/lib/schema";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/services" },
@@ -28,6 +32,12 @@ export default function ServicesPage() {
 
   return (
     <PageShell>
+      <JsonLd
+        data={serviceListSchema(
+          [...serviceCategories, ...focusServices],
+          `${site.url}/services`
+        )}
+      />
       <PageHero
         eyebrow="Services"
         title={

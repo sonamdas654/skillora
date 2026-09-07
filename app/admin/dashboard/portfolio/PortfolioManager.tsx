@@ -5,6 +5,27 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { serviceCategories } from "@/lib/services";
 
+/**
+ * Rebuild the affected public pages after a write.
+ *
+ * The public pages are statically generated with a revalidation window, so
+ * without this a publish would not appear for up to ten minutes and would
+ * look broken to whoever just made it. Best effort — a failure here does not
+ * undo the save that already succeeded.
+ */
+async function refreshPublicPages(scope: "blog" | "portfolio" | "testimonials", slug?: string) {
+  try {
+    await fetch("/api/revalidate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scope, slug }),
+    });
+  } catch {
+    /* the row is saved either way */
+  }
+}
+
+
 const inputCls =
   "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-ink focus:border-accent focus:outline-none";
 
@@ -55,6 +76,7 @@ export default function PortfolioManager({ items }: { items: ItemRow[] }) {
     }
     setShowForm(false);
     (e.target as HTMLFormElement).reset();
+    await refreshPublicPages("portfolio");
     router.refresh();
   }
 
@@ -63,12 +85,14 @@ export default function PortfolioManager({ items }: { items: ItemRow[] }) {
       .from("portfolio_items")
       .update({ status: status === "active" ? "hidden" : "active" })
       .eq("id", id);
+    await refreshPublicPages("portfolio");
     router.refresh();
   }
 
   async function remove(id: string) {
     if (!confirm("Delete this portfolio item permanently?")) return;
     await supabase.from("portfolio_items").delete().eq("id", id);
+    await refreshPublicPages("portfolio");
     router.refresh();
   }
 

@@ -3,7 +3,11 @@
 import { site } from "./site";
 import type { BlogPost } from "./blog";
 
-const BASE = "https://www.skilloura.com";
+// Single source of truth for the canonical origin. This used to be its own
+// hardcoded literal, which meant JSON-LD @id values and canonical tags could
+// drift apart without anything failing — the entity graph would simply stop
+// consolidating. Trailing slash stripped so `${BASE}/path` never doubles up.
+const BASE = site.url.replace(/\/$/, "");
 
 export function organizationSchema() {
   return {
@@ -242,5 +246,55 @@ export function contactPageSchema() {
         },
       ],
     },
+  };
+}
+
+/**
+ * HowTo for /how-it-works.
+ *
+ * An eight-step process page that had no HowTo markup — one of the clearest
+ * schema misses on the site, because the steps are genuine, sequential and
+ * already written out on the page. Only what the page shows is marked up.
+ */
+export function howToSchema(steps: { title: string; desc: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": `${BASE}/how-it-works#howto`,
+    name: "How a project runs at Skilloura",
+    description:
+      "From requirement submission to final delivery: smart form, written quotation, preview before delivery and a documented handover.",
+    totalTime: "P10D",
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.title,
+      text: s.desc,
+      url: `${BASE}/how-it-works#step-${i + 1}`,
+    })),
+  };
+}
+
+/**
+ * ItemList for a service index. Tells search engines that /services is a
+ * collection and what is in it, which it previously had no way to know.
+ */
+export function serviceListSchema(
+  items: { slug: string; name: string; description: string }[],
+  listUrl: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${listUrl}#itemlist`,
+    url: listUrl,
+    numberOfItems: items.length,
+    itemListElement: items.map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: s.name,
+      description: s.description,
+      url: `${BASE}/services/${s.slug}`,
+    })),
   };
 }

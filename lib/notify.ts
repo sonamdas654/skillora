@@ -3,6 +3,8 @@
 const FROM = process.env.EMAIL_FROM || "Skilloura <onboarding@resend.dev>";
 // ADMIN_EMAIL can be comma-separated to notify multiple inboxes
 // (e.g. "contact@skilloura.com, owner-personal@gmail.com").
+import { site } from "./site";
+
 const ADMIN = process.env.ADMIN_EMAIL || "contact@skilloura.com";
 
 // Instant WhatsApp ping to the owner via CallMeBot (free). No-ops unless
@@ -124,7 +126,7 @@ export async function notifyNewLead(
   lead: LeadEmailData,
   answers: { question: string; answer: string }[] = []
 ) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.skilloura.com";
+  const siteUrl = site.url;
   const html = `
     <h2 style="margin:0 0 4px">New project request</h2>
     <p style="margin:0 0 8px;color:#475569;font-size:13px">
@@ -294,7 +296,7 @@ export async function notifyFilesDelivered(d: {
     `<h2>Hi ${esc(d.clientName)},</h2>
      <p>${d.fileCount} ${d.fileCount === 1 ? "file has" : "files have"} been delivered to your
      client portal. Log in to view and download them:</p>
-     <p><a href="https://www.skilloura.com/client/login" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Open client portal</a></p>
+     <p><a href="${site.url}/client/login" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Open client portal</a></p>
      <p style="font-size:13px;color:#475569">Sign in with this email address — a login code will be sent to you.</p>
      <p>— Skilloura · Smart Digital Services, Delivered with Skill.</p>`
   );
@@ -336,7 +338,7 @@ export async function notifyTicketReply(t: {
       `Reply to your ticket: ${t.subject}`,
       `<h2>You have a reply</h2>
        <p style="white-space:pre-line">${esc(t.message)}</p>
-       <p><a href="https://www.skilloura.com/client/login" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">View in portal</a></p>
+       <p><a href="${site.url}/client/login" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">View in portal</a></p>
        <p>— Skilloura</p>`
     );
   } else {
@@ -364,7 +366,7 @@ export async function sendPaymentReminderToClient(p: {
      <p>A friendly reminder that invoice <b>${esc(p.invoiceNumber)}</b> has a pending balance of
      <b>₹${p.balance.toLocaleString("en-IN")}</b>.</p>
      <p>You can pay in under a minute from your client portal (UPI QR / UPI ID):</p>
-     <p><a href="https://www.skilloura.com/client/pay/${p.invoiceId}" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Pay now</a></p>
+     <p><a href="${site.url}/client/pay/${p.invoiceId}" style="display:inline-block;background:#2857ff;color:#fff;padding:10px 22px;border-radius:999px;text-decoration:none;font-weight:bold">Pay now</a></p>
      <p style="font-size:13px;color:#475569">Already paid? Just submit your transaction reference on the same page and we'll confirm it.
      Any questions — reply to this email or message on WhatsApp.</p>
      <p>— Skilloura</p>`

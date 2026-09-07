@@ -4,6 +4,8 @@ import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { Section, SectionHeading } from "@/components/Section";
+import JsonLd from "@/components/JsonLd";
+import { howToSchema } from "@/lib/schema";
 import {
   SampleQuotation,
   SampleTimeline,
@@ -72,6 +74,7 @@ const protections = [
 export default function HowItWorksPage() {
   return (
     <PageShell>
+      <JsonLd data={howToSchema(detailedSteps)} />
       <PageHero
         eyebrow="Process"
         title={

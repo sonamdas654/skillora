@@ -6,7 +6,11 @@ export const site = {
     "Skilloura helps businesses, creators and professionals build websites, apps, AI automation, designs, dashboards and digital systems with a clear requirement-based process.",
   email: "contact@skilloura.com",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "916370133101",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://skilloura.com",
+  // Canonical origin. Verified against production: skilloura.com 308-redirects
+  // to www.skilloura.com, so www is the canonical host and the fallback must
+  // agree with it. A fallback that disagreed would silently flip every
+  // canonical tag to a URL that redirects, the moment the env var went missing.
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.skilloura.com",
   businessHours: "Mon–Sat, 10 AM – 7 PM IST",
   // Names the home region as well as the reach. Google reads local intent
   // from visible copy, not just schema, and "India + global" alone gave it

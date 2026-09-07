@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { notifyNewLead, confirmLeadToClient } from "@/lib/notify";
+import { scoreLead } from "@/lib/leadScore";
 
 // Called client-side right after a real (non-partial) project request submit.
 // Re-reads the row from the DB (via the caller's own session + RLS) rather
@@ -31,6 +32,26 @@ export async function POST(req: NextRequest) {
     answer: Array.isArray(answer) ? answer.join(", ") : String(answer ?? ""),
   }));
 
+  // lib/leadScore.ts existed with no callers, so notifyNewLead always fell
+  // through to its `?? "—"` default: every lead email said "Lead score: —" and
+  // every subject line read "[Lead]". The scorer works; nothing was calling it.
+  //
+  // The signals it wants live in the free-form answers, so they are read back
+  // out by matching on the question text the form actually renders.
+  const answerFor = (needle: string) =>
+    answers.find((a) => a.question.toLowerCase().includes(needle))?.answer;
+
+  const leadScore = scoreLead({
+    budgetRange: pr.budget_range ?? undefined,
+    deadline: pr.deadline ?? undefined,
+    projectStatus: answerFor("status") ?? answerFor("when do you want"),
+    readyToStart: answerFor("ready to start"),
+    advancePaymentComfort: answerFor("advance"),
+    hasFilesOrReferences: answers.some(
+      (a) => /reference|file|upload|link/i.test(a.question) && a.answer.trim().length > 0
+    ),
+  });
+
   await Promise.all([
     notifyNewLead(
       {
@@ -43,6 +64,7 @@ export async function POST(req: NextRequest) {
         projectDescription: pr.description ?? "",
         budgetRange: pr.budget_range ?? "—",
         deadline: pr.deadline,
+        leadScore,
       },
       answers
     ),

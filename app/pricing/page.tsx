@@ -70,7 +70,7 @@ export default function PricingPage() {
           name: service.name,
           url: `${site.url}/services/${service.slug}`,
           description: service.description,
-          provider: { "@id": "https://www.skilloura.com/#organization" },
+          provider: { "@id": `${site.url}/#organization` },
           offers: service.packages.map((pkg) => ({
             "@type": "Offer",
             name: pkg.name,
