@@ -17,7 +17,7 @@ export function organizationSchema() {
     name: site.name,
     url: BASE,
     logo: `${BASE}/logo-mark.png`,
-    image: `${BASE}/logo-full.webp`,
+    image: `${BASE}/logo-full.png`,
     slogan: site.tagline,
     email: site.email,
     contactPoint: {
@@ -55,7 +55,7 @@ export function professionalServiceSchema() {
     "@id": `${BASE}/#business`,
     name: site.name,
     url: BASE,
-    image: `${BASE}/logo-full.webp`,
+    image: `${BASE}/logo-full.png`,
     description: site.positioning,
     email: site.email,
     telephone: `+${site.whatsappNumber}`,

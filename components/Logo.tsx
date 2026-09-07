@@ -7,10 +7,15 @@ import Image from "next/image";
 // they become unreadably small at header sizes; here they stay crisp at
 // any size.
 //
-// The underline used to repeat the artwork's blue/violet ramp, which fights
-// the petrol + aura palette. It now runs brand -> aura, so the lockup reads
-// as part of the site even though the mark itself is still the original
-// blue artwork.
+// The underline reproduces the ORIGINAL artwork's ramp, sampled straight out
+// of public/logo-full.webp at its most saturated row: blue #476ed2, through
+// violet #7442ff, into coral and amber #f0af69.
+//
+// It had been changed to run petrol -> aura, on the reasoning that the blue
+// fought the site palette. The owner's instruction is to leave the logo
+// alone, so it is back to the artwork's own colours. This is the right call
+// regardless: the lockup is one thing, and having the CSS underline disagree
+// with the printed logo would mean two different versions of the same mark.
 export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
   const img = size === "lg" ? "h-16 sm:h-20" : "h-12 sm:h-14";
   const tagline =
@@ -49,7 +54,7 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
         className={`${line} mt-1.5 w-3/5 rounded-full`}
         style={{
           background:
-            "linear-gradient(90deg, var(--color-brand) 0%, var(--color-aura-2) 55%, var(--color-aura-1) 100%)",
+            "linear-gradient(90deg, #476ed2 0%, #515aff 20%, #7442ff 40%, #9042e9 55%, #d78b81 85%, #f0af69 100%)",
         }}
         aria-hidden
       />
