@@ -15,7 +15,7 @@ export const revalidate = 600;
 
 export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
-  title: "Blog — Practical Guides for Business Websites, AI & Marketing",
+  title: "Blog — Practical Guides for Websites, AI & Marketing",
   description:
     "Honest, practical articles on websites, AI automation, digital marketing and growing your business online — written for business owners, not developers.",
 };

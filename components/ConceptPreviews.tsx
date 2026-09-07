@@ -19,7 +19,11 @@ function BarChart({ values, color }: { values: number[]; color: string }) {
 function Kpi({ label, value, delta, up }: { label: string; value: string; delta: string; up?: boolean }) {
   return (
     <div className="rounded-lg bg-slate-900 border border-slate-800 p-2.5">
-      <p className="text-[7px] uppercase tracking-wider text-slate-500 font-bold">{label}</p>
+      {/* slate-400, not slate-500: on this dark panel slate-500 measures
+          3.74:1 at 7px, below the 4.5:1 AA floor. These previews imitate
+          other people's sites, but the text in them is real text a person
+          sees, and a mockup is not an exemption. slate-400 is 6.78:1. */}
+      <p className="text-[7px] uppercase tracking-wider text-slate-400 font-bold">{label}</p>
       <p className="text-sm font-black text-white mt-0.5">{value}</p>
       <p className={`text-[8px] font-bold ${up ? "text-emerald-400" : "text-rose-400"}`}>{up ? "▲" : "▼"} {delta}</p>
     </div>
@@ -120,6 +124,28 @@ const WEB_CONTENT: Record<string, { brand: string; hero: string; sub: string; ca
   },
 };
 
+/**
+ * Pick black or white for text sitting on an arbitrary accent colour.
+ *
+ * These previews are miniatures of other people's websites, so the accent is
+ * whatever that concept's brand colour is — and hardcoding white on top of it
+ * failed WCAG contrast on the lighter accents (measured on /portfolio and
+ * /contact). The text is small and genuinely visible, and a mockup does not
+ * exempt real rendered text from being readable.
+ */
+function onAccent(hex: string): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return "#ffffff";
+  const n = parseInt(m[1], 16);
+  const srgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const lum = 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+  // Contrast against white vs against near-black; take whichever is higher.
+  return (1.05 / (lum + 0.05)) >= ((lum + 0.05) / 0.05) ? "#ffffff" : "#0b0f10";
+}
+
 export function WebPreview({ id, accent }: { id: string; accent: string }) {
   const c = WEB_CONTENT[id] ?? WEB_CONTENT["web-portfolio"];
   return (
@@ -133,7 +159,10 @@ export function WebPreview({ id, accent }: { id: string; accent: string }) {
       <div className="text-center py-3 space-y-1.5">
         <h4 className="text-base font-black text-white">{c.hero}</h4>
         <p className="text-[9px] text-slate-400 max-w-[240px] mx-auto leading-4">{c.sub}</p>
-        <span className="inline-block mt-1.5 rounded-full px-3.5 py-1.5 text-[9px] font-bold text-white shadow" style={{ background: accent }}>
+        <span
+          className="inline-block mt-1.5 rounded-full px-3.5 py-1.5 text-[9px] font-bold shadow"
+          style={{ background: accent, color: onAccent(accent) }}
+        >
           {c.cta}
         </span>
       </div>
@@ -148,7 +177,7 @@ export function WebPreview({ id, accent }: { id: string; accent: string }) {
       </div>
       <div className="flex items-center justify-between rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-2">
         <span className="text-[8px] text-emerald-300 font-semibold">✓ WhatsApp enquiry connected</span>
-        <span className="text-[8px] text-slate-500">Mobile responsive</span>
+        <span className="text-[8px] text-slate-400">Mobile responsive</span>
       </div>
     </div>
   );
@@ -213,7 +242,7 @@ export function DashboardPreview({ id, accent }: { id: string; accent: string })
         {c.kpis.map(([l, v, d, up]) => <Kpi key={l} label={l} value={v} delta={d} up={up} />)}
       </div>
       <div className="rounded-lg bg-slate-900 border border-slate-800 p-3">
-        <p className="text-[7px] uppercase tracking-wider text-slate-500 font-bold mb-2">Last 12 periods</p>
+        <p className="text-[7px] uppercase tracking-wider text-slate-400 font-bold mb-2">Last 12 periods</p>
         <BarChart values={c.bars} color={accent} />
       </div>
       <div className="rounded-lg bg-slate-900 border border-slate-800 divide-y divide-slate-800">

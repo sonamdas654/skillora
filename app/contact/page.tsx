@@ -132,7 +132,7 @@ export default function ContactPage() {
                 className="card-lift rounded-card border border-line bg-surface p-5 shadow-e1 sm:col-span-2"
               >
                 <div className="flex items-center gap-3">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-chip bg-warning-soft text-title-2 text-warning">★</span>
+                  <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-chip bg-warning-soft text-title-2 text-warning-ink">★</span>
                   <div>
                     <p className="text-title-3 text-ink">Find us on Google</p>
                     <p className="mt-1 text-body-sm text-ink-soft">See our Business Profile &amp; leave a review ⭐</p>

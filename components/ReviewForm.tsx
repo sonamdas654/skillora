@@ -75,7 +75,7 @@ export default function ReviewForm({
               onMouseEnter={() => setHover(star)}
               onMouseLeave={() => setHover(0)}
               className={`text-4xl leading-none transition-transform hover:scale-110 ${
-                star <= (hover || rating) ? "text-amber-400" : "text-line"
+                star <= (hover || rating) ? "text-amber-400" : "text-ink-faint"
               }`}
             >
               ★

@@ -41,6 +41,17 @@ const ROUTES = [
   "/solutions/restaurant-website",
   "/portfolio/restaurant-website-concept",
   "/demo/web-saas",
+  // Phase 9 focus service pages — same template, but they resolve through a
+  // separate list, so a change to that lookup would break them silently.
+  "/services/website-speed-optimization",
+  "/services/api-integration",
+  "/services/local-seo",
+  // Phase 11.
+  "/case-studies",
+  "/case-studies/the-half-that-costs-the-money",
+  "/case-studies/decide-first-then-chart",
+  // A real article, so the blog renderer and its CTA are covered too.
+  "/blog/website-vs-web-app",
   "/privacy-policy",
   "/terms",
   "/refund-policy",

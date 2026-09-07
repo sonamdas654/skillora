@@ -31,8 +31,18 @@ export function SectionHeading({
 }) {
   return (
     <div className={`max-w-3xl ${center ? "mx-auto text-center" : ""}`}>
+      {/* A mono micro-label with a brand tick, matching PageHero.
+          It used to be a bordered pill, which meant the site had two
+          different eyebrow treatments — pills on the sections that use this
+          component, tick labels on every page header — and pills were on the
+          brief's banned list to begin with. One system, one eyebrow. */}
       {eyebrow && (
-        <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3.5 py-1 text-body-sm font-semibold uppercase tracking-wider text-brand">
+        <p
+          className={`mb-3 flex items-center gap-2.5 text-micro font-mono uppercase text-ink-soft ${
+            center ? "justify-center" : ""
+          }`}
+        >
+          <span aria-hidden className="block h-2.5 w-px bg-brand" />
           {eyebrow}
         </p>
       )}

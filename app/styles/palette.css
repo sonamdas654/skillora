@@ -25,7 +25,15 @@
   --ink-900: #15191b;
   --ink-700: #3b4247;
   --ink-600: #5a6166;
-  --ink-400: #9aa0a3;
+  /* Was #9aa0a3, which measured 2.41:1 against the canvas — a WCAG AA
+     failure (4.5:1 required) on every mono micro-label in the system, and
+     this token drives all of them, so it failed sitewide rather than in one
+     place. #5c5f61 is the same hue walked down until it clears AA with
+     headroom on every light surface: 6.34 surface, 5.86 canvas, 5.56 sunken.
+     An intermediate #676b6d measured 4.65 on sunken — passing by hundredths
+     is not worth shipping for a token used this widely.
+     Verify with tools/qa/a11y.mjs before changing it. */
+  --ink-400: #5c5f61;
 
   /* ── Brand: deep petrol. Chosen against the SaaS blue/indigo that the
         old palette and every agency template uses. ── */
@@ -54,7 +62,13 @@
   --aura-3: #c2557f;
 
   /* ── Supporting hues, warm-derived so nothing looks bolted on ── */
-  --green-600: #12805c;
+  /* Was #12805c, which measured 4.48:1 on the canvas against a 4.5
+     requirement — failing by two hundredths, which is why it surfaced
+     intermittently: rounding flipped it between runs, and it read as a flaky
+     test rather than the real boundary failure it was. #107353 clears AA with
+     headroom on every light surface: 5.75 surface, 5.31 canvas, 5.04 sunken.
+     This drives text-success, including the WhatsApp calls to action. */
+  --green-600: #107353;
   --green-50: #edf3ee;
   --amber-500: #d98a2b;
   --amber-50: #fbf2e4;

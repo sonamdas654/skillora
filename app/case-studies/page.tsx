@@ -176,14 +176,22 @@ export default function CaseStudiesPage() {
           </Reveal>
 
           <Reveal delay={0.08}>
+            {/* One <div> between <dl> and each dt/dd group — that is all the
+                spec permits, and the note is a second <dd> rather than a <p>
+                so the whole row stays a single term/definition pairing. */}
             <dl className="border-t border-line-strong">
               {DELIVERY_PROFILE.metrics.map((m) => (
-                <div key={m.label} className="border-b border-line py-4">
-                  <div className="flex items-baseline justify-between gap-6">
-                    <dt className="text-body-base font-medium text-ink">{m.label}</dt>
-                    <dd className="font-mono text-title-2 font-medium text-ink">{m.value}</dd>
-                  </div>
-                  <p className="mt-1.5 max-w-md text-body-sm text-ink-soft">{m.note}</p>
+                <div
+                  key={m.label}
+                  className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 border-b border-line py-4"
+                >
+                  <dt className="text-body-base font-medium text-ink">{m.label}</dt>
+                  <dd className="text-right font-mono text-title-2 font-medium text-ink">
+                    {m.value}
+                  </dd>
+                  <dd className="col-span-2 mt-1.5 max-w-md text-body-sm text-ink-soft">
+                    {m.note}
+                  </dd>
                 </div>
               ))}
             </dl>

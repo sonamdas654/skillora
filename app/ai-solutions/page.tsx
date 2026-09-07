@@ -9,7 +9,7 @@ import { aiProducts } from "@/lib/aiProducts";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/ai-solutions" },
-  title: "AI Systems for Business — WhatsApp Bots, Automation & Reporting",
+  title: "AI Systems for Business — WhatsApp Bots & Automation",
   description:
     "Specific, productized AI systems for small businesses: WhatsApp lead qualification, support bots, invoice processing, report and reminder automation. Honest guide prices, human-accountable delivery.",
 };

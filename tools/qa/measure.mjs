@@ -106,7 +106,23 @@ async function measureOnce(route) {
     window.__lcp = 0;
     window.__cls = 0;
     new PerformanceObserver((l) => {
-      for (const e of l.getEntries()) window.__lcp = e.startTime;
+      for (const e of l.getEntries()) {
+        window.__lcp = e.startTime;
+        // Identify the element HERE, inside the callback. Reading
+        // entry.element from getEntriesByType() afterwards yields null once
+        // the reference is gone, which reports "no LCP element" on a page
+        // that plainly has one — and then you cannot tell what to optimise.
+        const el = e.element;
+        window.__lcpEl = el
+          ? el.tagName.toLowerCase() +
+            (el.id ? "#" + el.id : "") +
+            (el.className && typeof el.className === "string"
+              ? "." + el.className.trim().split(/\s+/).slice(0, 3).join(".")
+              : "") +
+            (el.tagName === "IMG" ? ` src=${(el.currentSrc || el.src || "").split("/").pop()}` : "")
+          : null;
+        window.__lcpSize = e.size;
+      }
     }).observe({ type: "largest-contentful-paint", buffered: true });
     new PerformanceObserver((l) => {
       for (const e of l.getEntries()) {
@@ -136,7 +152,8 @@ async function measureOnce(route) {
       load: Math.round(nav.loadEventEnd ?? 0),
       fcp: Math.round(performance.getEntriesByName("first-contentful-paint")[0]?.startTime ?? 0),
       lcp: Math.round(Math.max(window.__lcp ?? 0, lcpEntries.at(-1)?.startTime ?? 0)),
-      lcpElement: lcpEntries.at(-1)?.element?.tagName ?? null,
+      lcpElement: window.__lcpEl ?? lcpEntries.at(-1)?.element?.tagName ?? null,
+      lcpSize: window.__lcpSize ?? null,
       cls: Number((window.__cls ?? 0).toFixed(4)),
       domNodes: document.getElementsByTagName("*").length,
       interactive: document.querySelectorAll("a,button,input,select,textarea").length,

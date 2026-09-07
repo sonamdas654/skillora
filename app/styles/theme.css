@@ -23,11 +23,25 @@
   --color-ink-muted: var(--ink-400);
   --color-on-ink: var(--on-ink);
   --color-on-ink-soft: rgb(242 240 233 / 0.66);
-  --color-on-ink-muted: rgb(242 240 233 / 0.42);
+  /* 0.42 composited to 3.59:1 on the ink surface — a WCAG AA failure for the
+     mono micro-labels that sit on every dark band (the footer, the closing
+     CTA, the "Honestly" disclosure on each case study). 0.55 gives 5.13 on
+     ink-surface and 5.48 on ink-surface-2. on-ink-soft at 0.66 was already
+     fine (6.75 / 7.32) and is left alone. */
+  --color-on-ink-muted: rgb(242 240 233 / 0.55);
 
   /* ── Lines ─────────────────────────────────────────────── */
   --color-line: rgb(21 25 27 / 0.10);
   --color-line-strong: rgb(21 25 27 / 0.17);
+
+  /* Quiet text — large decorative numerals, unfilled rating stars.
+     Exists because the line tokens above were being used as text colours,
+     and a border colour is deliberately too faint to read: the homepage
+     step numbers measured 1.43:1, failing even the 3:1 that large text
+     needs. 50% ink clears AA-large on every light surface (3.24-3.36)
+     while still reading as a soft index rather than a heading.
+     Line tokens are for borders. This is for text. */
+  --color-ink-faint: rgb(21 25 27 / 0.5);
   --color-line-on-ink: rgb(242 240 233 / 0.14);
 
   /* ── Brand ─────────────────────────────────────────────── */
@@ -50,6 +64,14 @@
   --color-success: var(--green-600);
   --color-success-soft: var(--green-50);
   --color-warning: var(--amber-500);
+  /* Amber is a fill colour, not a text colour. --color-warning on
+     --color-warning-soft measures 2.48:1, which fails AA badly — but darkening
+     amber itself to reach 4.5 turns it brown and takes the gold out of the
+     star ratings, which is a real design cost for a token whose main job is
+     decorative. So: amber stays amber for fills and decorative glyphs, and
+     text that has to be READ on a warm surface uses this instead.
+     5.04 on warning-soft, 5.10 on canvas, 5.51 on surface. */
+  --color-warning-ink: #915c1d;
   --color-warning-soft: var(--amber-50);
   --color-danger: var(--red-600);
   --color-danger-soft: var(--red-50);

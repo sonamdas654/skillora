@@ -1,29 +1,174 @@
 {
-  "measuredAt": "2026-09-07T08:18:50.816Z",
+  "measuredAt": "2026-09-07T11:34:55.351Z",
   "conditions": "Chromium, 412x915 @2x mobile, 4x CPU throttle, 1.6 Mbps / 150 ms RTT, cold cache; median of 3 valid runs",
   "base": "http://localhost:3000",
   "results": [
     {
       "route": "/portfolio/restaurant-website-concept",
-      "validSamples": 1,
+      "validSamples": 3,
       "attemptedRuns": 3,
       "status": 200,
-      "fcp": 1504,
-      "lcp": 1504,
+      "fcp": 1792,
+      "lcp": 1792,
       "ttfb": 4,
-      "load": 2489,
+      "load": 2503,
       "cls": 0,
-      "lcpElement": null,
+      "lcpElement": "h1.mt-3.max-w-2xl.text-4xl",
       "bytes": {
-        "total": 441,
+        "total": 442,
         "js": 259,
-        "css": 19,
+        "css": 20,
         "image": 0,
         "font": 137,
         "other": 26
       },
-      "domNodes": 178,
+      "domNodes": 177,
       "interactive": 16,
+      "images": 0,
+      "imagesWithAlt": 0,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    },
+    {
+      "route": "/portfolio/gym-website-concept",
+      "validSamples": 3,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 1356,
+      "lcp": 1356,
+      "ttfb": 6,
+      "load": 2511,
+      "cls": 0,
+      "lcpElement": "h1.mt-3.max-w-2xl.text-4xl",
+      "bytes": {
+        "total": 443,
+        "js": 259,
+        "css": 20,
+        "image": 0,
+        "font": 137,
+        "other": 27
+      },
+      "domNodes": 205,
+      "interactive": 18,
+      "images": 0,
+      "imagesWithAlt": 0,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    },
+    {
+      "route": "/portfolio/salon-website-concept",
+      "validSamples": 3,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 2192,
+      "lcp": 2192,
+      "ttfb": 4,
+      "load": 2506,
+      "cls": 0,
+      "lcpElement": "span",
+      "bytes": {
+        "total": 442,
+        "js": 259,
+        "css": 20,
+        "image": 0,
+        "font": 137,
+        "other": 26
+      },
+      "domNodes": 177,
+      "interactive": 19,
+      "images": 0,
+      "imagesWithAlt": 0,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    },
+    {
+      "route": "/portfolio/ecommerce-concept",
+      "validSamples": 3,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 1812,
+      "lcp": 1812,
+      "ttfb": 4,
+      "load": 2506,
+      "cls": 0,
+      "lcpElement": "h1.mt-3.max-w-2xl.text-4xl",
+      "bytes": {
+        "total": 441,
+        "js": 259,
+        "css": 20,
+        "image": 0,
+        "font": 137,
+        "other": 25
+      },
+      "domNodes": 163,
+      "interactive": 14,
+      "images": 0,
+      "imagesWithAlt": 0,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    },
+    {
+      "route": "/portfolio/ai-chatbot-concept",
+      "validSamples": 3,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 1360,
+      "lcp": 1360,
+      "ttfb": 4,
+      "load": 2498,
+      "cls": 0,
+      "lcpElement": "h1.mt-3.text-4xl.font-black",
+      "bytes": {
+        "total": 443,
+        "js": 259,
+        "css": 20,
+        "image": 0,
+        "font": 137,
+        "other": 27
+      },
+      "domNodes": 130,
+      "interactive": 10,
+      "images": 0,
+      "imagesWithAlt": 0,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    },
+    {
+      "route": "/portfolio/sales-dashboard-concept",
+      "validSamples": 3,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 1772,
+      "lcp": 1772,
+      "ttfb": 4,
+      "load": 2502,
+      "cls": 0,
+      "lcpElement": "span",
+      "bytes": {
+        "total": 441,
+        "js": 259,
+        "css": 20,
+        "image": 0,
+        "font": 137,
+        "other": 25
+      },
+      "domNodes": 211,
+      "interactive": 7,
       "images": 0,
       "imagesWithAlt": 0,
       "h1": 1,

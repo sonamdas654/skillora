@@ -68,9 +68,11 @@ export interface CaseStudy {
  *
  * It is deliberately one shared block rather than six per-study numbers. All
  * six render from the same app shell and the same JavaScript bundle, so the
- * measured spread between them (1.44s to 1.55s) is run-to-run noise, not a
- * difference between the builds. Publishing six separate figures would imply
- * a precision the measurement does not have.
+ * measured spread between them is run-to-run noise, not a difference between
+ * the builds — across two full measurement rounds the same route moved by as
+ * much as 0.7s while the byte counts stayed identical to the kilobyte.
+ * Publishing six separate figures would imply a precision this does not have,
+ * and a range is the honest way to state it.
  *
  * Produced by tools/qa/measure.mjs, median of three valid runs per route
  * against a production build. Re-run it before changing any number here.
@@ -86,7 +88,7 @@ export const DELIVERY_PROFILE = {
   metrics: [
     {
       label: "Largest contentful paint",
-      value: "1.44–1.55s",
+      value: "1.4–2.2s",
       note: "When the main content is actually on screen. Google treats anything under 2.5s as good.",
     },
     {

@@ -6,7 +6,7 @@ import Icon from "./Icons";
 
 function SampleTag() {
   return (
-    <span className="rounded-full bg-warning-soft px-2.5 py-0.5 text-nano font-bold uppercase tracking-wider text-warning">
+    <span className="rounded-full bg-warning-soft px-2.5 py-0.5 text-nano font-bold uppercase tracking-wider text-warning-ink">
       Sample
     </span>
   );

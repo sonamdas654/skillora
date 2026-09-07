@@ -8,7 +8,7 @@ import { solutions } from "@/lib/solutions";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/solutions" },
-  title: "Solutions by Industry — Websites & AI Systems Built for Your Business",
+  title: "Solutions by Industry — Websites & AI Systems",
   description:
     "Ready-made, honest solutions for restaurants, gyms, salons and local businesses — websites, booking and WhatsApp automation with transparent pricing and live demos.",
 };

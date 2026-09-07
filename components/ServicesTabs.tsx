@@ -90,7 +90,7 @@ export default function ServicesTabs() {
               </div>
             </div>
 
-            <dl className="shrink-0 lg:w-56 lg:border-l lg:border-line lg:pl-8">
+            <dl className="lg:w-56">
               <div className="flex items-baseline justify-between gap-4 border-b border-line py-1.5 lg:border-b-0">
                 <dt className="text-body-sm text-ink-soft">From</dt>
                 <dd className="font-mono text-body-base font-medium text-ink">
@@ -101,8 +101,11 @@ export default function ServicesTabs() {
                 <dt className="text-body-sm text-ink-soft">Timeline</dt>
                 <dd className="font-mono text-body-sm text-ink">{s.timeline}</dd>
               </div>
-              <p className="mt-2 text-body-sm text-ink-muted">{s.bestFor}</p>
             </dl>
+            {/* Outside the <dl>: a <p> is not a permitted child of a
+                definition list, and putting it there broke the dt/dd
+                association for screen readers. */}
+            <p className="mt-2 text-body-sm text-ink-muted lg:w-56">{s.bestFor}</p>
           </div>
         ))}
       </div>

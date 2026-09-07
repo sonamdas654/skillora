@@ -298,21 +298,40 @@ export default async function HomePage() {
                     <dd className="mt-1 text-body-sm text-ink-soft">{stat.desc}</dd>
                   </>
                 );
+                // dt/dd stay direct children of this <div>, which is a
+                // permitted child of <dl>. An earlier attempt at this moved
+                // the <a> inside the div but left dt/dd inside the anchor —
+                // which is the same WCAG 1.3.1 failure one level down, and
+                // axe correctly still flagged it. The whole cell remains
+                // clickable through the stretched link on the term.
                 return stat.href ? (
-                  <Link
-                    key={stat.label}
-                    href={stat.href}
-                    className="group block transition-colors hover:text-brand"
-                  >
-                    {body}
-                    <span className="mt-2 inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand">
-                      See them
-                      <Icon
-                        name="arrow"
-                        className="size-4 transition-transform group-hover:translate-x-0.5"
-                      />
-                    </span>
-                  </Link>
+                  <div key={stat.label} className="group relative">
+                    <dt className="font-mono text-display-3 tabular-nums text-ink">
+                      <Link
+                        href={stat.href}
+                        className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-brand"
+                      >
+                        {stat.num}
+                        <span className="text-brand">{stat.suffix}</span>
+                      </Link>
+                    </dt>
+                    <dd className="mt-2 text-body-base font-semibold text-ink transition-colors group-hover:text-brand">
+                      {stat.label}
+                    </dd>
+                    <dd className="mt-1 text-body-sm text-ink-soft">
+                      {stat.desc}
+                      {/* Inside the <dd>, not a sibling of it: a <dl> group is
+                          dt followed by dd, and a trailing <span> after the
+                          definitions is not part of that grammar. */}
+                      <span className="mt-2 flex items-center gap-1.5 text-body-sm font-semibold text-brand">
+                        See them
+                        <Icon
+                          name="arrow"
+                          className="size-4 transition-transform group-hover:translate-x-0.5"
+                        />
+                      </span>
+                    </dd>
+                  </div>
                 ) : (
                   <div key={stat.label}>{body}</div>
                 );
@@ -394,19 +413,30 @@ export default async function HomePage() {
               subtitle="No confusion, no surprises — you always know exactly where your project stands. Every project ends with a clean, documented handover."
             />
           </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {/* A measured track, not four more cards.
+              This section sat between the services grid and the packages
+              grid — three card grids in a row, which is the shape the whole
+              rebuild was meant to stop repeating, and it also flattened a
+              sequence into four things of equal weight. A process is an
+              ordered progression, so it reads as one: the scope line with a
+              tick per step, which is the motif the rest of the site already
+              uses for dividers, list markers and rules. */}
+          <ol className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {homeSteps.map((step, i) => (
-              <Reveal key={step.title} delay={Math.min(i * 0.05, 0.25)}>
-                <div className="card-lift relative h-full rounded-card border border-line bg-surface p-6">
-                  <span className="font-mono text-display-3 text-line-strong">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-2 text-title-3 text-ink">{step.title}</h3>
-                  <p className="mt-2 text-body-sm text-ink-soft">{step.desc}</p>
-                </div>
-              </Reveal>
+              <li key={step.title}>
+                <Reveal delay={Math.min(i * 0.05, 0.25)}>
+                  <div className="relative border-t border-line-strong pt-5">
+                    <span aria-hidden className="absolute -top-px left-0 h-0.5 w-10 bg-brand" />
+                    <span className="font-mono text-micro text-ink-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mt-2.5 text-title-2 text-ink">{step.title}</h3>
+                    <p className="mt-2 text-body-sm leading-relaxed text-ink-soft">{step.desc}</p>
+                  </div>
+                </Reveal>
+              </li>
             ))}
-          </div>
+          </ol>
           <Reveal delay={0.2}>
             <p className="mt-8 text-center">
               <Link href="/how-it-works" className="inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep">
@@ -621,7 +651,7 @@ export default async function HomePage() {
                           aria-label={`${t.rating} out of 5`}
                         >
                           {"★".repeat(t.rating)}
-                          <span className="text-line">{"★".repeat(5 - t.rating)}</span>
+                          <span className="text-ink-faint">{"★".repeat(5 - t.rating)}</span>
                         </p>
                         <p className="mt-2 text-body-base leading-relaxed text-ink-soft">
                           {t.review}

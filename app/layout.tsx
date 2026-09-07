@@ -39,8 +39,16 @@ const instrumentSerif = Instrument_Serif({
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  // 500 only alongside 400: font-mono is used with font-medium and, once,
+  // font-semibold — never font-bold, so the 700 file was downloaded and
+  // never drawn.
+  weight: ["400", "500"],
   display: "swap",
+  // Not preloaded. Seven font files totalling 231 kB were all preloaded on
+  // the homepage, competing with the hero poster for bandwidth on a slow
+  // connection. This one sets small spec labels, never the headline, and
+  // display:swap means its text is legible from the first paint regardless.
+  preload: false,
 });
 
 export const metadata: Metadata = {

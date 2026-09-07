@@ -20,7 +20,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 36,
+    "hiddenBeforeScroll": 41,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -29,7 +29,7 @@
     "title": "About — The Story Behind Skilloura | Skilloura",
     "canonical": "https://www.skilloura.com/about",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 5,
     "track": [],
     "whatsapp": [
       "A",
@@ -39,7 +39,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 8,
+    "hiddenBeforeScroll": 5,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -66,7 +66,7 @@
     "title": "Blog — Practical Guides for Business Websites, AI & Marketing | Skilloura",
     "canonical": "https://www.skilloura.com/blog",
     "h1": 1,
-    "jsonLd": 4,
+    "jsonLd": 5,
     "track": [],
     "whatsapp": [
       "A",
@@ -75,7 +75,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 0,
+    "hiddenBeforeScroll": 27,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -84,7 +84,7 @@
     "title": "Contact — Ask Anything, Get a Reply Within 24 Hours | Skilloura",
     "canonical": "https://www.skilloura.com/contact",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 5,
     "track": [],
     "whatsapp": [
       "A",
@@ -125,8 +125,8 @@
   },
   "/get-started": {
     "status": 200,
-    "title": "Skilloura — Smart Digital Services, Delivered with Skill.",
-    "canonical": null,
+    "title": "Start Your Project — Get a Written Scope & Fixed Quote | Skilloura",
+    "canonical": "https://www.skilloura.com/get-started",
     "h1": 1,
     "jsonLd": 3,
     "track": [],
@@ -141,7 +141,7 @@
     "title": "How It Works — Clear 8-Step Project Process | Skilloura",
     "canonical": "https://www.skilloura.com/how-it-works",
     "h1": 1,
-    "jsonLd": 3,
+    "jsonLd": 4,
     "track": [],
     "whatsapp": [
       "A",
@@ -258,7 +258,7 @@
     "title": "Services — Websites, Apps, AI Automation, Design & More | Skilloura",
     "canonical": "https://www.skilloura.com/services",
     "h1": 1,
-    "jsonLd": 4,
+    "jsonLd": 5,
     "track": [
       "service_detail_click@A",
       "service_detail_click@A",
@@ -338,7 +338,7 @@
       "A"
     ],
     "inputs": [],
-    "hiddenBeforeScroll": 16,
+    "hiddenBeforeScroll": 17,
     "hiddenAfterScroll": 0,
     "consoleErrors": []
   },
@@ -404,6 +404,148 @@
     "jsonLd": 3,
     "track": [],
     "whatsapp": [],
+    "inputs": [],
+    "hiddenBeforeScroll": 0,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/services/website-speed-optimization": {
+    "status": 200,
+    "title": "Website Speed Optimization — Get a Custom Quote | Skilloura",
+    "canonical": "https://www.skilloura.com/services/website-speed-optimization",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 9,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/services/api-integration": {
+    "status": 200,
+    "title": "API & System Integration — Get a Custom Quote | Skilloura",
+    "canonical": "https://www.skilloura.com/services/api-integration",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 9,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/services/local-seo": {
+    "status": 200,
+    "title": "Local SEO & Google Business Profile — Get a Custom Quote | Skilloura",
+    "canonical": "https://www.skilloura.com/services/local-seo",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [
+      "pricing_package_click@A",
+      "pricing_package_click@A",
+      "pricing_package_click@A"
+    ],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 11,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/case-studies": {
+    "status": 200,
+    "title": "Case Studies — How These Builds Were Actually Decided | Skilloura",
+    "canonical": "https://www.skilloura.com/case-studies",
+    "h1": 1,
+    "jsonLd": 5,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 8,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/case-studies/the-half-that-costs-the-money": {
+    "status": 200,
+    "title": "The half of an online store that costs the money — Case Study | Skilloura",
+    "canonical": "https://www.skilloura.com/case-studies/the-half-that-costs-the-money",
+    "h1": 1,
+    "jsonLd": 5,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 13,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/case-studies/decide-first-then-chart": {
+    "status": 200,
+    "title": "Decide first, then chart — Case Study | Skilloura",
+    "canonical": "https://www.skilloura.com/case-studies/decide-first-then-chart",
+    "h1": 1,
+    "jsonLd": 5,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "inputs": [],
+    "hiddenBeforeScroll": 12,
+    "hiddenAfterScroll": 0,
+    "consoleErrors": []
+  },
+  "/blog/website-vs-web-app": {
+    "status": 200,
+    "title": "Website vs Web App: What Does Your Business Actually Need? | Skilloura",
+    "canonical": "https://www.skilloura.com/blog/website-vs-web-app",
+    "h1": 1,
+    "jsonLd": 6,
+    "track": [],
+    "whatsapp": [
+      "A",
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
     "inputs": [],
     "hiddenBeforeScroll": 0,
     "hiddenAfterScroll": 0,

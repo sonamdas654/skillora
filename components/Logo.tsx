@@ -29,7 +29,14 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
         alt="Skilloura logo"
         width={903}
         height={560}
-        priority
+        // Deliberately NOT priority.
+        //
+        // It was, which emitted a <link rel=preload> for a full srcset up to
+        // 3840w — for a mark rendered at 120px in the header. On a 1.6 Mbps
+        // connection that preload competes directly with the hero poster,
+        // which IS the LCP element, and the homepage measured 3.44s LCP
+        // against a 2.5s target. The header logo can arrive a moment late;
+        // the hero cannot.
         sizes={size === "lg" ? "160px" : "120px"}
         className={`${img} w-auto transition-transform duration-300 group-hover:scale-[1.03]`}
       />

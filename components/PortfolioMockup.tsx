@@ -36,7 +36,7 @@ function ChatMockup({ accent }: { accent: string }) {
       </div>
       <div className="mt-auto flex items-center justify-between rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5">
         <span className="text-[7px] text-emerald-300 font-semibold">✓ Trained on your business data</span>
-        <span className="text-[7px] text-slate-500">24/7 auto-replies</span>
+        <span className="text-[7px] text-slate-400">24/7 auto-replies</span>
       </div>
     </div>
   );

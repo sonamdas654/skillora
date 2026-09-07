@@ -110,20 +110,30 @@ export default function PricingPage() {
             Everything, at a glance
           </h2>
           <dl className="mt-4 border-t border-line-strong">
+            {/* A <div> per row, not an <a>. Wrapping dt/dd in an anchor is
+                invalid inside a <dl> and severs the term/definition pairing
+                that makes the list readable by assistive technology. The row
+                stays fully clickable via the stretched link on the term. */}
             {serviceCategories.map((service) => (
-              <a
+              <div
                 key={service.slug}
-                href={`#${anchorFor(service.slug)}`}
-                className="grid grid-cols-[1fr_auto_auto] items-baseline gap-x-6 border-b border-line py-3 transition-colors hover:bg-surface"
+                className="relative grid grid-cols-[1fr_auto_auto] items-baseline gap-x-6 border-b border-line py-3 transition-colors hover:bg-surface"
               >
-                <dt className="text-body-base font-medium text-ink">{service.name}</dt>
+                <dt className="text-body-base font-medium text-ink">
+                  <a
+                    href={`#${anchorFor(service.slug)}`}
+                    className="after:absolute after:inset-0 after:content-['']"
+                  >
+                    {service.name}
+                  </a>
+                </dt>
                 <dd className="hidden font-mono text-body-sm text-ink-soft sm:block">
                   {service.timeline}
                 </dd>
                 <dd className="w-24 text-right font-mono text-body-base font-medium text-ink">
                   {service.startingPrice}
                 </dd>
-              </a>
+              </div>
             ))}
           </dl>
         </Reveal>
