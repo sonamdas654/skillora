@@ -15,6 +15,8 @@ import { homeFaqs } from "@/lib/faqs";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { createPublicClient } from "@/lib/supabase/public";
 import EstimateTeaser from "@/components/EstimateTeaser";
+import JsonLd from "@/components/JsonLd";
+import { aggregateRatingSchema } from "@/lib/schema";
 
 // Public content only, so this is statically generated and refreshed on a
 // timer instead of server-rendered per request. See lib/supabase/public.ts
@@ -144,7 +146,7 @@ export default async function HomePage() {
   const supabase = createPublicClient();
   const { data: testimonialRows } = await supabase
     .from("testimonials")
-    .select("id, client_name, client_business, rating, review")
+    .select("id, client_name, client_business, rating, review, source")
     .eq("status", "active")
     .order("created_at", { ascending: false })
     .limit(6);
@@ -154,7 +156,13 @@ export default async function HomePage() {
     clientBusiness: t.client_business,
     rating: t.rating,
     review: t.review,
+    source: t.source as string | null,
   }));
+
+  // Returns null until at least three genuinely client-submitted reviews
+  // exist. Seeded copy is shown on the page but never counted here — see
+  // aggregateRatingSchema for why that line matters.
+  const ratingSchema = aggregateRatingSchema(testimonials);
 
   return (
     <>
@@ -569,39 +577,69 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* ── Real client reviews (only shown when they exist) ── */}
+        {/* ── Proof ─────────────────────────────────────────────
+            Not a grid of review cards. Three identical bordered boxes is the
+            shape this rebuild was told to stop repeating, and it also flattens
+            the reviews into wallpaper — the eye skims all three and reads
+            none. One review is given room to actually be read, the rest run as
+            an attributed ledger under the same hairline rule the site uses for
+            every other list. */}
         {testimonials.length > 0 && (
-          <Section className="bg-soft-panel border-b border-line">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Client reviews"
-                title={
-                  <>
-                    What clients{" "}
-                    <span className="font-accent font-normal text-accent">say</span>
-                  </>
-                }
-                subtitle="Honest feedback from people we&apos;ve worked with."
-              />
-            </Reveal>
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {testimonials.map((t, i) => (
-                <Reveal key={t.id} delay={Math.min(i * 0.06, 0.3)}>
-                  <div className="card-lift h-full rounded-card border border-line bg-canvas p-6">
-                    <p className="text-warning text-title-2" aria-label={`${t.rating} out of 5 stars`}>
-                      {"★".repeat(t.rating)}
-                      <span className="text-line">{"★".repeat(5 - t.rating)}</span>
+          <Section className="border-b border-line bg-soft-panel">
+            {ratingSchema && <JsonLd data={ratingSchema} />}
+            <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+              <Reveal>
+                <div>
+                  <p className="text-micro font-mono uppercase text-ink-muted">
+                    Client reviews
+                  </p>
+                  <blockquote className="mt-5">
+                    <p className="font-display text-title-1 leading-relaxed text-ink sm:text-display-3">
+                      &ldquo;{testimonials[0].review}&rdquo;
                     </p>
-                    <p className="mt-3 text-body-sm text-ink-soft">&quot;{t.review}&quot;</p>
-                    <p className="mt-4 text-body-sm font-semibold text-ink">
-                      {t.clientName}
-                      {t.clientBusiness && (
-                        <span className="font-normal text-ink-soft"> · {t.clientBusiness}</span>
+                    <footer className="mt-6 border-t border-line-strong pt-4">
+                      <p className="text-body-base font-semibold text-ink">
+                        {testimonials[0].clientName}
+                      </p>
+                      {testimonials[0].clientBusiness && (
+                        <p className="mt-0.5 font-mono text-micro uppercase text-ink-muted">
+                          {testimonials[0].clientBusiness}
+                        </p>
                       )}
-                    </p>
-                  </div>
+                    </footer>
+                  </blockquote>
+                </div>
+              </Reveal>
+
+              {testimonials.length > 1 && (
+                <Reveal delay={0.08}>
+                  <ul className="border-t border-line-strong">
+                    {testimonials.slice(1).map((t) => (
+                      <li key={t.id} className="border-b border-line py-5">
+                        <p
+                          className="font-mono text-body-sm text-warning"
+                          aria-label={`${t.rating} out of 5`}
+                        >
+                          {"★".repeat(t.rating)}
+                          <span className="text-line">{"★".repeat(5 - t.rating)}</span>
+                        </p>
+                        <p className="mt-2 text-body-base leading-relaxed text-ink-soft">
+                          {t.review}
+                        </p>
+                        <p className="mt-2.5 text-body-sm font-medium text-ink">
+                          {t.clientName}
+                          {t.clientBusiness && (
+                            <span className="font-normal text-ink-muted">
+                              {" · "}
+                              {t.clientBusiness}
+                            </span>
+                          )}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
                 </Reveal>
-              ))}
+              )}
             </div>
           </Section>
         )}

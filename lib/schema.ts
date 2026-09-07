@@ -298,3 +298,40 @@ export function serviceListSchema(
     })),
   };
 }
+
+/**
+ * AggregateRating for the organisation — emitted ONLY from reviews a client
+ * actually submitted.
+ *
+ * The site shows some studio-written testimonials, which the owner asked for
+ * and which are marked `source = 'studio-written'` in the database. Showing
+ * copy on your own page is one thing; telling Google you hold N verified
+ * reviews averaging X stars is a different claim entirely, and making it
+ * falsely is what earns a manual action — which would wreck the one goal this
+ * whole rebuild exists for.
+ *
+ * So this function is the gate. It counts only `client-submitted` rows and
+ * returns null until there are at least three of them, at which point the
+ * schema starts being emitted on its own with no code change. Three, not one,
+ * because a single review rendered as an aggregate is both statistically
+ * silly and something Google is known to ignore or distrust.
+ *
+ * Do not "improve" this by passing all rows in. The filter is the point.
+ */
+export function aggregateRatingSchema(
+  reviews: { rating: number; source?: string | null }[]
+) {
+  const real = reviews.filter((r) => r.source === "client-submitted");
+  if (real.length < 3) return null;
+
+  const total = real.reduce((sum, r) => sum + r.rating, 0);
+  return {
+    "@context": "https://schema.org",
+    "@type": "AggregateRating",
+    itemReviewed: { "@id": `${BASE}/#organization` },
+    ratingValue: Number((total / real.length).toFixed(1)),
+    reviewCount: real.length,
+    bestRating: 5,
+    worstRating: 1,
+  };
+}

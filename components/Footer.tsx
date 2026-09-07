@@ -30,6 +30,7 @@ const company = [
   { href: "/ai-solutions", label: "AI Systems" },
   { href: "/solutions", label: "Solutions by Industry" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/references", label: "Reference Layouts" },
   { href: "/pricing", label: "Pricing" },
   { href: "/blog", label: "Blog" },

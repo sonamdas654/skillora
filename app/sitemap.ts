@@ -6,6 +6,7 @@ import { createPublicClient } from "@/lib/supabase/public";
 import { solutions } from "@/lib/solutions";
 import { policies } from "@/lib/policies";
 import { portfolioItems } from "@/lib/portfolio";
+import { caseStudies } from "@/lib/caseStudies";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = site.url;
@@ -18,6 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/solutions",
     "/pricing",
     "/portfolio",
+    "/case-studies",
     "/references",
     "/how-it-works",
     "/about",
@@ -29,6 +31,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${base}${p}`,
     changeFrequency: "weekly" as const,
     priority: p === "" ? 1 : 0.8,
+  }));
+
+  const caseStudyPages = caseStudies.map((c) => ({
+    url: `${base}/case-studies/${c.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
   const servicePages = serviceCategories.map((s) => ({
@@ -116,5 +124,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...demoPages,
     ...policyPages,
     ...portfolioPages,
+    ...caseStudyPages,
   ];
 }

@@ -31,7 +31,11 @@ const nextConfig: NextConfig = {
       // real pages at these paths would split signals with /portfolio and
       // /blog for no benefit.
       { source: "/work", destination: "/portfolio", permanent: true },
-      { source: "/case-studies", destination: "/portfolio", permanent: true },
+      // /case-studies is a real page now — it was a redirect to /portfolio
+      // while no such page existed. This one was a permanent (308) redirect,
+      // which browsers cache hard, so it is fortunate it never reached
+      // production: the new page would have been unreachable for anyone who
+      // had followed the old one once.
       { source: "/insights", destination: "/blog", permanent: true },
       { source: "/articles", destination: "/blog", permanent: true },
       { source: "/quote", destination: "/start-project", permanent: true },

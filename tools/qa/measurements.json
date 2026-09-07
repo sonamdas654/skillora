@@ -1,0 +1,36 @@
+{
+  "measuredAt": "2026-09-07T08:18:50.816Z",
+  "conditions": "Chromium, 412x915 @2x mobile, 4x CPU throttle, 1.6 Mbps / 150 ms RTT, cold cache; median of 3 valid runs",
+  "base": "http://localhost:3000",
+  "results": [
+    {
+      "route": "/portfolio/restaurant-website-concept",
+      "validSamples": 1,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 1504,
+      "lcp": 1504,
+      "ttfb": 4,
+      "load": 2489,
+      "cls": 0,
+      "lcpElement": null,
+      "bytes": {
+        "total": 441,
+        "js": 259,
+        "css": 19,
+        "image": 0,
+        "font": 137,
+        "other": 26
+      },
+      "domNodes": 178,
+      "interactive": 16,
+      "images": 0,
+      "imagesWithAlt": 0,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    }
+  ]
+}
