@@ -103,7 +103,7 @@ Most failures were one mistake made repeatedly rather than many separate ones:
 | Canonical host | `lib/site.ts` and `lib/schema.ts` disagreed | One source |
 | Over-length titles | 4 pages at 73–85 characters, truncated in results | Trimmed |
 | IndexNow | Key file present, no code that used it | Wired to admin publishes |
-| GA / Clarity / GSC | All three silently off; the variables were absent from `.env.example` | Documented; values still needed |
+| GA / Clarity / GSC | Absent from `.env.example` and from the local `.env` | Documented. **Correction: only Clarity is actually off in production** — see below |
 
 ### A correction
 
@@ -190,7 +190,7 @@ that fails without producing an error.
 | | |
 |---|---|
 | Two `phase23_*` and one `phase24_*` SQL file | Cluster articles, testimonials and the cost-article fix are written but not live |
-| `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_GSC_VERIFICATION` | Still empty; analytics and verification remain off |
+| `NEXT_PUBLIC_CLARITY_ID` | The only one genuinely unset. GA and the Search Console tag are live in production; see the third correction below |
 | Logo artwork | **Settled — the owner's instruction is to keep the original, unchanged.** The CSS underline, which had been recoloured to petrol/aura, is back to the artwork's own blue → violet → amber ramp, sampled from `logo-full.png`. `logo-full.png` was briefly converted to WebP for the schema reference and has been restored. |
 | Real client reviews | The collection flow works; nobody has been sent a link |
 | Screen-reader testing | axe catches roughly 40% of accessibility issues. Nothing here has been tested with an actual screen reader |

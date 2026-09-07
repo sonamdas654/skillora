@@ -7,23 +7,47 @@ every event below was located at a specific line and verified to fire.*
 
 ## The situation right now
 
-Three environment variables are **empty**, and every one of them fails silently:
+**Corrected 2026-09-07.** An earlier version of this document said all three of
+these were silently off in production. That was wrong, and it was wrong in an
+instructive way: it was written from the local `.env` and `.env.example`, which
+are the sandbox environment, without checking the live site. The same mistake
+was made once before in this project, about the canonical hostname. Checking
+production takes one command.
 
-| Variable | What is off | Where the check is |
+What `curl https://www.skilloura.com/` actually returns:
+
+| | Live? | Detail |
 |---|---|---|
-| `NEXT_PUBLIC_GSC_VERIFICATION` | No verification meta tag is emitted | `app/layout.tsx` |
-| `NEXT_PUBLIC_GA_ID` | Google Analytics never loads | `components/SiteAnalytics.tsx:41` |
-| `NEXT_PUBLIC_CLARITY_ID` | Clarity never loads | `components/SiteAnalytics.tsx:50` |
+| Google Analytics | **Yes** | gtag is loaded with `G-MG1D7H2P6R` |
+| Search Console verification | **Yes** | the `google-site-verification` meta tag is present |
+| Microsoft Clarity | **No** | no `clarity.ms` script anywhere on the page |
 
-This is the pattern worth understanding: the code checks whether the value
-exists and does nothing when it does not. Absent is indistinguishable from
-"deliberately disabled", so nothing ever reported a problem. The site has been
-running with no analytics and no Search Console verification, and the only
-symptom was an absence of data — which looks exactly like an absence of traffic.
+Vercel has held all three variables since 14 July, and the live production
+deployment (`cc858e8` on `main`, 23 August) is newer than that — so GA and the
+verification tag are baked in and working. Clarity's variable exists but is
+empty, which is why `components/SiteAnalytics.tsx` renders nothing for it.
 
-They are all documented in `.env.example` now. They still need real values.
+**One trap worth knowing about.** There are two GA4 properties in the same
+Google account. The one that opens by default is called *Nigam Hotel Web*
+(`G-4PYH2DRFKG`) — a different project entirely, which is why it reports "no
+data received from your website yet". Skilloura's data goes to
+`G-MG1D7H2P6R`. Putting the wrong one in the environment would point the site
+at an empty property and cut the history, and the empty property's own warning
+message makes that an easy mistake to make.
 
----
+The Skilloura GA4 property is not visible in the currently signed-in Google
+account, so it is presumably under a different one.
+
+**So the remaining work here is smaller than it looked:**
+
+1. **Clarity** — the variable is empty because there is no Clarity project yet.
+   Creating one needs a sign-in that only the owner can do.
+2. **Search Console** — the verification tag is live, but the signed-in Google
+   account shows the "add a website" welcome screen, meaning it holds no
+   property. Either the property lives in another Google account, or it was
+   verified once and removed. Worth checking which, because without a property
+   nobody is reading the coverage and query data even though the site is
+   verifiable.
 
 ## Part 1 — Google Search Console
 
@@ -143,10 +167,17 @@ errors.
 
 ## Order of work
 
-1. Verify Search Console (domain property if DNS is available)
-2. Submit the sitemap, URL-inspect the four money pages
-3. Set `NEXT_PUBLIC_GA_ID`, redeploy, confirm events arrive in GA4 Realtime
-4. Mark the three conversions
-5. Set `NEXT_PUBLIC_CLARITY_ID`
-6. Add the `/get-started` funnel events
-7. Come back in 28 days, when field data exists
+Revised after checking production rather than the local files.
+
+1. **Find which Google account holds the Search Console property**, or add one.
+   The site is already verifiable — the meta tag is live — so this is minutes,
+   not a setup project.
+2. **Submit the sitemap** (`https://www.skilloura.com/sitemap.xml`, 86 URLs) and
+   URL-inspect `/`, `/pricing`, `/services/website-development`, `/get-started`.
+3. **Mark the three conversions in GA4** on property `G-MG1D7H2P6R` — not on
+   *Nigam Hotel Web*, which is a different site.
+4. **Create a Clarity project** and set `NEXT_PUBLIC_CLARITY_ID` in Vercel. This
+   is the only variable genuinely missing.
+5. **Add the `/get-started` funnel events.** Still the most valuable thing
+   analytics could tell this business and still absent.
+6. Come back in 28 days, when Search Console field data exists.

@@ -32,12 +32,14 @@ node tools/qa/content-map.mjs > docs/_content-map.json
 Nothing in this repository can do these, and until they happen most of the above
 is theoretical.
 
-1. **Run the pending SQL** — `supabase/phase23_testimonial_seed.sql`,
-   `phase23_cluster_articles.sql`, `phase24_cost_articles_answer_first.sql`.
-   Four articles, six testimonials and the cost-article fix are written and not
-   live.
-2. **Set the three analytics variables** and redeploy. Until then there is no
-   data, and no data looks exactly like no traffic.
+1. ~~Run the pending SQL~~ — **done 2026-09-07.** All three migrations are
+   applied; the files are marked APPLIED at the top. Blog 22 → 26 posts, six
+   testimonials live, both cost articles now open with a price.
+2. **Set `NEXT_PUBLIC_CLARITY_ID`** — the only analytics variable genuinely
+   missing. GA and the Search Console verification tag are already live in
+   production; an earlier version of this list said otherwise and was wrong.
+   And find which Google account holds the Search Console property, because the
+   signed-in one holds none.
 3. **Audit the Google Business Profile.** It already exists. It is the highest
    return per hour available anywhere in this list, and it costs nothing.
 4. **Send three review links** to real clients through `/review/<token>`. Three
