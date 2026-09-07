@@ -73,14 +73,11 @@ who looks it up that the business is closed.
 - **Search Console** — no property in any of the three accounts, even though the
   verification meta tag is live on the site. The site is verifiable in minutes;
   nobody is reading its search data.
-- **Google Analytics** — the live site reports into `G-MG1D7H2P6R`, and that
-  property is in none of the three. The owner states they have never opened
-  Analytics. Somebody put that ID into Vercel on 14 July; whoever did owns the
-  property, and Skilloura's visitor data has been going there ever since.
-  Worth resolving deliberately: either recover access, or create a property in
-  an account the business controls and repoint `NEXT_PUBLIC_GA_ID`. Repointing
-  starts the history over, which is a real cost but a smaller one than data
-  going somewhere unaccounted for.
+- **Google Analytics** — **resolved.** The property is in
+  `mailedago@gmail.com`, its data stream points at www.skilloura.com and is
+  receiving traffic. Nothing to recover; see
+  `05-search-console-and-analytics.md` for what the data shows and the three
+  things worth doing with it.
 
 ### Fix these first, in this order
 

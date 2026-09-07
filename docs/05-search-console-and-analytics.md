@@ -35,26 +35,56 @@ data received from your website yet". Skilloura's data goes to
 at an empty property and cut the history, and the empty property's own warning
 message makes that an easy mistake to make.
 
-**Which account owns it is now the open question.** Two Google accounts on this
-machine were checked on 2026-09-07:
+**Resolved — the property is the owner's, in `mailedago@gmail.com`.**
 
-- `sonamdasdj00@gmail.com` — one Analytics account (`shopwithdas.store`), no
-  Search Console property, no Business Profile
-- `erfgfffehfif37ajaabj@gmail.com` — the *Nigam Hotel Web* property, no Search
-  Console property, one unverified Business Profile called *sdquick*
+An earlier version of this document raised the possibility that Skilloura's
+visitor data was going to a property the business did not control. It is not.
+Checked on 2026-09-07 from the account the owner named:
 
-Neither holds `G-MG1D7H2P6R`, and neither holds a Search Console property.
-- `sonamdasdj@gmail.com` — owns the **Skilloura Business Profile**, but has no
-  Analytics account at all (Google offers the "start measuring" setup screen)
+- Account `a401049610`, property `p545450096`
+- Data stream **"Skilloura" → https://www.skilloura.com/**, status
+  *"Receiving traffic in past 48 hours"*
+- Measurement ID `G-MG1D7H2P6R` — the one on the live page
 
-The owner confirms he has never opened Google Analytics. So `G-MG1D7H2P6R` was
-created by somebody else and entered into Vercel on 14 July, and the site's
-visitor data has been going to a property the business does not control.
+Accounts checked and what each holds:
 
-That is the thing to settle, and it is a decision rather than a task: recover
-access to that property, or create one in an account the business owns and
-repoint `NEXT_PUBLIC_GA_ID`. Repointing loses the history to date — a real cost,
-but smaller than leaving the data somewhere unaccounted for.
+| Account | Analytics | Search Console | Business Profile | AdSense |
+|---|---|---|---|---|
+| **`mailedago@gmail.com`** | **the Skilloura property** | — | — | none |
+| **`sonamdasdj@gmail.com`** | none | none | **the Skilloura profile** | none |
+| `sonamdasdj00@gmail.com` | `shopwithdas.store` | none | none | — |
+| `erfgfffehfif37ajaabj@gmail.com` | *Nigam Hotel Web* | none | *sdquick*, unverified | — |
+
+Everything is owned. It is simply spread across three accounts, and the owner
+had never opened Analytics, which is why it looked unowned from outside.
+
+### What the data actually shows — last 7 days
+
+| | |
+|---|---|
+| Active users | 31 |
+| Events | 246 |
+| **Key events (conversions)** | **0** |
+| Channels | Direct 25, Organic Search 10, Organic Social 5, Paid Search 1 |
+| Sources | google/organic 10, linkedin.com/referral 5, google/cpc 1 |
+
+Three things worth acting on, in order:
+
+1. **Key events is zero.** No conversion is configured, so GA cannot tell anyone
+   whether the site produces business. The events already fire — see the table
+   further down — they just are not marked. This is the single highest-value
+   ten minutes available in Analytics.
+
+2. **Read the city breakdown carefully.** Active users by town: Bhubaneswar 6,
+   Puri 4, Nagpur 1 — and Ashburn 8, San Jose 4, Columbus 2, Boardman 1. Those
+   four are US data-centre towns, which is what crawler and bot traffic looks
+   like, not customers. Real human traffic is roughly the Indian half. Do not
+   read the headline "31 users" as 31 people.
+
+3. **A Google Ads account exists and is not linked.** GA reports account
+   **879-036-3243** unlinked, and there is `google / cpc` traffic — so money is
+   being spent on ads whose results Analytics cannot attribute. Linking is a
+   one-minute job in GA admin.
 
 **So the remaining work here is smaller than it looked:**
 
