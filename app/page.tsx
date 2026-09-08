@@ -15,6 +15,7 @@ import { homeFaqs } from "@/lib/faqs";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { createPublicClient } from "@/lib/supabase/public";
 import EstimateTeaser from "@/components/EstimateTeaser";
+import ReviewCarousel from "@/components/ReviewCarousel";
 import JsonLd from "@/components/JsonLd";
 import { aggregateRatingSchema } from "@/lib/schema";
 
@@ -634,69 +635,32 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Proof ─────────────────────────────────────────────
-            Not a grid of review cards. Three identical bordered boxes is the
-            shape this rebuild was told to stop repeating, and it also flattens
-            the reviews into wallpaper — the eye skims all three and reads
-            none. One review is given room to actually be read, the rest run as
-            an attributed ledger under the same hairline rule the site uses for
-            every other list. */}
+            One advancing panel, not a grid and not a lead-plus-list.
+
+            The previous shape gave one review a large pull quote and ran the
+            rest as a ledger beside it. It read as two unrelated things stacked,
+            and in practice only the first review was ever seen. Every review
+            now gets the same room and the panel moves through them on its own.
+
+            The carousel is a client component because it has to hold an index
+            and a timer; everything around it stays server-rendered. */}
         {testimonials.length > 0 && (
           <Section className="border-b border-line bg-soft-panel">
             {ratingSchema && <JsonLd data={ratingSchema} />}
-            <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-              <Reveal variant="fade">
-                <div>
-                  <p className="text-micro font-mono uppercase text-ink-muted">
-                    Client reviews
-                  </p>
-                  <blockquote className="mt-5">
-                    <p className="font-display text-title-1 leading-relaxed text-ink sm:text-display-3">
-                      &ldquo;{testimonials[0].review}&rdquo;
-                    </p>
-                    <footer className="mt-6 border-t border-line-strong pt-4">
-                      <p className="text-body-base font-semibold text-ink">
-                        {testimonials[0].clientName}
-                      </p>
-                      {testimonials[0].clientBusiness && (
-                        <p className="mt-0.5 font-mono text-micro uppercase text-ink-muted">
-                          {testimonials[0].clientBusiness}
-                        </p>
-                      )}
-                    </footer>
-                  </blockquote>
-                </div>
-              </Reveal>
-
-              {testimonials.length > 1 && (
-                <Reveal delay={0.08}>
-                  <ul className="border-t border-line-strong">
-                    {testimonials.slice(1).map((t) => (
-                      <li key={t.id} className="border-b border-line py-5">
-                        <p
-                          className="font-mono text-body-sm text-warning"
-                          aria-label={`${t.rating} out of 5`}
-                        >
-                          {"★".repeat(t.rating)}
-                          <span className="text-ink-faint">{"★".repeat(5 - t.rating)}</span>
-                        </p>
-                        <p className="mt-2 text-body-base leading-relaxed text-ink-soft">
-                          {t.review}
-                        </p>
-                        <p className="mt-2.5 text-body-sm font-medium text-ink">
-                          {t.clientName}
-                          {t.clientBusiness && (
-                            <span className="font-normal text-ink-muted">
-                              {" · "}
-                              {t.clientBusiness}
-                            </span>
-                          )}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </Reveal>
-              )}
-            </div>
+            <Reveal variant="fade">
+              <p className="text-micro font-mono uppercase text-ink-muted">Client reviews</p>
+            </Reveal>
+            <Reveal variant="lift" delay={0.06} className="mt-8">
+              <ReviewCarousel
+                reviews={testimonials.map((t) => ({
+                  id: t.id,
+                  clientName: t.clientName,
+                  clientBusiness: t.clientBusiness,
+                  rating: t.rating,
+                  review: t.review,
+                }))}
+              />
+            </Reveal>
           </Section>
         )}
 

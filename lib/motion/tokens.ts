@@ -32,3 +32,13 @@ export const STAGGER_STEP_MS = 70;
  * never leaves the page blank.
  */
 export const REVEAL_FAILSAFE_MS = 3500;
+
+/**
+ * How long a review stays on screen before the carousel advances.
+ *
+ * Seven seconds, which is long enough to read a three-line testimonial without
+ * hurrying. Anything near four feels like the page is taking the words away.
+ * It is a token rather than a literal so the value is visible next to the rest
+ * of the motion system instead of buried in a component.
+ */
+export const AUTOPLAY_REVIEW_MS = 7000;
