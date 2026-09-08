@@ -20,6 +20,21 @@ import { whatsappLink } from "@/lib/site";
  * immediately and is never blank while JavaScript loads.
  */
 
+/**
+ * The four stages, named, directly under the hero.
+ *
+ * They already appear further down the page with a sentence each. This is the
+ * summary, not a second copy: names only, above the fold, because it is the
+ * promise the whole business runs on and a visitor should not have to scroll
+ * to learn that a written scope comes before any payment.
+ */
+const STAGES = [
+  { n: "01", label: "Requirements", note: "One smart form for your project type." },
+  { n: "02", label: "Written scope", note: "Itemised, with a fixed quote and dates." },
+  { n: "03", label: "Build", note: "Preview and approve before final payment." },
+  { n: "04", label: "Handover", note: "Code, hosting and accounts, all yours." },
+];
+
 const PROOF = [
   { value: "₹7,000", label: "Transparent starting price", note: "Guide pricing, confirmed in writing." },
   { value: "24h", label: "Founder review window", note: "Replies come from Sonam, not a queue." },
@@ -161,6 +176,34 @@ export default function HomeHero() {
             </div>
           </div>
         </div>
+
+        {/* ── The four stages ──────────────────────────────────
+            A connected rail, not four more cards. The line runs through every
+            tick so the eye reads it as one sequence with an order, which is
+            what a process is — and it is the same scope-line motif the rest of
+            the site uses for dividers and list markers. */}
+        <ol className="rise mt-14 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4"
+            style={{ ["--rise-delay" as string]: "380ms" }}>
+          {STAGES.map((s, i) => (
+            <li key={s.n} className="relative">
+              <div className="relative border-t border-line-strong pt-4">
+                {/* The tick, and the run of line that connects it forward. */}
+                <span aria-hidden className="absolute -top-1 left-0 block size-2 rounded-pill bg-brand" />
+                {i < STAGES.length - 1 && (
+                  <span
+                    aria-hidden
+                    className="absolute -top-px left-2 hidden h-px w-[calc(100%+2rem)] bg-brand/25 lg:block"
+                  />
+                )}
+                <p className="font-mono text-micro text-ink-muted">{s.n}</p>
+                <h2 className="mt-1.5 text-body-base font-semibold uppercase tracking-wide text-ink">
+                  {s.label}
+                </h2>
+                <p className="mt-1.5 text-body-sm leading-relaxed text-ink-soft">{s.note}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

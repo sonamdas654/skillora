@@ -37,12 +37,6 @@ export const metadata = {
 
 // Homepage shows a 4-step summary; the full 8-step process lives on
 // /how-it-works. Voice kept consistently "we" (a small, personally-run studio).
-const homeSteps = [
-  { title: "Share your requirement", desc: "Pick a service and fill a smart form built for that project type — upload any files in one place." },
-  { title: "Get a written scope & quote", desc: "We personally review every request and reply within 24 hours, with a clear written quote before any payment." },
-  { title: "Approve & we build", desc: "A 40–50% advance starts the work. You approve a preview first, then revisions happen." },
-  { title: "Delivery & handover", desc: "Final delivery with a clean, documented handover — files, access and everything you need to own it." },
-];
 
 // Impact / trust numbers — honest, capability-based stats (no fake client counts).
 // Four facts about how this business runs. These used to carry a gradient
@@ -403,50 +397,31 @@ export default async function HomePage() {
           </Reveal>
         </Section>
 
-        {/* ── Section 5: How It Works (4-step summary; full 8 on /how-it-works) ── */}
-        <Section id="how-it-works" className="bg-wash-mint border-b border-line">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Process"
-              title={
-                <>
-                  From idea to delivery in{" "}
-                  <span className="font-accent font-normal text-accent">4 simple steps</span>
-                </>
-              }
-              subtitle="No confusion, no surprises — you always know exactly where your project stands. Every project ends with a clean, documented handover."
-            />
-          </Reveal>
-          {/* A measured track, not four more cards.
-              This section sat between the services grid and the packages
-              grid — three card grids in a row, which is the shape the whole
-              rebuild was meant to stop repeating, and it also flattened a
-              sequence into four things of equal weight. A process is an
-              ordered progression, so it reads as one: the scope line with a
-              tick per step, which is the motif the rest of the site already
-              uses for dividers, list markers and rules. */}
-          <ol className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-            {homeSteps.map((step, i) => (
-              <li key={step.title}>
-                <Reveal delay={Math.min(i * 0.05, 0.25)} variant="unfurl">
-                  <div className="relative border-t border-line-strong pt-5">
-                    <span aria-hidden className="absolute -top-px left-0 h-0.5 w-10 bg-brand" />
-                    <span className="font-mono text-micro text-ink-muted">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="mt-2.5 text-title-2 text-ink">{step.title}</h3>
-                    <p className="mt-2 text-body-sm leading-relaxed text-ink-soft">{step.desc}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
-          <Reveal delay={0.2}>
-            <p className="mt-8 text-center">
-              <Link href="/how-it-works" className="inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep">
-                See the full 8-step process <Icon name="arrow" className="size-4" />
+        {/* The four stages used to be repeated here in full, having already
+            been named directly under the hero. Same four steps, same page —
+            which is the duplication this rebuild keeps having to remove. The
+            hero rail is the summary; the detail lives on /how-it-works, which
+            has all eight steps rather than a second copy of four. */}
+        <Section className="border-b border-line bg-wash-mint">
+          <Reveal variant="fade">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-micro font-mono uppercase text-ink-muted">Process</p>
+              <h2 className="mt-3 text-display-3 text-ink">
+                Every project runs the{" "}
+                <span className="font-accent italic text-brand">same way</span>
+              </h2>
+              <p className="mt-4 text-body-lg text-ink-soft">
+                Requirements, a written scope, the build, then a documented handover. No
+                confusion about where your project stands, and nothing charged before it is
+                agreed.
+              </p>
+              <Link
+                href="/how-it-works"
+                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
+              >
+                See all eight steps <Icon name="arrow" className="size-4" />
               </Link>
-            </p>
+            </div>
           </Reveal>
         </Section>
 
