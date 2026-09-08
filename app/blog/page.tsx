@@ -56,7 +56,23 @@ export default async function BlogPage() {
   // page would then be statically generated with zero articles and no error
   // anywhere — the blog would simply be empty in production. Fail the build
   // instead, loudly, while still allowing a genuinely empty blog locally.
-  if (allPosts.length === 0 && !process.env.NEXT_PUBLIC_SUPABASE_URL?.includes("placeholder")) {
+  //
+  // The guard only fires when credentials ARE configured and still returned
+  // nothing — that is the dangerous case, because it means the wiring looks
+  // right and the blog would ship empty.
+  //
+  // It must NOT fire when there are no credentials at all. That is a preview
+  // or CI build, where every environment variable in this Vercel project is
+  // scoped to Production and so none are present. The earlier condition
+  // treated a missing variable as a misconfiguration and would have failed
+  // every preview deployment — the same class of mistake as lib/db.ts
+  // constructing Prisma at import.
+  const hasSupabaseCredentials = Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder")
+  );
+  if (allPosts.length === 0 && hasSupabaseCredentials) {
     throw new Error(
       "Blog index built with zero published posts. Check NEXT_PUBLIC_SUPABASE_URL/ANON_KEY " +
         "are the real project credentials before building."
