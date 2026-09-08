@@ -341,21 +341,9 @@ export default async function HomePage() {
 
         {/* ── Section 4: Services Overview ────────────────── */}
         <Section padding="pt-16 sm:pt-20 pb-24 sm:pb-32" className="bg-soft-panel border-y border-line" id="services">
-          <Reveal>
-            <SectionHeading
-              eyebrow="What we build"
-              title={
-                <>
-                  One studio.{" "}
-                  <span className="font-accent font-normal text-accent">Your entire digital build.</span>
-                </>
-              }
-              subtitle="Every tile below is a screenshot of a page you can open and click through right now — not a mockup, and not stock. Websites, apps, AI and systems, plus the design and marketing to launch them."
-            />
-          </Reveal>
-          <div className="mt-12">
-            <BuildShowcase />
-          </div>
+          {/* The heading is inside BuildShowcase: the reference puts it in a
+              left column beside the work rather than centred above it. */}
+          <BuildShowcase />
 
           {/* Additional services — real offerings, kept secondary so the core
               websites/AI/systems positioning stays front and centre. */}
