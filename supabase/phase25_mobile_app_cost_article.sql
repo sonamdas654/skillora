@@ -1,3 +1,4 @@
+-- APPLIED to production on 2026-09-08. The leading delete makes it idempotent.
 -- =====================================================================
 -- Skilloura — the cluster article for /services/mobile-app-development.
 --

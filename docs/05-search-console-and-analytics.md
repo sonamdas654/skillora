@@ -70,10 +70,20 @@ had never opened Analytics, which is why it looked unowned from outside.
 
 Three things worth acting on, in order:
 
-1. **Key events is zero.** No conversion is configured, so GA cannot tell anyone
-   whether the site produces business. The events already fire — see the table
-   further down — they just are not marked. This is the single highest-value
-   ten minutes available in Analytics.
+1. ~~Key events is zero.~~ **Done 2026-09-08.** `whatsapp_click` and
+   `portfolio_cta_click` are now marked as key events on property 545450096.
+
+   Marking them surfaced something the event table alone did not: of the six
+   custom events in the code, **only those two have fired in 28 days.**
+   `contact_form_submit`, `pricing_package_click`, `service_detail_click` and
+   `estimate_teaser_used` show no data at all.
+
+   That is not a tracking bug — the snapshot harness asserts every one of those
+   attributes on all 32 routes. It means nobody has submitted the contact form,
+   opened a pricing package, or touched the estimator in a month. At ~30 users
+   a week, half of them crawlers, that is arithmetic rather than mystery, but
+   it is worth knowing which numbers are real: WhatsApp is the only conversion
+   path currently carrying anyone.
 
 2. **Read the city breakdown carefully.** Active users by town: Bhubaneswar 6,
    Puri 4, Nagpur 1 — and Ashburn 8, San Jose 4, Columbus 2, Boardman 1. Those
