@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Icon from "@/components/Icons";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import VideoStage from "./VideoStage";
@@ -99,9 +100,65 @@ export default function HomeHero() {
             </dl>
           </div>
 
-          {/* ── Evidence ────────────────────────────────────── */}
-          <div className="rise" style={{ ["--rise-delay" as string]: "200ms" }}>
-            <VideoStage scenes={heroScenes} />
+          {/* ── Evidence, composed in depth ──────────────────
+              The stage used to sit flat on the page. It now has two more
+              builds standing behind it, angled away under a shared
+              perspective, so the hero reads as a stack of real work rather
+              than one screenshot in a frame.
+
+              Depth here is four CSS transforms and nothing else — no WebGL, no
+              animation loop, no JavaScript at all. The panels are the posters
+              VideoStage has already rendered, so they cost no extra request;
+              they are lazy and aria-hidden because they are scenery, and the
+              stage beside them is the real thing.
+
+              Hidden below lg: at that width they would either overlap the
+              stage or push the page sideways, and a horizontal scrollbar on a
+              phone is a worse outcome than a flat hero. */}
+          <div
+            className="rise relative"
+            style={{ ["--rise-delay" as string]: "200ms", perspective: "1600px" }}
+          >
+            <div
+              className="pointer-events-none absolute inset-0 hidden lg:block"
+              style={{ transformStyle: "preserve-3d" }}
+              aria-hidden
+            >
+              {heroScenes.slice(1, 3).map((s, i) => (
+                <div
+                  key={s.id}
+                  className="absolute overflow-hidden rounded-panel shadow-e3 ring-1 ring-ink/10"
+                  style={{
+                    // Offset up-and-right, then down-and-right, so each panel
+                    // shows a clean corner past the stage instead of hiding
+                    // behind it. Kept inside the column: a first attempt hung
+                    // them off the right edge and they simply vanished under
+                    // the stage, which is worse than no depth at all.
+                    // Both stay INSIDE the stage's vertical bounds. The
+                    // second one previously ran to -6% and sat behind the
+                    // caption line beneath the stage, greying out the one
+                    // sentence that tells a visitor what they are looking at.
+                    // Decoration must never sit on top of the explanation.
+                    inset: i === 0 ? "-7% 3% 16% 12%" : "10% 6% 5% 20%",
+                    transform: `translateZ(${-120 - i * 80}px) rotateY(-${7 + i * 3}deg) rotateX(${1.5 + i}deg)`,
+                    opacity: i === 0 ? 0.55 : 0.34,
+                  }}
+                >
+                  <Image
+                    src={s.poster.webp.src}
+                    alt=""
+                    fill
+                    sizes="22vw"
+                    loading="lazy"
+                    className="object-cover object-left-top"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="relative" style={{ transform: "rotateY(-2.5deg)" }}>
+              <VideoStage scenes={heroScenes} />
+            </div>
           </div>
         </div>
       </div>
