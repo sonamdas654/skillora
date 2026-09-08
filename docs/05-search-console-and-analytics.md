@@ -81,17 +81,30 @@ Three things worth acting on, in order:
    like, not customers. Real human traffic is roughly the Indian half. Do not
    read the headline "31 users" as 31 people.
 
-3. **Google Ads and Analytics are only half connected.** `mailedago@gmail.com`
-   holds two Analytics accounts — **Skilloura (401049610)**, which contains the
-   live property `545450096`, and a second one literally named **"Google Ads
-   Account" (400569339)**, which is the shell Google creates when Ads is linked.
-   Meanwhile GA's own recommendation panel reports Ads customer
-   **879-036-3243** as *unlinked*, and `google / cpc` traffic is arriving.
+3. **Google Ads is running, spending, and not linked.** Checked across all
+   five signed-in Google accounts on 2026-09-08:
 
-   So there is an Ads relationship, but not the one that matters: the ad
-   spend is not attributed against the Skilloura property. Link 879-036-3243 to
-   property 545450096 in GA admin, and check whether the 400569339 account is a
-   leftover worth tidying.
+   | Account | Google Ads |
+   |---|---|
+   | `sonamdas65db@gmail.com` | none — "You don't have any Google Ads accounts" |
+   | `mailedago@gmail.com` | **account 879-036-3243** |
+   | `sonamdasdj@gmail.com` · `sonamdasdj00@gmail.com` · `erfgfffehfif37ajaabj@gmail.com` | not separately reachable — Ads pins the session to one account and ignores the account chooser |
+
+   The Ads account belongs to `mailedago@gmail.com`. That is not a guess:
+   Analytics only surfaces Ads accounts the signed-in user can administer, and
+   GA's recommendation panel there names **879-036-3243** as *unlinked*.
+
+   `mailedago` also holds a second Analytics account literally named **"Google
+   Ads Account" (400569339)** — the shell Google creates on an Ads link — so
+   there is a partial connection that is not the one that matters.
+
+   Spend is real and growing: Paid Search went from 1 session to 3 in a week,
+   plus 2 **Cross-network** sessions, which is what Performance Max and Demand
+   Gen campaigns look like. None of it is attributed against property
+   545450096.
+
+   **Fix:** in that property's home screen, GA already shows a "Link account"
+   button on the recommendation card. One minute.
 
 **So the remaining work here is smaller than it looked:**
 
