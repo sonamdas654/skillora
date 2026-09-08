@@ -12,6 +12,12 @@ export const site = {
   // canonical tag to a URL that redirects, the moment the env var went missing.
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.skilloura.com",
   businessHours: "Mon–Sat, 10 AM – 7 PM IST",
+  // Locality and postal code as the Google Business Profile publishes them.
+  // No street line: the profile itself carries only a Plus Code, so inventing
+  // one would put a claim on the site that Google cannot corroborate — and
+  // corroboration is the entire point of repeating this here.
+  locality: "Bhubaneswar",
+  postalCode: "751031",
   // Names the home region as well as the reach. Google reads local intent
   // from visible copy, not just schema, and "India + global" alone gave it
   // nothing to place the business against. Renders in two spots: the footer

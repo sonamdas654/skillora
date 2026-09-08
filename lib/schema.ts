@@ -26,15 +26,23 @@ export function organizationSchema() {
       email: site.email,
       availableLanguage: ["English", "Hindi"],
     },
-    // Region only — no street or postal code, because there is no public
-    // address to state. "Odisha, India" is the location the Terms page
-    // already declares, so this adds no new claim; it just makes a fact
-    // Google previously had no way to read machine-readable.
+    // Matches the Google Business Profile exactly: Bhubaneswar, Odisha,
+    // 751031. An earlier version of this said there was "no public address to
+    // state" — that was written before anyone checked the profile, which
+    // publishes the locality and postcode. Google reconciles a site's
+    // structured data against the profile, and a site claiming only "Odisha,
+    // IN" against a profile claiming Bhubaneswar 751031 is a weaker match than
+    // it needs to be. No street line, because the profile has none either.
     address: {
       "@type": "PostalAddress",
+      addressLocality: site.locality,
       addressRegion: "Odisha",
+      postalCode: site.postalCode,
       addressCountry: "IN",
     },
+    // The phone was on ProfessionalService but not here, so the two nodes
+    // described the same business with different contact detail.
+    telephone: `+${site.whatsappNumber}`,
     founder: {
       "@type": "Person",
       "@id": `${BASE}/#founder`,
@@ -62,7 +70,9 @@ export function professionalServiceSchema() {
     priceRange: "₹₹",
     address: {
       "@type": "PostalAddress",
+      addressLocality: site.locality,
       addressRegion: "Odisha",
+      postalCode: site.postalCode,
       addressCountry: "IN",
     },
     // Odisha listed first: it is where the business actually operates from,

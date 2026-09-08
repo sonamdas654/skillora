@@ -66,10 +66,10 @@ the owner is named and the other links to it.
 | `/services/seo` | general SEO for a small business | `seo-for-small-business-india` |
 | `/services/local-seo` | ranking in local/map results | `google-business-profile-setup-guide` |
 | `/services/ai-automation` | AI agents, WhatsApp automation | `how-ai-automation-saves-business-time`, `whatsapp-automation-for-small-business`, `ai-chatbot-for-small-business-india` |
-| `/services/mobile-app-development` | mobile app build | — **gap, see §5** |
+| `/services/mobile-app-development` | mobile app build | `mobile-app-cost-india` *(written, not yet run)* |
 | `/services/data-dashboard` | dashboards and reporting | `signs-your-business-needs-a-dashboard`, case study *Decide first, then chart* |
-| `/services/logo-branding` | logo and brand identity | — **gap** |
-| `/services/video-editing` | video and reels editing | — **gap** |
+| `/services/logo-branding` | logo and brand identity | none — **deliberate**, see §5 |
+| `/services/video-editing` | video and reels editing | none — **deliberate**, see §5 |
 | `/services/digital-marketing` | paid and organic marketing | `how-small-businesses-get-more-leads-online` |
 | `/services/custom-software` | bespoke internal systems | `website-vs-web-app` |
 | `/services/resume-career` | resume and portfolio work | `portfolio-website-for-job-seekers` |
@@ -172,12 +172,19 @@ into them but the navigation:
 
 | Page | Suggested article | Query it answers |
 |---|---|---|
-| `/services/mobile-app-development` | "What a mobile app actually costs in India" | app development cost |
+| `/services/mobile-app-development` | ~~"What a mobile app actually costs in India"~~ — **written**, `supabase/phase25_mobile_app_cost_article.sql`, not yet run | app development cost |
 | `/services/logo-branding` | "What you get in a logo package, and what you should own" | logo design cost / deliverables |
 | `/services/video-editing` | "Reels and video editing: formats, turnaround and pricing" | video editing rates |
 
 Priority is the order above: app development carries the highest ticket value of
-the three.
+the three, and its article is now written.
+
+The other two are deliberately **not** being written. `docs/03` puts logo
+(₹1,800) and video (₹700) in Tier 3 — their SERPs belong to Fiverr and Canva,
+and they are add-ons to a larger project rather than acquisition channels.
+Writing cluster articles for them would contradict that analysis. If either
+becomes a real revenue line, revisit; until then, leaving the gap is the
+decision, not an oversight.
 
 ---
 
