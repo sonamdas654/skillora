@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { serviceCategories, serviceTabs } from "@/lib/services";
+import { servicePicture } from "@/lib/buildShowcase";
 import Icon from "./Icons";
 
 /**
@@ -18,6 +20,13 @@ import Icon from "./Icons";
  * mono column on the right where they can be compared down the page. That is
  * what someone choosing a service actually does — compare — and a grid makes
  * comparison harder, not easier.
+ *
+ * Each row now carries a thumbnail of the matching demo, linked to it. Nine
+ * text rows on a warm ground was four thousand pixels of near-unbroken cream
+ * — the owner's "too much white" note applies here more than anywhere — and
+ * the honest fix is the same one the homepage got: show the work instead of
+ * decorating around it. The pictures are real screenshots of pages a visitor
+ * can open, from lib/buildShowcase.ts.
  *
  * The tab filter is kept because filtering nine services is genuinely useful.
  * `data-track="service_detail_click"` is kept because site-wide analytics
@@ -54,7 +63,9 @@ export default function ServicesTabs() {
       </div>
 
       <div>
-        {visible.map((s, i) => (
+        {visible.map((s, i) => {
+          const picture = servicePicture(s.slug);
+          return (
           <div
             key={s.slug}
             className="grid gap-x-8 gap-y-4 border-b border-line py-7 lg:grid-cols-[auto_1fr_auto]"
@@ -63,7 +74,31 @@ export default function ServicesTabs() {
               {String(i + 1).padStart(2, "0")}
             </span>
 
-            <div className="min-w-0">
+            <div className="flex min-w-0 gap-5">
+              {picture && (
+                <Link
+                  href={picture.demoRoute}
+                  aria-label={`Open the ${s.name} demo`}
+                  // self-start matters: without it the flex parent stretches this
+                  // link to the full row height and the ink background shows
+                  // as a dark band under every picture.
+                  className="hidden w-28 shrink-0 self-start overflow-hidden rounded-card border border-line-on-ink bg-surface-ink transition-transform hover:-translate-y-0.5 sm:block lg:w-40"
+                >
+                  <span className="relative block aspect-[16/10]">
+                    <Image
+                      src={picture.image.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1024px) 160px, 112px"
+                      placeholder={picture.blurDataURL ? "blur" : "empty"}
+                      blurDataURL={picture.blurDataURL}
+                      className="object-cover object-top"
+                    />
+                  </span>
+                </Link>
+              )}
+
+              <div className="min-w-0">
               <h3 className="font-display text-title-1 text-ink">{s.name}</h3>
               <p className="mt-2 max-w-2xl text-body-base text-ink-soft">{s.outcome}</p>
               <p className="mt-3 text-body-sm text-ink-muted">
@@ -88,6 +123,7 @@ export default function ServicesTabs() {
                   />
                 </Link>
               </div>
+              </div>
             </div>
 
             <dl className="lg:w-56">
@@ -107,7 +143,8 @@ export default function ServicesTabs() {
                 association for screen readers. */}
             <p className="mt-2 text-body-sm text-ink-muted lg:w-56">{s.bestFor}</p>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

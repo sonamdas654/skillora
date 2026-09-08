@@ -5,7 +5,7 @@
 // the wire. Three do not: branding, marketing and custom software were never
 // filmed, because a static admin table makes poor hero footage.
 //
-// They photograph fine. This captures one still from each of those three
+// They photograph fine. This captures one still from each of those five
 // demos, at the same 1440x810 the hero was filmed at, with Skilloura's own
 // banner hidden (that is site chrome, not product) so the card shows the
 // build and nothing else.
@@ -55,6 +55,18 @@ const STILLS = [
     id: "marketing",
     route: "/demo/mkt-seo",
     serviceSlug: "digital-marketing",
+    scrollY: 0,
+  },
+  {
+    id: "video",
+    route: "/demo/vid-ad",
+    serviceSlug: "video-editing",
+    scrollY: 0,
+  },
+  {
+    id: "resume",
+    route: "/demo/cv-ats",
+    serviceSlug: "resume-career",
     scrollY: 0,
   },
   {

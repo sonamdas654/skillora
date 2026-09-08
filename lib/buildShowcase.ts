@@ -3,8 +3,11 @@
 //
 // Every image here is a screenshot of a real, openable page in this repo —
 // four of them are the posters the hero carousel already loads (so they cost
-// nothing extra on the wire), and three are stills captured by
+// nothing extra on the wire), and five are stills captured by
 // tools/video/posters.mjs from demos that were never filmed.
+//
+// All nine services have a picture, so /services can show evidence per row
+// as well; the homepage band uses the seven core ones.
 //
 // Nothing is stock and nothing is a mockup of software that does not exist.
 // If a demo changes, re-run the capture and the band follows; no filename is
@@ -25,17 +28,20 @@ interface Still {
 
 const stills = stillManifest.stills as Still[];
 
-export interface BuildTile {
-  slug: string;
-  /** Service name, straight from lib/services.ts — never a second copy. */
-  name: string;
-  outcome: string;
-  startingPrice: string;
+export interface ServicePicture {
   /** The page a visitor can open to see this build working. */
   demoRoute: string;
   image: { src: string; width: number; height: number };
   /** Only the hero posters carry one; the stills are lazy and below the fold. */
   blurDataURL?: string;
+}
+
+export interface BuildTile extends ServicePicture {
+  slug: string;
+  /** Service name, straight from lib/services.ts — never a second copy. */
+  name: string;
+  outcome: string;
+  startingPrice: string;
 }
 
 /**
@@ -52,7 +58,13 @@ const ORDER = [
   "digital-marketing",
 ];
 
-function pictureFor(slug: string) {
+/**
+ * The picture for any service, or null if it has none.
+ *
+ * /services calls this per ledger row, so a service without footage or a
+ * still simply renders without a thumbnail rather than breaking the row.
+ */
+export function servicePicture(slug: string): ServicePicture | null {
   // A filmed scene wins — it is the same asset the hero already downloaded.
   const scene = heroScenes.find((s) => s.serviceSlug === slug);
   if (scene) {
@@ -79,7 +91,7 @@ function pictureFor(slug: string) {
 export const buildTiles: BuildTile[] = ORDER.map((slug) => {
   const service = serviceCategories.find((s) => s.slug === slug);
   if (!service) throw new Error(`buildShowcase: no service named ${slug}`);
-  const picture = pictureFor(slug);
+  const picture = servicePicture(slug);
   if (!picture) throw new Error(`buildShowcase: no picture for ${slug}`);
   return {
     slug,

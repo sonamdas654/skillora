@@ -31,6 +31,36 @@
       }
     },
     {
+      "id": "video",
+      "route": "/demo/vid-ad",
+      "serviceSlug": "video-editing",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/video.cd25ff87.webp",
+        "bytes": 17686
+      },
+      "jpg": {
+        "src": "/build/video.fb70f10f.jpg",
+        "bytes": 47300
+      }
+    },
+    {
+      "id": "resume",
+      "route": "/demo/cv-ats",
+      "serviceSlug": "resume-career",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/resume.a472e4df.webp",
+        "bytes": 32070
+      },
+      "jpg": {
+        "src": "/build/resume.4aac647e.jpg",
+        "bytes": 72082
+      }
+    },
+    {
       "id": "software",
       "route": "/demo/soft-crm",
       "serviceSlug": "custom-software",
@@ -46,5 +76,5 @@
       }
     }
   ],
-  "generatedAt": "2026-09-08T07:35:27.446Z"
+  "generatedAt": "2026-09-08T08:44:48.199Z"
 }
