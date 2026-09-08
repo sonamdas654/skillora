@@ -14,12 +14,18 @@
 :root {
   /* ── Warm neutral ramp — the ground the whole site sits on.
         Warm, never pure white, never cool grey. ── */
-  --warm-50: #fffdfa;
-  --warm-100: #faf8f3;
-  --warm-150: #f7f4ee;
-  --warm-200: #f2eee6;
-  --warm-300: #e8e2d7;
-  --warm-400: #cfc7b8;
+  /* Deepened two steps on 2026-09-08, at the owner's choice from a rendered
+     comparison. The previous ramp topped out at #fffdfa, which reads as plain
+     white on a screen — cards looked like panels floating on a page rather
+     than paper on a desk, and the owner's note was simply "too much white".
+     The hues are unchanged; the whole ramp moved down together so every
+     relationship between ground, card and sunken section is preserved. */
+  --warm-50: #f7f3ea;
+  --warm-100: #f2ede1;
+  --warm-150: #ece6da;
+  --warm-200: #e4dccd;
+  --warm-300: #d8cfbc;
+  --warm-400: #c0b5a0;
 
   /* ── Ink ramp — warm-shifted, never neutral black ── */
   --ink-900: #15191b;
@@ -62,13 +68,17 @@
   --aura-3: #c2557f;
 
   /* ── Supporting hues, warm-derived so nothing looks bolted on ── */
-  /* Was #12805c, which measured 4.48:1 on the canvas against a 4.5
-     requirement — failing by two hundredths, which is why it surfaced
-     intermittently: rounding flipped it between runs, and it read as a flaky
-     test rather than the real boundary failure it was. #107353 clears AA with
-     headroom on every light surface: 5.75 surface, 5.31 canvas, 5.04 sunken.
+  /* Deepened twice, both times for the same reason and both times measured.
+     #12805c failed at 4.48:1 against a 4.5 requirement — losing by two
+     hundredths, which made it look like a flaky test rather than the real
+     boundary it was. #107353 fixed that, until the warm ramp was deepened on
+     2026-09-08 and the composite under a bg-success/10 pill went dark with it,
+     dropping /how-it-works to 4.1:1.
+     #0d5d43 is measured against the hardest case — the token on its own 10%
+     pill, which is always tighter than the token on plain ground:
+       surface 6.11 · canvas 5.46 · sunken 5.00   (plain text: 7.12 / 6.34 / 5.79)
      This drives text-success, including the WhatsApp calls to action. */
-  --green-600: #107353;
+  --green-600: #0d5d43;
   --green-50: #edf3ee;
   --amber-500: #d98a2b;
   --amber-50: #fbf2e4;

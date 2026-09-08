@@ -118,7 +118,7 @@ export function SampleTimeline() {
           <li key={p.t} className="flex items-center gap-3">
             <span
               className={`grid size-6 shrink-0 place-items-center rounded-full text-nano font-bold ${
-                p.done ? "bg-mint text-white" : "border border-line bg-white text-ink-soft"
+                p.done ? "bg-mint text-white" : "border border-line bg-surface-raised text-ink-soft"
               }`}
             >
               {p.done ? "✓" : i + 1}

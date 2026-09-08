@@ -25,7 +25,7 @@ export default function RoiCalculator() {
   const paybackMonths = monthlySaving > 0 ? buildCost / monthlySaving : Infinity;
 
   const field =
-    "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-ink focus:border-accent focus:outline-none";
+    "w-full rounded-xl border border-line bg-surface-raised px-4 py-2.5 text-sm text-ink focus:border-accent focus:outline-none";
   const label = "block text-sm font-semibold text-ink";
 
   return (

@@ -19,7 +19,7 @@ export default function ShareButtons({ url, title }: { url: string; title: strin
   }
 
   const linkCls =
-    "inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold text-ink-soft transition-colors hover:border-accent hover:text-accent";
+    "inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-raised px-4 py-2 text-xs font-semibold text-ink-soft transition-colors hover:border-accent hover:text-accent";
 
   return (
     <div className="flex flex-wrap items-center gap-2">

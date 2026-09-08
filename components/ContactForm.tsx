@@ -38,7 +38,7 @@ export default function ContactForm() {
   }
 
   const inputCls =
-    "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-soft/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition";
+    "w-full rounded-xl border border-line bg-surface-raised px-4 py-3 text-sm text-ink placeholder:text-ink-soft/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition";
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">

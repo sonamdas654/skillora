@@ -68,7 +68,7 @@ export default function EstimateTeaser() {
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
                   s.slug === serviceSlug
                     ? "border-accent bg-accent text-white"
-                    : "border-line bg-white text-ink-soft hover:border-accent hover:text-accent"
+                    : "border-line bg-surface-raised text-ink-soft hover:border-accent hover:text-accent"
                 }`}
               >
                 {s.tab}
@@ -92,7 +92,7 @@ export default function EstimateTeaser() {
                 className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
                   i === Math.min(pkgIndex, service.packages.length - 1)
                     ? "border-mint bg-mint text-white"
-                    : "border-line bg-white text-ink-soft hover:border-mint hover:text-mint"
+                    : "border-line bg-surface-raised text-ink-soft hover:border-mint hover:text-mint"
                 }`}
               >
                 {p.name}

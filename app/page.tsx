@@ -530,7 +530,7 @@ export default async function HomePage() {
         <Section className="bg-soft-panel border-y border-line">
           <div className="mx-auto max-w-5xl">
             <Reveal>
-              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1 text-micro font-mono uppercase text-ink-soft">
+              <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-raised px-3.5 py-1 text-micro font-mono uppercase text-ink-soft">
                 Who&apos;s behind Skilloura
               </p>
               <h2 className="mt-4 text-display-2 tracking-tight leading-[1.14] text-ink">

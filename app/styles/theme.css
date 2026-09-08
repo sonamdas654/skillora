@@ -11,7 +11,10 @@
   /* ── Surfaces ───────────────────────────────────────────── */
   --color-canvas: var(--warm-150);
   --color-surface: var(--warm-50);
-  --color-surface-raised: #ffffff;
+  /* Was literal #ffffff — the one place in the system that bypassed the ramp
+     entirely, so no amount of warming the palette could reach it. It is now
+     the top of the ramp, a shade above the card surface. */
+  --color-surface-raised: #fbf8f1;
   --color-surface-sunken: var(--warm-200);
   --color-surface-ink: var(--ink-surface);
   --color-surface-ink-raised: var(--ink-surface-2);
@@ -31,8 +34,9 @@
   --color-on-ink-muted: rgb(242 240 233 / 0.55);
 
   /* ── Lines ─────────────────────────────────────────────── */
-  --color-line: rgb(21 25 27 / 0.10);
-  --color-line-strong: rgb(21 25 27 / 0.17);
+  /* Nudged up with the darker ramp — 0.10 disappeared against #ece6da. */
+  --color-line: rgb(21 25 27 / 0.13);
+  --color-line-strong: rgb(21 25 27 / 0.21);
 
   /* Quiet text — large decorative numerals, unfilled rating stars.
      Exists because the line tokens above were being used as text colours,

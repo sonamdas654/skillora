@@ -357,7 +357,7 @@ function GetStartedForm() {
   }
 
   const inputCls =
-    "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20";
+    "w-full rounded-xl border border-line bg-surface-raised px-4 py-3 text-sm text-ink outline-none focus:border-accent focus:ring-2 focus:ring-accent/20";
   const labelCls = "mb-1.5 block text-body-sm font-semibold text-ink";
 
   return (
