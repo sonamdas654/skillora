@@ -55,18 +55,27 @@ It also corrects the map-pin note — the registered address is
 **8RRX+HJJ Rokat, Bhubaneswar, Odisha 751031**, and the coordinates read
 earlier were the map viewport, not the place.
 
-**What is still genuinely wrong with the listing**, as it appears publicly:
+**What is still genuinely wrong with the listing.** Read off the owner's own
+Google Search panel on 2026-09-08, signed in as the managing account:
 
 | Field | What Google shows | Should be |
 |---|---|---|
-| Category | **Marketing agency** | Website Designer, with Marketing agency secondary |
-| Phone | **missing** | +91 63701 33101 |
-| Photos | **none** | see the photo plan below |
-| Hours | **"Closed · Opens 7 am Tue"** | Mon–Sat 10:00–19:00 per `lib/site.ts` |
-| Reviews | none | — |
+| Hours | **"Closed · Opens 10 am Tue"** | Mon–Sat 10:00–19:00 |
+| Phone | **"Add place's phone number"** — none set | +91 63701 33101 |
+| Category | Marketing agency | Website Designer, Marketing agency secondary |
+| Profile strength | Google itself flags it **incomplete** | — |
 
-The hours are the item to fix first: the profile currently tells every person
-who looks it up that the business is closed.
+The hours line is more specific than "no hours are set". A 10 am opening **is**
+configured — it is Monday that is marked closed, which is why the profile says
+"Closed" today and points at Tuesday. `lib/site.ts` says Mon–Sat, so Monday
+needs adding rather than the whole schedule rebuilding. This is the item doing
+active damage: anyone looking the business up on a Monday is told it is shut.
+
+Two things the profile also shows that are worth knowing: it has recorded
+**5 customer interactions**, so it is being found; and the panel does display an
+image, so the earlier note here that there are "no photos" is **not confirmed** —
+that image may be a Street View or a third-party contribution rather than an
+uploaded one. Check the Photos tab before acting on it.
 
 **Separately: the two things nobody owns.**
 

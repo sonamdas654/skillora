@@ -81,10 +81,17 @@ Three things worth acting on, in order:
    like, not customers. Real human traffic is roughly the Indian half. Do not
    read the headline "31 users" as 31 people.
 
-3. **A Google Ads account exists and is not linked.** GA reports account
-   **879-036-3243** unlinked, and there is `google / cpc` traffic — so money is
-   being spent on ads whose results Analytics cannot attribute. Linking is a
-   one-minute job in GA admin.
+3. **Google Ads and Analytics are only half connected.** `mailedago@gmail.com`
+   holds two Analytics accounts — **Skilloura (401049610)**, which contains the
+   live property `545450096`, and a second one literally named **"Google Ads
+   Account" (400569339)**, which is the shell Google creates when Ads is linked.
+   Meanwhile GA's own recommendation panel reports Ads customer
+   **879-036-3243** as *unlinked*, and `google / cpc` traffic is arriving.
+
+   So there is an Ads relationship, but not the one that matters: the ad
+   spend is not attributed against the Skilloura property. Link 879-036-3243 to
+   property 545450096 in GA admin, and check whether the 400569339 account is a
+   leftover worth tidying.
 
 **So the remaining work here is smaller than it looked:**
 
