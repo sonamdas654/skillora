@@ -4,7 +4,10 @@ export function Section({
   children,
   className = "",
   id,
-  padding = "py-20 sm:py-28",
+  // 96/128px, up from 80/112. The reference the owner approved is airier
+  // than the site was, and section padding is the one lever that changes
+  // that everywhere at once rather than page by page.
+  padding = "py-24 sm:py-32",
 }: {
   children: ReactNode;
   className?: string;

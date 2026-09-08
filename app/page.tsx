@@ -9,7 +9,8 @@ import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section, SectionHeading } from "@/components/Section";
-import { ServiceCard, PackageCard } from "@/components/Cards";
+import { PackageCard } from "@/components/Cards";
+import BuildShowcase from "@/components/BuildShowcase";
 import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
@@ -339,27 +340,21 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 4: Services Overview ────────────────── */}
-        <Section padding="pt-14 sm:pt-16 pb-20 sm:pb-28" className="bg-soft-panel border-y border-line" id="services">
+        <Section padding="pt-16 sm:pt-20 pb-24 sm:pb-32" className="bg-soft-panel border-y border-line" id="services">
           <Reveal>
             <SectionHeading
-              eyebrow="Services"
+              eyebrow="What we build"
               title={
                 <>
-                  Websites, AI systems &amp; the{" "}
-                  <span className="font-accent font-normal text-accent">work around them</span>
+                  One studio.{" "}
+                  <span className="font-accent font-normal text-accent">Your entire digital build.</span>
                 </>
               }
-              subtitle="Our core focus is websites, AI automation and custom business systems — plus the design, marketing and content support to launch them. One clear process, one smart form per project type."
+              subtitle="Every tile below is a screenshot of a page you can open and click through right now — not a mockup, and not stock. Websites, apps, AI and systems, plus the design and marketing to launch them."
             />
           </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {serviceCategories
-              .filter((s) => !SECONDARY_SERVICE_SLUGS.includes(s.slug))
-              .map((s, i) => (
-                <Reveal variant="lift" key={s.slug} delay={Math.min(i * 0.06, 0.3)}>
-                  <ServiceCard service={s} />
-                </Reveal>
-              ))}
+          <div className="mt-12">
+            <BuildShowcase />
           </div>
 
           {/* Additional services — real offerings, kept secondary so the core

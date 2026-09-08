@@ -18,50 +18,15 @@ import type { PortfolioItem } from "@/lib/portfolio";
  * which is what someone choosing between them actually reads. One brand
  * family, one elevation system.
  *
+ * ServiceCard used to live here too. The homepage was its only caller, and
+ * that grid is now components/BuildShowcase.tsx — real screenshots of real
+ * pages instead of an icon standing in for the work. Removed rather than
+ * left orphaned, so nothing reaches for it by accident.
+ *
  * The three data-track attributes are load-bearing — site-wide analytics
  * reads them, and there is no error if they go missing. They are kept exactly
  * as they were, on real links.
  */
-
-export function ServiceCard({ service }: { service: ServiceCategory }) {
-  return (
-    <div className="card-lift group flex h-full flex-col rounded-card border border-line bg-surface p-6 shadow-e1">
-      <div className="flex items-start justify-between gap-4">
-        <span className="grid size-11 place-items-center rounded-chip bg-brand-soft text-brand">
-          <Icon name={service.icon} className="size-5" />
-        </span>
-        <span className="font-mono text-body-sm font-medium text-ink">
-          {service.startingPrice}
-        </span>
-      </div>
-
-      <h3 className="mt-5 font-display text-title-2 text-ink">{service.name}</h3>
-      <p className="mt-2 text-body-sm text-ink-soft">{service.description}</p>
-
-      <dl className="mt-4 border-t border-line pt-3">
-        <div className="flex items-baseline justify-between gap-4">
-          <dt className="text-body-sm text-ink-soft">Timeline</dt>
-          <dd className="font-mono text-body-sm text-ink">{service.timeline}</dd>
-        </div>
-      </dl>
-
-      <div className="mt-auto flex items-center gap-2 pt-5">
-        <Link
-          href={`/services/${service.slug}`}
-          className="flex-1 rounded-pill border border-line-strong px-4 py-2.5 text-center text-body-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
-        >
-          Details
-        </Link>
-        <Link
-          href={`/start-project?service=${service.slug}`}
-          className="flex-1 rounded-pill bg-brand px-4 py-2.5 text-center text-body-sm font-semibold text-on-brand transition-colors hover:bg-brand-deep"
-        >
-          Get a scope
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 export function PackageCard({
   pkg,

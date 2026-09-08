@@ -1,0 +1,50 @@
+{
+  "stills": [
+    {
+      "id": "brand",
+      "route": "/demo/brand-refresh",
+      "serviceSlug": "logo-branding",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/brand.c9ce5ac2.webp",
+        "bytes": 20912
+      },
+      "jpg": {
+        "src": "/build/brand.7668458e.jpg",
+        "bytes": 52569
+      }
+    },
+    {
+      "id": "marketing",
+      "route": "/demo/mkt-seo",
+      "serviceSlug": "digital-marketing",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/marketing.19746d9a.webp",
+        "bytes": 19304
+      },
+      "jpg": {
+        "src": "/build/marketing.831b52d3.jpg",
+        "bytes": 52568
+      }
+    },
+    {
+      "id": "software",
+      "route": "/demo/soft-crm",
+      "serviceSlug": "custom-software",
+      "width": 1120,
+      "height": 480,
+      "webp": {
+        "src": "/build/software.94b2182a.webp",
+        "bytes": 10864
+      },
+      "jpg": {
+        "src": "/build/software.86f4d208.jpg",
+        "bytes": 32209
+      }
+    }
+  ],
+  "generatedAt": "2026-09-08T07:35:27.446Z"
+}
