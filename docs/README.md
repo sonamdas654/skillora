@@ -27,7 +27,7 @@ internal links. Regenerate it with:
 node tools/qa/content-map.mjs > docs/_content-map.json
 ```
 
-## The four things a person has to do
+## What still needs a person
 
 Nothing in this repository can do these, and until they happen most of the above
 is theoretical.
@@ -35,17 +35,17 @@ is theoretical.
 1. ~~Run the pending SQL~~ — **done 2026-09-07.** All three migrations are
    applied; the files are marked APPLIED at the top. Blog 22 → 26 posts, six
    testimonials live, both cost articles now open with a price.
-2. **Set `NEXT_PUBLIC_CLARITY_ID`** — the only analytics variable genuinely
-   missing. GA and the Search Console verification tag are already live in
-   production; an earlier version of this list said otherwise and was wrong.
-   And find which Google account holds the Search Console property, because the
-   signed-in one holds none.
-3. **The Google Business Profile needs real work, not just optimisation.** The
-   listing exists but shows no phone number, no photos, the wrong category and
-   hours that say the business is closed — and it appears to be unclaimed. A
-   second, unverified profile ("sdquick", Educational consultant, dead domain)
-   is holding Skilloura's phone number. Audited 2026-09-07; see
-   [local presence](04-local-presence.md).
+2. **Fix four fields on the Google Business Profile.** The listing is claimed
+   and verified under `sonamdasdj@gmail.com`. What is wrong: hours say the
+   business is **closed**, there is no phone number, no photos, and the category
+   is *Marketing agency* rather than *Website Designer*. The hours are the one
+   doing active damage. See [local presence](04-local-presence.md).
+3. **Mark conversions in Google Analytics.** The property is live in
+   `mailedago@gmail.com` and receiving traffic, but Key events = 0, so nothing
+   reports whether the site produces business. Also link Google Ads account
+   879-036-3243 — it is unlinked while `google/cpc` traffic arrives. Optional:
+   create a Clarity project and set `NEXT_PUBLIC_CLARITY_ID`, the one variable
+   genuinely unset.
 4. **Send three review links** to real clients through `/review/<token>`. Three
    genuine reviews turn on the `AggregateRating` structured data automatically;
    the seeded testimonials deliberately never will.
