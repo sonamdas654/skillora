@@ -49,17 +49,28 @@ network. Median of three valid runs per route.
 
 | Route | LCP | CLS | JS (wire) | Total |
 |---|---|---|---|---|
-| `/get-started` | 1.06s | 0 | 286 kB | 458 kB |
-| `/case-studies` | 1.86s | 0.0003 | 249 kB | 472 kB |
-| `/about` | 1.86s | 0.0002 | 249 kB | 470 kB |
-| `/blog` | 1.85s | 0.0001 | 261 kB | 516 kB |
-| `/contact` | 1.83s | 0 | 250 kB | 470 kB |
-| `/portfolio` | 2.01s | 0 | 252 kB | 565 kB |
-| `/` | **2.29s** | 0 | 237 kB | 623 kB |
+| salon concept | 1.58s | 0 | 429 kB | 613 kB |
+| chatbot concept | 1.59s | 0 | 429 kB | 612 kB |
+| gym concept | 1.60s | 0 | 429 kB | 613 kB |
+| ecommerce concept | 2.12s | 0 | 429 kB | 612 kB |
+| restaurant concept | 2.16s | 0 | 429 kB | 614 kB |
+| `/about` | 2.16s | 0.0002 | 420 kB | 643 kB |
+| `/` | **2.68s** | 0 | 408 kB | 800 kB |
 
-Every route under Google's 2.5s "good" threshold, with layout shift at or near
-zero. The homepage was 3.44s until the header logo stopped claiming a `priority`
-preload and the font files stopped all being preloaded at once.
+**Corrected 2026-09-08.** An earlier version of this table reported 237–261 kB
+of JavaScript and LCP between 1.06s and 2.29s. Those runs were taken on a local
+build with no `NEXT_PUBLIC_GA_ID`, so Google Analytics never loaded — while
+production has loaded it since July. The measurements were real and the
+conclusion was wrong, which is worse than an obvious error.
+
+Every figure above includes the **170 kB of googletagmanager** a visitor
+actually downloads. Site code is unchanged at ~259 kB; analytics is the rest,
+and it is now the single largest thing on the page.
+
+That is worth stating plainly: **the third-party tag costs more than every
+component, style and font on the site combined**, and pushes the homepage past
+Google's own 2.5s threshold. Nothing in this repository can fix that — the only
+levers are loading gtag later, or deciding the data is worth the second.
 
 **No before-figures exist for LCP.** The measurement tool was built during this
 work, so there is nothing honest to compare against. Saying "we improved LCP by

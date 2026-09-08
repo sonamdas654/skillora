@@ -66,29 +66,34 @@ export interface CaseStudy {
 /**
  * The delivery profile shared by all six builds.
  *
- * It is deliberately one shared block rather than six per-study numbers. All
- * six render from the same app shell and the same JavaScript bundle, so the
- * measured spread between them is run-to-run noise, not a difference between
- * the builds — across two full measurement rounds the same route moved by as
- * much as 0.7s while the byte counts stayed identical to the kilobyte.
- * Publishing six separate figures would imply a precision this does not have,
- * and a range is the honest way to state it.
+ * One shared block rather than six per-study numbers: all six render from the
+ * same app shell and the same bundle, so the spread between them is run-to-run
+ * noise, not a difference between the builds.
  *
  * Produced by tools/qa/measure.mjs, median of three valid runs per route
  * against a production build. Re-run it before changing any number here.
  *
- * Server response time is deliberately absent: it was measured against a
- * local server, where it is about 4 ms and completely meaningless as a
- * description of what a visitor experiences.
+ * CORRECTED 2026-09-08. The first version of these figures said 259 kB of
+ * JavaScript and 1.44-1.55s. Those runs were taken on a local build with no
+ * NEXT_PUBLIC_GA_ID set, so Google Analytics never loaded — while production
+ * has been loading it the whole time. The measurement was real and the
+ * conclusion was wrong, which is the more dangerous combination.
+ *
+ * The numbers below include the 170 kB of googletagmanager a visitor actually
+ * downloads. Site code is unchanged at ~259 kB; analytics is the rest.
+ *
+ * Server response time is deliberately absent: it was measured against a local
+ * server, where it is about 5 ms and meaningless as a description of what a
+ * visitor experiences.
  */
 export const DELIVERY_PROFILE = {
-  measuredOn: "2026-09-07",
+  measuredOn: "2026-09-08",
   conditions:
-    "Chromium at 412×915, 4× CPU throttling, 1.6 Mbps with 150 ms latency, cold cache — a mid-range Android phone on a typical Indian mobile network, not a developer's laptop.",
+    "Chromium at 412×915, 4× CPU throttling, 1.6 Mbps with 150 ms latency, cold cache — a mid-range Android phone on a typical Indian mobile network, not a developer's laptop. Includes the analytics the live site loads.",
   metrics: [
     {
       label: "Largest contentful paint",
-      value: "1.4–2.2s",
+      value: "1.58–2.16s",
       note: "When the main content is actually on screen. Google treats anything under 2.5s as good.",
     },
     {
@@ -98,13 +103,13 @@ export const DELIVERY_PROFILE = {
     },
     {
       label: "JavaScript over the wire",
-      value: "259 kB",
-      note: "Compressed, as actually sent. The same bundle serves every one of the six builds.",
+      value: "429 kB",
+      note: "Compressed, as actually sent — 259 kB of site code plus 170 kB of Google Analytics.",
     },
     {
       label: "Total page weight",
-      value: "~441 kB",
-      note: "Everything: markup, styles, fonts and scripts.",
+      value: "~613 kB",
+      note: "Everything: markup, styles, fonts, scripts and analytics.",
     },
   ],
 } as const;

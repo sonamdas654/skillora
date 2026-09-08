@@ -77,6 +77,39 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
   const count = scenes.length;
   const advance = useCallback(() => setIndex((i) => (i + 1) % count), [count]);
 
+  /**
+   * Jump to a scene the visitor picked from the rail.
+   *
+   * The clip that was playing is rewound rather than left mid-way, so coming
+   * back to it later starts from the beginning instead of the two seconds that
+   * happened to be left. Guarded on `paused` because a video that never
+   * mounted — poster-only, reduced motion, slow connection — has no element to
+   * rewind, and this must not throw in that case.
+   */
+  const select = useCallback(
+    (next: number) => {
+      setIndex((current) => {
+        if (next === current) return current;
+        const leaving = videoRefs.current[current];
+        if (leaving) {
+          try {
+            leaving.pause();
+            leaving.currentTime = 0;
+          } catch {
+            /* not all states allow a seek; the crossfade covers it */
+          }
+        }
+        const arriving = videoRefs.current[next];
+        if (arriving) {
+          arriving.currentTime = 0;
+          void arriving.play().catch(() => {});
+        }
+        return next;
+      });
+    },
+    []
+  );
+
   // Decide whether video is allowed, then mount it only when the browser is
   // otherwise idle.
   useEffect(() => {
@@ -179,10 +212,23 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
 
   return (
     <div className="w-full">
-      <div
-        ref={stageRef}
-        className="overflow-hidden rounded-card border border-line-strong bg-surface shadow-e4"
-      >
+      {/* No hard border, a deeper radius, and the aura sitting behind rather
+          than beside. The old frame — border-line-strong on a flat surface with
+          a bordered strip beneath — read as a boxed square sitting on the page.
+          A carousel should look like something moving through a window. */}
+      <div className="relative">
+        <div
+          className="pointer-events-none absolute -inset-x-6 -inset-y-4 -z-10 rounded-panel opacity-70 blur-2xl"
+          style={{
+            background:
+              "linear-gradient(112deg, rgb(224 145 63 / 0.30), rgb(220 106 82 / 0.22), rgb(14 82 87 / 0.24))",
+          }}
+          aria-hidden
+        />
+        <div
+          ref={stageRef}
+          className="overflow-hidden rounded-panel bg-surface shadow-e4 ring-1 ring-ink/5"
+        >
         <div
           className="relative isolate"
           style={{ aspectRatio: `${scene.width} / ${scene.height}` }}
@@ -251,9 +297,60 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
             the video they collided with whatever the demo happened to be
             showing — and no scrim fixes that when the footage itself varies
             from a dark restaurant site to a white dashboard. */}
-        <div className="flex items-center justify-between gap-3 border-t border-line bg-surface-sunken px-3 py-2.5 sm:px-4">
-          <p className="text-micro font-mono uppercase text-ink-soft">{scene.label}</p>
-          <StageProgress count={count} index={index} animate={videoOn} />
+        {/* A rail, not a caption bar. Every scene is nameable and clickable,
+            so this is a carousel a visitor can steer rather than a slideshow
+            they can only wait through. The active tick still fills in CSS. */}
+        <div className="flex items-center gap-2 bg-surface-sunken px-2.5 py-2 sm:px-3">
+          <button
+            type="button"
+            onClick={() => select((index - 1 + count) % count)}
+            aria-label="Previous build"
+            className="grid size-7 shrink-0 place-items-center rounded-pill text-ink-soft transition-colors hover:bg-ink/5 hover:text-brand"
+          >
+            <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <div className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto">
+            {scenes.map((s, i) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => select(i)}
+                aria-current={i === index}
+                className={`group relative shrink-0 rounded-pill px-2.5 py-1 text-micro font-mono uppercase transition-colors ${
+                  i === index
+                    ? "text-ink"
+                    : "text-ink-muted hover:text-ink-soft"
+                }`}
+              >
+                {s.label}
+                <span className="absolute inset-x-2.5 bottom-0 block h-0.5 overflow-hidden rounded-pill bg-line-strong opacity-0 transition-opacity group-hover:opacity-100" />
+                {i === index && (
+                  <span className="absolute inset-x-2.5 bottom-0 block h-0.5 overflow-hidden rounded-pill bg-line-strong opacity-100">
+                    <span
+                      key={`${index}-${videoOn}`}
+                      className="absolute inset-y-0 left-0 block rounded-pill bg-signal"
+                      style={{ animation: `stage-fill ${duration.scene}ms linear forwards` }}
+                    />
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => select((index + 1) % count)}
+            aria-label="Next build"
+            className="grid size-7 shrink-0 place-items-center rounded-pill text-ink-soft transition-colors hover:bg-ink/5 hover:text-brand"
+          >
+            <svg viewBox="0 0 24 24" className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
         </div>
       </div>
 
@@ -263,42 +360,6 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
           Open this build
         </a>
       </p>
-    </div>
-  );
-}
-
-/**
- * Progress ticks. The active tick's fill is a CSS animation whose duration
- * comes from a custom property — deliberately not React state, because that is
- * precisely what the old 50ms setInterval was doing twenty times a second.
- */
-function StageProgress({
-  count,
-  index,
-  animate,
-}: {
-  count: number;
-  index: number;
-  animate: boolean;
-}) {
-  return (
-    <div className="flex items-center gap-1.5" aria-hidden>
-      {Array.from({ length: count }, (_, i) => (
-        <span
-          key={i}
-          className="relative block h-0.5 w-6 overflow-hidden rounded-pill bg-line-strong"
-        >
-          {i === index && (
-            <span
-              key={`${index}-${animate}`}
-              className="absolute inset-y-0 left-0 block rounded-pill bg-signal"
-              style={{
-                animation: `stage-fill ${duration.scene}ms linear forwards`,
-              }}
-            />
-          )}
-        </span>
-      ))}
     </div>
   );
 }
