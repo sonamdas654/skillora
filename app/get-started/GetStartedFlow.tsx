@@ -11,6 +11,7 @@ import DynamicFormFields from "@/components/DynamicFormFields";
 import PricingSummary from "@/components/PricingSummary";
 import { usePricingConfig } from "@/lib/usePricingConfig";
 import { computeEstimate, isFieldVisible } from "@/lib/pricingEngine";
+import { trackEvent } from "@/lib/track";
 
 type Step = 1 | 2;
 type Answers = Record<string, string | string[]>;
@@ -310,6 +311,9 @@ function GetStartedForm() {
       await submitDraft(currentDraft(false), true);
     } catch {}
     setBusy(false);
+    // Funnel step 1. This whole page fired nothing before — the highest-intent
+    // path on the site was the only one nobody could see into.
+    trackEvent("get_started_step1_done", { service });
     setStep(2);
   }
 
@@ -322,16 +326,24 @@ function GetStartedForm() {
       // Require a real, verified account at the moment of submission.
       // Save everything and hand off to login — we'll resume on return.
       saveDraft(currentDraft(true));
+      // Fired BEFORE the redirect. Someone who bounces at a login wall halfway
+      // through a form leaves no other trace: the draft is saved, but if they
+      // never come back nothing in analytics says a login was the reason.
+      trackEvent("get_started_login_required", { service });
       router.push("/login?next=/get-started");
       return;
     }
 
     const { error } = await submitDraft(currentDraft(false), false);
     if (error) {
+      // A failed submit and an abandoned form look identical in aggregate
+      // numbers. They are not the same problem, so they get separate events.
+      trackEvent("get_started_submit_failed", { service });
       setError(error.message || "Could not submit. Please try again.");
       setBusy(false);
       return;
     }
+    trackEvent("get_started_submitted", { service, budget });
     // Best-effort: confirmation email to the client + full-detail email to
     // the admin. Never blocks the redirect if it fails.
     fetch("/api/notify/project-request", {

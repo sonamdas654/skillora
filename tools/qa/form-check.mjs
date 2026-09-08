@@ -10,6 +10,20 @@
 import { chromium } from "playwright";
 
 const BASE = (process.argv[2] ?? "http://localhost:3100").replace(/\/$/, "");
+
+// This takes a BASE url and appends /get-started itself. Passing the page URL
+// silently requests /get-started/get-started — a 404 that fails every check
+// below and looks exactly like a broken site. Fail on it instead.
+if (/\/get-started/.test(BASE)) {
+  console.error(
+    `Pass the base URL, not the page URL.
+` +
+      `  got:      ${BASE}
+` +
+      `  expected: ${BASE.replace(/\/get-started.*$/, "")}`
+  );
+  process.exit(2);
+}
 const DRAFT_KEY = "skilloura_getstarted_v3";
 
 const browser = await chromium.launch();
@@ -25,10 +39,20 @@ const consoleErrors = [];
 page.on("pageerror", (e) => consoleErrors.push(String(e.message).slice(0, 160)));
 
 // ── Metadata: the whole point of splitting the route. ──────────────────────
-await page.goto(`${BASE}/get-started`, { waitUntil: "networkidle" });
-const title = await page.title();
-const canonical = await page.getAttribute('link[rel="canonical"]', "href");
-const description = await page.getAttribute('meta[name="description"]', "content");
+// "load" rather than "networkidle": this page polls the pricing config and
+// loads analytics, so the network never reliably goes quiet.
+await page.goto(`${BASE}/get-started`, { waitUntil: "load" });
+// The form is a client component: the metadata is in the server HTML but the
+// fields only exist after hydration.
+await page.waitForSelector("#field-name", { state: "attached", timeout: 30_000 });
+// Read the head in one evaluate rather than three awaited locators — fewer
+// round trips, and no locator timeouts to interpret.
+const head = await page.evaluate(() => ({
+  title: document.title,
+  canonical: document.querySelector('link[rel="canonical"]')?.href ?? null,
+  description: document.querySelector('meta[name="description"]')?.content ?? null,
+}));
+const { title, canonical, description } = head;
 check("route exports a title", title.length > 10 && !/^Skilloura —/.test(title), title);
 check("route exports a canonical", Boolean(canonical), canonical ?? "none");
 check("route exports a description", Boolean(description), (description ?? "").slice(0, 50) + "…");
@@ -71,7 +95,7 @@ check("advances to step 2", step2.label, step2.label ? "" : "progress label not 
 check("step 2 renders the service field", step2.serviceField);
 
 // ── Reload: the draft must restore, and the ref must not change. ───────────
-await page.reload({ waitUntil: "networkidle" });
+await page.reload({ waitUntil: "load" });
 await page.waitForTimeout(1200);
 const restored = await page.evaluate((k) => {
   try {
