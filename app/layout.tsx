@@ -5,7 +5,7 @@ import "./globals.css";
 import { site } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import SiteAnalytics from "@/components/SiteAnalytics";
-import MotionProvider, { MotionBootScript } from "@/components/motion/MotionProvider";
+import MotionProvider from "@/components/motion/MotionProvider";
 import { organizationSchema, websiteSchema, professionalServiceSchema } from "@/lib/schema";
 
 // Body font — clean, highly legible.
@@ -44,11 +44,20 @@ const jetbrainsMono = JetBrains_Mono({
   // never drawn.
   weight: ["400", "500"],
   display: "swap",
-  // Not preloaded. Seven font files totalling 231 kB were all preloaded on
-  // the homepage, competing with the hero poster for bandwidth on a slow
-  // connection. This one sets small spec labels, never the headline, and
-  // display:swap means its text is legible from the first paint regardless.
-  preload: false,
+  // This was preload: false, to keep one more font file off the homepage's
+  // critical path — seven files totalling 231 kB were all being preloaded,
+  // competing with the hero poster on a slow connection.
+  //
+  // It has to stay true for now. preload: false makes next/font/google fail to
+  // resolve @vercel/turbopack-next/internal/font/google/font, and the build
+  // dies with "next/font/google queries have exactly one entry" (Next 16.3.0,
+  // Turbopack). The dev server is unaffected, so this only ever surfaces at
+  // build time, which is why it went unnoticed.
+  //
+  // Verified 2026-09-30: this one line is the difference between a build that
+  // fails with 12 errors and one that generates all 177 pages. Do not set it
+  // back to false without re-running `npm run build`.
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -106,11 +115,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <head>
-        <MotionBootScript />
-      </head>
       <body className="min-h-full flex flex-col">
         <JsonLd data={[organizationSchema(), websiteSchema(), professionalServiceSchema()]} />
         {children}
