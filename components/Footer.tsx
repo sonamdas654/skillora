@@ -57,7 +57,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="block py-1 text-body-sm text-ink-soft transition-colors hover:text-brand"
+      className="block py-2 text-body-sm text-ink-soft transition-colors hover:text-brand sm:py-1"
     >
       {label}
     </Link>
@@ -162,7 +162,7 @@ export default function Footer() {
             <LinkGroup label="Direct line">
               <a
                 href={`mailto:${site.email}`}
-                className="block py-1 text-body-sm font-semibold text-ink transition-colors hover:text-brand"
+                className="block py-2 text-body-sm font-semibold text-ink transition-colors hover:text-brand sm:py-1"
               >
                 {site.email}
               </a>
@@ -172,7 +172,7 @@ export default function Footer() {
                 href={site.googleReviewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-1.5 text-body-sm font-semibold text-ink-soft transition-colors hover:text-brand"
+                className="mt-3 tap-safe inline-flex items-center gap-1.5 text-body-sm font-semibold text-ink-soft transition-colors hover:text-brand"
               >
                 <span aria-hidden className="text-warning">
                   ★

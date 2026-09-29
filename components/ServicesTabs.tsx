@@ -50,7 +50,7 @@ export default function ServicesTabs() {
               key={tab}
               onClick={() => setActiveTab(tab)}
               aria-pressed={active}
-              className={`text-body-sm font-medium transition-colors ${
+              className={`tap-safe text-body-sm font-medium transition-colors ${
                 active
                   ? "text-ink underline decoration-signal decoration-2 underline-offset-8"
                   : "text-ink-muted hover:text-ink"
@@ -114,7 +114,7 @@ export default function ServicesTabs() {
                 <Link
                   href={`/services/${s.slug}`}
                   data-track="service_detail_click"
-                  className="group inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
+                  className="tap-safe group inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
                 >
                   Full details and packages
                   <Icon

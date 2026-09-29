@@ -42,14 +42,14 @@ export const focusServices: FocusService[] = [
     slug: "ecommerce-development",
     parentSlug: "website-development",
     evidence:
-      "web-ecommerce demo, ecommerce-concept portfolio build, ecommerce-website-for-small-sellers-india guide, Ecommerce Website package at ₹24,500",
+      "web-ecommerce demo, ecommerce-concept portfolio build, ecommerce-website-for-small-sellers-india guide, Ecommerce Website package at ₹60,000",
     name: "Ecommerce Website Development",
     shortName: "Ecommerce",
     tab: "Website",
     icon: "briefcase",
     description:
       "Online stores with a real product catalogue, cart, checkout and payment gateway — plus the admin panel to run it yourself once it is live.",
-    startingPrice: "₹24,500",
+    startingPrice: "₹60,000",
     timeline: "10–20 days",
     bestFor: "Sellers who are losing margin to marketplace commission",
     outcome:
@@ -96,7 +96,7 @@ export const focusServices: FocusService[] = [
     packages: [
       {
         name: "Starter Store",
-        price: "₹24,500+",
+        price: "₹60,000+",
         features: [
           "Up to 50 products",
           "Cart and checkout",
@@ -109,7 +109,7 @@ export const focusServices: FocusService[] = [
       },
       {
         name: "Growth Store",
-        price: "₹42,000+",
+        price: "₹90,000+",
         features: [
           "Unlimited products with variants",
           "Coupons and discount rules",

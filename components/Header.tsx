@@ -154,7 +154,7 @@ export default function Header() {
                     key={item.href}
                     href={item.href}
                     aria-current={active ? "page" : undefined}
-                    className={`relative px-3.5 py-2.5 text-body-sm font-medium transition-colors ${
+                    className={`relative px-3 py-2.5 text-body-sm font-medium transition-colors xl:px-3.5 ${
                       active ? "nav-tick text-ink" : "text-ink-soft hover:text-ink"
                     }`}
                   >
@@ -172,7 +172,12 @@ export default function Header() {
             href={whatsappLink("Hi! I want to discuss a project.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-pill border border-line bg-surface px-4 py-2 text-body-sm font-semibold text-ink shadow-e1 transition-colors hover:border-success hover:text-success"
+            // Hidden between lg and xl. At 1024 the bar needs 1029px of
+            // children in 912px of space, and this is the one action that is
+            // genuinely duplicated — WhatsAppSticky is on screen at every
+            // width, on every page. The href stays in the DOM, so the
+            // wa.me analytics detection is unaffected.
+            className="hidden items-center gap-1.5 rounded-pill border border-line bg-surface px-4 py-2 text-body-sm font-semibold text-ink shadow-e1 transition-colors hover:border-success hover:text-success xl:inline-flex"
           >
             <WhatsAppIcon className="size-4 text-success" />
             WhatsApp

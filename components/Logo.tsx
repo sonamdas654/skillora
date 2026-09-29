@@ -19,7 +19,7 @@ import Image from "next/image";
 export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
   const img = size === "lg" ? "h-16 sm:h-20" : "h-12 sm:h-14";
   const tagline =
-    size === "lg" ? "text-[10px] sm:text-[11px]" : "text-[8px] sm:text-[9px]";
+    size === "lg" ? "text-[11px] sm:text-[12px]" : "text-[9px] sm:text-[10px]";
   const line = size === "lg" ? "h-[4px]" : "h-[3px]";
 
   return (
@@ -34,6 +34,7 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
         alt="Skilloura logo"
         width={903}
         height={560}
+        loading="eager"
         // Deliberately NOT priority.
         //
         // It was, which emitted a <link rel=preload> for a full srcset up to

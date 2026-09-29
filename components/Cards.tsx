@@ -181,7 +181,7 @@ export function PortfolioCard({ item }: { item: PortfolioItem }) {
               <Link
                 href={`/start-project?service=${serviceSlug}`}
                 data-track="portfolio_cta_click"
-                className="mt-2 flex items-center justify-center text-body-sm font-semibold text-ink-soft transition-colors hover:text-brand"
+                className="mt-2 tap-safe flex items-center justify-center text-body-sm font-semibold text-ink-soft transition-colors hover:text-brand"
               >
                 Build something like this
               </Link>

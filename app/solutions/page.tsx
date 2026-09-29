@@ -67,7 +67,7 @@ export default function SolutionsPage() {
                   <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2">
                     <Link
                       href={`/solutions/${s.slug}`}
-                      className="group inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
+                      className="tap-safe group inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
                     >
                       See what&apos;s included
                       <Icon
@@ -78,7 +78,7 @@ export default function SolutionsPage() {
                     {s.demoPath && (
                       <Link
                         href={s.demoPath}
-                        className="text-body-sm font-semibold text-ink-soft transition-colors hover:text-ink"
+                        className="tap-safe inline-block text-body-sm font-semibold text-ink-soft transition-colors hover:text-ink"
                       >
                         {s.demoLabel ?? "Open the live build"}
                       </Link>

@@ -144,7 +144,7 @@ export default async function BlogPage() {
               <p className="mt-4 max-w-2xl text-body-lg text-ink-soft">
                 {lead.meta_description}
               </p>
-              <span className="mt-6 inline-flex items-center gap-2 text-body-base font-semibold text-brand">
+              <span className="mt-6 tap-safe inline-flex items-center gap-2 text-body-base font-semibold text-brand">
                 Read the guide
                 <Icon
                   name="arrow"

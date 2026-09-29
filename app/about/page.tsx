@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
   title: "About — The Story Behind Skilloura",
   description:
-    "Skilloura means Skill + Aura: digital services delivered with professional impact. A founder-led digital services company with a clear requirement-based process.",
+    "Skilloura means Skill + Aura: a multidisciplinary digital services company with founder-led vision and a structured team delivery process.",
 };
 
 const values = [
@@ -99,11 +99,10 @@ export default function AboutPage() {
                 give your business.
               </p>
               <p>
-                This is not a marketplace like Fiverr or Upwork. Skilloura is a founder-led
-                digital services company: you submit your requirement directly, and it moves
-                through a structured, accountable process from review to delivery. That means
-                faster communication, full accountability and work that actually matches what
-                you asked for.
+                This is not a marketplace like Fiverr or Upwork. Skilloura is a multidisciplinary
+                digital services company: each requirement moves through a structured team process
+                from specialist review to delivery. That means clear communication, defined
+                accountability and work that matches the approved scope.
               </p>
               <p>
                 The tagline says it all:{" "}
@@ -147,10 +146,10 @@ export default function AboutPage() {
       <Section>
         <Reveal>
           <div className="max-w-2xl">
-            <p className="text-micro font-mono uppercase text-ink-muted">The person behind it</p>
+            <p className="text-micro font-mono uppercase text-ink-muted">Founder &amp; leadership</p>
             <h2 className="mt-3 text-display-3 text-ink">
-              Founder-led,{" "}
-              <span className="font-accent italic text-brand">fully accountable</span>
+              A clear vision,{" "}
+              <span className="font-accent italic text-brand">built by a capable team</span>
             </h2>
           </div>
         </Reveal>
@@ -183,16 +182,14 @@ export default function AboutPage() {
               <p>Hi, I&apos;m Sonam, founder of Skilloura.</p>
               <p>
                 I built Skilloura to deliver digital projects with enterprise-level clarity,
-                founder-led accountability and professional execution. Every project here
-                follows a defined process: requirements are reviewed properly, scope is written
-                before payment, quotes are clear, previews are shared before final delivery, and
-                handover is managed professionally.
+                strong accountability and professional execution. Every project is assigned to
+                the right specialists and follows a defined process: requirements are reviewed,
+                scope is written before payment, previews are shared and handover is documented.
               </p>
               <p>
-                My role is to set the standard for how work gets delivered. I stay involved
-                across the full project lifecycle, from requirement understanding and scope
-                review to quote validation, progress checks and final delivery, so what is
-                promised at the beginning is what actually gets built.
+                My role is to set the standard for how work gets delivered. Project managers,
+                designers, developers, automation specialists and quality reviewers work together
+                through the delivery lifecycle, with leadership oversight at key milestones.
               </p>
               <p>
                 Skilloura is backed by nearly a decade of hands-on experience across websites,

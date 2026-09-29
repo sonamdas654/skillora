@@ -65,6 +65,11 @@ export function PageHero({
       <div className="absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div className="aura aura-1" />
+        <div className="page-depth-object">
+          <span className="page-depth-object__plane page-depth-object__plane--one" />
+          <span className="page-depth-object__plane page-depth-object__plane--two" />
+          <span className="page-depth-object__rail" />
+        </div>
       </div>
 
       <div className="relative mx-auto max-w-page px-4 py-14 sm:px-6 sm:py-20 lg:px-8">

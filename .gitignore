@@ -59,3 +59,8 @@ PROJECT_BRAIN.md
 # video pipeline scratch
 tools/video/.raw/
 tools/video/.stills/
+
+# QA and scratch output — screenshots and captures, not source
+/artifacts/
+/work/
+debug.log

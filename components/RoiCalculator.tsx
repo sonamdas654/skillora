@@ -55,7 +55,7 @@ export default function RoiCalculator() {
             <label className={label} htmlFor="roi-auto">
               How much of it a system can take over: <span className="text-brand">{automatable}%</span>
             </label>
-            <input id="roi-auto" type="range" min={10} max={90} step={5} value={automatable} onChange={(e) => setAutomatable(+e.target.value)} className="mt-2 w-full accent-[var(--accent)]" />
+            <input id="roi-auto" type="range" min={10} max={90} step={5} value={automatable} onChange={(e) => setAutomatable(+e.target.value)} className="range-touch mt-2 w-full accent-[var(--accent)]" />
           </div>
           <div>
             <label className={label} htmlFor="roi-build">

@@ -211,7 +211,7 @@ export default function VideoStage({ scenes }: { scenes: HeroScene[] }) {
   const scene = scenes[index];
 
   return (
-    <div className="w-full">
+    <div className="min-w-0 w-full max-w-full">
       {/* No hard border, a deeper radius, and the aura sitting behind rather
           than beside. The old frame — border-line-strong on a flat surface with
           a bordered strip beneath — read as a boxed square sitting on the page.

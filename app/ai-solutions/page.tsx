@@ -142,7 +142,7 @@ export default function AiSolutionsPage() {
             </p>
             <Link
               href="/start-project?service=ai-automation&package=Discovery%20Sprint"
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-body-sm font-bold text-white hover:bg-brand-deep transition-colors"
+              className="mt-6 tap-safe inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-body-sm font-bold text-white hover:bg-brand-deep transition-colors"
             >
               Ask about a discovery sprint <Icon name="arrow" className="size-4" />
             </Link>

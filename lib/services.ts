@@ -70,7 +70,7 @@ export const serviceCategories: ServiceCategory[] = [
     icon: "globe",
     description:
       "Business, restaurant, portfolio, ecommerce, booking and custom websites — mobile responsive, SEO-ready, with WhatsApp and contact integration.",
-    startingPrice: "₹7,000",
+    startingPrice: "₹20,000",
     timeline: "3–20 days",
     bestFor: "Businesses, shops, restaurants, professionals and startups",
     outcome:
@@ -158,7 +158,7 @@ export const serviceCategories: ServiceCategory[] = [
     packages: [
       {
         name: "Basic Website",
-        price: "₹7,000+",
+        price: "₹20,000+",
         features: [
           "1–3 pages",
           "Mobile responsive",
@@ -171,7 +171,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         name: "Business Website",
-        price: "₹12,600+",
+        price: "₹35,000+",
         features: [
           "5–8 pages",
           "Professional design",
@@ -187,7 +187,7 @@ export const serviceCategories: ServiceCategory[] = [
       },
       {
         name: "Premium Website",
-        price: "₹24,500+",
+        price: "₹60,000+",
         features: [
           "Custom design",
           "Admin panel",
@@ -460,7 +460,7 @@ export const serviceCategories: ServiceCategory[] = [
     icon: "bot",
     description:
       "AI chatbots, AI agents, WhatsApp/email/Excel automation and business workflow systems that save hours of manual work every day.",
-    startingPrice: "₹7,000",
+    startingPrice: "₹20,000",
     timeline: "3–15 days",
     bestFor: "Businesses drowning in repetitive manual work",
     outcome:
@@ -505,13 +505,13 @@ export const serviceCategories: ServiceCategory[] = [
     packages: [
       {
         name: "Basic Automation",
-        price: "₹7,000+",
+        price: "₹20,000+",
         features: ["Single workflow automation", "Email/Excel/WhatsApp basic support"],
         delivery: "3–5 days",
       },
       {
         name: "Business Automation",
-        price: "₹14,000+",
+        price: "₹35,000+",
         features: ["Multi-step workflow", "AI support", "Google Sheet/Email/CRM integration"],
         delivery: "7–12 days",
         highlighted: true,

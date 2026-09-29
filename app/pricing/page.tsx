@@ -196,7 +196,7 @@ export default function PricingPage() {
                     </div>
                     <Link
                       href={`/services/${service.slug}`}
-                      className="group inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
+                      className="group tap-safe inline-flex items-center gap-1.5 text-body-sm font-semibold text-brand"
                     >
                       Service details
                       <Icon
@@ -273,7 +273,7 @@ export default function PricingPage() {
               </ol>
               <Link
                 href="/payment-policy"
-                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
+                className="mt-6 tap-safe inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
               >
                 Read the full payment policy
                 <Icon name="arrow" className="size-4" />

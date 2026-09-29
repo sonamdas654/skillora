@@ -65,7 +65,7 @@ export default function EstimateTeaser() {
                   setServiceSlug(s.slug);
                   setPkgIndex(0);
                 }}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+                className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
                   s.slug === serviceSlug
                     ? "border-accent bg-accent text-white"
                     : "border-line bg-surface-raised text-ink-soft hover:border-accent hover:text-accent"
@@ -89,7 +89,7 @@ export default function EstimateTeaser() {
                   interact();
                   setPkgIndex(i);
                 }}
-                className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+                className={`rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors ${
                   i === Math.min(pkgIndex, service.packages.length - 1)
                     ? "border-mint bg-mint text-white"
                     : "border-line bg-surface-raised text-ink-soft hover:border-mint hover:text-mint"

@@ -42,7 +42,10 @@ export default function Breadcrumbs({ items }: { items: Crumb[] }) {
                     {item.name}
                   </span>
                 ) : (
-                  <Link href={item.path} className="transition-colors hover:text-brand">
+                  <Link
+                    href={item.path}
+                    className="tap-safe transition-colors hover:text-brand"
+                  >
                     {item.name}
                   </Link>
                 )}

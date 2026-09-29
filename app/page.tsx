@@ -6,6 +6,7 @@ import WhatsAppSticky from "@/components/WhatsAppSticky";
 import MobileCtaBar from "@/components/MobileCtaBar";
 import HomeHero from "@/components/heroes/HomeHero";
 import Reveal from "@/components/Reveal";
+import ImpactStage from "@/components/ImpactStage";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section, SectionHeading } from "@/components/Section";
@@ -13,12 +14,12 @@ import { PackageCard } from "@/components/Cards";
 import BuildShowcase from "@/components/BuildShowcase";
 import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
 import { homeFaqs } from "@/lib/faqs";
-import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { createPublicClient } from "@/lib/supabase/public";
 import EstimateTeaser from "@/components/EstimateTeaser";
 import ReviewCarousel from "@/components/ReviewCarousel";
 import JsonLd from "@/components/JsonLd";
 import { aggregateRatingSchema } from "@/lib/schema";
+import DeliveryLine from "@/components/DeliveryLine";
 
 // Public content only, so this is statically generated and refreshed on a
 // timer instead of server-rendered per request. See lib/supabase/public.ts
@@ -33,7 +34,7 @@ export const metadata = {
   alternates: { canonical: "/" },
   title: "Website Development & AI Automation Company in India | Skilloura",
   description:
-    "Websites, apps and AI automation for growing businesses in India. Get a written scope, timeline and transparent quote before you pay anything. From ₹7,000.",
+    "Websites, apps and AI automation for growing businesses in India. Get a written scope, timeline and transparent quote before you pay anything. From ₹20,000.",
 };
 
 // Homepage shows a 4-step summary; the full 8-step process lives on
@@ -43,34 +44,6 @@ export const metadata = {
 // Four facts about how this business runs. These used to carry a gradient
 // tile and a coloured glow each — four more colour stories on a page that
 // already had twelve in the rail.
-const impactStats = [
-  {
-    num: 20,
-    suffix: "+",
-    label: "Digital services",
-    desc: "Websites, apps, AI, design, video and more under one roof.",
-  },
-  {
-    num: 50,
-    suffix: "+",
-    label: "Reference layouts & project ideas",
-    desc: "Browse real reference layouts, automations and dashboards before work starts.",
-    href: "/references",
-  },
-  {
-    num: 24,
-    suffix: "h",
-    label: "Reply window",
-    desc: "We reply within 24 hours — direct WhatsApp and email, no ticket queues.",
-  },
-  {
-    num: 100,
-    suffix: "%",
-    label: "Clear requirement process",
-    desc: "Written scope and quote before any payment, every time.",
-  },
-];
-
 // Trimmed to 4 to cut mobile length and avoid repeating the "who's behind
 // Skilloura" cards (ownership / scope / personal contact live there now).
 // Four items, four different icons. Two of these were both "shield", side by
@@ -83,37 +56,17 @@ const whyChoose = [
   { icon: "clock", title: "Maintenance support available", desc: "Monthly care plans from ₹1,999/month keep your project healthy after launch." },
 ];
 
-// The twelve capabilities, as an index rather than a toy carousel. These used
-// to be full-saturation rainbow gradient tiles — twelve different colour
-// stories in one strip, which is the loudest thing the old homepage did and
-// the first thing that read as template. Same twelve links, same hrefs; the
-// colour now comes from one brand family and the hierarchy from typography.
-const serviceRailItems = [
-  { text: "WhatsApp Automation", icon: "whatsapp", href: "/start-project?service=ai-automation" },
-  { text: "Logo & Branding", icon: "palette", href: "/start-project?service=logo-branding" },
-  { text: "Video Editing", icon: "video", href: "/start-project?service=video-editing" },
-  { text: "SEO & Marketing", icon: "megaphone", href: "/start-project?service=digital-marketing" },
-  { text: "Power BI Dashboards", icon: "chart", href: "/start-project?service=data-dashboard" },
-  { text: "ATS Resumes", icon: "file", href: "/start-project?service=resume-career" },
-  { text: "Custom Software", icon: "code", href: "/start-project?service=custom-software" },
-  { text: "Booking Systems", icon: "clock", href: "/start-project?service=website-development" },
-  { text: "Business Websites", icon: "globe", href: "/start-project?service=website-development" },
-  { text: "Mobile Apps", icon: "smartphone", href: "/start-project?service=mobile-app-development" },
-  { text: "AI Chatbots", icon: "bot", href: "/start-project?service=ai-automation" },
-  { text: "Ecommerce Stores", icon: "briefcase", href: "/start-project?service=website-development" },
-];
-
 const featuredPackages = [
   {
     name: "Basic Website",
-    price: "₹7,000+",
+    price: "₹20,000+",
     features: ["1–3 pages", "Mobile responsive", "Contact form", "WhatsApp button", "Basic SEO"],
     delivery: "3–5 days",
     revisions: "1 revision",
   },
   {
     name: "Business Website",
-    price: "₹12,600+",
+    price: "₹35,000+",
     features: ["5–8 pages", "Professional design", "Gallery + Google Maps", "WhatsApp integration", "Basic SEO"],
     delivery: "5–10 days",
     revisions: "2 revisions",
@@ -121,14 +74,14 @@ const featuredPackages = [
   },
   {
     name: "Ecommerce Website",
-    price: "₹24,500+",
+    price: "₹60,000+",
     features: ["Product catalog", "Cart & checkout", "Payment gateway", "Admin panel", "SEO setup"],
     delivery: "10–20 days",
     revisions: "3 revisions",
   },
   {
     name: "AI Automation",
-    price: "₹7,000+",
+    price: "₹20,000+",
     features: ["Workflow automation", "WhatsApp/Email/Excel", "AI integration option", "Setup guide included"],
     delivery: "3–12 days",
   },
@@ -171,49 +124,7 @@ export default async function HomePage() {
       <main id="main-content">
         {/* ── Section 1: Hero ─────────────────────────────── */}
         <HomeHero />
-
-        {/* Service rail — nine real categories, drifting under the hero. */}
-        <section className="relative overflow-hidden border-y border-line bg-surface-sunken">
-          {/* The track is tripled for a seamless loop; only the FIRST copy is
-              real to assistive tech and the keyboard — the two duplicates are
-              aria-hidden and non-focusable, so screen readers and Tab don't
-              hit every link three times. */}
-          <div className="relative w-full overflow-hidden py-5 sm:py-6">
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent, rgb(224 145 63 / 0.07) 30%, rgb(14 82 87 / 0.06) 70%, transparent)",
-              }}
-              aria-hidden
-            />
-            <div className="relative flex w-max gap-3 px-4 animate-service-rail hover:[animation-play-state:paused] sm:gap-4 sm:px-5">
-              {[...serviceRailItems, ...serviceRailItems, ...serviceRailItems].map((item, i) => {
-                const dup = i >= serviceRailItems.length;
-                return (
-                <Link
-                  key={item.text + i}
-                  href={item.href}
-                  aria-hidden={dup || undefined}
-                  tabIndex={dup ? -1 : undefined}
-                  className="card-lift group flex h-24 w-40 shrink-0 flex-col justify-between rounded-card border border-line bg-surface px-3.5 py-3 shadow-e1 sm:w-44"
-                >
-                  <span className="grid size-8 place-items-center rounded-chip bg-brand-soft text-brand">
-                    {item.icon === "whatsapp" ? (
-                      <WhatsAppIcon className="size-4" />
-                    ) : (
-                      <Icon name={item.icon} className="size-4" />
-                    )}
-                  </span>
-                  <span className="font-display text-body-sm font-semibold leading-snug text-ink">
-                    {item.text}
-                  </span>
-                </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <DeliveryLine />
 
         {/* ── Section 2: Problem ──────────────────────────── */}
         <Section className="bg-wash-blue border-b border-line">
@@ -232,7 +143,7 @@ export default async function HomePage() {
               />
               <Link
                 href="/how-it-works"
-                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep"
+                className="mt-6 tap-safe inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep"
               >
                 See how the process works <Icon name="arrow" className="size-4" />
               </Link>
@@ -265,79 +176,8 @@ export default async function HomePage() {
         </Section>
 
         {/* ── Section 3: Impact ───────────────────────────── */}
-        {/* Was four glassmorphic cards with per-stat gradient tiles and hover
-            glow blobs — the exact combination the brief rules out. The numbers
-            are the content, so they sit on the scope line and nothing else
-            competes with them. */}
-        <Section className="border-b border-line">
-          <Reveal>
-            <div className="max-w-2xl">
-              <p className="text-micro font-mono uppercase text-ink-muted">Impact</p>
-              <h2 className="mt-3 text-display-3 text-ink">
-                How this actually{" "}
-                <span className="font-accent italic text-brand">runs</span>
-              </h2>
-              <p className="mt-3 text-body-lg text-ink-soft">
-                Every project starts with a written requirement and ends with a clean,
-                documented handover.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08} variant="depth">
-            <dl className="scope-line mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-              {impactStats.map((stat) => {
-                const body = (
-                  <>
-                    <dt className="font-mono text-display-3 tabular-nums text-ink">
-                      {stat.num}
-                      <span className="text-brand">{stat.suffix}</span>
-                    </dt>
-                    <dd className="mt-2 text-body-base font-semibold text-ink">{stat.label}</dd>
-                    <dd className="mt-1 text-body-sm text-ink-soft">{stat.desc}</dd>
-                  </>
-                );
-                // dt/dd stay direct children of this <div>, which is a
-                // permitted child of <dl>. An earlier attempt at this moved
-                // the <a> inside the div but left dt/dd inside the anchor —
-                // which is the same WCAG 1.3.1 failure one level down, and
-                // axe correctly still flagged it. The whole cell remains
-                // clickable through the stretched link on the term.
-                return stat.href ? (
-                  <div key={stat.label} className="group relative">
-                    <dt className="font-mono text-display-3 tabular-nums text-ink">
-                      <Link
-                        href={stat.href}
-                        className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-brand"
-                      >
-                        {stat.num}
-                        <span className="text-brand">{stat.suffix}</span>
-                      </Link>
-                    </dt>
-                    <dd className="mt-2 text-body-base font-semibold text-ink transition-colors group-hover:text-brand">
-                      {stat.label}
-                    </dd>
-                    <dd className="mt-1 text-body-sm text-ink-soft">
-                      {stat.desc}
-                      {/* Inside the <dd>, not a sibling of it: a <dl> group is
-                          dt followed by dd, and a trailing <span> after the
-                          definitions is not part of that grammar. */}
-                      <span className="mt-2 flex items-center gap-1.5 text-body-sm font-semibold text-brand">
-                        See them
-                        <Icon
-                          name="arrow"
-                          className="size-4 transition-transform group-hover:translate-x-0.5"
-                        />
-                      </span>
-                    </dd>
-                  </div>
-                ) : (
-                  <div key={stat.label}>{body}</div>
-                );
-              })}
-            </dl>
-          </Reveal>
-        </Section>
+        {/* Live cinematic delivery scene; the previous flat impact row is removed. */}
+        <ImpactStage />
 
         {/* ── Section 4: Services Overview ────────────────── */}
         <Section padding="pt-16 sm:pt-20 pb-24 sm:pb-32" className="bg-soft-panel border-y border-line" id="services">
@@ -400,7 +240,7 @@ export default async function HomePage() {
               </p>
               <Link
                 href="/how-it-works"
-                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
+                className="mt-6 tap-safe inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
               >
                 See all eight steps <Icon name="arrow" className="size-4" />
               </Link>
@@ -485,16 +325,16 @@ export default async function HomePage() {
           </div>
         </Section>
 
-        {/* Who's behind Skilloura: real founder, human-accountable */}
+        {/* Founder profile and the team operating model. */}
         <Section className="bg-soft-panel border-y border-line">
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-raised px-3.5 py-1 text-micro font-mono uppercase text-ink-soft">
-                Who&apos;s behind Skilloura
+                Leadership at Skilloura
               </p>
               <h2 className="mt-4 text-display-2 tracking-tight leading-[1.14] text-ink">
-                AI-enabled, but{" "}
-                <span className="font-accent font-normal text-accent">human-accountable</span>
+                Founder-led vision, delivered by a{" "}
+                <span className="font-accent font-normal text-accent">specialist team</span>
               </h2>
             </Reveal>
 
@@ -520,7 +360,7 @@ export default async function HomePage() {
                   </p>
 
                   <p className="mt-4 text-body-base text-ink-soft">
-                    Hi, I&apos;m Sonam, founder of Skilloura.
+                    Sonam founded Skilloura to bring enterprise-level clarity to growing businesses.
                   </p>
                   {/* Three paragraphs, and none of them is the process list.
                       There were four, and two of them said the same thing:
@@ -537,10 +377,9 @@ export default async function HomePage() {
                     written down.
                   </p>
                   <p className="mt-3 text-body-base text-ink-soft">
-                    So this runs the way enterprise projects run, at a size a local business
-                    can afford. I do the work myself and I am the person you talk to. We use
-                    AI where it genuinely speeds things up, and every build still goes through
-                    human review and testing before it is delivered.
+                    Today, every project runs through a coordinated team workflow covering
+                    strategy, design, development, automation, quality assurance and delivery.
+                    AI speeds up selected tasks, while specialists review the work before it ships.
                   </p>
                   <p className="mt-3 text-body-base text-ink-soft">
                     Behind that: nearly a decade of hands-on work across websites, software
@@ -569,14 +408,14 @@ export default async function HomePage() {
             <Reveal variant="unfurl" delay={0.1}>
               <div className="mt-10">
                 <p className="text-micro font-mono uppercase text-ink-muted">
-                  What you get from me, in writing
+                  What you get from our team, in writing
                 </p>
                 <dl className="mt-4 border-t border-line-strong">
                   {[
                     { t: "You own everything", d: "Code, content and accounts handed over to you. No vendor lock-in, no hostage files." },
-                    { t: "A person reviews every build", d: "Architecture, security and testing checked by me, not only generated." },
+                    { t: "Specialists review every build", d: "Architecture, security and testing are checked by the responsible project team." },
                     { t: "Nothing is charged before it is agreed", d: "The scope, the price and the dates are documented and approved first." },
-                    { t: "You talk to me, not a queue", d: "A real reply on WhatsApp, from the person doing the work." },
+                    { t: "A dedicated project channel", d: "Clear updates from the team responsible for planning and delivering your project." },
                   ].map((c) => (
                     <div
                       key={c.t}
@@ -639,7 +478,7 @@ export default async function HomePage() {
                 </p>
                 <Link
                   href="/start-project"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-body-sm font-semibold text-white hover:bg-accent-deep transition-colors"
+                  className="mt-6 tap-safe inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-body-sm font-semibold text-white hover:bg-accent-deep transition-colors"
                 >
                   Start your project <Icon name="arrow" className="size-4" />
                 </Link>
@@ -665,7 +504,7 @@ export default async function HomePage() {
               />
               <Link
                 href="/faq"
-                className="mt-6 inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep"
+                className="mt-6 tap-safe inline-flex items-center gap-2 text-body-sm font-semibold text-accent hover:text-accent-deep"
               >
                 View all FAQs <Icon name="arrow" className="size-4" />
               </Link>

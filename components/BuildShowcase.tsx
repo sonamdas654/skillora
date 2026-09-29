@@ -59,7 +59,7 @@ export default function BuildShowcase() {
 
           <Link
             href="/pricing"
-            className="group mt-5 inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
+            className="group mt-5 tap-safe inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
           >
             View pricing
             <Icon

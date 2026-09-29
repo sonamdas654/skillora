@@ -7,9 +7,8 @@ import { resolveMotionTier } from "@/lib/motion/useMotionTier";
 /**
  * Installs the shared reveal observer.
  *
- * The `data-motion="on"` attribute that actually hides pending reveals is set
- * by MotionBootScript below, which runs before first paint — otherwise
- * anything already scrolled past would flash in, then out, then animate.
+ * The `data-motion="on"` attribute is enabled after hydration, immediately
+ * before the observer starts. This keeps server and client markup identical.
  *
  * Mount this once, high in the tree. It is deliberately render-free.
  */
@@ -19,30 +18,17 @@ export default function MotionProvider() {
       disableReveals();
       return;
     }
-    return startRevealRegistry();
+    // This must happen after hydration. The previous inline boot script
+    // mutated <html> and reveal nodes before React attached, so React compared
+    // its server markup with an already-modified DOM and raised a hydration
+    // mismatch on every page load.
+    document.documentElement.setAttribute("data-motion", "on");
+    const stop = startRevealRegistry();
+    return () => {
+      stop();
+      document.documentElement.removeAttribute("data-motion");
+    };
   }, []);
 
   return null;
-}
-
-/**
- * Runs synchronously in the document, before paint.
- *
- * Sets data-motion="on" only when the visitor has not asked for reduced
- * motion, and arms a failsafe that clears it if hydration never happens. If
- * JavaScript is off entirely this never runs, data-motion is never set, and
- * every reveal renders in its final visible state — which is exactly what we
- * want, and what the previous framer-motion version got wrong.
- */
-export function MotionBootScript() {
-  const script = `(function(){try{
-if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-var d=document.documentElement;d.setAttribute('data-motion','on');
-setTimeout(function(){
-  var pending=document.querySelectorAll('[data-reveal]:not([data-reveal-done])');
-  for(var i=0;i<pending.length;i++)pending[i].setAttribute('data-reveal-done','');
-},3500);
-}catch(e){}})();`;
-
-  return <script dangerouslySetInnerHTML={{ __html: script }} />;
 }
