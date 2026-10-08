@@ -196,11 +196,16 @@ export function solutionServiceSchema(sol: {
 /**
  * ProfilePage + Person for the About page.
  *
- * /about carried no page-level structured data at all, even though it states
- * real, checkable credentials — an M.Tech from BITS Pilani, a decade of
- * hands-on work, five years of enterprise IT. Organization schema nests a
- * founder node, but nothing told search engines that /about is *the* page
- * about that person. This does, and it repeats only facts the page shows.
+ * /about carried no page-level structured data at all, even though it states a
+ * real, checkable credential: an M.Tech from BITS Pilani. Organization schema
+ * nests a founder node, but nothing told search engines that /about is *the*
+ * page about that person. This does, and it repeats only facts the page shows.
+ *
+ * That last clause is a constraint, not a description. The experience figures
+ * this comment used to cite — a decade of hands-on work, five years of
+ * enterprise IT — left both founder blocks when the owner supplied their own
+ * biography, so they left this note too. Nothing emitted here may assert
+ * something a visitor cannot read on the page.
  */
 /**
  * The founder image is named for its subject, not for its slot.

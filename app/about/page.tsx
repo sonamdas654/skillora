@@ -166,12 +166,16 @@ export default function AboutPage() {
               />
               <p className="mt-5 font-display text-title-1 text-ink">Sonam Das</p>
               <p className="text-body-base font-semibold text-brand">Founder, Skilloura</p>
+              {/* Matches the kicker on the homepage founder card. The two rows
+                  that were here, "Hands-on ~10 years" and "Enterprise IT 5+
+                  years", are gone from both places: the owner's own biography
+                  replaced them, and leaving them here would have made this page
+                  the only one still asserting a figure. */}
               <SpecLedger
                 className="mt-5"
                 rows={[
                   { label: "Qualification", value: "M.Tech, BITS Pilani" },
-                  { label: "Hands-on", value: "~10 years" },
-                  { label: "Enterprise IT", value: "5+ years" },
+                  { label: "Focus", value: "Technology, AI & Digital Transformation" },
                 ]}
               />
             </div>
@@ -179,35 +183,48 @@ export default function AboutPage() {
 
           <Reveal delay={0.08}>
             <div className="max-w-prose space-y-5 text-body-lg leading-relaxed text-ink-soft">
-              <p>Hi, I&apos;m Sonam, founder of Skilloura.</p>
+              {/* The owner's biography, word for word the same text as the
+                  founder card on the homepage. Kept identical deliberately: two
+                  differently worded versions of the same person's story is how a
+                  site starts contradicting itself. */}
               <p>
-                I built Skilloura to deliver digital projects with enterprise-level clarity,
-                strong accountability and professional execution. Every project is assigned to
-                the right specialists and follows a defined process: requirements are reviewed,
-                scope is written before payment, previews are shared and handover is documented.
+                Sonam Das is the Founder of Skilloura, a technology-driven digital services
+                company focused on helping businesses build, modernize, and operate reliable
+                digital solutions.
               </p>
               <p>
-                My role is to set the standard for how work gets delivered. Project managers,
-                designers, developers, automation specialists and quality reviewers work together
-                through the delivery lifecycle, with leadership oversight at key milestones.
+                With a professional background spanning enterprise IT, software systems, cloud
+                technologies, data engineering, and AI-driven automation, Sonam brings a practical
+                understanding of how technology must perform beyond development environments — in
+                real business operations, where reliability, security, scalability, and
+                accountability matter.
               </p>
               <p>
-                Skilloura is backed by nearly a decade of hands-on experience across websites,
-                software systems, AI automation, dashboards, cloud-based solutions and digital
-                operations, along with 5+ years of enterprise IT experience and an M.Tech from
-                BITS Pilani. This mix of technical depth, enterprise discipline and practical
-                execution shapes how every project is handled here.
+                His experience across enterprise technology environments has shaped his approach
+                to building Skilloura: combining strong engineering practices with transparent
+                execution, clearly defined project ownership, and measurable business outcomes.
               </p>
               <p>
-                The reason Skilloura exists is simple:{" "}
-                <strong className="font-semibold text-ink">
-                  digital projects deserve better than vague promises, unclear scope and
-                  uncertain delivery.
-                </strong>{" "}
-                Clients should know exactly what they are getting, how the work will move
-                forward, what it will cost, and when they can review it.
+                Under his leadership, Skilloura focuses on delivering custom software, web and
+                mobile applications, AI-powered solutions, workflow automation, business
+                dashboards, and cloud-enabled systems designed around each client’s operational
+                requirements.
               </p>
-              <p>That is the standard Skilloura is built on.</p>
+              <p>
+                Sonam’s vision is to establish Skilloura as a trusted technology partner for
+                businesses seeking dependable engineering, practical innovation, and sustainable
+                digital growth.
+              </p>
+
+              <blockquote className="border-l-2 border-brand pl-5">
+                <p className="font-accent text-title-3 font-normal italic leading-snug text-ink">
+                  “Technology should not only solve today’s challenges. It should create a
+                  foundation businesses can confidently build upon tomorrow.”
+                </p>
+                <footer className="mt-3 text-body-sm font-semibold text-ink-soft">
+                  — Sonam Das, Founder, Skilloura
+                </footer>
+              </blockquote>
 
               <p className="border-t border-line pt-5">
                 Questions before starting? Message directly on{" "}
