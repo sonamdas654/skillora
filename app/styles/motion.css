@@ -1,0 +1,223 @@
+/* ─────────────────────────────────────────────────────────────
+   Keyframes and motion utilities.
+
+   Every animated component must also satisfy the runtime contract in
+   components/motion/CONTRACT.md: IntersectionObserver-gated, motion
+   tier honoured, per-frame values on refs or CSS custom properties
+   (never React state), paused off-screen, cleaned up on unmount.
+   ───────────────────────────────────────────────────────────── */
+
+/* Above-the-fold entrance. CSS-only on purpose, so hero content paints
+   immediately without waiting for JS or hydration and never sits blank
+   on a slow phone. Stagger with an inline --rise-delay. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--distance-rise));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* ── Scroll reveals ──────────────────────────────────────────
+   Content is visible by DEFAULT. It is only hidden while
+   data-motion="on" is present, which the boot script sets before
+   paint and only for visitors who have not asked for less motion.
+
+   Read that as: if JavaScript never runs, if hydration fails, if the
+   observer never fires, or if this is print or reader mode, the page
+   is fully readable. The animation is the enhancement, not the
+   precondition. */
+[data-motion="on"] [data-reveal]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: translateY(var(--distance-rise));
+}
+[data-reveal][data-reveal-done] {
+  animation: rise var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* ── Reveal variants ─────────────────────────────────────────
+   One motion repeated on every section is on this project's own banned
+   list — "repeated fade-up as the only reveal" — and for most of the
+   build that is exactly what shipped: a single translateY on all ~83
+   call sites. These are the alternatives. Four, not twelve: a system
+   with a dozen entrances has no vocabulary, it has noise.
+
+   Each one is a single compositor-friendly property (transform,
+   opacity, clip-path), no JavaScript, and each inherits the same
+   visible-by-default contract as the base reveal — the hide state is
+   opt-in under data-motion="on" and cleared by the same failsafe.
+
+     depth   the plan's "3D feel with no WebGL". A short rotateX under
+             perspective, so the block tilts up into place instead of
+             sliding. This is deliberately where the three-dimensional
+             quality comes from: the homepage already ships 237 kB of
+             JS, above the 180 kB ceiling this project set for
+             admitting WebGL at all, so that ceiling decides it.
+     lift    a small scale with the rise. For panels and cards, which
+             read as objects rather than as text.
+     unfurl  a clip-path wipe along the writing direction. The scope
+             line drawing itself — the site's own motif, moving.
+     fade    opacity only. For anything already carrying its own
+             transform, where a second one would fight it.
+   ─────────────────────────────────────────────────────────── */
+
+@keyframes depth-in {
+  from {
+    opacity: 0;
+    transform: perspective(900px) rotateX(7deg)
+      translate3d(0, var(--distance-rise), -40px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) rotateX(0) translate3d(0, 0, 0);
+  }
+}
+[data-motion="on"] [data-reveal="depth"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: perspective(900px) rotateX(7deg)
+    translate3d(0, var(--distance-rise), -40px);
+}
+[data-reveal="depth"][data-reveal-done] {
+  animation: depth-in var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes lift-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, calc(var(--distance-rise) * 0.65), 0) scale(0.972);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+[data-motion="on"] [data-reveal="lift"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: translate3d(0, calc(var(--distance-rise) * 0.65), 0) scale(0.972);
+}
+[data-reveal="lift"][data-reveal-done] {
+  animation: lift-in var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes unfurl-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* The hide state is opacity ONLY — deliberately no clip-path here.
+   A reveal target that is clipped to zero width is a target the
+   IntersectionObserver may never report as intersecting, and that observer is
+   the thing responsible for un-hiding it: a deadlock where the hide state
+   prevents its own removal. It was caught by tools/qa/reveal-check.mjs, which
+   found one ledger on a case study still hidden after a full scroll.
+   The wipe still plays — the keyframe starts from the clipped state — but the
+   element the observer watches is never clipped. */
+[data-motion="on"] [data-reveal="unfurl"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: none;
+}
+[data-reveal="unfurl"][data-reveal-done] {
+  animation: unfurl-in var(--duration-slow) var(--ease-out-quint) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+[data-motion="on"] [data-reveal="fade"]:not([data-reveal-done]) {
+  opacity: 0;
+  transform: none;
+}
+[data-reveal="fade"][data-reveal-done] {
+  animation: fade-in var(--duration-slow) var(--ease-entrance) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* Route transition, applied by app/template.tsx.
+   Opacity only — deliberately. Any transform here, even translateY(0)
+   at rest, creates a containing block for descendant position: fixed
+   elements (Header, WhatsAppSticky, MobileCtaBar) and anchors them to
+   this wrapper's page-height box instead of the viewport, which broke
+   fixed positioning sitewide. */
+@keyframes page-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-enter {
+  animation: page-enter var(--duration-base) var(--ease-entrance) both;
+}
+
+/* Ambient drift for the aura light layers. */
+@keyframes aura-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(-4deg) scale(1); }
+  100% { transform: translate3d(4vw, 3vh, 0) rotate(4deg) scale(1.09); }
+}
+
+/* Continuous horizontal rail. */
+@keyframes rail-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333333%); }
+}
+.animate-service-rail {
+  animation: rail-drift 46s linear infinite;
+}
+.animate-service-rail:hover {
+  animation-play-state: paused;
+}
+
+/* Hero stage progress tick. Pure CSS so the carousel's progress costs zero
+   React renders — the old build drove this with a 50ms setInterval calling
+   setState twenty times a second. */
+@keyframes stage-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* Signal pulse — the "live" indicator. The single most-used place the
+   signal green is allowed on a light surface, and only ever as a dot. */
+@keyframes signal-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(168 220 30 / 0.45); }
+  70% { box-shadow: 0 0 0 5px rgb(168 220 30 / 0); }
+}
+.animate-signal-pulse {
+  animation: signal-pulse 2.4s var(--ease-out-quint) infinite;
+}
+
+/* One switch for all of it. Every animation above degrades to its final
+   state rather than simply stopping mid-way. */
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .page-enter,
+  .animate-service-rail,
+  .animate-signal-pulse,
+  .aura,
+  [data-reveal] {
+    animation: none !important;
+  }
+  /* Never leave a reveal mid-hide for someone who asked for no motion.
+     clip-path is listed explicitly: an unfurl frozen at inset(0 100% 0 0)
+     would not merely skip its animation, it would clip the content out of
+     existence. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+  }
+}

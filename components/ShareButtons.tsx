@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { WhatsAppIcon } from "./Header";
+import WhatsAppIcon from "./icons/WhatsAppIcon";
 
 // Lightweight share row for blog posts — no tracking scripts, just intent URLs.
 export default function ShareButtons({ url, title }: { url: string; title: string }) {
@@ -19,18 +19,18 @@ export default function ShareButtons({ url, title }: { url: string; title: strin
   }
 
   const linkCls =
-    "inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold text-ink-soft transition-colors hover:border-accent hover:text-accent";
+    "inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-raised px-4 py-2 text-xs font-semibold text-ink-soft transition-colors hover:border-accent hover:text-accent";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs font-bold uppercase tracking-wider text-ink-soft">Share:</span>
+      <span className="text-body-sm font-bold uppercase tracking-wider text-ink-soft">Share:</span>
       <a
         href={`https://wa.me/?text=${encodedTitle}%20${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
         className={linkCls}
       >
-        <WhatsAppIcon className="size-3.5 text-mint" /> WhatsApp
+        <WhatsAppIcon className="size-3.5 text-success" /> WhatsApp
       </a>
       <a
         href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}

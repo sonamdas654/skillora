@@ -1,7 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
-
 // Realistic output mockups for concept previews — each renders what the
 // final deliverable roughly looks like (resume page, dashboard, software
 // screen, website landing) so clients can judge the style before selecting.
@@ -21,15 +19,15 @@ function BarChart({ values, color }: { values: number[]; color: string }) {
 function Kpi({ label, value, delta, up }: { label: string; value: string; delta: string; up?: boolean }) {
   return (
     <div className="rounded-lg bg-slate-900 border border-slate-800 p-2.5">
-      <p className="text-[7px] uppercase tracking-wider text-slate-500 font-bold">{label}</p>
+      {/* slate-400, not slate-500: on this dark panel slate-500 measures
+          3.74:1 at 7px, below the 4.5:1 AA floor. These previews imitate
+          other people's sites, but the text in them is real text a person
+          sees, and a mockup is not an exemption. slate-400 is 6.78:1. */}
+      <p className="text-[7px] uppercase tracking-wider text-slate-400 font-bold">{label}</p>
       <p className="text-sm font-black text-white mt-0.5">{value}</p>
       <p className={`text-[8px] font-bold ${up ? "text-emerald-400" : "text-rose-400"}`}>{up ? "▲" : "▼"} {delta}</p>
     </div>
   );
-}
-
-function PaperLine({ w, dark = false }: { w: string; dark?: boolean }) {
-  return <div className={`h-1.5 rounded-full ${dark ? "bg-slate-400" : "bg-slate-200"}`} style={{ width: w }} />;
 }
 
 /* ── WEBSITE landing mockups (portfolio / realestate / education / clinic) ── */
@@ -126,6 +124,28 @@ const WEB_CONTENT: Record<string, { brand: string; hero: string; sub: string; ca
   },
 };
 
+/**
+ * Pick black or white for text sitting on an arbitrary accent colour.
+ *
+ * These previews are miniatures of other people's websites, so the accent is
+ * whatever that concept's brand colour is — and hardcoding white on top of it
+ * failed WCAG contrast on the lighter accents (measured on /portfolio and
+ * /contact). The text is small and genuinely visible, and a mockup does not
+ * exempt real rendered text from being readable.
+ */
+function onAccent(hex: string): string {
+  const m = /^#?([0-9a-f]{6})$/i.exec(hex.trim());
+  if (!m) return "#ffffff";
+  const n = parseInt(m[1], 16);
+  const srgb = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const lum = 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+  // Contrast against white vs against near-black; take whichever is higher.
+  return (1.05 / (lum + 0.05)) >= ((lum + 0.05) / 0.05) ? "#ffffff" : "#0b0f10";
+}
+
 export function WebPreview({ id, accent }: { id: string; accent: string }) {
   const c = WEB_CONTENT[id] ?? WEB_CONTENT["web-portfolio"];
   return (
@@ -139,7 +159,10 @@ export function WebPreview({ id, accent }: { id: string; accent: string }) {
       <div className="text-center py-3 space-y-1.5">
         <h4 className="text-base font-black text-white">{c.hero}</h4>
         <p className="text-[9px] text-slate-400 max-w-[240px] mx-auto leading-4">{c.sub}</p>
-        <span className="inline-block mt-1.5 rounded-full px-3.5 py-1.5 text-[9px] font-bold text-white shadow" style={{ background: accent }}>
+        <span
+          className="inline-block mt-1.5 rounded-full px-3.5 py-1.5 text-[9px] font-bold shadow"
+          style={{ background: accent, color: onAccent(accent) }}
+        >
           {c.cta}
         </span>
       </div>
@@ -154,7 +177,7 @@ export function WebPreview({ id, accent }: { id: string; accent: string }) {
       </div>
       <div className="flex items-center justify-between rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-2">
         <span className="text-[8px] text-emerald-300 font-semibold">✓ WhatsApp enquiry connected</span>
-        <span className="text-[8px] text-slate-500">Mobile responsive</span>
+        <span className="text-[8px] text-slate-400">Mobile responsive</span>
       </div>
     </div>
   );
@@ -219,7 +242,7 @@ export function DashboardPreview({ id, accent }: { id: string; accent: string })
         {c.kpis.map(([l, v, d, up]) => <Kpi key={l} label={l} value={v} delta={d} up={up} />)}
       </div>
       <div className="rounded-lg bg-slate-900 border border-slate-800 p-3">
-        <p className="text-[7px] uppercase tracking-wider text-slate-500 font-bold mb-2">Last 12 periods</p>
+        <p className="text-[7px] uppercase tracking-wider text-slate-400 font-bold mb-2">Last 12 periods</p>
         <BarChart values={c.bars} color={accent} />
       </div>
       <div className="rounded-lg bg-slate-900 border border-slate-800 divide-y divide-slate-800">
@@ -237,244 +260,5 @@ export function DashboardPreview({ id, accent }: { id: string; accent: string })
 
 /* ── RESUME / CAREER mockups (cv-*) ────────────────────────────── */
 
-export function ResumePreview({ id, accent }: { id: string; accent: string }) {
-  if (id === "cv-linkedin") {
-    return (
-      <div className="flex-1 flex items-center justify-center p-5">
-        <div className="w-full max-w-[260px] rounded-xl bg-white overflow-hidden shadow-2xl text-left">
-          <div className="h-14" style={{ background: `linear-gradient(120deg, ${accent}, ${accent}88)` }} />
-          <div className="px-4 pb-4 -mt-6 space-y-2">
-            <div className="size-12 rounded-full bg-slate-700 border-4 border-white flex items-center justify-center text-white text-xs font-black">RS</div>
-            <div>
-              <p className="text-[11px] font-black text-slate-900">Rahul Sharma</p>
-              <p className="text-[8px] text-slate-600 leading-3">Operations Manager · Driving 30% cost savings in supply chain | Six Sigma</p>
-              <p className="text-[7px] text-slate-400 mt-0.5">Mumbai · 500+ connections</p>
-            </div>
-            <div className="flex gap-1.5">
-              <span className="rounded-full px-3 py-1 text-[8px] font-bold text-white" style={{ background: accent }}>Open to work</span>
-              <span className="rounded-full border border-slate-300 px-3 py-1 text-[8px] font-bold text-slate-600">Message</span>
-            </div>
-            <div className="border-t border-slate-100 pt-2 space-y-1.5">
-              <PaperLine w="90%" /><PaperLine w="75%" /><PaperLine w="82%" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  if (id === "cv-portfolio") {
-    return (
-      <div className="flex-1 flex items-center justify-center p-5">
-        <div className="w-full max-w-[280px] rounded-xl bg-white overflow-hidden shadow-2xl text-left">
-          <div className="p-4 text-center space-y-1" style={{ background: `${accent}15` }}>
-            <div className="size-10 rounded-full mx-auto flex items-center justify-center text-white text-[10px] font-black" style={{ background: accent }}>AK</div>
-            <p className="text-[11px] font-black text-slate-900">Ananya Kapoor</p>
-            <p className="text-[8px] text-slate-500">UI Designer · Bengaluru</p>
-            <span className="inline-block rounded-full px-3 py-1 text-[8px] font-bold text-white" style={{ background: accent }}>Download Resume</span>
-          </div>
-          <div className="p-3 grid grid-cols-2 gap-2">
-            {["Food app redesign", "Fintech dashboard", "Travel branding", "SaaS website"].map((p) => (
-              <div key={p} className="rounded-lg border border-slate-200 p-2 space-y-1">
-                <div className="h-8 rounded" style={{ background: `${accent}25` }} />
-                <p className="text-[7px] font-bold text-slate-700">{p}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-  if (id === "cv-coverletter") {
-    return (
-      <div className="flex-1 flex items-center justify-center p-5">
-        <div className="w-full max-w-[250px] rounded-lg bg-white shadow-2xl p-5 space-y-2.5 text-left">
-          <p className="text-[10px] font-black text-slate-900">Priya Nair</p>
-          <p className="text-[7px] text-slate-400">priya@email.com · +91 98XXX XXXXX</p>
-          <div className="border-t border-slate-100 pt-2 space-y-1.5">
-            <p className="text-[8px] font-bold text-slate-700">Dear Hiring Manager,</p>
-            <PaperLine w="100%" /><PaperLine w="94%" /><PaperLine w="97%" /><PaperLine w="60%" />
-            <PaperLine w="100%" /><PaperLine w="88%" /><PaperLine w="45%" />
-          </div>
-          <p className="text-[8px] font-bold" style={{ color: accent }}>Warm regards, Priya</p>
-        </div>
-      </div>
-    );
-  }
-  // document-style resumes: cv-ats (default), cv-fresher, cv-tech, cv-executive
-  const variants: Record<string, { name: string; role: string; first: string; chips: string[] }> = {
-    "cv-ats": { name: "ROHAN VERMA", role: "Senior Sales Manager", first: "EXPERIENCE", chips: ["CRM", "B2B Sales", "Forecasting", "Team Lead"] },
-    "cv-fresher": { name: "SNEHA DAS", role: "B.Tech CSE · 2026", first: "PROJECTS", chips: ["Python", "SQL", "React", "2 Internships"] },
-    "cv-tech": { name: "ARJUN MEHTA", role: "Full-Stack Developer", first: "TECH STACK", chips: ["Node.js", "React", "PostgreSQL", "AWS"] },
-    "cv-executive": { name: "VIKRAM SETH", role: "VP Operations · 18 yrs", first: "LEADERSHIP HIGHLIGHTS", chips: ["P&L ₹40Cr", "Team of 120", "3 Plants"] },
-  };
-  const v = variants[id] ?? variants["cv-ats"];
-  return (
-    <div className="flex-1 flex items-center justify-center p-5">
-      <div className="w-full max-w-[250px] rounded-lg bg-white shadow-2xl p-5 space-y-3 text-left">
-        <div className="border-b-2 pb-2" style={{ borderColor: accent }}>
-          <p className="text-[11px] font-black tracking-wide text-slate-900">{v.name}</p>
-          <p className="text-[8px] font-semibold" style={{ color: accent }}>{v.role}</p>
-          <p className="text-[7px] text-slate-400 mt-0.5">email@domain.com · +91 98XXX XXXXX · LinkedIn</p>
-        </div>
-        <div className="space-y-1.5">
-          <p className="text-[8px] font-black tracking-wider" style={{ color: accent }}>{v.first}</p>
-          <PaperLine w="95%" dark /><PaperLine w="88%" /><PaperLine w="92%" /><PaperLine w="70%" />
-        </div>
-        <div className="space-y-1.5">
-          <p className="text-[8px] font-black tracking-wider" style={{ color: accent }}>SKILLS</p>
-          <div className="flex flex-wrap gap-1">
-            {v.chips.map((c) => (
-              <span key={c} className="rounded px-1.5 py-0.5 text-[7px] font-bold text-slate-700" style={{ background: `${accent}18` }}>{c}</span>
-            ))}
-          </div>
-        </div>
-        <div className="space-y-1.5">
-          <p className="text-[8px] font-black tracking-wider" style={{ color: accent }}>EDUCATION</p>
-          <PaperLine w="80%" dark /><PaperLine w="55%" />
-        </div>
-        <p className="text-[6px] text-emerald-600 font-bold">✓ ATS-parse tested · clean single column</p>
-      </div>
-    </div>
-  );
-}
-
 /* ── CUSTOM SOFTWARE mockups (soft-*) ──────────────────────────── */
 
-export function SoftwarePreview({ id, accent }: { id: string; accent: string }) {
-  const shells: Record<string, { title: string; body: ReactNode }> = {
-    "soft-crm": {
-      title: "LeadDesk CRM",
-      body: (
-        <div className="grid grid-cols-3 gap-2 flex-1">
-          {[["New", ["Café Rio — website", "GymFit — app"]], ["Follow-up", ["Zenith — CRM demo", "UrbanNest — quote sent"]], ["Won", ["TrackFlow — ₹85K"]]].map(([col, cards]) => (
-            <div key={col as string} className="rounded-lg bg-slate-900 border border-slate-800 p-2 space-y-1.5">
-              <p className="text-[7px] font-black uppercase tracking-wider" style={{ color: accent }}>{col as string}</p>
-              {(cards as string[]).map((card) => (
-                <div key={card} className="rounded bg-slate-800 border border-slate-700/60 px-2 py-1.5 text-[7px] font-semibold text-slate-200 leading-3">{card}</div>
-              ))}
-            </div>
-          ))}
-        </div>
-      ),
-    },
-    "soft-billing": {
-      title: "BillFlow — GST Invoicing",
-      body: (
-        <div className="flex-1 rounded-lg bg-white p-3.5 text-left space-y-2">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-[9px] font-black text-slate-900">TAX INVOICE #A-1042</p>
-              <p className="text-[7px] text-slate-500">GSTIN: 21XXXXX1234Z5 · 07 Jul 2026</p>
-            </div>
-            <span className="rounded bg-emerald-100 text-emerald-700 px-1.5 py-0.5 text-[7px] font-black">PAID</span>
-          </div>
-          {[["Business website — 6 pages", "₹12,600"], ["Maintenance (1 mo)", "₹1,999"], ["CGST+SGST @18%", "₹2,628"]].map(([a, b]) => (
-            <div key={a} className="flex justify-between text-[8px] text-slate-700 border-t border-slate-100 pt-1"><span>{a}</span><b>{b}</b></div>
-          ))}
-          <div className="flex justify-between text-[9px] font-black text-slate-900 border-t-2 pt-1" style={{ borderColor: accent }}>
-            <span>Total</span><span>₹17,227</span>
-          </div>
-        </div>
-      ),
-    },
-    "soft-inventory": {
-      title: "StockPilot — Inventory",
-      body: (
-        <div className="flex-1 rounded-lg bg-slate-900 border border-slate-800 divide-y divide-slate-800 text-left">
-          {[["Steel Bottle 1L", "SKU-104", "6", true], ["Yoga Mat Pro", "SKU-221", "3", true], ["LED Strip 5m", "SKU-318", "142", false], ["Desk Stand", "SKU-407", "58", false]].map(([n, s, q, low]) => (
-            <div key={s as string} className="flex items-center justify-between px-3 py-2">
-              <div><p className="text-[8px] font-bold text-white">{n as string}</p><p className="text-[7px] text-slate-500">{s as string}</p></div>
-              <span className={`rounded px-2 py-0.5 text-[7px] font-black ${low ? "bg-rose-500/15 text-rose-400" : "bg-emerald-500/15 text-emerald-400"}`}>
-                {q as string} {low ? "· REORDER" : "in stock"}
-              </span>
-            </div>
-          ))}
-        </div>
-      ),
-    },
-    "soft-booking": {
-      title: "SlotMaster — Bookings",
-      body: (
-        <div className="flex-1 space-y-2">
-          <div className="grid grid-cols-4 gap-1.5">
-            {["Mon 10", "Mon 11", "Mon 12", "Mon 4", "Tue 10", "Tue 11", "Tue 3", "Tue 5"].map((slot, i) => (
-              <div key={slot} className={`rounded px-1 py-1.5 text-center text-[7px] font-bold border ${i % 3 === 0 ? "text-white border-transparent" : "bg-slate-900 text-slate-400 border-slate-800"}`} style={i % 3 === 0 ? { background: accent } : {}}>
-                {slot}{i % 3 === 0 ? " ✓" : ""}
-              </div>
-            ))}
-          </div>
-          <div className="rounded-lg bg-slate-900 border border-slate-800 px-3 py-2 flex justify-between items-center">
-            <span className="text-[8px] font-semibold text-slate-300">Branch: Koramangala · Staff: Meera</span>
-            <span className="text-[7px] font-black text-emerald-400">Advance ₹500 held</span>
-          </div>
-        </div>
-      ),
-    },
-    "soft-erp": {
-      title: "FactoryOS — Mini ERP",
-      body: (
-        <div className="flex-1 space-y-2">
-          {[["Order #218 — 500 units", 80], ["Order #219 — 1,200 units", 45], ["Order #221 — 300 units", 15]].map(([o, p]) => (
-            <div key={o as string} className="rounded-lg bg-slate-900 border border-slate-800 p-2.5 space-y-1.5">
-              <div className="flex justify-between text-[8px] font-bold text-white"><span>{o as string}</span><span style={{ color: accent }}>{p as number}%</span></div>
-              <div className="h-1.5 rounded-full bg-slate-800"><div className="h-full rounded-full" style={{ width: `${p}%`, background: accent }} /></div>
-              <p className="text-[7px] text-slate-500">Intake → Cutting → Assembly → QC → Dispatch</p>
-            </div>
-          ))}
-        </div>
-      ),
-    },
-    "soft-portal": {
-      title: "ClientHub — Portal",
-      body: (
-        <div className="flex-1 grid grid-cols-2 gap-2">
-          <div className="rounded-lg bg-slate-900 border border-slate-800 p-3 space-y-2">
-            <p className="text-[8px] font-black text-white">Welcome, Kiran</p>
-            <div className="rounded bg-slate-800 px-2 py-1.5 text-[7px] text-slate-300">Project status: <b style={{ color: accent }}>In review</b></div>
-            <div className="rounded bg-slate-800 px-2 py-1.5 text-[7px] text-slate-300">Next milestone: 12 Jul</div>
-          </div>
-          <div className="rounded-lg bg-slate-900 border border-slate-800 p-3 space-y-1.5">
-            <p className="text-[7px] font-black uppercase tracking-wider text-slate-500">Documents</p>
-            {["Quotation_v2.pdf", "Design_preview.fig", "Invoice_1042.pdf"].map((d) => (
-              <p key={d} className="text-[7px] font-semibold truncate" style={{ color: accent }}>📄 {d}</p>
-            ))}
-          </div>
-        </div>
-      ),
-    },
-    "soft-api": {
-      title: "SyncBridge — Integrations",
-      body: (
-        <div className="flex-1 flex flex-col items-center justify-center gap-2">
-          <div className="flex items-center gap-2">
-            {["CRM", "Sheets", "WhatsApp", "Payments"].map((n, i) => (
-              <div key={n} className="flex items-center gap-2">
-                <div className="rounded-lg border px-2.5 py-2 text-[8px] font-black text-white" style={{ borderColor: `${accent}66`, background: `${accent}18` }}>{n}</div>
-                {i < 3 && <span className="text-[10px]" style={{ color: accent }}>⇄</span>}
-              </div>
-            ))}
-          </div>
-          <div className="rounded-lg bg-slate-900 border border-slate-800 px-3 py-2 w-full max-w-[260px] space-y-1">
-            {[["Lead synced CRM → Sheets", "2s ago"], ["Payment webhook received", "1m ago"], ["Retry queued (timeout)", "4m ago"]].map(([e, t]) => (
-              <div key={e} className="flex justify-between text-[7px]"><span className="text-slate-300 font-semibold">{e}</span><span className="text-slate-500">{t}</span></div>
-            ))}
-          </div>
-        </div>
-      ),
-    },
-  };
-  const shell = shells[id] ?? shells["soft-crm"];
-  return (
-    <div className="flex-1 flex flex-col p-4 gap-2.5 text-left">
-      <div className="flex items-center justify-between">
-        <p className="text-[10px] font-black text-white">{shell.title}</p>
-        <div className="flex gap-1.5 text-[7px] font-bold">
-          <span className="rounded bg-slate-800 border border-slate-700 px-2 py-0.5 text-slate-300">Admin</span>
-          <span className="rounded px-2 py-0.5 text-white" style={{ background: accent }}>+ New</span>
-        </div>
-      </div>
-      {shell.body}
-      <p className="text-[7px] text-slate-500">✓ Role-based login · reports export · runs on web & mobile</p>
-    </div>
-  );
-}

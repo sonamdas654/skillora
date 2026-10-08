@@ -32,7 +32,7 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       { q: "Do I still need Zomato or Swiggy if I have a website?", a: "Aggregators help with discovery, but you pay commission on every order. Your website gives you direct, commission-free orders from repeat customers. Most restaurants use both." },
       { q: "How do customers order from my website?", a: "A WhatsApp order button lets them order directly with zero commission. You can also add a full online ordering cart with payments." },
-      { q: "What does a restaurant website cost?", a: "A professional menu + WhatsApp ordering site starts around ₹12,600, scaling up with online ordering and payments. See our restaurant website cost guide." },
+      { q: "What does a restaurant website cost?", a: "A professional menu + WhatsApp ordering site starts around ₹35,000, scaling up with online ordering and payments. See our restaurant website cost guide." },
     ],
     serviceCtaSlug: "website-development",
     serviceCtaLabel: "Get a restaurant website quote",
@@ -61,7 +61,7 @@ A restaurant website is not a generic template. It needs a menu page that's easy
 
 ## What it costs
 
-A professional restaurant website with menu, gallery, Maps, contact and WhatsApp ordering usually starts around ₹12,600 with Skilloura. Add online ordering, payment gateway or booking and it moves toward ₹24,500+ depending on scope. Compare that to one month of aggregator commissions for a busy restaurant.
+A professional restaurant website with menu, gallery, Maps, contact and WhatsApp ordering usually starts around ₹35,000 with Skilloura. Add online ordering, payment gateway or booking and it moves toward ₹60,000+ depending on scope. Compare that to one month of aggregator commissions for a busy restaurant.
 
 ## The bottom line
 
@@ -120,7 +120,7 @@ Profile → website → WhatsApp flow → ads. Businesses that run ads without t
     faqs: [
       { q: "Is an Instagram page enough for my business?", a: "Instagram is great for reach, but you don't own it, it doesn't rank on Google, and it makes buyers hunt for your details. A website ranks, captures leads and works 24/7 — most businesses need both." },
       { q: "Will a website really show up on Google?", a: "Yes — a proper website with the right pages and a Google Business Profile can rank for what your customers search, which Instagram alone can't do." },
-      { q: "What does a business website cost?", a: "A professional small-business website typically starts around ₹7,000–₹18,000 depending on pages and features. See our website cost guide." },
+      { q: "What does a business website cost?", a: "A professional small-business website typically starts around ₹20,000–₹35,000 depending on pages and features. See our website cost guide." },
     ],
     serviceCtaSlug: "website-development",
     serviceCtaLabel: "Get a business website quote",
@@ -165,7 +165,7 @@ Instagram for reach, website for trust and conversion. If budget forces a choice
     ],
     faqs: [
       { q: "What can AI automation actually do for a small business?", a: "Answer repeat questions 24/7, capture and route leads, send order/booking updates, follow up, and cut manual data entry — freeing your team for higher-value work." },
-      { q: "Is it expensive?", a: "Automation projects typically start around ₹7,000 and scale with complexity. Most pay for themselves quickly by saving hours every week." },
+      { q: "Is it expensive?", a: "Automation projects typically start around ₹20,000 and scale with complexity. Most pay for themselves quickly by saving hours every week." },
       { q: "Will it replace my staff?", a: "No. It handles repetitive tasks and escalates complex ones to a human. It removes busywork, not people." },
     ],
     serviceCtaSlug: "ai-automation",
@@ -199,7 +199,7 @@ Automation can read incoming PDFs, extract details into your records and flag mi
 
 ## What it costs
 
-A simple sheet/workflow automation can start around ₹7,000 with Skilloura, while broader chatbot or business automation usually starts around ₹12,600–₹14,000+. Some automations have monthly tool/API costs, always disclosed separately before work starts. Against 10 hours saved weekly, it can still pay for itself quickly.
+A simple sheet/workflow automation can start around ₹20,000 with Skilloura, while broader chatbot or business automation usually starts around ₹35,000–₹60,000+. Some automations have monthly tool/API costs, always disclosed separately before work starts. Against 10 hours saved weekly, it can still pay for itself quickly.
 
 ## Where to start
 
@@ -209,11 +209,11 @@ Pick the task you hate most. If it's repetitive and happens on a screen, it can 
     slug: "website-development-cost-india",
     keyTakeaways: [
       "Website cost in India depends on pages, features, integrations and timeline.",
-      "Simple business sites start ~₹7,000; ecommerce and custom apps go much higher.",
+      "Simple business sites start ~₹20,000; ecommerce and custom apps go much higher.",
       "Domain, hosting and paid APIs are separate third-party costs — always listed clearly.",
     ],
     faqs: [
-      { q: "How much does a website cost in India?", a: "A simple business website typically starts around ₹7,000; a standard multi-page site with SEO and integrations is ₹15,000–₹30,000; ecommerce and custom apps go from ₹28,000 upward. Your final quote depends on scope and is confirmed in writing first." },
+      { q: "How much does a website cost in India?", a: "A simple business website typically starts around ₹20,000; a standard multi-page site with SEO and integrations is ₹35,000–₹60,000; ecommerce and custom apps go from ₹60,000 upward. Your final quote depends on scope and is confirmed in writing first." },
       { q: "Why do website prices vary so much?", a: "Pages, features (booking, payments, login), integrations, design complexity and timeline all affect price. That's why a written scope matters — so you know exactly what you're paying for." },
       { q: "Are domain and hosting included?", a: "Those are third-party costs (roughly ₹800–₹1,200/yr domain, ₹2,000–₹5,000/yr hosting) and are listed separately from the build unless bundled." },
     ],
@@ -230,9 +230,9 @@ Pick the task you hate most. If it's repetitive and happens on a screen, it can 
 
 ## The real price tiers (Skilloura guide prices)
 
-- Basic/landing website (1–3 pages): around ₹7,000–₹12,600. Contact form, WhatsApp button and mobile responsive layout.
-- Business website (5–8 pages): around ₹12,600–₹24,500. Services pages, gallery, Google Maps and basic SEO.
-- Premium/ecommerce: around ₹24,500–₹49,000+. Product catalog, admin panel, payment gateway, booking or ordering systems.
+- Basic/landing website (1–3 pages): around ₹20,000–₹35,000. Contact form, WhatsApp button and mobile responsive layout.
+- Business website (5–8 pages): around ₹35,000–₹60,000. Services pages, gallery, Google Maps and basic SEO.
+- Premium/ecommerce: around ₹60,000–₹1,20,000+. Product catalog, admin panel, payment gateway, booking or ordering systems.
 - Custom web application: around ₹42,000+. Dashboards, user logins, complex logic — priced by selected scope.
 
 ## Recurring costs nobody mentions
@@ -350,7 +350,7 @@ Automation doesn't close deals or handle angry customers — humans do. The righ
 
 ## What it costs
 
-Simple auto-reply and lead-capture setups start around ₹7,000 with Skilloura. Deeper flows — order updates, payment reminders, AI-powered replies that understand free-form questions — range ₹14,000–₹35,000 depending on scope. WhatsApp Business API fees, where required, are third-party costs and always listed separately in your quote.
+Simple auto-reply and lead-capture setups start around ₹20,000 with Skilloura. Deeper flows — order updates, payment reminders, AI-powered replies that understand free-form questions — range ₹35,000–₹70,000 depending on scope. WhatsApp Business API fees, where required, are third-party costs and always listed separately in your quote.
 
 ## Where to start
 
@@ -455,9 +455,9 @@ Take a mid-size family restaurant in a Tier-2 city. They were paying heavy month
 
 ## What it costs
 
-Guide prices below. A clean menu + WhatsApp ordering site starts around ₹12,600; add online payments, a live ordering cart or multi-outlet support and it scales up. Compare any of these to a single busy month of aggregator commission.`,
+Guide prices below. A clean menu + WhatsApp ordering site starts around ₹35,000; add online payments, a live ordering cart or multi-outlet support and it scales up. Compare any of these to a single busy month of aggregator commission.`,
     costTable: [
-      { item: "Starter — menu, gallery, WhatsApp order, Maps (up to 5 pages)", price: "₹12,600+" },
+      { item: "Starter — menu, gallery, WhatsApp order, Maps (up to 5 pages)", price: "₹35,000+" },
       { item: "Standard — above + table booking, offers section, basic SEO", price: "₹18,900+" },
       { item: "Premium — online ordering cart + payment gateway", price: "₹30,000+" },
       { item: "Maintenance (updates, backup, uptime)", price: "from ₹1,999/mo" },

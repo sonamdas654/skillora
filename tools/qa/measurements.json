@@ -1,0 +1,36 @@
+{
+  "measuredAt": "2026-09-08T06:29:26.582Z",
+  "conditions": "Chromium, 412x915 @2x mobile, 4x CPU throttle, 1.6 Mbps / 150 ms RTT, cold cache; median of 3 valid runs",
+  "base": "http://localhost:3000",
+  "results": [
+    {
+      "route": "/",
+      "validSamples": 3,
+      "attemptedRuns": 3,
+      "status": 200,
+      "fcp": 2676,
+      "lcp": 2676,
+      "ttfb": 8,
+      "load": 4104,
+      "cls": 0,
+      "lcpElement": "img.absolute.inset-0.object-cover src=image?url=%2Fhero%2Flocal-poster.3507e59e.webp&w=828&q=75",
+      "bytes": {
+        "total": 801,
+        "js": 408,
+        "css": 20,
+        "image": 73,
+        "font": 232,
+        "other": 68
+      },
+      "domNodes": 1100,
+      "interactive": 147,
+      "images": 10,
+      "imagesWithAlt": 8,
+      "h1": 1,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Refused to execute script from 'http://localhost:3000/_vercel/insights/script.js' because its MIME type ('text/plain') is not executable, and strict MIME type checking is enabled."
+      ]
+    }
+  ]
+}

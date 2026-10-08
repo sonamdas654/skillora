@@ -1,0 +1,221 @@
+{
+  "scenes": [
+    {
+      "id": "local",
+      "label": "Local business website",
+      "caption": "Local business site — menu, ordering and enquiries in one place.",
+      "route": "/demo/web-local",
+      "serviceSlug": "website-development",
+      "sources": {
+        "hd": {
+          "mp4": {
+            "src": "/hero/local-hd.ab8a6413.mp4",
+            "bytes": 593272
+          },
+          "webm": {
+            "src": "/hero/local-hd.8a79eb47.webm",
+            "bytes": 300555
+          }
+        },
+        "md": {
+          "mp4": {
+            "src": "/hero/local-md.d0927310.mp4",
+            "bytes": 384757
+          },
+          "webm": {
+            "src": "/hero/local-md.063fb158.webm",
+            "bytes": 194474
+          }
+        }
+      },
+      "poster": {
+        "webp": {
+          "src": "/hero/local-poster.3507e59e.webp",
+          "bytes": 26374
+        },
+        "jpg": {
+          "src": "/hero/local-poster.3be6b335.jpg",
+          "bytes": 74440
+        }
+      },
+      "blurDataURL": "data:image/jpeg;base64,/9j//gAQTGF2YzYwLjMxLjEwMgD/2wBDAAgYGBwYHCEhISEhISckJygoKCcnJycoKCgrKyszMzMrKysoKCsrMDAzMzc5NzQ0MzQ5OTw8PEhIRUVUVFdnZ3z/xABdAAEBAQAAAAAAAAAAAAAAAAAEAwcBAAMBAAAAAAAAAAAAAAAAAAACAQQQAAEEAgMBAAAAAAAAAAAAAAEAESECIhJBMnGxEQEBAQEBAAAAAAAAAAAAAAAAESFBMf/AABEIAA4AGAMBEgACEgADEgD/2gAMAwEAAhEDEQA/AMkrWpq9thJlo+I7YgvyYWe7B1omUcVtoOuXqErphSL7QzBHSmXPYj//2Q==",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "commerce",
+      "label": "Ecommerce store",
+      "caption": "Ecommerce — catalogue, cart and checkout, commission-free.",
+      "route": "/demo/web-ecommerce",
+      "serviceSlug": "website-development",
+      "sources": {
+        "hd": {
+          "mp4": {
+            "src": "/hero/commerce-hd.c67116c1.mp4",
+            "bytes": 474139
+          },
+          "webm": {
+            "src": "/hero/commerce-hd.be0e658a.webm",
+            "bytes": 196132
+          }
+        },
+        "md": {
+          "mp4": {
+            "src": "/hero/commerce-md.00c8260d.mp4",
+            "bytes": 291717
+          },
+          "webm": {
+            "src": "/hero/commerce-md.6d54e8e4.webm",
+            "bytes": 143357
+          }
+        }
+      },
+      "poster": {
+        "webp": {
+          "src": "/hero/commerce-poster.3a2c8ade.webp",
+          "bytes": 19836
+        },
+        "jpg": {
+          "src": "/hero/commerce-poster.44bb1ccc.jpg",
+          "bytes": 55967
+        }
+      },
+      "blurDataURL": "data:image/jpeg;base64,/9j//gAQTGF2YzYwLjMxLjEwMgD/2wBDAAgYGBwYHCEhISEhISckJygoKCcnJycoKCgrKyszMzMrKysoKCsrMDAzMzc5NzQ0MzQ5OTw8PEhIRUVUVFdnZ3z/xABaAAEAAwEAAAAAAAAAAAAAAAABAAIHAwEBAQEBAAAAAAAAAAAAAAAAAAECAxAAAwACAwEAAAAAAAAAAAAAABEBQSHhkYESEQEBAAAAAAAAAAAAAAAAAAAAIf/AABEIAA4AGAMBEgACEgADEgD/2gAMAwEAAhEDEQA/AN0v29WdcnSzbnoHOtGPJAJRZBAKP//Z",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "ai",
+      "label": "AI support agent",
+      "caption": "AI support agent answering customer questions around the clock.",
+      "route": "/demo/ai-support",
+      "serviceSlug": "ai-automation",
+      "sources": {
+        "hd": {
+          "mp4": {
+            "src": "/hero/ai-hd.ca956fc4.mp4",
+            "bytes": 348991
+          },
+          "webm": {
+            "src": "/hero/ai-hd.8b47bede.webm",
+            "bytes": 188020
+          }
+        },
+        "md": {
+          "mp4": {
+            "src": "/hero/ai-md.27e84f59.mp4",
+            "bytes": 233455
+          },
+          "webm": {
+            "src": "/hero/ai-md.1c06c2bb.webm",
+            "bytes": 124786
+          }
+        }
+      },
+      "poster": {
+        "webp": {
+          "src": "/hero/ai-poster.2a8a0bd2.webp",
+          "bytes": 37738
+        },
+        "jpg": {
+          "src": "/hero/ai-poster.f00475ee.jpg",
+          "bytes": 106676
+        }
+      },
+      "blurDataURL": "data:image/jpeg;base64,/9j//gAQTGF2YzYwLjMxLjEwMgD/2wBDAAgYGBwYHCEhISEhISckJygoKCcnJycoKCgrKyszMzMrKysoKCsrMDAzMzc5NzQ0MzQ5OTw8PEhIRUVUVFdnZ3z/xABiAAEBAQAAAAAAAAAAAAAAAAACBAcBAQEBAQAAAAAAAAAAAAAAAAIBAwQQAAEDAgMJAQAAAAAAAAAAAAEAAhFBMVID0ROhwZGB8BIi8SMRAQEAAAAAAAAAAAAAAAAAAAAR/8AAEQgADgAYAwESAAISAAMSAP/aAAwDAQACEQMRAD8AxZvhHsDenxPYvi45nRd1ZsSD8y4QDFZ4QmMp4w99EhQkroFlYcp5w79FUFX/2Q==",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "dashboard",
+      "label": "Sales dashboard",
+      "caption": "Live sales dashboard built from the spreadsheets a business already keeps.",
+      "route": "/demo/dash-sales",
+      "serviceSlug": "data-dashboard",
+      "sources": {
+        "hd": {
+          "mp4": {
+            "src": "/hero/dashboard-hd.1b7db291.mp4",
+            "bytes": 281475
+          },
+          "webm": {
+            "src": "/hero/dashboard-hd.8d09df95.webm",
+            "bytes": 157081
+          }
+        },
+        "md": {
+          "mp4": {
+            "src": "/hero/dashboard-md.45261b6a.mp4",
+            "bytes": 187050
+          },
+          "webm": {
+            "src": "/hero/dashboard-md.e805cf64.webm",
+            "bytes": 116570
+          }
+        }
+      },
+      "poster": {
+        "webp": {
+          "src": "/hero/dashboard-poster.2534c6e0.webp",
+          "bytes": 28952
+        },
+        "jpg": {
+          "src": "/hero/dashboard-poster.6fbb0359.jpg",
+          "bytes": 113257
+        }
+      },
+      "blurDataURL": "data:image/jpeg;base64,/9j//gAQTGF2YzYwLjMxLjEwMgD/2wBDAAgYGBwYHCEhISEhISckJygoKCcnJycoKCgrKyszMzMrKysoKCsrMDAzMzc5NzQ0MzQ5OTw8PEhIRUVUVFdnZ3z/xABqAAEBAQEAAAAAAAAAAAAAAAAEAwIHAQACAwEAAAAAAAAAAAAAAAAABQQDAgEQAAEEAgIDAQAAAAAAAAAAAAEAIRECcZFBEmGBoUIRAAICAQQDAQAAAAAAAAAAAAABAhESUQNhQRNxkSH/wAARCAAOABgDARIAAhIAAxIA/9oADAMBAAIRAxEAPwDunmfrI9g0wDlDaRD3Ipq8Yt8gXwfVtLgt3qw7DaHWT+aDat8kLrJXpYuhFt/kdtV7MYy0ZLk0u5P4OnPtaflOUZV90LzrP//Z",
+      "width": 1440,
+      "height": 810
+    },
+    {
+      "id": "app",
+      "label": "Booking app",
+      "caption": "Booking app — slots, reminders and repeat customers.",
+      "route": "/demo/app-booking",
+      "serviceSlug": "mobile-app-development",
+      "sources": {
+        "hd": {
+          "mp4": {
+            "src": "/hero/app-hd.eaa4d726.mp4",
+            "bytes": 358029
+          },
+          "webm": {
+            "src": "/hero/app-hd.3ee58994.webm",
+            "bytes": 163702
+          }
+        },
+        "md": {
+          "mp4": {
+            "src": "/hero/app-md.0bf287ad.mp4",
+            "bytes": 232816
+          },
+          "webm": {
+            "src": "/hero/app-md.25820c98.webm",
+            "bytes": 105241
+          }
+        }
+      },
+      "poster": {
+        "webp": {
+          "src": "/hero/app-poster.254ffe4a.webp",
+          "bytes": 34774
+        },
+        "jpg": {
+          "src": "/hero/app-poster.295080ed.jpg",
+          "bytes": 102653
+        }
+      },
+      "blurDataURL": "data:image/jpeg;base64,/9j//gAQTGF2YzYwLjMxLjEwMgD/2wBDAAgYGBwYHCEhISEhISckJygoKCcnJycoKCgrKyszMzMrKysoKCsrMDAzMzc5NzQ0MzQ5OTw8PEhIRUVUVFdnZ3z/xABjAAEBAQAAAAAAAAAAAAAAAAAEBQcBAQEBAQAAAAAAAAAAAAAAAAIBAAMQAAIBAwUBAAAAAAAAAAAAAAECADEREiFRcaEDQREBAQACAgMBAAAAAAAAAAAAAAFREQIxEoEhwf/AABEIAA4AGAMBEgACEgADEgD/2gAMAwEAAhEDEQA/ANrYtfQCMxiZvaJ7ZFPikkU5jipMl6wpTvP6IHmrLcFsqGOCne/UM3nZOvKy35PFyf/Z",
+      "width": 1440,
+      "height": 810
+    }
+  ],
+  "generatedAt": "2026-09-06T16:22:41.829Z",
+  "bytesOnDisk": 5676286,
+  "budget": {
+    "postersBytes": 147674,
+    "firstSceneBytes": 300555,
+    "carouselBytes": 1005490
+  }
+}

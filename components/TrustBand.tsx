@@ -38,14 +38,14 @@ const signals = [
 
 export default function TrustBand() {
   return (
-    <div className="rounded-3xl border border-line bg-soft-panel p-8 sm:p-12">
+    <div className="rounded-panel border border-line bg-soft-panel p-8 sm:p-12">
       <div className="text-center">
-        <p className="text-xs font-bold uppercase tracking-wider text-accent">Why trust Skilloura</p>
-        <h2 className="mt-2 text-2xl font-bold text-ink sm:text-3xl">
+        <p className="text-body-sm font-bold uppercase tracking-wider text-brand">Why trust Skilloura</p>
+        <h2 className="mt-2 text-title-1 font-bold text-ink sm:text-display-3">
           Real guarantees — not{" "}
-          <span className="font-accent font-normal text-accent">empty promises</span>
+          <span className="font-accent font-normal text-brand">empty promises</span>
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-ink-soft">
+        <p className="mx-auto mt-3 max-w-2xl text-body-sm leading-6 text-ink-soft">
           We put our whole process in writing — this is exactly how every project runs, from your
           first message to the final handover.
         </p>
@@ -53,25 +53,25 @@ export default function TrustBand() {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {signals.map((s) => (
-          <div key={s.title} className="flex gap-3.5 rounded-2xl border border-line bg-white p-5">
-            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent-soft text-accent">
+          <div key={s.title} className="flex gap-3.5 rounded-card border border-line bg-surface p-5">
+            <span className="grid size-10 shrink-0 place-items-center rounded-field bg-brand-soft text-brand">
               <Icon name={s.icon} className="size-5" />
             </span>
             <div>
-              <h3 className="text-sm font-bold text-ink">{s.title}</h3>
-              <p className="mt-1 text-xs leading-5 text-ink-soft">{s.desc}</p>
+              <h3 className="text-body-sm font-bold text-ink">{s.title}</h3>
+              <p className="mt-1 text-body-sm leading-5 text-ink-soft">{s.desc}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Honest founding-client offer instead of fake social proof */}
-      <div className="mt-6 flex flex-col items-center justify-between gap-4 rounded-2xl border border-accent/20 bg-accent-soft p-6 text-center sm:flex-row sm:text-left">
+      <div className="mt-6 flex flex-col items-center justify-between gap-4 rounded-card border border-brand/20 bg-brand-soft p-6 text-center sm:flex-row sm:text-left">
         <div className="flex items-start gap-3">
-          <span className="text-2xl">🚀</span>
+          <span className="text-title-1">🚀</span>
           <div>
-            <h3 className="text-sm font-bold text-ink">Be one of our first featured clients</h3>
-            <p className="mt-1 text-xs leading-5 text-ink-soft">
+            <h3 className="text-body-sm font-bold text-ink">Be one of our first featured clients</h3>
+            <p className="mt-1 text-body-sm leading-5 text-ink-soft">
               Early projects get extra attention, priority support and a featured spot in this
               portfolio — with your permission.
             </p>
@@ -79,7 +79,7 @@ export default function TrustBand() {
         </div>
         <Link
           href="/start-project"
-          className="shrink-0 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-deep"
+          className="shrink-0 rounded-full bg-brand px-5 py-2.5 text-body-sm font-semibold text-white transition-colors hover:bg-brand-deep"
         >
           Start your project
         </Link>

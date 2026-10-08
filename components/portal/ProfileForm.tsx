@@ -54,7 +54,7 @@ export default function ProfileForm({
   const labelCls = "mb-1.5 block text-sm font-semibold text-ink";
 
   return (
-    <div className="space-y-4 rounded-2xl border border-line bg-white p-6">
+    <div className="space-y-4 rounded-card border border-line bg-surface p-6">
       <div>
         <label className={labelCls}>Full name</label>
         <input value={name} onChange={(e) => setName(e.target.value)} className={inputCls} />
@@ -79,10 +79,10 @@ export default function ProfileForm({
           </div>
         </>
       )}
-      <button onClick={save} disabled={busy} className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white hover:bg-accent-deep disabled:opacity-60">
+      <button onClick={save} disabled={busy} className="rounded-full bg-brand px-5 py-2.5 text-body-sm font-semibold text-white hover:bg-brand-deep disabled:opacity-60">
         {busy ? "Saving…" : "Save changes"}
       </button>
-      {saved && <span className="ml-3 text-sm font-semibold text-emerald-600">Saved ✓</span>}
+      {saved && <span className="ml-3 text-body-sm font-semibold text-success">Saved ✓</span>}
     </div>
   );
 }

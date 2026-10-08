@@ -6,11 +6,11 @@ import { Section } from "@/components/Section";
 import Icon from "@/components/Icons";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
+import FaqAccordion from "@/components/FaqAccordion";
+import SpecLedger from "@/components/ui/SpecLedger";
 import { solutions, getSolution } from "@/lib/solutions";
 import { getService } from "@/lib/services";
-import { breadcrumbSchema, faqSchema } from "@/lib/schema";
-
-const BASE = "https://www.skilloura.com";
+import { faqSchema, solutionServiceSchema } from "@/lib/schema";
 
 export function generateStaticParams() {
   return solutions.map((s) => ({ slug: s.slug }));
@@ -31,6 +31,23 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Industry solution — four pages, each targeting a real local search intent.
+ *
+ * The previous version stacked everything into one narrow column: three
+ * centred stat cards, a bulleted problem list, two checklist columns, two
+ * cross-link cards, four static FAQ boxes and a gradient CTA. No composition
+ * changed down the page, the FAQs did not use the accordion the rest of the
+ * site uses, and the CTA now duplicates the footer's closing band.
+ *
+ * It also carried its own `const BASE = "https://www.skilloura.com"` for an
+ * inline Service schema — a second copy of the canonical origin, which is how
+ * the hostname mismatch in this repo started. That schema moved to
+ * lib/schema.ts.
+ *
+ * Content is unchanged: same problem list, same inclusions, same client
+ * responsibilities, same FAQs, same demo and cost-guide links.
+ */
 export default async function SolutionPage({
   params,
 }: {
@@ -46,159 +63,160 @@ export default async function SolutionPage({
     <PageShell>
       <JsonLd
         data={[
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Solutions", path: "/solutions" },
-            { name: sol.audience, path: `/solutions/${sol.slug}` },
-          ]),
-          {
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: sol.metaTitle,
-            url: `${BASE}/solutions/${sol.slug}`,
-            description: sol.metaDescription,
-            serviceType: service?.name ?? "Digital services",
-            areaServed: { "@type": "Country", name: "India" },
-            audience: { "@type": "Audience", audienceType: sol.audience },
-            provider: { "@id": `${BASE}/#organization` },
-          },
+          solutionServiceSchema(sol, service?.name ?? "Digital services"),
           faqSchema(sol.faqs),
         ]}
       />
+
       <PageHero
         eyebrow={`For ${sol.audience}`}
         title={sol.h1}
         subtitle={sol.intro}
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Solutions", path: "/solutions" },
+          { name: sol.audience, path: `/solutions/${sol.slug}` },
+        ]}
+        actions={
+          <>
+            <Link
+              href={`/start-project?service=${sol.serviceSlug}`}
+              className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep"
+            >
+              Get my project plan
+              <Icon name="arrow" className="size-4" />
+            </Link>
+            {sol.demoPath && (
+              <Link
+                href={sol.demoPath}
+                className="inline-flex items-center gap-2 rounded-pill border border-line-strong bg-surface px-5 py-3.5 text-body-base font-semibold text-ink shadow-e1 transition-colors hover:border-brand hover:text-brand"
+              >
+                {sol.demoLabel ?? "See a live build"}
+              </Link>
+            )}
+          </>
+        }
+        aside={
+          <SpecLedger
+            caption="At a glance"
+            rows={[
+              { label: "Guide price from", value: sol.priceFrom },
+              { label: "Typical timeline", value: sol.timeline },
+              { label: "Written scope", value: "Before payment" },
+            ]}
+          />
+        }
       />
-      <Section>
-        <div className="mx-auto max-w-4xl">
-          {/* Quick facts */}
+
+      {/* ── The problem, stated plainly ───────────────────────── */}
+      <Section className="border-b border-line bg-surface-sunken">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <Reveal>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-line bg-white p-5 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Guide price from</p>
-                <p className="mt-1 text-2xl font-extrabold text-ink">{sol.priceFrom}<span className="text-base text-accent">+</span></p>
-              </div>
-              <div className="rounded-2xl border border-line bg-white p-5 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Typical timeline</p>
-                <p className="mt-1 text-2xl font-extrabold text-ink">{sol.timeline}</p>
-              </div>
-              <div className="rounded-2xl border border-line bg-white p-5 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-ink-soft">Written scope</p>
-                <p className="mt-1 text-2xl font-extrabold text-ink">Before payment</p>
-              </div>
+            <div>
+              <p className="text-micro font-mono uppercase text-ink-muted">The problem</p>
+              <h2 className="mt-3 text-display-3 text-ink">
+                What this actually{" "}
+                <span className="font-accent italic text-brand">fixes</span>
+              </h2>
+            </div>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <ul className="border-t border-line-strong">
+              {sol.problem.map((p) => (
+                <li key={p} className="border-b border-line py-4 text-body-lg text-ink-soft">
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* ── The exchange ──────────────────────────────────────── */}
+      <Section className="border-b border-line">
+        <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
+          <Reveal>
+            <div>
+              <h2 className="text-title-1 text-ink">What&apos;s included</h2>
+              <ol className="mt-5 border-t border-line-strong">
+                {sol.included.map((f, i) => (
+                  <li key={f} className="flex items-baseline gap-4 border-b border-line py-3.5">
+                    <span className="w-6 shrink-0 font-mono text-micro text-ink-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-body-base text-ink">{f}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
           </Reveal>
 
-          {/* Problem */}
-          <Reveal>
-            <div className="mt-10">
-              <h2 className="text-2xl font-bold text-ink">The problem we solve</h2>
-              <ul className="mt-4 space-y-2.5">
-                {sol.problem.map((p) => (
-                  <li key={p} className="flex items-start gap-2.5 text-base leading-7 text-ink-soft">
-                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-                    {p}
+          <Reveal delay={0.08}>
+            <div className="rounded-card border border-line bg-surface p-6 shadow-e1">
+              <h2 className="text-title-2 text-ink">What you provide</h2>
+              <ul className="mt-5 space-y-3">
+                {sol.clientProvides.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5 text-body-sm text-ink">
+                    <span
+                      aria-hidden
+                      className="mt-1.5 block size-1.5 shrink-0 rounded-pill bg-brand"
+                    />
+                    {f}
                   </li>
                 ))}
               </ul>
-            </div>
-          </Reveal>
 
-          {/* What's included */}
-          <Reveal>
-            <div className="mt-10 grid gap-8 sm:grid-cols-2">
-              <div>
-                <h2 className="text-2xl font-bold text-ink">What&apos;s included</h2>
-                <ul className="mt-4 space-y-2.5">
-                  {sol.included.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm leading-6 text-ink">
-                      <Icon name="check" className="mt-0.5 size-4 shrink-0 text-mint" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-ink">What you provide</h2>
-                <ul className="mt-4 space-y-2.5">
-                  {sol.clientProvides.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-sm leading-6 text-ink-soft">
-                      <Icon name="arrow" className="mt-0.5 size-4 shrink-0 text-accent" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Live demo + cost guide cross-links */}
-          <Reveal>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              {sol.demoPath && (
-                <Link
-                  href={sol.demoPath}
-                  className="flex-1 rounded-2xl border border-line bg-white p-5 hover:border-accent/40 card-lift"
-                >
-                  <p className="text-sm font-bold text-ink">{sol.demoLabel ?? "See a live demo"}</p>
-                  <p className="mt-1 text-xs text-ink-soft">A real, working concept you can click through — no sign-up.</p>
-                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-accent">Open demo <Icon name="arrow" className="size-3.5" /></span>
-                </Link>
-              )}
               {sol.blogSlug && (
                 <Link
                   href={`/blog/${sol.blogSlug}`}
-                  className="flex-1 rounded-2xl border border-line bg-white p-5 hover:border-accent/40 card-lift"
+                  className="mt-6 flex items-center justify-between gap-3 border-t border-line pt-5 text-body-sm font-semibold text-brand"
                 >
-                  <p className="text-sm font-bold text-ink">Read the honest cost guide</p>
-                  <p className="mt-1 text-xs text-ink-soft">What it really costs and what changes the price — no vague ranges.</p>
-                  <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-accent">Read guide <Icon name="arrow" className="size-3.5" /></span>
+                  Read the honest cost guide
+                  <Icon name="arrow" className="size-4 shrink-0" />
                 </Link>
               )}
             </div>
           </Reveal>
+        </div>
+      </Section>
 
-          {/* FAQ */}
+      {/* ── Questions. The footer owns the close. ─────────────── */}
+      <Section>
+        <div className="mx-auto max-w-prose">
           <Reveal>
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold text-ink">Frequently asked questions</h2>
-              <div className="mt-5 space-y-4">
-                {sol.faqs.map((f) => (
-                  <div key={f.q} className="rounded-2xl border border-line bg-white p-5">
-                    <p className="font-bold text-ink">{f.q}</p>
-                    <p className="mt-2 text-sm leading-7 text-ink-soft">{f.a}</p>
-                  </div>
-                ))}
-              </div>
+            <p className="text-micro font-mono uppercase text-ink-muted">Questions</p>
+            <h2 className="mt-3 text-display-3 text-ink">
+              What{" "}
+              <span className="font-accent italic text-brand">
+                {sol.audience.toLowerCase()}
+              </span>{" "}
+              usually ask
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <div className="mt-8">
+              <FaqAccordion faqs={sol.faqs} />
             </div>
           </Reveal>
 
-          {/* CTA */}
-          <Reveal>
-            <div className="mt-12 rounded-3xl bg-gradient-to-br from-accent to-accent-deep p-8 text-center text-white">
-              <h2 className="text-2xl font-bold">Ready for a {sol.audience.toLowerCase().replace(/ &.*/, "")} project?</h2>
-              <p className="mt-2 text-sm text-white/85">
-                Share your requirement once and get a written scope, timeline and transparent quote before any payment.
-              </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <Link
-                  href={`/start-project?service=${sol.serviceSlug}`}
-                  className="rounded-full bg-white px-6 py-3 text-sm font-bold text-accent hover:scale-[1.03] transition-transform"
-                >
-                  Get my project plan
-                </Link>
-                {service && (
-                  <Link
-                    href={`/services/${sol.serviceSlug}`}
-                    className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10 transition-colors"
-                  >
-                    See {service.name} &amp; pricing
-                  </Link>
-                )}
-              </div>
-            </div>
-          </Reveal>
+          {service && (
+            <Reveal delay={0.12}>
+              <Link
+                href={`/services/${sol.serviceSlug}`}
+                className="mt-8 flex items-center justify-between gap-4 rounded-card border border-line bg-surface p-5 shadow-e1 transition-colors hover:border-brand"
+              >
+                <span>
+                  <span className="block text-micro font-mono uppercase text-ink-muted">
+                    Full service
+                  </span>
+                  <span className="mt-1 block text-body-base font-semibold text-ink">
+                    {service.name} — packages and pricing
+                  </span>
+                </span>
+                <Icon name="arrow" className="size-5 shrink-0 text-brand" />
+              </Link>
+            </Reveal>
+          )}
         </div>
       </Section>
     </PageShell>

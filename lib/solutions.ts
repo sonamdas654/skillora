@@ -7,6 +7,11 @@
 export interface Solution {
   slug: string;
   audience: string; // e.g. "Restaurants & cafés"
+  /**
+   * Keep under ~50 characters. app/layout.tsx appends " | Skilloura" (12
+   * more), and Google truncates a title around 60 — these four were 73-85,
+   * so the end of every one of them was being cut off in results.
+   */
   metaTitle: string;
   metaDescription: string;
   h1: string;
@@ -27,7 +32,7 @@ export const solutions: Solution[] = [
   {
     slug: "restaurant-website",
     audience: "Restaurants & cafés",
-    metaTitle: "Restaurant Website Development in India — Menu, Booking & WhatsApp Orders",
+    metaTitle: "Restaurant Website Development in India — Menu & Booking",
     metaDescription:
       "A mobile-first restaurant website with a digital menu, table booking, WhatsApp ordering and Google Maps — so you get direct, commission-free orders. Guide price from ₹12,000.",
     h1: "Restaurant websites that bring direct, commission-free orders",
@@ -70,7 +75,7 @@ export const solutions: Solution[] = [
   {
     slug: "gym-website",
     audience: "Gyms & fitness studios",
-    metaTitle: "Gym & Fitness Website Development in India — Plans, Trainers & Lead Capture",
+    metaTitle: "Gym Website Development in India — Plans & Trainers",
     metaDescription:
       "A high-energy gym website with membership plans, class schedule, trainer profiles and a lead form — so people join instead of just walking past. Guide price from ₹12,000.",
     h1: "Gym websites that turn visitors into memberships",
@@ -109,7 +114,7 @@ export const solutions: Solution[] = [
   {
     slug: "salon-booking-website",
     audience: "Salons & spas",
-    metaTitle: "Salon Booking Website in India — Services, Prices & Online Appointments",
+    metaTitle: "Salon Booking Website in India — Services & Prices",
     metaDescription:
       "An elegant salon website with a service menu, price list, online appointment booking and Instagram gallery — so clients book instead of calling. Guide price from ₹10,000.",
     h1: "Salon websites that fill your appointment book",
@@ -148,7 +153,7 @@ export const solutions: Solution[] = [
   {
     slug: "whatsapp-automation",
     audience: "Local businesses & service providers",
-    metaTitle: "WhatsApp Automation for Local Businesses in India — Auto-Replies & Lead Capture",
+    metaTitle: "WhatsApp Automation for Local Business in India",
     metaDescription:
       "An AI-assisted WhatsApp system that answers common questions 24/7, captures leads and hands complex chats to a human. Honest setup and running costs. Guide price from ₹15,000.",
     h1: "WhatsApp automation that answers customers 24/7 — with a human in the loop",

@@ -1,0 +1,80 @@
+{
+  "stills": [
+    {
+      "id": "brand",
+      "route": "/demo/brand-refresh",
+      "serviceSlug": "logo-branding",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/brand.c9ce5ac2.webp",
+        "bytes": 20912
+      },
+      "jpg": {
+        "src": "/build/brand.7668458e.jpg",
+        "bytes": 52569
+      }
+    },
+    {
+      "id": "marketing",
+      "route": "/demo/mkt-seo",
+      "serviceSlug": "digital-marketing",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/marketing.19746d9a.webp",
+        "bytes": 19304
+      },
+      "jpg": {
+        "src": "/build/marketing.831b52d3.jpg",
+        "bytes": 52568
+      }
+    },
+    {
+      "id": "video",
+      "route": "/demo/vid-ad",
+      "serviceSlug": "video-editing",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/video.cd25ff87.webp",
+        "bytes": 17686
+      },
+      "jpg": {
+        "src": "/build/video.fb70f10f.jpg",
+        "bytes": 47300
+      }
+    },
+    {
+      "id": "resume",
+      "route": "/demo/cv-ats",
+      "serviceSlug": "resume-career",
+      "width": 1120,
+      "height": 630,
+      "webp": {
+        "src": "/build/resume.a472e4df.webp",
+        "bytes": 32070
+      },
+      "jpg": {
+        "src": "/build/resume.4aac647e.jpg",
+        "bytes": 72082
+      }
+    },
+    {
+      "id": "software",
+      "route": "/demo/soft-crm",
+      "serviceSlug": "custom-software",
+      "width": 1120,
+      "height": 480,
+      "webp": {
+        "src": "/build/software.94b2182a.webp",
+        "bytes": 10864
+      },
+      "jpg": {
+        "src": "/build/software.86f4d208.jpg",
+        "bytes": 32209
+      }
+    }
+  ],
+  "generatedAt": "2026-09-08T08:44:48.199Z"
+}

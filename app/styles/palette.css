@@ -1,0 +1,101 @@
+/* ─────────────────────────────────────────────────────────────
+   Measured Light + Signal — raw values.
+
+   This file holds VALUES ONLY. Nothing here is referenced from JSX and
+   no utility class is generated from it. theme.css maps these onto
+   semantic names, and JSX only ever touches the semantic names. That
+   two-tier split is what stops every section inventing its own card.
+
+   Art direction: warm bone ground, deep petrol accent, a warm "aura"
+   gradient used strictly as light, and one electric signal green used
+   strictly as a micro-accent (never text on a light background).
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Warm neutral ramp — the ground the whole site sits on.
+        Warm, never pure white, never cool grey. ── */
+  /* Deepened two steps on 2026-09-08, at the owner's choice from a rendered
+     comparison. The previous ramp topped out at #fffdfa, which reads as plain
+     white on a screen — cards looked like panels floating on a page rather
+     than paper on a desk, and the owner's note was simply "too much white".
+     The hues are unchanged; the whole ramp moved down together so every
+     relationship between ground, card and sunken section is preserved. */
+  --warm-50: #f7f3ea;
+  --warm-100: #f2ede1;
+  --warm-150: #ece6da;
+  --warm-200: #e4dccd;
+  --warm-300: #d8cfbc;
+  --warm-400: #c0b5a0;
+
+  /* ── Ink ramp — warm-shifted, never neutral black ── */
+  --ink-900: #15191b;
+  --ink-700: #3b4247;
+  --ink-600: #5a6166;
+  /* Was #9aa0a3, which measured 2.41:1 against the canvas — a WCAG AA
+     failure (4.5:1 required) on every mono micro-label in the system, and
+     this token drives all of them, so it failed sitewide rather than in one
+     place. #5c5f61 is the same hue walked down until it clears AA with
+     headroom on every light surface: 6.34 surface, 5.86 canvas, 5.56 sunken.
+     An intermediate #676b6d measured 4.65 on sunken — passing by hundredths
+     is not worth shipping for a token used this widely.
+     Verify with tools/qa/a11y.mjs before changing it. */
+  --ink-400: #5c5f61;
+
+  /* ── Brand: deep petrol. Chosen against the SaaS blue/indigo that the
+        old palette and every agency template uses. ── */
+  --petrol-900: #072e31;
+  --petrol-800: #0a3f43;
+  --petrol-700: #0e5257;
+  --petrol-100: #e7f0ef;
+
+  /* ── Deep surfaces. Two per site, maximum. Never a black hero. ── */
+  --ink-surface: #10262a;
+  --ink-surface-2: #0a1a1d;
+  --on-ink: #f2f0e9;
+
+  /* ── Signal: the one electric accent.
+        RULE: never text on a light background — the contrast fails
+        WCAG outright. Allowed as live dots, one scope-line tick, a
+        hover underline, progress indicators, and full CTA fill on
+        --ink-surface where contrast is genuinely high. ── */
+  --signal-500: #a8dc1e;
+  --signal-700: #7fa818;
+
+  /* ── Aura: light only. Glow, rim-light, one accent word per section.
+        Never a card fill, never a section background. ── */
+  --aura-1: #e0913f;
+  --aura-2: #dc6a52;
+  --aura-3: #c2557f;
+
+  /* ── Supporting hues, warm-derived so nothing looks bolted on ── */
+  /* Deepened twice, both times for the same reason and both times measured.
+     #12805c failed at 4.48:1 against a 4.5 requirement — losing by two
+     hundredths, which made it look like a flaky test rather than the real
+     boundary it was. #107353 fixed that, until the warm ramp was deepened on
+     2026-09-08 and the composite under a bg-success/10 pill went dark with it,
+     dropping /how-it-works to 4.1:1.
+     #0d5d43 is measured against the hardest case — the token on its own 10%
+     pill, which is always tighter than the token on plain ground:
+       surface 6.11 · canvas 5.46 · sunken 5.00   (plain text: 7.12 / 6.34 / 5.79)
+     This drives text-success, including the WhatsApp calls to action. */
+  --green-600: #0d5d43;
+  --green-50: #edf3ee;
+  --amber-500: #d98a2b;
+  --amber-50: #fbf2e4;
+  --red-600: #be3c28;
+  --red-50: #fff5f2;
+
+  /* ── Warm-tinted elevation. One light source for the whole site:
+        above and slightly left. Neutral-grey shadow is banned. ── */
+  --shadow-color: 58 42 20;
+
+  /* ── Motion. Consumed by motion.css and by component CSS; the TS
+        mirror in lib/motion/tokens.ts must match these. ── */
+  --duration-instant: 120ms;
+  --duration-fast: 220ms;
+  --duration-base: 360ms;
+  --duration-slow: 620ms;
+  --duration-scene: 8000ms;
+  --distance-rise: 14px;
+  --stagger-step: 70ms;
+}

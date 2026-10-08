@@ -28,9 +28,9 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <div className="rounded-2xl border border-mint/30 bg-mint/10 p-8 text-center">
-        <p className="text-lg font-bold text-ink">Message received ✓</p>
-        <p className="mt-2 text-sm text-ink-soft">
+      <div className="rounded-card border border-mint/30 bg-success/10 p-8 text-center">
+        <p className="text-title-2 font-bold text-ink">Message received ✓</p>
+        <p className="mt-2 text-body-sm text-ink-soft">
           Thank you! I&apos;ll reply within 24 hours on your email or phone.
         </p>
       </div>
@@ -38,33 +38,33 @@ export default function ContactForm() {
   }
 
   const inputCls =
-    "w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-soft/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition";
+    "w-full rounded-xl border border-line bg-surface-raised px-4 py-3 text-sm text-ink placeholder:text-ink-soft/60 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition";
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="c-name" className="mb-1.5 block text-sm font-semibold text-ink">
-            Name <span className="text-red-500">*</span>
+          <label htmlFor="c-name" className="mb-1.5 block text-body-sm font-semibold text-ink">
+            Name <span className="text-danger">*</span>
           </label>
           <input id="c-name" name="name" required className={inputCls} placeholder="Your name" />
         </div>
         <div>
-          <label htmlFor="c-email" className="mb-1.5 block text-sm font-semibold text-ink">
-            Email <span className="text-red-500">*</span>
+          <label htmlFor="c-email" className="mb-1.5 block text-body-sm font-semibold text-ink">
+            Email <span className="text-danger">*</span>
           </label>
           <input id="c-email" name="email" type="email" required className={inputCls} placeholder="you@example.com" />
         </div>
       </div>
       <div>
-        <label htmlFor="c-phone" className="mb-1.5 block text-sm font-semibold text-ink">
+        <label htmlFor="c-phone" className="mb-1.5 block text-body-sm font-semibold text-ink">
           Phone / WhatsApp
         </label>
         <input id="c-phone" name="phone" className={inputCls} placeholder="+91 ..." />
       </div>
       <div>
-        <label htmlFor="c-message" className="mb-1.5 block text-sm font-semibold text-ink">
-          Message <span className="text-red-500">*</span>
+        <label htmlFor="c-message" className="mb-1.5 block text-body-sm font-semibold text-ink">
+          Message <span className="text-danger">*</span>
         </label>
         <textarea
           id="c-message"
@@ -76,14 +76,14 @@ export default function ContactForm() {
         />
       </div>
       {status === "error" && (
-        <p className="text-sm font-medium text-red-500">
+        <p className="text-body-sm font-medium text-danger">
           Something went wrong. Please try again or contact via WhatsApp.
         </p>
       )}
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full rounded-full bg-accent px-6 py-3.5 text-base font-semibold text-white hover:bg-accent-deep transition-colors disabled:opacity-60"
+        className="w-full rounded-full bg-brand px-6 py-3.5 text-body-base font-semibold text-white hover:bg-brand-deep transition-colors disabled:opacity-60"
       >
         {status === "sending" ? "Sending..." : "Send Message"}
       </button>

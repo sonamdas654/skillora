@@ -33,6 +33,20 @@ create policy testimonials_select on public.testimonials for select
   using (status = 'active' or public.is_admin());
 
 -- Anonymous review-link submission: anyone can insert, but ONLY as 'pending'.
+--
+-- The role list is deliberate and is verified working: on 2026-09-07 an anon
+-- insert here failed with "new row violates row-level security policy", which
+-- looked like the `to` clause not matching Supabase's newer publishable key
+-- (sb_publishable_...). It was not — the key resolves to `anon` normally, as
+-- proven by public.review_token_used() below, whose EXECUTE grant is limited
+-- to exactly these two roles and which answers fine. The policy had simply
+-- not been applied to the database yet. Re-running this file fixed it.
+--
+-- The security here comes from `with check (status = 'pending')`, not from the
+-- role list: an anon submitter cannot put their own review live (a pending row
+-- is invisible to testimonials_select until an admin approves it), and the
+-- unique invite_token stops one link being used twice. Verified: an anon
+-- insert sending status='active' is rejected.
 drop policy if exists testimonials_insert_public on public.testimonials;
 create policy testimonials_insert_public on public.testimonials for insert
   to anon, authenticated

@@ -2,10 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { whatsappLink } from "@/lib/site";
-import { WhatsAppIcon } from "./Header";
+import WhatsAppIcon from "./icons/WhatsAppIcon";
 
+/**
+ * Desktop floating actions.
+ *
+ * The WhatsApp entry point used to be a saturated #25D366 circle — a colour
+ * from outside the palette, sitting on every page, shouting louder than the
+ * primary CTA in the header. It is now a surface pill that belongs to the
+ * system, keeping the recognisable green on the glyph only. Same link, same
+ * prominence in the flow, far less noise.
+ *
+ * It must stay an anchor with a wa.me href: site-wide click tracking
+ * identifies WhatsApp clicks by the href, not by any attribute.
+ */
 export default function WhatsAppSticky() {
   const [showTop, setShowTop] = useState(false);
+  const [atFooter, setAtFooter] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 500);
@@ -14,19 +27,36 @@ export default function WhatsAppSticky() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Stand down once the footer's closing band is on screen. It carries the
+  // same offer and its own "Chat on WhatsApp" button, so leaving the float up
+  // put two identical buttons on top of each other in the corner.
+  useEffect(() => {
+    const target = document.querySelector("[data-footer-cta]");
+    if (!target) return;
+    const io = new IntersectionObserver(([entry]) => setAtFooter(entry.isIntersecting), {
+      threshold: 0,
+    });
+    io.observe(target);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <>
+    <div
+      className={`fixed bottom-6 right-6 z-50 hidden flex-col items-end gap-2.5 transition-all duration-300 lg:flex ${
+        atFooter ? "pointer-events-none translate-y-3 opacity-0" : "translate-y-0 opacity-100"
+      }`}
+    >
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
-        className={`fixed bottom-24 right-5 z-50 hidden lg:grid size-12 place-items-center rounded-full border border-line bg-white text-ink-soft shadow-[0_10px_24px_-10px_rgba(11,19,48,0.25)] transition-all duration-300 hover:text-accent hover:border-accent ${
-          showTop ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-2"
+        className={`grid size-10 place-items-center rounded-pill border border-line bg-surface text-ink-muted shadow-e2 transition-all duration-300 hover:border-brand hover:text-brand ${
+          showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0"
         }`}
       >
         <svg
           viewBox="0 0 24 24"
-          className="size-5"
+          className="size-4"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
@@ -37,15 +67,16 @@ export default function WhatsAppSticky() {
           <path d="M12 19V5M5 12l7-7 7 7" />
         </svg>
       </button>
+
       <a
         href={whatsappLink("Hi! I want to discuss a project with Skilloura.")}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        className="fixed bottom-5 right-5 z-50 hidden lg:grid size-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-8px_rgba(37,211,102,0.7)] hover:scale-110 transition-transform"
+        className="card-lift inline-flex items-center gap-2.5 rounded-pill border border-line bg-surface py-3 pl-4 pr-5 text-body-sm font-semibold text-ink shadow-e3"
       >
-        <WhatsAppIcon className="size-7" />
+        <WhatsAppIcon className="size-5 text-success" />
+        Chat on WhatsApp
       </a>
-    </>
+    </div>
   );
 }

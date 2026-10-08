@@ -4,6 +4,27 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
+/**
+ * Rebuild the affected public pages after a write.
+ *
+ * The public pages are statically generated with a revalidation window, so
+ * without this a publish would not appear for up to ten minutes and would
+ * look broken to whoever just made it. Best effort — a failure here does not
+ * undo the save that already succeeded.
+ */
+async function refreshPublicPages(scope: "blog" | "portfolio" | "testimonials", slug?: string) {
+  try {
+    await fetch("/api/revalidate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ scope, slug }),
+    });
+  } catch {
+    /* the row is saved either way */
+  }
+}
+
+
 const inputCls =
   "w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm text-ink focus:border-accent focus:outline-none";
 const monoCls =
@@ -128,12 +149,14 @@ export default function BlogManager({ posts }: { posts: PostRow[] }) {
       return;
     }
     setEditing(null);
+    await refreshPublicPages("blog", payload.slug);
     router.refresh();
   }
 
   async function remove(id: string) {
     if (!confirm("Delete this post permanently?")) return;
     await supabase.from("blog_posts").delete().eq("id", id);
+    await refreshPublicPages("blog");
     router.refresh();
   }
 
