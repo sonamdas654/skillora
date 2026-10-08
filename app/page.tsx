@@ -356,36 +356,53 @@ export default async function HomePage() {
                   <p className="text-title-1 text-ink">Sonam Das</p>
                   <p className="text-body-sm font-semibold text-accent">Founder, Skilloura</p>
                   <p className="mt-1 text-body-sm text-ink-soft">
-                    M.Tech, BITS Pilani · ~10 years hands-on experience · 5+ years enterprise IT
+                    M.Tech, BITS Pilani · Technology, AI &amp; Digital Transformation
                   </p>
 
+                  {/* Owner-supplied biography, replacing the earlier first-person
+                      version. The ledger below still carries the terms, so this
+                      stays positioning and never repeats them. */}
                   <p className="mt-4 text-body-base text-ink-soft">
-                    Sonam founded Skilloura to bring enterprise-level clarity to growing businesses.
-                  </p>
-                  {/* Three paragraphs, and none of them is the process list.
-                      There were four, and two of them said the same thing:
-                      "scope is written before payment, quotes are clear,
-                      previews are shared before final delivery, handover is
-                      managed" and then "a real written scope and quote before
-                      you pay anything, a preview before the final payment, a
-                      clean handover". The ledger below said it a third time.
-                      Prose is for the reason; the ledger is for the terms. */}
-                  <p className="mt-3 text-body-base text-ink-soft">
-                    I started Skilloura after watching too many small businesses pay for work
-                    they could not check, could not update and did not own at the end of it.
-                    Not because anyone set out to cheat them — because nothing was ever
-                    written down.
+                    Sonam Das is the Founder of Skilloura, a technology-driven digital services
+                    company focused on helping businesses build, modernize, and operate reliable
+                    digital solutions.
                   </p>
                   <p className="mt-3 text-body-base text-ink-soft">
-                    Today, every project runs through a coordinated team workflow covering
-                    strategy, design, development, automation, quality assurance and delivery.
-                    AI speeds up selected tasks, while specialists review the work before it ships.
+                    With a professional background spanning enterprise IT, software systems, cloud
+                    technologies, data engineering, and AI-driven automation, Sonam brings a
+                    practical understanding of how technology must perform beyond development
+                    environments — in real business operations, where reliability, security,
+                    scalability, and accountability matter.
                   </p>
                   <p className="mt-3 text-body-base text-ink-soft">
-                    Behind that: nearly a decade of hands-on work across websites, software
-                    systems, AI automation, dashboards and cloud operations, five years of
-                    enterprise IT, and an M.Tech from BITS Pilani.
+                    His experience across enterprise technology environments has shaped his
+                    approach to building Skilloura: combining strong engineering practices with
+                    transparent execution, clearly defined project ownership, and measurable
+                    business outcomes.
                   </p>
+                  <p className="mt-3 text-body-base text-ink-soft">
+                    Under his leadership, Skilloura focuses on delivering custom software, web and
+                    mobile applications, AI-powered solutions, workflow automation, business
+                    dashboards, and cloud-enabled systems designed around each client’s
+                    operational requirements.
+                  </p>
+                  <p className="mt-3 text-body-base text-ink-soft">
+                    Sonam’s vision is to establish Skilloura as a trusted technology partner for
+                    businesses seeking dependable engineering, practical innovation, and
+                    sustainable digital growth.
+                  </p>
+
+                  {/* The closing line is the one that should be remembered, so it
+                      is set as a quotation rather than a sixth grey paragraph. */}
+                  <blockquote className="mt-6 border-l-2 border-accent pl-5">
+                    <p className="font-accent text-title-3 font-normal italic leading-snug text-ink">
+                      “Technology should not only solve today’s challenges. It should create a
+                      foundation businesses can confidently build upon tomorrow.”
+                    </p>
+                    <footer className="mt-3 text-body-sm font-semibold text-ink-soft">
+                      — Sonam Das, Founder, Skilloura
+                    </footer>
+                  </blockquote>
                 </div>
               </div>
             </Reveal>
