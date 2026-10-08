@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { resolveMotionTier } from "@/lib/motion/useMotionTier";
 import { AUTOPLAY_REVIEW_MS } from "@/lib/motion/tokens";
+import "./ReviewCarousel.css";
 
 export interface Review {
   id: string;
@@ -13,40 +14,53 @@ export interface Review {
 }
 
 /**
- * Client reviews as one advancing panel, not a grid.
+ * Client Success Stories — one review centred on the stage, with the previous
+ * and next peeking in behind it.
  *
- * The previous shape put one review large beside a list of the rest. It read
- * as two unrelated things stacked, and only the first review was ever really
- * seen. This gives every review the same room and moves through them on its
- * own, which is what the owner asked for after looking at it.
+ * The shape before this put one review large beside a list of the rest. It read
+ * as two unrelated things stacked, and in practice only the first review was
+ * ever seen. Every review now gets the same room and the panel moves through
+ * them on its own.
  *
  * Motion contract (components/motion/CONTRACT.md), all five points:
  *
  *  1. IntersectionObserver-gated — the timer does not run until the section is
  *     actually on screen, and stops again when it leaves.
  *  2. prefers-reduced-motion honoured through resolveMotionTier(): autoplay
- *     never starts, and the arrows and dots still work. Someone who has asked
- *     for less motion gets a manual carousel, not a broken one.
+ *     never starts, and the arrows, dots and swipe still work. Someone who has
+ *     asked for less motion gets a manual carousel, not a broken one.
  *  3. One setState per advance — roughly one every seven seconds. Nothing is
- *     animated from JavaScript; the crossfade is CSS.
+ *     animated from JavaScript; the slide is CSS.
  *  4. Paused on hover, on focus within, and when the tab is hidden. Reading a
  *     review should not be interrupted because a timer expired.
  *  5. Every timer and listener is cleaned up on unmount.
  *
+ * Swipe is pointer events with a distance threshold, resolved once on release.
+ * Dragging does not move the card under the finger, because doing that means
+ * writing a transform on every pointermove, and point 3 is the rule that keeps
+ * this section cheap.
+ *
  * Avatars are monograms, deliberately. Stock photography attached to a named
  * person is the one thing on a page like this that a visitor checks, and this
  * site's whole argument is that it does not fabricate proof.
+ *
+ * There is no category badge on the card. The reference this was built from
+ * shows one ("E-Commerce Store"), but the testimonials table has no category
+ * column — only id, client_name, client_business, rating, review and source,
+ * where source is provenance ('client-submitted' or 'studio-written'), not a
+ * service. Filling that badge would have meant inventing a label per client.
  */
 export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   const [index, setIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
+  const swipeRef = useRef<{ x: number; y: number } | null>(null);
 
   const count = reviews.length;
   const go = useCallback(
     (next: number) => setIndex(((next % count) + count) % count),
-    [count]
+    [count],
   );
 
   // Only run while the section is on screen AND the visitor has not asked for
@@ -56,10 +70,9 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
     if (!el || count < 2) return;
     if (resolveMotionTier() !== "full") return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setAutoplay(entry.isIntersecting),
-      { threshold: 0.35 }
-    );
+    const observer = new IntersectionObserver(([entry]) => setAutoplay(entry.isIntersecting), {
+      threshold: 0.35,
+    });
     observer.observe(el);
     return () => observer.disconnect();
   }, [count]);
@@ -67,120 +80,185 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   useEffect(() => {
     if (!autoplay) return;
     const tick = setInterval(() => {
-      // A hidden tab or a hovering reader suspends the advance without
-      // tearing down the timer, so resuming is instant.
+      // A hidden tab or a hovering reader suspends the advance without tearing
+      // down the timer, so resuming is instant.
       if (pausedRef.current || document.hidden) return;
       setIndex((i) => (i + 1) % count);
     }, AUTOPLAY_REVIEW_MS);
     return () => clearInterval(tick);
   }, [autoplay, count]);
 
+  // Arrow keys move the carousel when focus is inside it, which is what a
+  // keyboard user expects of something presented as a carousel.
+  const onKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (count < 2) return;
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        go(index - 1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        go(index + 1);
+      }
+    },
+    [count, go, index],
+  );
+
+  const onPointerDown = (event: React.PointerEvent) => {
+    if (event.pointerType === "mouse") return;
+    swipeRef.current = { x: event.clientX, y: event.clientY };
+  };
+
+  const onPointerUp = (event: React.PointerEvent) => {
+    const start = swipeRef.current;
+    swipeRef.current = null;
+    if (!start || count < 2) return;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    // Horizontal intent only, and far enough to be a swipe rather than a tap
+    // that wandered. Otherwise a vertical scroll would flick the carousel.
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+    go(dx < 0 ? index + 1 : index - 1);
+  };
+
   if (count === 0) return null;
-  const active = reviews[index];
-  const initials = active.clientName
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
+
+  // Shortest signed distance from the active slide, so the card that is one
+  // step behind the first review is the last one, not eight steps away.
+  const offsetOf = (i: number) => {
+    let d = i - index;
+    if (d > count / 2) d -= count;
+    if (d < -count / 2) d += count;
+    return d;
+  };
+
+  const positionClass = (d: number) =>
+    d === 0 ? "is-active" : d === -1 ? "is-prev" : d === 1 ? "is-next" : "is-far";
+
+  const initialsOf = (name: string) =>
+    name
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase();
 
   return (
     <div
       ref={sectionRef}
+      className="reviews"
       onMouseEnter={() => (pausedRef.current = true)}
       onMouseLeave={() => (pausedRef.current = false)}
       onFocusCapture={() => (pausedRef.current = true)}
       onBlurCapture={() => (pausedRef.current = false)}
+      onKeyDown={onKeyDown}
     >
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16">
-        {/* Monogram, in the arch the reference used for a portrait. */}
-        <div className="mx-auto w-full max-w-[18rem] lg:mx-0">
-          <div
-            className="relative grid aspect-[4/5] place-items-center overflow-hidden rounded-t-[10rem] rounded-b-card border border-line bg-surface-sunken"
-            aria-hidden
+      <div className="reviews__head">
+        <p className="reviews__eyebrow">Client reviews</p>
+        <span className="reviews__rule" aria-hidden>
+          <i />
+          <i />
+        </span>
+        <h2 className="reviews__title">Client Success Stories</h2>
+        <p className="reviews__intro">
+          Real businesses, real results. Hear from the clients who have grown, automated and scaled
+          with Skilloura.
+        </p>
+      </div>
+
+      <div className="reviews__stage">
+        {count > 1 && (
+          <button
+            type="button"
+            onClick={() => go(index - 1)}
+            aria-label="Previous review"
+            className="reviews__nav is-prev"
           >
-            <div className="aura aura-1 absolute inset-0 opacity-70" />
-            <span
-              key={active.id}
-              className="relative font-display text-[5.5rem] font-semibold leading-none text-brand"
-            >
-              {initials}
-            </span>
+            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
+
+        {/* aria-live so a screen reader is told the panel changed under it,
+            rather than silently showing new text. */}
+        <div
+          className="reviews__track"
+          aria-live="polite"
+          aria-atomic="true"
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => (swipeRef.current = null)}
+        >
+          {reviews.map((r, i) => {
+            const d = offsetOf(i);
+            const isActive = d === 0;
+            return (
+              <article
+                key={r.id}
+                className={`reviews__card ${positionClass(d)}`}
+                aria-hidden={!isActive}
+                // Only the visible review is in the accessibility tree and the
+                // tab order; the others are decoration until they arrive.
+                inert={!isActive}
+              >
+                <span className="reviews__quote" aria-hidden>
+                  &ldquo;
+                </span>
+
+                <p className="reviews__stars" aria-label={`${r.rating} out of 5`}>
+                  {"★".repeat(r.rating)}
+                  <span>{"★".repeat(5 - r.rating)}</span>
+                </p>
+
+                <blockquote>
+                  <p className="reviews__text">{r.review}</p>
+                  <footer className="reviews__foot">
+                    <span className="reviews__mono" aria-hidden>
+                      {initialsOf(r.clientName)}
+                    </span>
+                    <span className="reviews__who">
+                      <strong>{r.clientName}</strong>
+                      {r.clientBusiness && <small>{r.clientBusiness}</small>}
+                    </span>
+                  </footer>
+                </blockquote>
+              </article>
+            );
+          })}
+        </div>
+
+        {count > 1 && (
+          <button
+            type="button"
+            onClick={() => go(index + 1)}
+            aria-label="Next review"
+            className="reviews__nav is-next"
+          >
+            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden>
+              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
+      </div>
+
+      {count > 1 && (
+        <div className="reviews__controls">
+          <div className="reviews__dots" role="tablist" aria-label="Choose a review">
+            {reviews.map((r, i) => (
+              <button
+                key={r.id}
+                type="button"
+                role="tab"
+                aria-selected={i === index}
+                aria-label={`Review ${i + 1} of ${count}, ${r.clientName}`}
+                onClick={() => go(i)}
+                className="reviews__dot"
+              />
+            ))}
           </div>
         </div>
-
-        {/* The review itself. aria-live so a screen reader is told when the
-            panel changes under it rather than silently showing new text. */}
-        <div aria-live="polite" aria-atomic="true">
-          <p className="font-accent text-display-1 leading-none text-brand/25" aria-hidden>
-            &ldquo;
-          </p>
-          <blockquote key={active.id} className="-mt-6 sm:-mt-8">
-            <p className="font-mono text-body-sm text-warning" aria-label={`${active.rating} out of 5`}>
-              {"★".repeat(active.rating)}
-              <span className="text-line-strong">{"★".repeat(5 - active.rating)}</span>
-            </p>
-            <p className="mt-4 max-w-2xl text-title-2 leading-relaxed text-ink sm:text-title-1">
-              {active.review}
-            </p>
-            <footer className="mt-7 border-t border-line-strong pt-4">
-              <p className="text-body-base font-semibold text-ink">{active.clientName}</p>
-              {active.clientBusiness && (
-                <p className="mt-0.5 font-mono text-micro uppercase text-ink-muted">
-                  {active.clientBusiness}
-                </p>
-              )}
-            </footer>
-          </blockquote>
-
-          {count > 1 && (
-            <div className="mt-8 flex items-center gap-5">
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => go(index - 1)}
-                  aria-label="Previous review"
-                  className="grid size-11 place-items-center rounded-full border border-line-strong text-ink transition-colors hover:border-brand hover:text-brand"
-                >
-                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => go(index + 1)}
-                  aria-label="Next review"
-                  className="grid size-11 place-items-center rounded-full bg-brand text-on-brand transition-colors hover:bg-brand-deep"
-                >
-                  <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="flex gap-2" role="tablist" aria-label="Choose a review">
-                {reviews.map((r, i) => (
-                  <button
-                    key={r.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === index}
-                    aria-label={`Review ${i + 1} of ${count}, ${r.clientName}`}
-                    onClick={() => go(i)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      i === index ? "w-7 bg-brand" : "w-1.5 bg-line-strong hover:bg-brand/50"
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <span className="ml-auto font-mono text-micro text-ink-muted">
-                {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 }

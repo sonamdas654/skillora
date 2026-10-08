@@ -461,10 +461,11 @@ export default async function HomePage() {
         {testimonials.length > 0 && (
           <Section className="border-b border-line bg-soft-panel">
             {ratingSchema && <JsonLd data={ratingSchema} />}
-            <Reveal variant="fade">
-              <p className="text-micro font-mono uppercase text-ink-muted">Client reviews</p>
-            </Reveal>
-            <Reveal variant="lift" delay={0.06} className="mt-8">
+            {/* The eyebrow, heading and standfirst moved inside ReviewCarousel.
+                The section is one centred composition now, and splitting its
+                header across two files meant the heading could not be centred
+                against the stage it introduces. */}
+            <Reveal variant="lift">
               <ReviewCarousel
                 reviews={testimonials.map((t) => ({
                   id: t.id,
