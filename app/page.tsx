@@ -220,33 +220,12 @@ export default async function HomePage() {
           </Reveal>
         </Section>
 
-        {/* The four stages used to be repeated here in full, having already
-            been named directly under the hero. Same four steps, same page —
-            which is the duplication this rebuild keeps having to remove. The
-            hero rail is the summary; the detail lives on /how-it-works, which
-            has all eight steps rather than a second copy of four. */}
-        <Section className="border-b border-line bg-wash-mint">
-          <Reveal variant="fade">
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-micro font-mono uppercase text-ink-muted">Process</p>
-              <h2 className="mt-3 text-display-3 text-ink">
-                Every project runs the{" "}
-                <span className="font-accent italic text-brand">same way</span>
-              </h2>
-              <p className="mt-4 text-body-lg text-ink-soft">
-                Requirements, a written scope, the build, then a documented handover. No
-                confusion about where your project stands, and nothing charged before it is
-                agreed.
-              </p>
-              <Link
-                href="/how-it-works"
-                className="mt-6 tap-safe inline-flex items-center gap-2 text-body-sm font-semibold text-brand"
-              >
-                See all eight steps <Icon name="arrow" className="size-4" />
-              </Link>
-            </div>
-          </Reveal>
-        </Section>
+        {/* A "Process" band stood here — eyebrow, one heading, one paragraph and
+            a link to /how-it-works. Removed at the owner's request. It was the
+            third place on this page to summarise the same delivery process: the
+            hero rail names the four stages, "How this actually runs" walks
+            through them, and /how-it-works has all eight. The page still links
+            there twice, so nothing is orphaned by its going. */}
 
         {/* ── Section 6: Featured Packages ────────────────── */}
         <Section className="bg-soft-panel border-y border-line">
