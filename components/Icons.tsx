@@ -93,6 +93,12 @@ const paths: Record<string, React.ReactNode> = {
     </>
   ),
   bolt: <path d="M13.5 2.5L5 13.5h5.5L10.5 21.5 19 10.5h-5.5z" />,
+  mail: (
+    <>
+      <rect x="2.5" y="5" width="19" height="14" rx="2.5" />
+      <path d="M3.5 7l8.5 6 8.5-6" />
+    </>
+  ),
   users: (
     <>
       <circle cx="9" cy="8" r="3.4" />

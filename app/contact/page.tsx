@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import ContactForm from "@/components/ContactForm";
 import { Section } from "@/components/Section";
 import { site, whatsappLink } from "@/lib/site";
@@ -33,6 +34,37 @@ export default function ContactPage() {
           { name: "Home", path: "/" },
           { name: "Contact", path: "/contact" },
         ]}
+        aside={
+          <HeroStack
+            cards={[
+              {
+                icon: "smartphone",
+                title: "WhatsApp",
+                body: "Fastest route. Send a voice note or a screenshot if that is easier.",
+                href: whatsappLink("Hi! I have a question about my project."),
+                cta: "Open WhatsApp",
+              },
+              {
+                icon: "mail",
+                title: "Email",
+                body: site.email,
+                href: `mailto:${site.email}`,
+              },
+              {
+                icon: "file",
+                title: "Written scope",
+                body: "Answer a short form and get deliverables, price and dates in writing.",
+                href: "/start-project",
+              },
+            ]}
+          />
+        }
+        actions={
+          <Link href="/start-project" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Get a written scope
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
       />
       <Section>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">

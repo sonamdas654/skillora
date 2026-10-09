@@ -4,9 +4,9 @@ import PageShell, { PageHero } from "@/components/PageShell";
 import ServicesTabs from "@/components/ServicesTabs";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
-import SpecLedger from "@/components/ui/SpecLedger";
+import HeroStack from "@/components/ui/HeroStack";
 import { Section } from "@/components/Section";
-import { serviceCategories, SECONDARY_SERVICE_SLUGS } from "@/lib/services";
+import { serviceCategories } from "@/lib/services";
 import { focusServices } from "@/lib/focusServices";
 import JsonLd from "@/components/JsonLd";
 import { serviceListSchema } from "@/lib/schema";
@@ -27,8 +27,15 @@ export const metadata: Metadata = {
  * across the site, a job the footer now does. The index below is an editorial
  * list rather than a grid of icon cards; see components/ServicesTabs.tsx.
  */
+/** The three categories the hero fans out. Slugs, so the cards carry whatever
+ *  serviceCategories currently says about them rather than a stale copy. */
+const HERO_SLUGS = ["website-development", "ai-automation", "digital-marketing"];
+
 export default function ServicesPage() {
-  const core = serviceCategories.filter((s) => !SECONDARY_SERVICE_SLUGS.includes(s.slug));
+  const heroCards = HERO_SLUGS.flatMap((slug) => {
+    const s = serviceCategories.find((c) => c.slug === slug);
+    return s ? [{ icon: s.icon, title: s.name, body: s.outcome, href: `/services/${s.slug}` }] : [];
+  });
 
   return (
     <PageShell>
@@ -60,17 +67,10 @@ export default function ServicesPage() {
             <Icon name="arrow" className="size-4" />
           </Link>
         }
-        aside={
-          <SpecLedger
-            caption="How it works everywhere"
-            rows={[
-              { label: "Core categories", value: `${core.length}` },
-              { label: "Also available", value: `${SECONDARY_SERVICE_SLUGS.length}` },
-              { label: "Written scope", value: "Before payment" },
-              { label: "Reply window", value: "24h" },
-            ]}
-          />
-        }
+        // Three real categories off serviceCategories rather than a hand-written
+        // trio, so this cannot drift out of step with the nine the page lists
+        // below it. Each card links to the category it names.
+        aside={<HeroStack cards={heroCards} />}
       />
 
       <Section>

@@ -188,47 +188,38 @@
   transition: background-position 520ms cubic-bezier(.2,.8,.2,1);
 }
 
-.page-depth-object {
+/* ── Inner-page hero arcs ────────────────────────────────────
+   Two long, very faint curves behind the hero band. They replace a
+   faux-3D stack of floating planes that every inner page carried
+   identically — it read as a stock tech backdrop rather than as this
+   site, and it competed with the card stack that now sits there.
+   ───────────────────────────────────────────────────────────── */
+.page-hero__arc {
   position: absolute;
-  right: max(4vw, calc((100vw - 82rem) / 2));
-  top: 50%;
-  width: clamp(15rem, 28vw, 28rem);
-  aspect-ratio: 1.45;
-  transform: translateY(-44%) perspective(900px) rotateX(61deg) rotateZ(-12deg);
-  transform-style: preserve-3d;
-  opacity: .48;
-}
-
-.page-depth-object__plane {
-  position: absolute;
-  inset: 8% 4%;
   display: block;
-  border: 1px solid rgb(14 82 87 / .20);
-  border-radius: 1rem;
-  background:
-    linear-gradient(90deg, transparent 0 9%, rgb(14 82 87 / .12) 9% 9.4%, transparent 9.4%),
-    repeating-linear-gradient(0deg, transparent 0 14%, rgb(14 82 87 / .09) 14% 14.6%),
-    rgb(255 253 250 / .52);
-  box-shadow: 0 24px 60px -32px rgb(58 42 20 / .45);
-  backdrop-filter: blur(8px);
+  border: 1px solid rgb(21 25 27 / .06);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
-.page-depth-object__plane--one { transform: translateZ(26px) translate(-4%, -5%); }
-.page-depth-object__plane--two { transform: translateZ(70px) translate(9%, 8%); opacity: .68; }
+.page-hero__arc--one {
+  right: -12rem;
+  top: -18rem;
+  width: 46rem;
+  height: 46rem;
+}
 
-.page-depth-object__rail {
-  position: absolute;
-  left: 5%;
-  right: -8%;
-  top: 47%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--petrol-700), var(--aura-1), transparent);
-  transform: translateZ(105px);
-  box-shadow: 0 0 20px rgb(224 145 63 / .55);
+.page-hero__arc--two {
+  left: 42%;
+  bottom: -30rem;
+  width: 38rem;
+  height: 38rem;
+  border-color: rgb(224 145 63 / .14);
 }
 
 @media (max-width: 900px) {
-  .page-depth-object { right: -7rem; opacity: .24; }
+  .page-hero__arc--two { display: none; }
+  .page-hero__arc--one { right: -20rem; opacity: .7; }
 }
 
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {

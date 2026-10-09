@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import JsonLd from "@/components/JsonLd";
 import { Section } from "@/components/Section";
 import { createPublicClient } from "@/lib/supabase/public";
@@ -124,6 +125,25 @@ export default async function BlogPage() {
           { name: "Home", path: "/" },
           { name: "Blog", path: "/blog" },
         ]}
+        aside={
+          allPosts.length > 0 ? (
+            <HeroStack
+              cards={allPosts.slice(0, 3).map((p) => ({
+                icon: "file",
+                title: p.title,
+                body: p.category ?? `${p.read_minutes ?? 5} min read`,
+                href: `/blog/${p.slug}`,
+                cta: "Read this guide",
+              }))}
+            />
+          ) : undefined
+        }
+        actions={
+          <Link href="/start-project" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Get a written scope
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
       />
 
       {lead && (

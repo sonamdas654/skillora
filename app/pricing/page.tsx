@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import JsonLd from "@/components/JsonLd";
 import { Section } from "@/components/Section";
+import HeroStack from "@/components/ui/HeroStack";
 import { PackageCard } from "@/components/Cards";
 import { serviceCategories } from "@/lib/services";
 import { maintenancePlans } from "@/lib/maintenancePlans";
@@ -101,6 +102,28 @@ export default function PricingPage() {
           { name: "Home", path: "/" },
           { name: "Pricing", path: "/pricing" },
         ]}
+        aside={
+          <HeroStack
+            cards={["website-development", "mobile-app-development", "ai-automation"].flatMap((slug) => {
+              const s = serviceCategories.find((c) => c.slug === slug);
+              return s
+                ? [{
+                    icon: s.icon,
+                    title: s.name,
+                    body: `From ${s.startingPrice} · ${s.timeline}`,
+                    href: `/services/${s.slug}`,
+                    cta: "See what is included",
+                  }]
+                : [];
+            })}
+          />
+        }
+        actions={
+          <Link href="/start-project" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Get your exact quote
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
       />
 
       {/* ── Price index. Compare first, scroll second. ────────── */}

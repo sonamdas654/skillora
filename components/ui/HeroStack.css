@@ -1,0 +1,242 @@
+/* ─────────────────────────────────────────────────────────────
+   HeroStack — the angled card stack that sits on the right of an
+   inner-page hero.
+
+   Three cards fanned back and to the right, the first one square to
+   the page and the other two rotated and dropped behind it. Each
+   page passes its own cards, so the shape is shared across the site
+   while the content never is.
+
+   Colours are the Measured Light + Signal ramp from
+   app/styles/palette.css. Literals here because this is a plain
+   stylesheet rather than a className — do not invent a hue.
+   ───────────────────────────────────────────────────────────── */
+
+.hstack {
+  --ink: #15191b;
+  --ink-mute: #5c5f61;
+  --brand: #0e5257;
+  --brand-tint: #e7f0ef;
+  --amber: #e0913f;
+  --amber-tint: #fbf2e4;
+  --card: #fdfbf6;
+  --line: rgb(21 25 27 / 0.09);
+
+  position: relative;
+  /* The stack leans right; this keeps the lean inside the column so it
+     never widens the page. */
+  isolation: isolate;
+  overflow: clip;
+  padding: 0.5rem 0 1.5rem;
+}
+
+.hstack__row {
+  display: flex;
+  align-items: flex-start;
+  /* Negative gap is what overlaps the cards. */
+  gap: 0;
+  padding-left: 0.5rem;
+}
+
+.hstack__card {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--card);
+  box-shadow: 0 26px 52px -34px rgb(24 13 7 / 0.55);
+  transition:
+    transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Front card: square to the page, largest, the only one that carries a
+   visible call to action. */
+.hstack__card:nth-child(1) {
+  z-index: 3;
+  width: 52%;
+  padding: 1.3rem 1.35rem 1.15rem;
+  transform: rotate(-1.4deg);
+}
+.hstack__card:nth-child(2) {
+  z-index: 2;
+  width: 42%;
+  margin-left: -17%;
+  margin-top: 1.9rem;
+  padding: 1.15rem 1.2rem 1rem;
+  transform: rotate(2.2deg);
+}
+.hstack__card:nth-child(3) {
+  z-index: 1;
+  width: 38%;
+  margin-left: -16%;
+  margin-top: 3.6rem;
+  padding: 1.05rem 1.1rem 0.95rem;
+  transform: rotate(4.6deg);
+}
+
+/* The stack lifts as a whole rather than card by card, so hovering it
+   does not break the fan apart. */
+.hstack:hover .hstack__card:nth-child(1) {
+  transform: rotate(-1.4deg) translateY(-5px);
+}
+.hstack:hover .hstack__card:nth-child(2) {
+  transform: rotate(2.2deg) translateY(-3px);
+}
+.hstack:hover .hstack__card:nth-child(3) {
+  transform: rotate(4.6deg) translateY(-1px);
+}
+
+.hstack__icon {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 13px;
+  background: var(--brand-tint);
+  color: var(--brand);
+}
+/* The second card takes the warm tile, so the stack reads as a set
+   rather than three copies. */
+.hstack__card:nth-child(2) .hstack__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--amber-tint);
+  color: #a86a1d;
+}
+.hstack__card:nth-child(3) .hstack__icon {
+  width: 2.3rem;
+  height: 2.3rem;
+}
+
+.hstack__title {
+  margin: 0.95rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.hstack__card:nth-child(2) .hstack__title {
+  font-size: 1rem;
+}
+.hstack__card:nth-child(3) .hstack__title {
+  font-size: 0.94rem;
+}
+
+.hstack__body {
+  margin: 0.5rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--ink-mute);
+}
+.hstack__card:nth-child(3) .hstack__body {
+  font-size: 0.8rem;
+}
+
+.hstack__foot {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  font-weight: 650;
+  color: var(--brand);
+}
+.hstack__foot svg {
+  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.hstack__card:hover .hstack__foot svg {
+  transform: translateX(3px);
+}
+
+/* A link card has to look like one. */
+a.hstack__card:hover {
+  box-shadow: 0 32px 60px -34px rgb(24 13 7 / 0.6);
+}
+
+/* The small hand-drawn spark from the reference, top right. */
+.hstack__spark {
+  position: absolute;
+  top: 0.2rem;
+  right: 8%;
+  z-index: 4;
+  color: var(--brand);
+  opacity: 0.75;
+}
+
+/* ── Tablet ─────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .hstack__card:nth-child(1) {
+    width: 54%;
+  }
+  .hstack__card:nth-child(2) {
+    width: 42%;
+    margin-left: -19%;
+  }
+  .hstack__card:nth-child(3) {
+    width: 38%;
+    margin-left: -17%;
+  }
+}
+
+/* ── Mobile: the fan becomes two cards side by side, because three
+      rotated cards at 390px is unreadable and the third adds nothing. ── */
+@media (max-width: 720px) {
+  .hstack {
+    padding-bottom: 0.5rem;
+  }
+  .hstack__row {
+    padding-left: 0;
+    gap: 0.7rem;
+  }
+  .hstack__card {
+    flex: 1 1 0;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 1rem 1.05rem !important;
+    transform: none !important;
+    border-radius: 16px;
+  }
+  .hstack:hover .hstack__card {
+    transform: none !important;
+  }
+  /* Third card drops out rather than being squeezed to nothing. */
+  .hstack__card:nth-child(3) {
+    display: none;
+  }
+  .hstack__icon {
+    width: 2.4rem !important;
+    height: 2.4rem !important;
+  }
+  .hstack__title {
+    font-size: 0.98rem !important;
+  }
+  .hstack__body {
+    font-size: 0.82rem !important;
+  }
+  .hstack__foot {
+    margin-top: 0.8rem;
+    padding-top: 0.7rem;
+    font-size: 0.8rem;
+  }
+  .hstack__spark {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hstack__card,
+  .hstack__foot svg {
+    transition: none !important;
+  }
+  .hstack:hover .hstack__card:nth-child(1),
+  .hstack:hover .hstack__card:nth-child(2),
+  .hstack:hover .hstack__card:nth-child(3) {
+    transform: rotate(0deg) !important;
+  }
+}

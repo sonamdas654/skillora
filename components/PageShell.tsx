@@ -61,58 +61,65 @@ export function PageHero({
   const centered = align === "center" && !aside;
 
   return (
-    <section className="relative overflow-hidden border-b border-line bg-canvas">
+    <section className="page-hero relative overflow-clip border-b border-line bg-canvas">
       <div className="absolute inset-0 bg-hero-glow" aria-hidden />
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div className="aura aura-1" />
-        <div className="page-depth-object">
-          <span className="page-depth-object__plane page-depth-object__plane--one" />
-          <span className="page-depth-object__plane page-depth-object__plane--two" />
-          <span className="page-depth-object__rail" />
-        </div>
+        {/* Two long, very faint arcs. They give the band the curved warmth the
+            art direction asks for without another box of decoration, and they
+            sit behind the aside rather than competing with it. */}
+        <span className="page-hero__arc page-hero__arc--one" />
+        <span className="page-hero__arc page-hero__arc--two" />
       </div>
 
-      <div className="relative mx-auto max-w-page px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+      {/* Tighter than it was: py-14/py-20 left the band taller than its content
+          on every page that had no aside, which is most of them. */}
+      <div className="relative mx-auto max-w-page px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
         {crumbs && <Breadcrumbs items={crumbs} />}
 
         <div
           className={
             aside
-              ? "grid items-end gap-10 lg:grid-cols-[1.15fr_0.85fr]"
+              ? // items-center, not items-end. The aside is a card stack now,
+                // not a ledger pinned to the baseline, and ending both columns
+                // on the same line left a wedge of empty canvas above the text.
+                "grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
               : centered
                 ? "mx-auto max-w-3xl text-center"
                 : "max-w-3xl"
           }
         >
-          <div>
+          <div className={aside ? "lg:py-2" : undefined}>
             {eyebrow && (
               <p
                 className={`flex items-center gap-2.5 text-micro font-mono uppercase text-ink-soft ${
                   centered ? "justify-center" : ""
                 }`}
               >
-                <span aria-hidden className="block h-2.5 w-px bg-brand" />
+                <span aria-hidden className="block h-px w-7 bg-brand" />
                 {eyebrow}
               </p>
             )}
-            <h1 className="mt-4 text-display-2 text-ink">{title}</h1>
+            <h1 className="mt-3.5 text-display-2 text-ink">{title}</h1>
             {subtitle && (
               <p
-                className={`mt-4 max-w-2xl text-body-lg text-ink-soft ${centered ? "mx-auto" : ""}`}
+                className={`mt-3.5 text-body-lg text-ink-soft ${
+                  centered ? "mx-auto max-w-2xl" : "max-w-xl"
+                }`}
               >
                 {subtitle}
               </p>
             )}
             {actions && (
               <div
-                className={`mt-7 flex flex-wrap items-center gap-3 ${centered ? "justify-center" : ""}`}
+                className={`mt-6 flex flex-wrap items-center gap-3 ${centered ? "justify-center" : ""}`}
               >
                 {actions}
               </div>
             )}
           </div>
 
-          {aside && <div>{aside}</div>}
+          {aside && <div className="min-w-0">{aside}</div>}
         </div>
       </div>
     </section>

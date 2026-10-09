@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import { Section, SectionHeading } from "@/components/Section";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import Reveal from "@/components/Reveal";
 import RoiCalculator from "@/components/RoiCalculator";
 import { aiProducts } from "@/lib/aiProducts";
@@ -26,6 +27,21 @@ export default function AiSolutionsPage() {
           </>
         }
         subtitle="Not a vague 'AI automation' pitch. These are specific systems with a clear job, honest guide prices, and a person who reviews, tests and hands them over properly."
+        aside={
+          <HeroStack
+            cards={aiProducts.slice(0, 3).map((p) => ({
+              icon: p.icon,
+              title: p.name,
+              body: p.tagline,
+            }))}
+          />
+        }
+        actions={
+          <Link href="/start-project?service=ai-automation" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Scope an AI system
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
       />
 
       {/* Productized offers */}

@@ -3,6 +3,8 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import { Section } from "@/components/Section";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
+import { serviceCategories } from "@/lib/services";
 import Reveal from "@/components/Reveal";
 import { solutions } from "@/lib/solutions";
 
@@ -41,6 +43,23 @@ export default function SolutionsPage() {
           { name: "Home", path: "/" },
           { name: "Solutions", path: "/solutions" },
         ]}
+        aside={
+          <HeroStack
+            cards={solutions.slice(0, 3).map((s) => ({
+              icon: serviceCategories.find((c) => c.slug === s.serviceSlug)?.icon ?? "briefcase",
+              title: s.audience,
+              body: s.h1,
+              href: `/solutions/${s.slug}`,
+              cta: "See this solution",
+            }))}
+          />
+        }
+        actions={
+          <Link href="/start-project" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Tell us your industry
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
       />
 
       <Section>

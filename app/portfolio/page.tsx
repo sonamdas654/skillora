@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import Icon from "@/components/Icons";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import { Section } from "@/components/Section";
+import HeroStack from "@/components/ui/HeroStack";
 import { PortfolioCard } from "@/components/Cards";
 import TrustBand from "@/components/TrustBand";
 import { portfolioItems, type PortfolioItem } from "@/lib/portfolio";
@@ -101,6 +104,23 @@ export default async function PortfolioPage() {
           { name: "Home", path: "/" },
           { name: "Portfolio", path: "/portfolio" },
         ]}
+        aside={
+          <HeroStack
+            cards={portfolioItems.slice(0, 3).map((p) => ({
+              icon: p.icon,
+              title: p.title,
+              body: p.industry,
+              href: `/portfolio/${p.slug}`,
+              cta: "Open this build",
+            }))}
+          />
+        }
+        actions={
+          <Link href="/start-project" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Start a build like these
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
       />
 
       <Section>
