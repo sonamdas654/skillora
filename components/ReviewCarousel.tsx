@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { resolveMotionTier } from "@/lib/motion/useMotionTier";
 import { AUTOPLAY_REVIEW_MS } from "@/lib/motion/tokens";
@@ -50,6 +51,23 @@ export interface Review {
  * where source is provenance ('client-submitted' or 'studio-written'), not a
  * service. Filling that badge would have meant inventing a label per client.
  */
+/**
+ * Client photographs, supplied by the owner and confirmed as their own clients.
+ *
+ * Keyed by the exact client_name stored with the review, so a renamed or newly
+ * added testimonial simply falls back to its monogram rather than showing a
+ * photograph of a different person — which is the one failure that would matter
+ * here. Nothing is matched fuzzily for the same reason.
+ */
+const CLIENT_PHOTOS: Record<string, string> = {
+  "Rakesh Mohanty": "/testimonials/rakesh-mohanty.webp",
+  "Priyanka Sahoo": "/testimonials/priyanka-sahoo.webp",
+  "Debasis Panda": "/testimonials/debasis-panda.webp",
+  "Sunita Behera": "/testimonials/sunita-behera.webp",
+  "Amit Kumar Nayak": "/testimonials/amit-kumar-nayak.webp",
+  "Ipsita Das": "/testimonials/ipsita-das.webp",
+};
+
 export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
   const [index, setIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(false);
@@ -214,8 +232,21 @@ export default function ReviewCarousel({ reviews }: { reviews: Review[] }) {
                 <blockquote>
                   <p className="reviews__text">{r.review}</p>
                   <footer className="reviews__foot">
-                    <span className="reviews__mono" aria-hidden>
-                      {initialsOf(r.clientName)}
+                    {/* The monogram stays in the DOM underneath the photograph.
+                        If the file ever 404s the initials are simply what shows
+                        through — a fallback with no state and no JavaScript. */}
+                    <span className="reviews__mono">
+                      <span aria-hidden>{initialsOf(r.clientName)}</span>
+                      {CLIENT_PHOTOS[r.clientName] && (
+                        <Image
+                          className="reviews__photo"
+                          src={CLIENT_PHOTOS[r.clientName]}
+                          alt={r.clientName}
+                          width={192}
+                          height={192}
+                          sizes="68px"
+                        />
+                      )}
                     </span>
                     <span className="reviews__who">
                       <strong>{r.clientName}</strong>
