@@ -3,8 +3,8 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import JsonLd from "@/components/JsonLd";
-import SpecLedger from "@/components/ui/SpecLedger";
 import { Section } from "@/components/Section";
 import { caseStudies, DELIVERY_PROFILE } from "@/lib/caseStudies";
 import { site } from "@/lib/site";
@@ -56,7 +56,7 @@ export default function CaseStudiesPage() {
             <span className="font-accent italic text-brand">not the highlight reel</span>
           </>
         }
-        subtitle="Six builds, each written up as the decisions that shaped it — including what was deliberately left out, and what that cost. Every one of them is live, and you can go and use it."
+        subtitle="Six builds, each written up as the decisions that shaped it — including what was deliberately left out, and what that cost. Every one is live and you can go and use it. No client work yet, and no invented results."
         crumbs={[
           { name: "Home", path: "/" },
           { name: "Case studies", path: "/case-studies" },
@@ -71,14 +71,14 @@ export default function CaseStudiesPage() {
           </Link>
         }
         aside={
-          <SpecLedger
-            caption="What these are"
-            rows={[
-              { label: "Studies", value: `${caseStudies.length}` },
-              { label: "Live to explore", value: "All six" },
-              { label: "Client work", value: "None yet" },
-              { label: "Invented results", value: "None" },
-            ]}
+          <HeroStack
+            cards={caseStudies.slice(0, 3).map((c) => ({
+              icon: "file",
+              title: c.productName,
+              body: c.title,
+              href: `/case-studies/${c.slug}`,
+              cta: "Read the decisions",
+            }))}
           />
         }
       />

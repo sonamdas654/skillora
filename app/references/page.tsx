@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
-import SpecLedger from "@/components/ui/SpecLedger";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import { Section } from "@/components/Section";
 import { DEMO_CONCEPTS, type DemoConcept } from "@/lib/demoConcepts";
 
@@ -53,7 +53,6 @@ function findConcept(category: keyof typeof DEMO_CONCEPTS, id: string): DemoConc
 }
 
 export default function ReferencesPage() {
-  const total = groups.reduce((n, g) => n + g.ids.length, 0);
 
   return (
     <PageShell>
@@ -71,13 +70,21 @@ export default function ReferencesPage() {
           { name: "References", path: "/references" },
         ]}
         aside={
-          <SpecLedger
-            caption="This library"
-            rows={[
-              { label: "References shown", value: `${total}` },
-              { label: "Categories", value: `${groups.length}` },
-              { label: "All openable", value: "Live" },
-            ]}
+          <HeroStack
+            cards={groups.slice(0, 3).flatMap((g) => {
+              // A group names its concepts by id; resolve the first one of each
+              // so the three cards come from three different categories.
+              const c = DEMO_CONCEPTS[g.category]?.find((d: DemoConcept) => d.id === g.ids[0]);
+              return c
+                ? [{
+                    icon: c.icon,
+                    title: c.title,
+                    body: c.tag,
+                    href: `/references#${c.id}`,
+                    cta: "Open this reference",
+                  }]
+                : [];
+            })}
           />
         }
       />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import PageShell, { PageHero } from "@/components/PageShell";
+import HeroStack from "@/components/ui/HeroStack";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
 import SpecLedger from "@/components/ui/SpecLedger";
@@ -67,13 +68,27 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ]}
         aside={
-          <SpecLedger
-            caption="The business, in numbers"
-            rows={[
-              { label: "Service categories", value: "9" },
-              { label: "Process", value: "8 steps" },
-              { label: "Response time", value: "24h" },
-              { label: "Written scope", value: "100%" },
+          <HeroStack
+            cards={[
+              {
+                icon: "briefcase",
+                title: "Nine service categories",
+                body: "Websites, apps, AI automation, branding, video, marketing, dashboards and more.",
+                href: "/services",
+                cta: "See every service",
+              },
+              {
+                icon: "calendar",
+                title: "An eight-step process",
+                body: "From requirement to documented handover, with nothing charged before it is agreed.",
+                href: "/how-it-works",
+              },
+              {
+                icon: "file",
+                title: "Written scope first",
+                body: "Deliverables, price and dates in writing before any payment. Replies within 24 hours.",
+                href: "/start-project",
+              },
             ]}
           />
         }

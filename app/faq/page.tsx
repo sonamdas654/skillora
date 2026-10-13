@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import FaqAccordion from "@/components/FaqAccordion";
 import { Section } from "@/components/Section";
 import { allFaqs } from "@/lib/faqs";
@@ -30,6 +31,21 @@ export default function FaqPage() {
           </>
         }
         subtitle="Everything clients usually ask before starting — pricing, process, revisions, ownership and delivery."
+        actions={
+          <Link href="/contact" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Ask your own question
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
+        aside={
+          <HeroStack
+            cards={allFaqs.slice(0, 3).map((f, i) => ({
+              icon: ["file", "calendar", "shield"][i] ?? "file",
+              title: f.q,
+              body: f.a.split(". ")[0] + ".",
+            }))}
+          />
+        }
       />
       <Section>
         <div className="mx-auto max-w-3xl">

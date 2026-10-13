@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
+import HeroStack from "@/components/ui/HeroStack";
 import { Section, SectionHeading } from "@/components/Section";
 import JsonLd from "@/components/JsonLd";
 import { howToSchema } from "@/lib/schema";
@@ -84,6 +85,21 @@ export default function HowItWorksPage() {
           </>
         }
         subtitle="Most freelance projects fail because of unclear requirements and verbal promises. This process fixes both — from the first click to final delivery."
+        actions={
+          <Link href="/start-project" className="inline-flex items-center gap-2 rounded-pill bg-brand px-6 py-3.5 text-body-base font-semibold text-on-brand shadow-brand transition-colors hover:bg-brand-deep">
+            Start step one
+            <Icon name="arrow" className="size-4" />
+          </Link>
+        }
+        aside={
+          <HeroStack
+            cards={detailedSteps.slice(0, 3).map((s, i) => ({
+              icon: ["briefcase", "file", "check"][i] ?? "check",
+              title: s.title,
+              body: s.desc.split(". ")[0] + ".",
+            }))}
+          />
+        }
       />
 
       <Section>

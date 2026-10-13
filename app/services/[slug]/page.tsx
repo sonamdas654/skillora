@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
+import HeroStack from "@/components/ui/HeroStack";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import FaqAccordion from "@/components/FaqAccordion";
-import SpecLedger from "@/components/ui/SpecLedger";
 import { Section } from "@/components/Section";
 import { PackageCard } from "@/components/Cards";
 import { serviceCategories, getService } from "@/lib/services";
@@ -121,14 +121,14 @@ export default async function ServiceDetailPage({
           </>
         }
         aside={
-          <SpecLedger
-            caption="At a glance"
-            rows={[
-              { label: "Starting price", value: service.startingPrice },
-              { label: "Typical timeline", value: service.timeline },
-              { label: "Project types", value: `${service.services.length}` },
-              { label: "Packages", value: `${service.packages.length}` },
-            ]}
+          <HeroStack
+            cards={service.packages.slice(0, 3).map((pkg, i) => ({
+              icon: ["file", "briefcase", "spark"][i] ?? "file",
+              title: pkg.name,
+              body: `${pkg.price}${pkg.delivery ? ` · ${pkg.delivery}` : ""}`,
+              href: `/start-project?service=${service.slug}&package=${encodeURIComponent(pkg.name)}`,
+              cta: "Start with this package",
+            }))}
           />
         }
       />

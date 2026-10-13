@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import PageShell, { PageHero } from "@/components/PageShell";
+import HeroStack from "@/components/ui/HeroStack";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import JsonLd from "@/components/JsonLd";
-import SpecLedger from "@/components/ui/SpecLedger";
 import { Section } from "@/components/Section";
 import { caseStudies, getCaseStudy, DELIVERY_PROFILE } from "@/lib/caseStudies";
 import { getConceptBySlug } from "@/lib/portfolio";
@@ -131,13 +131,20 @@ export default async function CaseStudyPage({
           </div>
         }
         aside={
-          <SpecLedger
-            caption="At a glance"
-            rows={[
-              { label: "Build", value: study.productName },
-              { label: "Timeline", value: study.timeline },
-              { label: "Typical range", value: study.priceRange },
-              { label: "Decisions covered", value: `${study.decisions.length}` },
+          <HeroStack
+            cards={[
+              {
+                icon: "globe",
+                title: study.productName,
+                body: `${study.industry} · ${study.timeline} · ${study.priceRange}`,
+                href: `/portfolio/${study.conceptSlug}`,
+                cta: "Go and use the build",
+              },
+              ...study.decisions.slice(0, 2).map((d) => ({
+                icon: "check",
+                title: d.title,
+                body: d.body.split(". ")[0] + ".",
+              })),
             ]}
           />
         }

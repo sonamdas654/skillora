@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import PageShell, { PageHero } from "@/components/PageShell";
+import HeroStack from "@/components/ui/HeroStack";
 import { Section } from "@/components/Section";
 import Icon from "@/components/Icons";
 import Reveal from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
 import FaqAccordion from "@/components/FaqAccordion";
-import SpecLedger from "@/components/ui/SpecLedger";
 import { solutions, getSolution } from "@/lib/solutions";
 import { getService } from "@/lib/services";
 import { faqSchema, solutionServiceSchema } from "@/lib/schema";
@@ -97,12 +97,29 @@ export default async function SolutionPage({
           </>
         }
         aside={
-          <SpecLedger
-            caption="At a glance"
-            rows={[
-              { label: "Guide price from", value: sol.priceFrom },
-              { label: "Typical timeline", value: sol.timeline },
-              { label: "Written scope", value: "Before payment" },
+          <HeroStack
+            cards={[
+              ...(sol.demoPath
+                ? [{
+                    icon: "globe",
+                    title: sol.demoLabel ?? "See it running",
+                    body: "A working build you can click through, not a screenshot.",
+                    href: sol.demoPath,
+                    cta: "Open the demo",
+                  }]
+                : []),
+              {
+                icon: "file",
+                title: `From ${sol.priceFrom}`,
+                body: `Typically ${sol.timeline}. Written scope before any payment.`,
+                href: "/start-project",
+                cta: "Get an exact quote",
+              },
+              ...sol.included.slice(0, 1).map((inc) => ({
+                icon: "check",
+                title: "What is included",
+                body: inc,
+              })),
             ]}
           />
         }
