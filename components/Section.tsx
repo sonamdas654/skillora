@@ -4,10 +4,19 @@ export function Section({
   children,
   className = "",
   id,
-  // 96/128px, up from 80/112. The reference the owner approved is airier
-  // than the site was, and section padding is the one lever that changes
-  // that everywhere at once rather than page by page.
-  padding = "py-24 sm:py-32",
+  // 64/96px, down from 96/128.
+  //
+  // It went up to 96/128 because the approved reference was airier than the
+  // site was. Measured across eighteen routes afterwards, that was costing
+  // 12,070px of vertical padding site-wide, and on the shortest bands it was
+  // most of the band: 70% of the "Honestly" note on a case study, 58% of
+  // "The problem" on a solution page, 49% of "The name" on /about.
+  //
+  // 96px a side is still generous. The complaint was never that sections
+  // touched each other — it was that every page ran longer than its content
+  // needed. Exactly one section overrides this (app/page.tsx), and it came
+  // down by the same proportion.
+  padding = "py-16 sm:py-24",
 }: {
   children: ReactNode;
   className?: string;

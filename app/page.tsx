@@ -180,7 +180,7 @@ export default async function HomePage() {
         <ImpactStage />
 
         {/* ── Section 4: Services Overview ────────────────── */}
-        <Section padding="pt-16 sm:pt-20 pb-24 sm:pb-32" className="bg-soft-panel border-y border-line" id="services">
+        <Section padding="pt-11 sm:pt-14 pb-16 sm:pb-24" className="bg-soft-panel border-y border-line" id="services">
           {/* The heading is inside BuildShowcase: the reference puts it in a
               left column beside the work rather than centred above it. */}
           <BuildShowcase />
