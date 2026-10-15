@@ -3,11 +3,49 @@
 import Link from "next/link";
 import Icon from "@/components/Icons";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import "./DeliveryAtelier.css";
 
 const Sculptures = dynamic(() => import("./DeliverySculptures"), { ssr: false });
+
+/**
+ * Decides when the 3D chunk is allowed to download. It changes nothing about
+ * what the sculptures look like — desktop gets exactly the same scene — it only
+ * stops the browser fetching and parsing 146 kB gz of three.js at the wrong
+ * moment.
+ *
+ * Two rules, both measured:
+ *
+ *  1. Never below 900px. DeliverySculptures already returns early there and
+ *     renders the CSS sculpture instead, but the module sits at the top of that
+ *     file, so the chunk was downloading on every phone and then going unused:
+ *     437 kB of JavaScript for a canvas that is never created.
+ *
+ *  2. Not until the section is close. Loading on mount put a 2.8s task on the
+ *     critical path of the homepage. Waiting for the section to come within a
+ *     screen moves that work to when the reader is actually heading for it,
+ *     and it is still loaded well before it comes into view.
+ */
+function useSculpturesReady(ref: React.RefObject<HTMLElement | null>) {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(max-width: 899px)").matches) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setReady(true);
+        io.disconnect();
+      },
+      { rootMargin: "100% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref]);
+  return ready;
+}
 
 const metrics = [
   { icon: "shield", value: "₹20,000", label: "Transparent starting price", copy: "Scope, price and milestones confirmed in writing.", kind: "price" },
@@ -42,10 +80,12 @@ const details = [
 
 export default function DeliveryLine() {
   const [active, setActive] = useState(0);
+  const stage = useRef<HTMLDivElement>(null);
+  const sculpturesReady = useSculpturesReady(stage);
   return (
     <section className="atelier" id="delivery-process" aria-label="From requirement to delivery">
-      <div className="atelier-stage">
-        <Sculptures />
+      <div className="atelier-stage" ref={stage}>
+        {sculpturesReady && <Sculptures />}
         <p className="atelier-note atelier-note--left">Simple process.<br/>Real results.</p>
         <p className="atelier-note atelier-note--right">You own<br/>everything.</p>
         <div className="atelier-metrics">

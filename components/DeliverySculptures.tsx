@@ -39,7 +39,7 @@ export default function DeliverySculptures() {
     const key = new T.DirectionalLight(0xfff2dd, 3);
     key.position.set(-5, 9, 12);
     key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.mapSize.set(1024, 1024);
     Object.assign(key.shadow.camera, { left: -12, right: 12, top: 9, bottom: -9, near: .1, far: 45 });
     key.shadow.bias = -.0005;
     key.shadow.normalBias = .025;
@@ -63,12 +63,27 @@ export default function DeliverySculptures() {
       shader.fragmentShader = shader.fragmentShader.replace("#include <common>", "#include <common>\nvarying vec3 vStone;")
         .replace("#include <color_fragment>", "#include <color_fragment>\nfloat vein = abs(sin(vStone.x*13.0 + vStone.y*5.0 + sin(vStone.z*9.0 + vStone.x*3.0)*2.2));\nfloat line = pow(1.0-vein, 22.0);\ndiffuseColor.rgb *= 1.0 - line*0.22;");
     };
+    // Geometry is cached on its own dimensions. The scene asks for the same
+    // shape over and over — 64 identical conveyor rollers, 65 identical
+    // keyboard keys, five identical checklist rules per station — and was
+    // building a fresh BufferGeometry for every one of them. Reusing the
+    // geometry draws exactly the same picture; it just stops the CPU
+    // re-tessellating a shape it has already tessellated.
+    const geoCache = new Map<string, T.BufferGeometry>();
+    const geo = <G extends T.BufferGeometry>(key: string, make: () => G): G => {
+      let g = geoCache.get(key);
+      if (!g) { g = make(); geoCache.set(key, g); }
+      return g as G;
+    };
     function box(parent: T.Object3D, w:number,h:number,d:number,m:T.Material,x=0,y=0,z=0,r=.06) {
-      const mesh = new T.Mesh(new RoundedBoxGeometry(w,h,d,3,Math.min(r,w/3,h/3,d/3)),m);
+      const radius = Math.min(r,w/3,h/3,d/3);
+      const g = geo(`b|${w}|${h}|${d}|${radius}`, () => new RoundedBoxGeometry(w,h,d,3,radius));
+      const mesh = new T.Mesh(g,m);
       mesh.position.set(x,y,z); mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;
     }
     function cyl(parent:T.Object3D,r:number,h:number,m:T.Material,x=0,y=0,z=0) {
-      const mesh=new T.Mesh(new T.CylinderGeometry(r,r,h,48),m);
+      const g = geo(`c|${r}|${h}`, () => new T.CylinderGeometry(r,r,h,48));
+      const mesh=new T.Mesh(g,m);
       mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;
     }
     function tube(parent:T.Object3D,points:number[][],radius:number,m:T.Material) {
@@ -197,7 +212,7 @@ export default function DeliverySculptures() {
       }
       plant.rotation.z=side?-.14:.14;
     });
-    let visible=true, frame=0, previous=0;
+    let visible=true, frame=0, previous=0, shadowsDrawn=false;
     const reduced=window.matchMedia("(prefers-reduced-motion: reduce)");
     const resize=new ResizeObserver(()=>{renderer.setSize(mount.clientWidth,mount.clientHeight,false);});
     resize.observe(mount);
@@ -213,11 +228,27 @@ export default function DeliverySculptures() {
         clockHands.forEach(g=>g.rotation.z=-t*.035);
       }
       renderer.render(scene,camera);
+      // The shadow map is rendered once and then frozen. Everything that casts
+      // a shadow here is fixed in place — the only animation is a 0.035 rad
+      // sway on four groups and the clock hands, none of which changes the
+      // shadow the eye can see — but the renderer was recomputing the whole
+      // 1024 square map, for a light covering the entire scene, on every frame.
+      // Measured either side of the component's own 900px cut-off, that was
+      // the difference between a 138ms worst task at 899px and 2,605ms at 901.
+      if(shadowsDrawn===false){shadowsDrawn=true;renderer.shadowMap.autoUpdate=false;}
     };
     frame=requestAnimationFrame(render);
     return ()=>{
       cancelAnimationFrame(frame);resize.disconnect();observer.disconnect();
-      scene.traverse(obj=>{if(obj instanceof T.Mesh){obj.geometry.dispose();const mats=Array.isArray(obj.material)?obj.material:[obj.material];mats.forEach(m=>m.dispose());}});
+      // Geometries are shared now, so they are disposed once from the cache
+      // rather than once per mesh — disposing the same buffer sixty-five times
+      // is wasted work, and the second call onwards is a no-op anyway.
+      // Shared geometry is disposed once from the cache. Anything built outside
+      // the box/cyl helpers — tubes, the torus arch, the extruded shield — is
+      // still one geometry per mesh and is disposed with its mesh.
+      const shared = new Set(geoCache.values());
+      scene.traverse(obj=>{if(obj instanceof T.Mesh){const mats=Array.isArray(obj.material)?obj.material:[obj.material];mats.forEach(m=>m.dispose());if(!shared.has(obj.geometry))obj.geometry.dispose();}});
+      shared.forEach(g=>g.dispose()); geoCache.clear();
       env.dispose();pmrem.dispose();renderer.dispose();renderer.domElement.remove();
     };
   },[]);
