@@ -303,6 +303,7 @@
   margin-top: clamp(2.6rem, 3.6vw, 3.4rem);
 }
 .reviews__dot {
+  position: relative;
   width: 0.6rem;
   height: 0.6rem;
   border-radius: 999px;
@@ -311,6 +312,24 @@
     background 240ms,
     width 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+/* The dot is 10px, which is a 10x10px touch target — measured on a phone,
+   the smallest thing on the homepage by a wide margin. The dot itself stays
+   10px, because at any larger size a row of six stops reading as a position
+   indicator and starts competing with the arrows. What grows is only the hit
+   box: an invisible overlay 44px tall, and wide enough to meet its neighbour
+   across the 0.6rem gap, so the row becomes one continuous thumb-height strip
+   with no dead space between dots.
+
+   Same trick as .tap-safe in utilities.css, done with a pseudo-element rather
+   than padding because the dot's own box is the visible pill. */
+.reviews__dot::after {
+  content: "";
+  position: absolute;
+  /* -1.09rem vertical takes 0.6rem to ~2.78rem (44px); -0.3rem horizontal is
+     exactly half the gap, so adjacent boxes touch and never overlap. */
+  inset: -1.09rem -0.3rem;
+}
+
 .reviews__dot:hover {
   background: rgb(14 82 87 / 0.45);
 }

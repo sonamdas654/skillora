@@ -47,7 +47,7 @@ export default function RealEstateDemo() {
           </div>
           <div className="flex-1 min-w-[220px]">
             <label className="text-xs font-semibold text-slate-500">Max budget: <span className="text-slate-900">{fmt(maxP)}</span></label>
-            <input type="range" min={2800000} max={15000000} step={100000} value={maxP} onChange={(e) => setMaxP(Number(e.target.value))} className="w-full accent-sky-600" />
+            <input type="range" min={2800000} max={15000000} step={100000} value={maxP} onChange={(e) => setMaxP(Number(e.target.value))} className="range-touch w-full accent-sky-600" />
           </div>
         </div>
 
@@ -75,7 +75,7 @@ export default function RealEstateDemo() {
           <div className="rounded-2xl border border-slate-200 p-6">
             <h3 className="text-lg font-black">EMI Calculator</h3>
             <label className="mt-4 block text-sm font-semibold text-slate-600">Loan amount: <span className="text-sky-600">{fmt(loan)}</span></label>
-            <input type="range" min={1000000} max={15000000} step={100000} value={loan} onChange={(e) => setLoan(Number(e.target.value))} className="w-full accent-sky-600" />
+            <input type="range" min={1000000} max={15000000} step={100000} value={loan} onChange={(e) => setLoan(Number(e.target.value))} className="range-touch w-full accent-sky-600" />
             <div className="mt-5 grid place-items-center rounded-xl bg-sky-50 py-6">
               <span className="text-sm text-slate-500">Approx. monthly EMI (20 yrs @ 9%)</span>
               <span className="text-3xl font-black text-sky-600">₹{emi.toLocaleString("en-IN")}</span>
