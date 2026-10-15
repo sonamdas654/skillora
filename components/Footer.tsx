@@ -186,8 +186,8 @@ export default function Footer() {
 
       {/* ── Identity line ────────────────────────────────────── */}
       <div className="border-t border-line bg-surface-sunken">
-        <div className="mx-auto flex max-w-page flex-col items-start gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <Logo />
+        <div className="mx-auto flex max-w-page flex-col items-start gap-2.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <Logo size="xs" />
           <div className="flex flex-col gap-1 text-micro font-mono uppercase text-ink-muted sm:items-end">
             <p>Clear pricing · Preview before delivery · Secure file handling</p>
             <p>

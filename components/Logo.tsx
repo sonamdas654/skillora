@@ -16,11 +16,20 @@ import Image from "next/image";
 // alone, so it is back to the artwork's own colours. This is the right call
 // regardless: the lockup is one thing, and having the CSS underline disagree
 // with the printed logo would mean two different versions of the same mark.
-export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
-  const img = size === "lg" ? "h-16 sm:h-20" : "h-12 sm:h-14";
+// `xs` exists for the footer's identity line, where the lockup was setting the
+// height of the whole band. It is the same three parts at a smaller scale
+// rather than a stripped-down mark — splitting the lockup would mean two
+// different versions of the logo on one page.
+export default function Logo({ size = "sm" }: { size?: "xs" | "sm" | "lg" }) {
+  const img =
+    size === "lg" ? "h-16 sm:h-20" : size === "xs" ? "h-9 sm:h-10" : "h-12 sm:h-14";
   const tagline =
-    size === "lg" ? "text-[11px] sm:text-[12px]" : "text-[9px] sm:text-[10px]";
-  const line = size === "lg" ? "h-[4px]" : "h-[3px]";
+    size === "lg"
+      ? "text-[11px] sm:text-[12px]"
+      : size === "xs"
+        ? "text-[8px] sm:text-[9px]"
+        : "text-[9px] sm:text-[10px]";
+  const line = size === "lg" ? "h-[4px]" : size === "xs" ? "h-[2px]" : "h-[3px]";
 
   return (
     <Link
@@ -43,16 +52,16 @@ export default function Logo({ size = "sm" }: { size?: "sm" | "lg" }) {
         // which IS the LCP element, and the homepage measured 3.44s LCP
         // against a 2.5s target. The header logo can arrive a moment late;
         // the hero cannot.
-        sizes={size === "lg" ? "160px" : "120px"}
+        sizes={size === "lg" ? "160px" : size === "xs" ? "90px" : "120px"}
         className={`${img} w-auto transition-transform duration-300 group-hover:scale-[1.03]`}
       />
       <span
-        className={`${tagline} mt-1 font-bold uppercase tracking-[0.18em] text-ink-soft leading-none whitespace-nowrap`}
+        className={`${tagline} ${size === "xs" ? "mt-0.5" : "mt-1"} font-bold uppercase tracking-[0.18em] text-ink-soft leading-none whitespace-nowrap`}
       >
         Smart Digital Services
       </span>
       <span
-        className={`${line} mt-1.5 w-3/5 rounded-full`}
+        className={`${line} ${size === "xs" ? "mt-1" : "mt-1.5"} w-3/5 rounded-full`}
         style={{
           background:
             "linear-gradient(90deg, #476ed2 0%, #515aff 20%, #7442ff 40%, #9042e9 55%, #d78b81 85%, #f0af69 100%)",
