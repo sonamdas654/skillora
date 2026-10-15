@@ -188,12 +188,15 @@ export default function Footer() {
       <div className="border-t border-line bg-surface-sunken">
         <div className="mx-auto flex max-w-page flex-col items-start gap-2.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <Logo size="xs" />
-          <div className="flex flex-col gap-1 text-micro font-mono uppercase text-ink-muted sm:items-end">
-            <p>Clear pricing · Preview before delivery · Secure file handling</p>
-            <p>
-              © {new Date().getFullYear()} {site.name}. All rights reserved.
-            </p>
-          </div>
+          {/* The three guarantees that ran above this line are gone. They were
+              a second line of type in a band that exists to carry one, and on a
+              phone they wrapped to three — which is most of why this band was
+              the tallest thing in the footer for its content. The same promises
+              are made where they are actually read: the footer CTA above states
+              them, and /how-it-works has the full version. */}
+          <p className="text-micro font-mono uppercase text-ink-muted">
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
