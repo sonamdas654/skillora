@@ -57,7 +57,7 @@ function FooterLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="block py-2 text-body-sm text-ink-soft transition-colors hover:text-brand sm:py-1"
+      className="block py-2 text-body-sm text-ink-soft transition-colors hover:text-brand sm:py-0.5"
     >
       {label}
     </Link>
@@ -94,7 +94,7 @@ export default function Footer() {
           className="pointer-events-none absolute -right-24 -top-32 size-[32rem] rounded-pill opacity-60 blur-[90px]"
           style={{ background: "rgb(168 220 30 / 0.13)" }}
         />
-        <div className="relative mx-auto flex max-w-page flex-col gap-8 px-4 py-14 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:py-16">
+        <div className="relative mx-auto flex max-w-page flex-col gap-7 px-4 py-10 sm:px-6 lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:py-12">
           <div className="max-w-xl">
             <h2 className="text-display-3">
               Tell us the requirement. Get the{" "}
@@ -137,8 +137,8 @@ export default function Footer() {
 
       {/* ── Directory floor ──────────────────────────────────── */}
       <div className="border-t border-line bg-canvas">
-        <div className="mx-auto max-w-page px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto max-w-page px-4 py-9 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:gap-x-8 lg:grid-cols-4">
             <LinkGroup label="Services">
               <div className="grid grid-cols-1 gap-x-6 sm:grid-cols-2 lg:grid-cols-1">
                 {serviceCategories.map((s) => (
@@ -162,7 +162,7 @@ export default function Footer() {
             <LinkGroup label="Direct line">
               <a
                 href={`mailto:${site.email}`}
-                className="block py-2 text-body-sm font-semibold text-ink transition-colors hover:text-brand sm:py-1"
+                className="block py-2 text-body-sm font-semibold text-ink transition-colors hover:text-brand sm:py-0.5"
               >
                 {site.email}
               </a>
@@ -186,7 +186,7 @@ export default function Footer() {
 
       {/* ── Identity line ────────────────────────────────────── */}
       <div className="border-t border-line bg-surface-sunken">
-        <div className="mx-auto flex max-w-page flex-col items-start gap-4 px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-page flex-col items-start gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <Logo />
           <div className="flex flex-col gap-1 text-micro font-mono uppercase text-ink-muted sm:items-end">
             <p>Clear pricing · Preview before delivery · Secure file handling</p>
