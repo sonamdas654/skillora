@@ -214,9 +214,13 @@ export default function HowItWorksPage() {
         </div>
       </Section>
 
-      <Section>
+      {/* Full-bleed rather than a rounded card inside a padded Section. It was
+          a 310px panel sitting in 566px of section — 128px of canvas above it
+          and 128px below, which is where the height was going. The band now
+          provides its own padding and nothing frames it. */}
+      <section className="bg-gradient-to-br from-accent to-accent-deep text-center text-white">
         <Reveal>
-          <div className="rounded-panel bg-gradient-to-br from-accent to-accent-deep p-8 sm:p-14 text-center text-white">
+          <div className="mx-auto max-w-page px-5 py-14 sm:px-8 sm:py-16 lg:px-12">
             <h2 className="text-display-3 sm:text-display-2 font-extrabold tracking-tight">
               Experience the process{" "}
               <span className="font-accent font-normal">yourself</span>
@@ -233,7 +237,7 @@ export default function HowItWorksPage() {
             </Link>
           </div>
         </Reveal>
-      </Section>
+      </section>
     </PageShell>
   );
 }
