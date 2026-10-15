@@ -27,7 +27,7 @@
      never widens the page. */
   isolation: isolate;
   overflow: clip;
-  padding: 0.5rem 0 1.5rem;
+  padding: 0.25rem 0 1rem;
 }
 
 .hstack__row {
@@ -57,23 +57,23 @@
 .hstack__card:nth-child(1) {
   z-index: 3;
   width: 52%;
-  padding: 1.3rem 1.35rem 1.15rem;
+  padding: 1.1rem 1.15rem 1rem;
   transform: rotate(-1.4deg);
 }
 .hstack__card:nth-child(2) {
   z-index: 2;
   width: 42%;
   margin-left: -17%;
-  margin-top: 1.9rem;
-  padding: 1.15rem 1.2rem 1rem;
+  margin-top: 1.35rem;
+  padding: 1rem 1.05rem 0.9rem;
   transform: rotate(2.2deg);
 }
 .hstack__card:nth-child(3) {
   z-index: 1;
   width: 38%;
   margin-left: -16%;
-  margin-top: 3.6rem;
-  padding: 1.05rem 1.1rem 0.95rem;
+  margin-top: 2.5rem;
+  padding: 0.95rem 1rem 0.85rem;
   transform: rotate(4.6deg);
 }
 
@@ -92,8 +92,8 @@
 .hstack__icon {
   display: grid;
   place-items: center;
-  width: 2.9rem;
-  height: 2.9rem;
+  width: 2.6rem;
+  height: 2.6rem;
   border-radius: 13px;
   background: var(--brand-tint);
   color: var(--brand);
@@ -112,8 +112,8 @@
 }
 
 .hstack__title {
-  margin: 0.95rem 0 0;
-  font-size: 1.1rem;
+  margin: 0.75rem 0 0;
+  font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -127,8 +127,8 @@
 }
 
 .hstack__body {
-  margin: 0.5rem 0 0;
-  font-size: 0.86rem;
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
   line-height: 1.5;
   color: var(--ink-mute);
 }
@@ -140,8 +140,8 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  margin-top: 1rem;
-  padding-top: 0.85rem;
+  margin-top: 0.75rem;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--line);
   font-size: 0.85rem;
   font-weight: 650;
@@ -198,7 +198,7 @@ a.hstack__card:hover {
     flex: 1 1 0;
     width: auto !important;
     margin: 0 !important;
-    padding: 1rem 1.05rem !important;
+    padding: 0.85rem 0.9rem !important;
     transform: none !important;
     border-radius: 16px;
   }
@@ -209,20 +209,30 @@ a.hstack__card:hover {
   .hstack__card:nth-child(3) {
     display: none;
   }
+  /* On a phone the cards sit UNDER the copy rather than beside it, so every
+     row inside them is added to the band rather than absorbed by it. The hero
+     was running to three quarters of a screen before any page content showed.
+     Each card becomes an icon and a label — still the same link, still the
+     page's own content, just not a paragraph the reader has to scroll past
+     to reach the page. */
+  .hstack__card {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+  }
   .hstack__icon {
-    width: 2.4rem !important;
-    height: 2.4rem !important;
+    flex: none;
+    width: 2.2rem !important;
+    height: 2.2rem !important;
   }
   .hstack__title {
-    font-size: 0.98rem !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.25;
   }
-  .hstack__body {
-    font-size: 0.82rem !important;
-  }
+  .hstack__body,
   .hstack__foot {
-    margin-top: 0.8rem;
-    padding-top: 0.7rem;
-    font-size: 0.8rem;
+    display: none;
   }
   .hstack__spark {
     display: none;

@@ -74,7 +74,7 @@ export function PageHero({
 
       {/* Tighter than it was: py-14/py-20 left the band taller than its content
           on every page that had no aside, which is most of them. */}
-      <div className="relative mx-auto max-w-page px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
+      <div className="relative mx-auto max-w-page px-4 py-8 sm:px-6 sm:py-9 lg:px-8 lg:py-11">
         {crumbs && <Breadcrumbs items={crumbs} />}
 
         <div
@@ -83,13 +83,13 @@ export function PageHero({
               ? // items-center, not items-end. The aside is a card stack now,
                 // not a ledger pinned to the baseline, and ending both columns
                 // on the same line left a wedge of empty canvas above the text.
-                "grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12"
+                "grid items-center gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10"
               : centered
                 ? "mx-auto max-w-3xl text-center"
                 : "max-w-3xl"
           }
         >
-          <div className={aside ? "lg:py-2" : undefined}>
+          <div className={aside ? "lg:py-1" : undefined}>
             {eyebrow && (
               <p
                 className={`flex items-center gap-2.5 text-micro font-mono uppercase text-ink-soft ${
@@ -100,10 +100,10 @@ export function PageHero({
                 {eyebrow}
               </p>
             )}
-            <h1 className="mt-3.5 text-display-2 text-ink">{title}</h1>
+            <h1 className="mt-3 text-display-2 text-ink">{title}</h1>
             {subtitle && (
               <p
-                className={`mt-3.5 text-body-lg text-ink-soft ${
+                className={`mt-3 text-body-lg text-ink-soft ${
                   centered ? "mx-auto max-w-2xl" : "max-w-xl"
                 }`}
               >
@@ -112,7 +112,7 @@ export function PageHero({
             )}
             {actions && (
               <div
-                className={`mt-6 flex flex-wrap items-center gap-3 ${centered ? "justify-center" : ""}`}
+                className={`mt-5 flex flex-wrap items-center gap-3 ${centered ? "justify-center" : ""}`}
               >
                 {actions}
               </div>
