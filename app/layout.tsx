@@ -25,12 +25,21 @@ const instrumentSans = Instrument_Sans({
 });
 
 // Elegant italic accent for highlighted words.
+//
+// Not preloaded. Five font files were going out at highest priority on every
+// page — measured, 223 kB of them — and on a 1.6 Mbps connection that is over
+// a second of bandwidth taken from the homepage's LCP image, which is what
+// actually decides the score. This face sets one italic word per section.
+// display: "swap" means that word is painted in the fallback immediately and
+// re-painted when the file lands, so nothing is missing at any point; it just
+// stops bidding against the hero for the first second.
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   weight: "400",
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 // Spec voice: prices, timelines, step numbers, document rows. This is the

@@ -9,14 +9,33 @@
 
 /* Above-the-fold entrance. CSS-only on purpose, so hero content paints
    immediately without waiting for JS or hydration and never sits blank
-   on a slow phone. Stagger with an inline --rise-delay. */
+   on a slow phone. Stagger with an inline --rise-delay.
+   Used only by components/heroes/HomeHero.tsx; everything below the fold
+   reveals through the [data-reveal] rules further down this file.
+
+   It animates the transform ONLY, and deliberately so.
+
+   It used to start at opacity: 0 with animation-fill-mode: both, which is
+   the exact opposite of what the paragraph above promises: fill-mode both
+   applies the from-state during the delay as well, so all seven hero
+   elements — the eyebrow, the h1, the script line, the intro, the buttons,
+   the list and the showcase — rendered fully transparent and stayed that
+   way through delays staggered out to 280ms.
+
+   Measured on a throttled mobile profile, that was the homepage's whole
+   LCP problem. The hero image finished downloading at 940ms and the DOM was
+   ready at 1,052ms, but nothing painted until 2,952ms, with LCP at 3,172ms
+   and no long task anywhere to blame. With JavaScript disabled the same
+   page painted immediately — the giveaway that the delay was the hide
+   state, not the network and not the bytes.
+
+   Moving on the Y axis alone keeps every bit of that entrance while letting
+   the browser paint the text on its first pass. Nothing is removed. */
 @keyframes rise {
   from {
-    opacity: 0;
     transform: translateY(var(--distance-rise));
   }
   to {
-    opacity: 1;
     transform: translateY(0);
   }
 }
