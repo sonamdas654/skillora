@@ -36,31 +36,89 @@ export default function SiteAnalytics() {
     return () => document.removeEventListener("click", onClick, { capture: true });
   }, [pathname]);
 
+  /**
+   * Load the third-party tags off the critical path, but guarantee they load.
+   *
+   * They were afterInteractive, which ran them the moment hydration finished.
+   * Measured on the homepage that was the page's worst main-thread block: a
+   * 2,741ms task starting at 876ms, with the load event at 310ms. gtag.js
+   * alone is 175 kB and took 1,115ms. Moving them to next/script's
+   * lazyOnload fixed that — and silently broke analytics on the one page
+   * that matters most.
+   *
+   * lazyOnload waits for requestIdleCallback with no timeout. The homepage
+   * never reaches a genuine idle: measured in a real browser, idle only ever
+   * arrived via an 8s forced timeout, with reduced motion as well, so
+   * gtag.js was never injected there at all. /services and /contact are
+   * quieter, reach idle, and loaded it normally — which is why this looked
+   * fine from anywhere except the homepage. gtag() still existed and
+   * dataLayer still filled up, so nothing errored and nothing was logged;
+   * the events simply queued forever. Ten days of homepage data were lost
+   * before anyone could have noticed.
+   *
+   * So the idle wait is kept, with two guarantees next/script does not give:
+   * a real timeout on the idle callback, and the first genuine interaction
+   * as a second trigger. Same data, still out of the critical path, and it
+   * can no longer depend on an idle period that may never come.
+   */
+  useEffect(() => {
+    if (!GA_ID && !CLARITY_ID) return;
+
+    let loaded = false;
+    const inject = () => {
+      if (loaded) return;
+      loaded = true;
+
+      if (GA_ID) {
+        const tag = document.createElement("script");
+        tag.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+        tag.async = true;
+        document.head.appendChild(tag);
+      }
+      if (CLARITY_ID) {
+        const tag = document.createElement("script");
+        tag.src = `https://www.clarity.ms/tag/${CLARITY_ID}`;
+        tag.async = true;
+        document.head.appendChild(tag);
+      }
+    };
+
+    // Idle WITH a timeout. The timeout is the whole fix: it is the thing
+    // next/script's lazyOnload does not pass.
+    const idle =
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback(inject, { timeout: 3500 })
+        : window.setTimeout(inject, 3500);
+
+    // A visitor who has already started using the page is a visitor worth
+    // measuring, idle or not.
+    const opts: AddEventListenerOptions = { once: true, passive: true };
+    const triggers = ["pointerdown", "keydown", "touchstart", "scroll"] as const;
+    for (const t of triggers) window.addEventListener(t, inject, opts);
+
+    return () => {
+      if (typeof window.cancelIdleCallback === "function" && typeof idle === "number") {
+        window.cancelIdleCallback(idle);
+      }
+      clearTimeout(idle as number);
+      for (const t of triggers) window.removeEventListener(t, inject);
+    };
+  }, []);
+
   return (
     <>
-      {/* Both tags were afterInteractive, which runs them the moment hydration
-          finishes. Measured on the homepage, that is exactly where the page's
-          worst main-thread block sat: a 2,741ms task starting at 876ms, with
-          the load event at 310ms. gtag.js alone is 175 kB and took 1,115ms.
-          None of that is this site's own code — it is two third-party tags
-          competing with the page for the first seconds.
-
-          lazyOnload runs them in idle time instead. Nothing is removed and
-          nothing stops being measured: the dataLayer shim below is still
-          afterInteractive, so every gtag() call made before the tag arrives is
-          queued and replayed when it does, and Clarity's own snippet queues the
-          same way through c[a].q. Same data, out of the critical path. */}
+      {/* The dataLayer shim stays afterInteractive and stays inline: every
+          gtag() call made before the tag arrives is queued here and replayed
+          when it does. Clarity's own snippet queues the same way through
+          c[a].q, so the queue survives the delay above. */}
       {GA_ID && (
-        <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="lazyOnload" />
-          <Script id="ga-init" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
-          </Script>
-        </>
+        <Script id="ga-init" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+        </Script>
       )}
       {CLARITY_ID && (
-        <Script id="ms-clarity" strategy="lazyOnload">
-          {`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${CLARITY_ID}");`}
+        <Script id="ms-clarity-init" strategy="afterInteractive">
+          {`(function(c,a){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}})(window,"clarity");`}
         </Script>
       )}
     </>
