@@ -58,12 +58,33 @@ for (const route of ROUTES) {
     // which is what made these findings so hard to pin down: every flagged
     // element passed when measured by hand. tools/qa/shot.mjs hit the same
     // problem and solves it the same way.
+    // The height is re-read every pass, not captured once.
+    //
+    // Sections now carry content-visibility: auto (see .defer-paint in
+    // app/styles/utilities.css), so a section that has not been near the
+    // viewport yet reports its contain-intrinsic-size estimate rather than
+    // its real height. Taken once up front, scrollHeight is therefore an
+    // underestimate, the loop stops short of the bottom, and the sections it
+    // never reached are still unpainted when axe runs. axe then resolves
+    // their background from the ancestor instead of their own, which is how
+    // the petrol CTA band on /how-it-works was reported as white-on-cream at
+    // 1.24:1 — a failure that does not exist: the same band screenshots
+    // correctly and its computed styles are identical to production.
+    //
+    // Re-reading each pass lets the target move as the real heights resolve.
     await page.evaluate(async () => {
       const step = Math.round(window.innerHeight * 0.8);
-      for (let y = 0; y < document.body.scrollHeight; y += step) {
+      let y = 0;
+      for (let guard = 0; guard < 400; guard++) {
+        if (y > document.documentElement.scrollHeight) break;
         window.scrollTo(0, y);
         await new Promise((r) => setTimeout(r, 90));
+        y += step;
       }
+      // One pass to the true bottom, then back, so anything that only renders
+      // at the very end has been painted before the scan.
+      window.scrollTo(0, document.documentElement.scrollHeight);
+      await new Promise((r) => setTimeout(r, 250));
       window.scrollTo(0, 0);
     });
     // Settle. The sticky WhatsApp button transitions over 300ms and its

@@ -24,7 +24,7 @@ export function Section({
   padding?: string;
 }) {
   return (
-    <section id={id} className={`${padding} ${className}`}>
+    <section id={id} className={`defer-paint ${padding} ${className}`}>
       <div className="mx-auto max-w-page px-5 sm:px-8 lg:px-12">{children}</div>
     </section>
   );

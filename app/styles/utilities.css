@@ -1080,3 +1080,36 @@
   .range-touch::-webkit-slider-thumb { width: 1.5rem; height: 1.5rem; }
   .range-touch::-moz-range-thumb { width: 1.5rem; height: 1.5rem; }
 }
+
+/* ── Deferred off-screen painting ───────────────────────────────────────
+   Measured on the live homepage: 243 kB of HTML and 1,087 DOM nodes, of
+   which 83 — eight per cent — are inside the first screen. The browser was
+   laying out and painting the whole document before it could show any of
+   it, and FCP and LCP both landed at 3,096ms against a 2,500ms target.
+
+   content-visibility: auto lets it skip layout and paint for a section
+   until that section is near the viewport. Nothing is removed and nothing
+   is deferred on the server: every word stays in the HTML exactly as
+   before, so Google, screen readers, find-in-page and "view source" all see
+   the complete page. This is a rendering hint, not a content change.
+
+   contain-intrinsic-size is what makes it safe. Without it a skipped
+   section measures zero, the scrollbar lies and anchor links land in the
+   wrong place. `auto 1000px` tells the browser to use its remembered size
+   once it has rendered the section once, and to assume 640px before that.
+
+   640px, not the ~1000px these sections actually average, and the reason is
+   anchor links. The estimate decides where a jump to #services lands while
+   it still holds. Measured: at 640px the heading arrives 117px below the
+   viewport top — low, but on screen and under the sticky header, which is
+   where it wants to be anyway. At 1000px the same jump overshoots and the
+   heading ends up 243px *above* the fold, so the visitor lands past the
+   thing they clicked. Undershooting is the safe direction. LCP is identical
+   either way, so this is chosen purely on where the link lands.
+
+   The browser decides what is near the viewport, so the first section of a
+   page renders immediately on its own and needs no exception. */
+.defer-paint {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
+}
