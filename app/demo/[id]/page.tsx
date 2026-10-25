@@ -64,10 +64,33 @@ export async function generateMetadata({
   const { id } = await params;
   const title = conceptTitle(id);
   if (!title) return {};
+
+  // Only the seven ids in DEMO_BY_ID render their own bespoke component. The
+  // other 56 map by prefix onto nine shared ones, so they serve the same body
+  // under a different title — measured against production, two demos sharing
+  // a prefix have 96-97% of their words in common.
+  //
+  // app/sitemap.ts already keeps those 56 out of the sitemap for that reason.
+  // That is the right intent and the wrong mechanism: a sitemap is a hint
+  // about what to crawl, not a rule about what may be indexed. Every one of
+  // them self-canonicalised and carried no robots directive, so anything
+  // Google reached — an external link, a guessed URL, the shared /demo/
+  // pattern — was free to index, giving nine bodies at sixty-three URLs each
+  // claiming to be the original. Being unlinked is not a protection either:
+  // /references links only 20 of the 63, so 43 were relying on obscurity.
+  //
+  // noindex, follow is the mechanism that actually matches the intent. The
+  // pages stay live, stay linked, stay fully usable to a visitor clicking
+  // through a concept — they simply stop competing with each other, and with
+  // the real service pages, in search. The seven bespoke ones are genuinely
+  // distinct pages and stay indexable.
+  const isBespoke = id in DEMO_BY_ID;
+
   return {
     title: `${title} — Live Concept Demo`,
     description: `Explore a real, working concept demo by Skilloura: ${title}.`,
     alternates: { canonical: `/demo/${id}` },
+    ...(isBespoke ? {} : { robots: { index: false, follow: true } }),
   };
 }
 

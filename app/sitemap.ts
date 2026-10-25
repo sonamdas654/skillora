@@ -100,8 +100,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // bespoke component, so each is a genuinely different page. The remaining
   // 56 demo ids map by PREFIX onto nine shared components — so 56 URLs would
   // serve nine distinct bodies with different titles, which is duplicate
-  // content and does not belong in a sitemap. They stay crawlable through
-  // /references, which is the right way for a visitor to reach them.
+  // content and does not belong in a sitemap. Measured against production,
+  // two demos sharing a prefix have 96-97% of their words in common.
+  //
+  // Keeping them out of here is necessary but was not sufficient, and the
+  // note that used to sit on this line — that they "stay crawlable through
+  // /references" — was not true: that page links 20 of the 63. A sitemap is
+  // a hint about what to crawl, not a rule about what may be indexed, so
+  // anything Google reached by any other route was free to index. The 56 now
+  // carry robots noindex, follow from app/demo/[id]/page.tsx, which is the
+  // mechanism that actually enforces this. They stay live and fully usable.
   const demoPages = [
     "web-saas",
     "web-ecommerce",
