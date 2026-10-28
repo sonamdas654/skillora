@@ -15,7 +15,24 @@ export default function HomeHero() {
     <section className="hero-reference relative isolate overflow-hidden bg-canvas">
       <div className="hero-reference__glow" aria-hidden />
 
-      <div className="relative mx-auto max-w-page px-4 pb-10 pt-16 sm:px-6 sm:pt-20 lg:px-8 lg:pb-12 lg:pt-24">
+      {/* The top padding has to clear the header on its own.
+
+          The header is fixed, 81px tall on a phone and 89px above sm. Every
+          other page gets that clearance from PageShell, whose <main> carries
+          pt-20 sm:pt-22 — but the homepage does not use PageShell. Its <main>
+          has no padding at all, so this element was the only thing standing
+          between the hero and the header, and at pt-16 it was 64px against an
+          81px header.
+
+          Measured on production, the first line of the hero — "Accepting
+          projects · team delivered" — sat underneath it on every phone and
+          tablet: 17px of overlap on a 320px iPhone SE, 11px on Android, iPhone
+          14 and Pixel 7, 3px on an iPad. Only laptop and desktop cleared it,
+          which is why it survived this long.
+
+          96/112/112 clears 81/89/89 at every breakpoint with room to spare,
+          and leaves the desktop spacing where it already was. */}
+      <div className="relative mx-auto max-w-page px-4 pb-10 pt-24 sm:px-6 sm:pt-28 lg:px-8 lg:pb-12 lg:pt-28">
         <div className="grid min-w-0 items-center gap-12 min-[900px]:grid-cols-[0.96fr_1.04fr] min-[900px]:gap-5">
           <div className="relative z-10 min-w-0">
             <p className="rise inline-flex items-center gap-3 text-micro font-mono uppercase text-ink-soft">
