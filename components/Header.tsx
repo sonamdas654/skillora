@@ -129,6 +129,7 @@ export default function Header() {
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
         scrolled
@@ -211,14 +212,34 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile drawer — a designed panel, not a stacked list. Groups carry
+    </header>
+
+      {/* Mobile drawer. Deliberately a SIBLING of <header>, not a child.
+
+          It is position: fixed with top-20 bottom-0, which should make it
+          run from under the header bar to the bottom of the viewport. Inside
+          <header> it did not: the header carries backdrop-blur in both of its
+          states, and a non-none backdrop-filter makes an element the
+          containing block for its fixed descendants. So top-20 resolved
+          against the header's own box instead of the viewport, bottom-0
+          resolved to the header's bottom edge, and the panel computed to
+          390x1 — one pixel tall. The nav inside it was a full 721px with all
+          nine links present and visible; there was simply nowhere for it to
+          show. Tapping the button flipped the icon to a cross and nothing
+          else happened, on every width below lg — every phone and every
+          tablet.
+
+          Out here the viewport is the containing block again. z-40 keeps it
+          above the page and below the header's z-50 bar.
+
+          A designed panel, not a stacked list. Groups carry
           the same mono labels as the desktop structure, the contact details
           are visible without another tap, and the primary action is pinned
           within thumb reach at the bottom. */}
       {open && (
         <div
           ref={drawerRef}
-          className="fixed inset-x-0 bottom-0 top-20 flex flex-col overflow-y-auto border-t border-line bg-canvas sm:top-22 lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-20 z-40 flex flex-col overflow-y-auto border-t border-line bg-canvas sm:top-22 lg:hidden"
         >
           <nav className="flex-1 px-4 py-6" aria-label="Mobile">
             {NAV_GROUPS.map((group) => (
@@ -284,6 +305,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
