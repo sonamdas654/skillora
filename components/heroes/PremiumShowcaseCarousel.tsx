@@ -45,7 +45,22 @@ export default function PremiumShowcaseCarousel() {
               className={`premium-showcase__card is-pos-${position}`}
               aria-label={`Show ${scene.label}`}
               aria-current={offset === 0}
-              aria-hidden={Math.abs(offset) > 2}
+              // Hidden from assistive tech past the first neighbour, which is
+              // the same line tabIndex already draws.
+              //
+              // Measured by hit-testing a grid of points across every card:
+              // the front card is 100% tappable, the two at ±1 are 10-11%
+              // (the sliver that shows past the front one — clicking that
+              // sliver does work and does change the slide), and the two at
+              // ±2 are 0%. Nothing on them can be reached by a pointer at
+              // all, because the front card's image covers every point.
+              //
+              // They were still being announced as "Show Sales dashboard"
+              // buttons while being unreachable by pointer AND excluded from
+              // the tab order, so a screen-reader user was offered a control
+              // that could not be operated by any means. At ±2 these are
+              // depth, not controls.
+              aria-hidden={Math.abs(offset) > 1}
               tabIndex={Math.abs(offset) <= 1 ? 0 : -1}
               onClick={() => setIndex(sceneIndex)}
             >
